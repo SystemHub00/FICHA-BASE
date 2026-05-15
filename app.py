@@ -175,8 +175,6 @@ ADDRESS_OPTIONS = {
 
 # ──────────────────────────────────────────────
 # TURMAS
-# Campos: curso_id, local_id, codigo_turma, agenda_id, periodo_id (data início),
-#         encerramento_id (data fim), endereco_id
 # ──────────────────────────────────────────────
 TURMA_OPTIONS = [
     # ── AUXILIAR DE COZINHA (curso_id=3) ──
@@ -315,7 +313,7 @@ TEMPLATE_WIZARD = r'''
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-    <title>FGM</title>
+    <title>MOVIMENTA RIO</title>
     <link rel="stylesheet" href="/static/style.css">
     <link rel="stylesheet" href="/static/assistant.css">
     <link href="https://fonts.googleapis.com/css2?family=Wise:wght@400;700;900&display=swap" rel="stylesheet">
@@ -565,6 +563,13 @@ TEMPLATE_WIZARD = r'''
         .wizard-panel[data-step="escolher"] #endereco_curso {
             width: 100% !important; min-width: 0 !important;
             max-width: 100% !important; margin: 0 !important;
+        }
+
+        /* Estilo para campo desabilitado */
+        select:disabled {
+            background-color: #e8f0e8;
+            cursor: not-allowed;
+            opacity: 0.7;
         }
 
         .form-group {
@@ -981,35 +986,39 @@ TEMPLATE_WIZARD = r'''
                         <div class="step-grid step-grid--stacked">
 
                             <div class="form-group full">
-                                <label for="curso_id">Curso *</label>
-                                <select id="curso_id" name="curso_id">
-                                    <option value="" {% if not form_data.get('curso_id') %}selected{% endif %}>Selecione um curso</option>
-                                    {% for course in course_catalog %}
-                                    <option value="{{ course.id }}" {% if form_data.get('curso_id') == course.id %}selected{% endif %}>{{ course.nome }}</option>
+                                <label for="local_id">Local *</label>
+                                <select id="local_id" name="local_id">
+                                    <option value="" {% if not form_data.get('local_id') %}selected{% endif %}>Selecione um local</option>
+                                    {% for local in local_options %}
+                                    <option value="{{ local.id }}" {% if form_data.get('local_id') == local.id %}selected{% endif %}>{{ local.nome }}</option>
                                     {% endfor %}
+                                </select>
+                                <div class="balao-erro" id="local_id-error" {% if not errors.get('local_id') %}hidden{% endif %}>{{ errors.get('local_id', '') }}</div>
+                            </div>
+
+                            <div class="form-group full">
+                                <label for="curso_id">Curso *</label>
+                                <select id="curso_id" name="curso_id" disabled>
+                                    <option value="">Selecione um local primeiro</option>
                                 </select>
                                 <div class="balao-erro" id="curso_id-error" {% if not errors.get('curso_id') %}hidden{% endif %}>{{ errors.get('curso_id', '') }}</div>
                             </div>
 
                             <div class="form-group full">
                                 <label for="opcao_id">Turma *</label>
-                                <select id="opcao_id" name="opcao_id">
-                                    <option value="" {% if not form_data.get('opcao_id') %}selected{% endif %}>Selecione uma turma</option>
-                                    {% for option in course_options %}
-                                    <option value="{{ option.id }}" {% if form_data.get('opcao_id') == option.id %}selected{% endif %}>{{ option.turma }}</option>
-                                    {% endfor %}
+                                <select id="opcao_id" name="opcao_id" disabled>
+                                    <option value="">Selecione um local primeiro</option>
                                 </select>
                                 <div class="balao-erro" id="opcao_id-error" {% if not errors.get('opcao_id') %}hidden{% endif %}>{{ errors.get('opcao_id', '') }}</div>
                             </div>
 
                             <!-- Hidden fields preenchidos via JS -->
-                            <input type="hidden" id="local_id" name="local_id" value="{{ form_data.get('local_id', '') }}">
                             <input type="hidden" id="local"    name="local"    value="{{ form_data.get('local', '') }}">
                             <input type="hidden" id="curso"    name="curso"    value="{{ form_data.get('curso', '') }}">
                             <input type="hidden" id="turma"    name="turma"    value="{{ form_data.get('turma', '') }}">
 
                             <div class="form-group full">
-                                <label for="local_display">LOCAL</label>
+                                <label for="local_display">LOCAL SELECIONADO</label>
                                 <input type="text" id="local_display" class="readonly-field" readonly value="{{ form_data.get('local', '') }}">
                             </div>
 
@@ -1141,8 +1150,20 @@ TEMPLATE_WIZARD = r'''
 
             var courseCatalog    = {{ course_catalog|tojson }};
             var courseOptions    = {{ course_options|tojson }};
+            var localOptions     = {{ local_options|tojson }};
+            
             var courseCatalogById = Object.fromEntries(courseCatalog.map(function(c){ return [String(c.id), c]; }));
             var courseOptionsById = Object.fromEntries(courseOptions.map(function(o){ return [String(o.id), o]; }));
+            var courseOptionsByLocalCurso = {};
+
+            // Organiza opções por local_id e curso_id
+            courseOptions.forEach(function(opt) {
+                var localCursoKey = opt.local_id + '_' + opt.curso_id;
+                if (!courseOptionsByLocalCurso[localCursoKey]) {
+                    courseOptionsByLocalCurso[localCursoKey] = [];
+                }
+                courseOptionsByLocalCurso[localCursoKey].push(opt);
+            });
 
             var nomeInput          = document.getElementById('nome');
             var generoInput        = document.getElementById('genero');
@@ -1152,9 +1173,9 @@ TEMPLATE_WIZARD = r'''
             var cepInput           = document.getElementById('cep');
             var bairroInput        = document.getElementById('bairro');
             var emailInput         = document.getElementById('email');
+            var localSelect        = document.getElementById('local_id');
             var courseSelect       = document.getElementById('curso_id');
             var optionSelect       = document.getElementById('opcao_id');
-            var localIdInput       = document.getElementById('local_id');
             var localInput         = document.getElementById('local');
             var localDisplay       = document.getElementById('local_display');
             var cursoInput         = document.getElementById('curso');
@@ -1214,78 +1235,165 @@ TEMPLATE_WIZARD = r'''
                 show(cur); restart();
             }
 
-            /* ── Lógica por ID ── */
-            function atualizarTurmas(cursoId, selectedOpcaoId) {
-                var turmas = courseOptions.filter(function(o){
-                    return String(o.curso_id) === String(cursoId || '');
+            /* ── Lógica de seleção: Local primeiro, depois Curso, depois Turma ── */
+            
+            function atualizarCursosPorLocal(localId, selectedCursoId) {
+                courseSelect.disabled = false;
+                courseSelect.innerHTML = '';
+                
+                var placeholder = document.createElement('option');
+                placeholder.value = '';
+                placeholder.textContent = 'Selecione um curso';
+                placeholder.selected = !selectedCursoId;
+                courseSelect.appendChild(placeholder);
+                
+                var cursosIds = new Set();
+                courseOptions.forEach(function(o) {
+                    if (String(o.local_id) === String(localId || '')) {
+                        cursosIds.add(String(o.curso_id));
+                    }
                 });
-
-                optionSelect.innerHTML = '';
-                var ph = document.createElement('option');
-                ph.value = ''; ph.textContent = 'Selecione uma turma';
-                ph.selected = !selectedOpcaoId;
-                optionSelect.appendChild(ph);
-
-                turmas.forEach(function(o){
-                    var opt = document.createElement('option');
-                    opt.value = String(o.id);
-                    opt.textContent = o.turma;
-                    opt.selected = String(o.id) === String(selectedOpcaoId || '');
-                    optionSelect.appendChild(opt);
+                
+                cursosIds.forEach(function(cursoId) {
+                    var curso = courseCatalogById[String(cursoId)];
+                    if (curso) {
+                        var opt = document.createElement('option');
+                        opt.value = String(curso.id);
+                        opt.textContent = curso.nome;
+                        opt.selected = String(curso.id) === String(selectedCursoId || '');
+                        courseSelect.appendChild(opt);
+                    }
                 });
-
-                if (turmas.length === 1 && !selectedOpcaoId) {
-                    optionSelect.value = String(turmas[0].id);
-                    aplicarOpcao(turmas[0].id);
+                
+                if (cursosIds.size === 1 && !selectedCursoId) {
+                    var unicoCursoId = Array.from(cursosIds)[0];
+                    courseSelect.value = String(unicoCursoId);
+                    atualizarTurmasPorLocalCurso(localId, unicoCursoId, '');
+                } else if (selectedCursoId && cursosIds.has(String(selectedCursoId))) {
+                    atualizarTurmasPorLocalCurso(localId, selectedCursoId, '');
                 } else {
-                    aplicarOpcao(optionSelect.value);
+                    atualizarTurmasPorLocalCurso(localId, '', '');
                 }
             }
-
+            
+            function atualizarTurmasPorLocalCurso(localId, cursoId, selectedOpcaoId) {
+                if (localId && cursoId) {
+                    optionSelect.disabled = false;
+                    
+                    var turmas = courseOptions.filter(function(o) {
+                        return String(o.local_id) === String(localId || '') && String(o.curso_id) === String(cursoId || '');
+                    });
+                    
+                    optionSelect.innerHTML = '';
+                    var placeholder = document.createElement('option');
+                    placeholder.value = '';
+                    placeholder.textContent = 'Selecione uma turma';
+                    placeholder.selected = !selectedOpcaoId;
+                    optionSelect.appendChild(placeholder);
+                    
+                    turmas.forEach(function(o) {
+                        var opt = document.createElement('option');
+                        opt.value = String(o.id);
+                        opt.textContent = o.turma;
+                        opt.selected = String(o.id) === String(selectedOpcaoId || '');
+                        optionSelect.appendChild(opt);
+                    });
+                    
+                    if (turmas.length === 1 && !selectedOpcaoId) {
+                        optionSelect.value = String(turmas[0].id);
+                        aplicarOpcao(turmas[0].id);
+                    } else if (selectedOpcaoId && optionSelect.value) {
+                        aplicarOpcao(optionSelect.value);
+                    } else {
+                        aplicarOpcao('');
+                    }
+                } else {
+                    optionSelect.disabled = true;
+                    optionSelect.innerHTML = '<option value="">Selecione um local e curso primeiro</option>';
+                    aplicarOpcao('');
+                }
+            }
+            
             function aplicarOpcao(opcaoId) {
                 var op = courseOptionsById[String(opcaoId || '')];
                 if (!op) {
-                    localIdInput.value = '';
-                    localInput.value = '';
+                    localInput.value        = '';
                     if (localDisplay) localDisplay.value = '';
-                    cursoInput.value = '';
-                    turmaInput.value = '';
-                    diasAulaInput.value = '';
-                    horarioInput.value = '';
-                    dataInicioInput.value = '';
+                    cursoInput.value        = '';
+                    turmaInput.value        = '';
+                    diasAulaInput.value     = '';
+                    horarioInput.value      = '';
+                    dataInicioInput.value   = '';
                     encerramentoInput.value = '';
-                    enderecoInput.value = '';
+                    enderecoInput.value     = '';
                     return;
                 }
 
-                localIdInput.value = op.local_id;
-                localInput.value = op.local;
+                localInput.value        = op.local;
                 if (localDisplay) localDisplay.value = op.local;
-                cursoInput.value = op.curso;
-                turmaInput.value = op.turma;
-                diasAulaInput.value = op.dias_aula;
-                horarioInput.value = op.horario;
-                dataInicioInput.value = op.data_inicio;
+                cursoInput.value        = op.curso;
+                turmaInput.value        = op.turma;
+                diasAulaInput.value     = op.dias_aula;
+                horarioInput.value      = op.horario;
+                dataInicioInput.value   = op.data_inicio;
                 encerramentoInput.value = op.encerramento;
-                enderecoInput.value = op.endereco_curso;
+                enderecoInput.value     = op.endereco_curso;
 
-                setError('curso_id', '');
                 setError('opcao_id', '');
                 syncReview();
             }
+            
+            function obterLocalSelecionado() {
+                var selectedLocalId = localSelect.value;
+                var localObj = localOptions.find(function(l) { return String(l.id) === String(selectedLocalId); });
+                if (localObj) {
+                    localInput.value = localObj.nome;
+                    if (localDisplay) localDisplay.value = localObj.nome;
+                } else {
+                    localInput.value = '';
+                    if (localDisplay) localDisplay.value = '';
+                }
+                syncReview();
+            }
 
-            courseSelect.addEventListener('change', function(){
-                setError('curso_id', '');
-                atualizarTurmas(courseSelect.value, '');
+            // Eventos
+            localSelect.addEventListener('change', function() {
+                setError('local_id', '');
+                obterLocalSelecionado();
+                
+                var localId = localSelect.value;
+                if (localId) {
+                    atualizarCursosPorLocal(localId, '');
+                } else {
+                    courseSelect.disabled = true;
+                    courseSelect.innerHTML = '<option value="">Selecione um local primeiro</option>';
+                    optionSelect.disabled = true;
+                    optionSelect.innerHTML = '<option value="">Selecione um local primeiro</option>';
+                    aplicarOpcao('');
+                }
                 syncReview();
             });
-
-            optionSelect.addEventListener('change', function(){
+            
+            courseSelect.addEventListener('change', function() {
+                setError('curso_id', '');
+                var localId = localSelect.value;
+                var cursoId = courseSelect.value;
+                if (localId && cursoId) {
+                    atualizarTurmasPorLocalCurso(localId, cursoId, '');
+                } else {
+                    optionSelect.disabled = true;
+                    optionSelect.innerHTML = '<option value="">Selecione um curso primeiro</option>';
+                    aplicarOpcao('');
+                }
+                syncReview();
+            });
+            
+            optionSelect.addEventListener('change', function() {
                 aplicarOpcao(optionSelect.value);
             });
 
             if (btnCopiarEndereco && enderecoInput) {
-                btnCopiarEndereco.addEventListener('click', function(){
+                btnCopiarEndereco.addEventListener('click', function() {
                     navigator.clipboard.writeText(enderecoInput.value).then(function(){
                         btnCopiarEndereco.textContent = 'COPIADO ✅';
                     }).catch(function(){
@@ -1440,11 +1548,14 @@ TEMPLATE_WIZARD = r'''
             }
 
             function validarPassoEscolher(){
-                if (!courseCatalogById[String(courseSelect.value)]) {
-                    setError('curso_id','Selecione um curso válido.'); courseSelect.focus(); return false;
+                if (!localSelect.value) {
+                    setError('local_id','Selecione um local.'); localSelect.focus(); return false;
                 }
-                if (!courseOptionsById[String(optionSelect.value)]) {
-                    setError('opcao_id','Selecione uma turma válida.'); optionSelect.focus(); return false;
+                if (!courseSelect.value) {
+                    setError('curso_id','Selecione um curso.'); courseSelect.focus(); return false;
+                }
+                if (!optionSelect.value) {
+                    setError('opcao_id','Selecione uma turma.'); optionSelect.focus(); return false;
                 }
                 return true;
             }
@@ -1514,17 +1625,26 @@ TEMPLATE_WIZARD = r'''
                 if (confirmaDadosInput.checked) setError('confirma_dados','');
             });
 
-            ['nome','genero','whatsapp','cep','bairro','email','curso_id','opcao_id','como_conheceu'].forEach(function(id){
+            ['nome','genero','whatsapp','cep','bairro','email','local_id','curso_id','opcao_id','como_conheceu'].forEach(function(id){
                 var f = document.getElementById(id);
                 if (f) { f.addEventListener('input', syncReview); f.addEventListener('change', syncReview); }
             });
 
             /* ── Inicialização ── */
+            var initLocalId = '{{ form_data.get("local_id", "") }}';
             var initCursoId = '{{ form_data.get("curso_id", "") }}';
             var initOpcaoId = '{{ form_data.get("opcao_id", "") }}';
-            if (initCursoId) {
-                courseSelect.value = initCursoId;
-                atualizarTurmas(initCursoId, initOpcaoId);
+            
+            if (initLocalId) {
+                localSelect.value = initLocalId;
+                obterLocalSelecionado();
+                atualizarCursosPorLocal(initLocalId, initCursoId);
+                if (initCursoId) {
+                    atualizarTurmasPorLocalCurso(initLocalId, initCursoId, initOpcaoId);
+                }
+            } else {
+                courseSelect.disabled = true;
+                optionSelect.disabled = true;
             }
 
             benefitsSliders.forEach(initBenefitsSlider);
@@ -1543,7 +1663,7 @@ TEMPLATE_CONFIRMACAO = r'''
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-    <title>FGM</title>
+    <title>MOVIMENTA RIO</title>
     <link rel="stylesheet" href="/static/style.css">
     <link rel="stylesheet" href="/static/assistant.css">
     <link href="https://fonts.googleapis.com/css2?family=Wise:wght@400;700;900&display=swap" rel="stylesheet">
@@ -1754,13 +1874,12 @@ def cpf_valido(cpf):
 
 def idade_aceita(nascimento):
     try:
-        data_nascimento = datetime.strptime(nascimento, "%d/%m/%Y")
+        dn = datetime.strptime(nascimento, "%d/%m/%Y")
     except ValueError:
         return False
-
     hoje = datetime.today()
-    idade = hoje.year - data_nascimento.year
-    if (hoje.month, hoje.day) < (data_nascimento.month, data_nascimento.day):
+    idade = hoje.year - dn.year
+    if (hoje.month, hoje.day) < (dn.month, dn.day):
         idade -= 1
     return 16 <= idade <= 90
 
@@ -1776,15 +1895,20 @@ def whatsapp_valido(whatsapp):
 
 def validate_form_data(form_data):
     errors = {}
-    selected_course = get_course_catalog_option(form_data["curso_id"])
+    
+    selected_local = form_data.get("local_id")
+    selected_curso = form_data.get("curso_id")
     selected_option = get_course_option(form_data["opcao_id"])
 
-    if not selected_course:
-        errors["curso_id"] = "Selecione um curso válido."
-
+    if not selected_local:
+        errors["local_id"] = "Selecione um local."
+    if not selected_curso:
+        errors["curso_id"] = "Selecione um curso."
     if not selected_option:
-        errors["opcao_id"] = "Selecione uma turma válida."
-    elif selected_course and selected_option["curso_id"] != form_data["curso_id"]:
+        errors["opcao_id"] = "Selecione uma turma."
+    elif selected_option and selected_local and selected_option["local_id"] != selected_local:
+        errors["opcao_id"] = "A turma selecionada não pertence ao local escolhido."
+    elif selected_option and selected_curso and selected_option["curso_id"] != selected_curso:
         errors["opcao_id"] = "A turma selecionada não pertence ao curso escolhido."
 
     nome = form_data["nome"]
@@ -1797,16 +1921,12 @@ def validate_form_data(form_data):
 
     if form_data["genero"] not in {"Feminino", "Masculino", "Outro", "Prefiro não dizer"}:
         errors["genero"] = "Selecione o gênero."
-
     if not cpf_valido(form_data["cpf"]):
         errors["cpf"] = "CPF inválido. Verifique e digite novamente."
-
     if not idade_aceita(form_data["nascimento"]):
         errors["nascimento"] = "Idade permitida: de 16 até 90 anos."
-
     if not whatsapp_valido(form_data["whatsapp"]):
         errors["whatsapp"] = "Informe um WhatsApp com DDD válido do Brasil."
-
     if not re.fullmatch(r"\d{5}-\d{3}", form_data["cep"] or ""):
         errors["cep"] = "CEP inválido. Formato: 00000-000."
 
@@ -1818,7 +1938,6 @@ def validate_form_data(form_data):
 
     if not ALLOWED_EMAIL_PATTERN.fullmatch(form_data["email"] or ""):
         errors["email"] = "Digite um e-mail válido do Gmail, Hotmail, Outlook ou Yahoo."
-
     if form_data["confirma_dados"] != "sim":
         errors["confirma_dados"] = "Confirme os dados para finalizar a inscrição."
 
@@ -1828,7 +1947,7 @@ def validate_form_data(form_data):
 def error_step(errors):
     if "confirma_dados" in errors:
         return "revisao"
-    if "curso_id" in errors or "opcao_id" in errors:
+    if "local_id" in errors or "curso_id" in errors or "opcao_id" in errors:
         return "escolher"
     return "dados"
 
@@ -1870,23 +1989,12 @@ def inscricao_unica():
 
     dados = [
         protocolo,
-        form_data["nome"],
-        form_data["genero"],
-        form_data["cpf"],
-        form_data["nascimento"],
-        form_data["whatsapp"],
-        form_data["email"],
-        form_data["cep"],
-        form_data["bairro"],
-        form_data["local"],
-        form_data["curso"],
-        form_data["turma"],
-        form_data["dias_aula"],
-        form_data["horario"],
-        form_data["data_inicio"],
-        form_data["encerramento"],
-        form_data["endereco_curso"],
-        form_data["como_conheceu"],
+        form_data["nome"], form_data["genero"], form_data["cpf"],
+        form_data["nascimento"], form_data["whatsapp"], form_data["email"],
+        form_data["cep"], form_data["bairro"], form_data["local"],
+        form_data["curso"], form_data["turma"], form_data["dias_aula"],
+        form_data["horario"], form_data["data_inicio"], form_data["encerramento"],
+        form_data["endereco_curso"], form_data["como_conheceu"],
     ]
 
     try:
@@ -1926,9 +2034,6 @@ def confirmacao():
     )
 
 
-# --- SUPABASE ENDPOINT E FUNÇÕES ---
-import requests as _requests
-
 SUPABASE_FUNCTION_URL = os.environ.get(
     "SUPABASE_FUNCTION_URL",
     "https://egpyhfzatabyftwajoad.supabase.co/functions/v1/fgm-register",
@@ -1938,11 +2043,13 @@ SUPABASE_API_KEY = os.environ.get(
     "jyUskwXkc54ZcMPyADLFN6LvZO0I60e3",
 )
 
+
 def normalize_phone_number(phone):
     digits = re.sub(r"[^\d]", "", phone or "")
     if len(digits) == 11:
         return f"55{digits}"
     return digits
+
 
 def send_registration_to_supabase(form_data):
     phone = normalize_phone_number(form_data.get("whatsapp", ""))
@@ -1963,12 +2070,13 @@ def send_registration_to_supabase(form_data):
         "x-api-key": SUPABASE_API_KEY,
         "Authorization": f"Bearer {SUPABASE_API_KEY}",
     }
-    response = _requests.post(SUPABASE_FUNCTION_URL, headers=headers, json=payload, timeout=10)
+    response = requests.post(SUPABASE_FUNCTION_URL, headers=headers, json=payload, timeout=10)
     if not response.ok:
         raise RuntimeError(
             f"Supabase retornou {response.status_code}: {response.text[:500]}"
         )
     return response
+
 
 if __name__ == "__main__":
     port = int(os.environ.get("PORT", 5000))
