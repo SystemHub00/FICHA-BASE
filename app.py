@@ -5,6 +5,7 @@ import uuid
 from datetime import datetime
 from urllib.parse import quote
 
+import requests
 from flask import Flask, redirect, render_template_string, request, session, url_for
 
 from gsheet_utils import append_to_sheet
