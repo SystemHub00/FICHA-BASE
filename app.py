@@ -39,7 +39,6 @@ LOCAL_OPTIONS = [
     {"id": "5",  "nome": "CENTRO SOCIAL ESTRELA DA MANHÃ - GUARATIBA"},
     {"id": "6",  "nome": "CAMPO SOCIETY DE MARQUINHOS - MANGUINHOS"},
     {"id": "7",  "nome": "CAMPO SOCIETY DE MANGUINHOS - MANGUINHOS"},
-    {"id": "8",  "nome": "QUADRA UNIDOS DE MANGUINHOS - MANGUINHOS"},
     {"id": "9",  "nome": "SALÃO DE FESTAS (77) - PADRE MIGUEL"},
     {"id": "10", "nome": "IGR. BATISTA MAANAIM MENDANHA - CAMPO GRANDE"},
     {"id": "11", "nome": "IGREJA BATISTA SÃO BENTO - BANGU"},
@@ -63,7 +62,6 @@ COURSE_CATALOG = [
     {"id": "6",  "nome": "ELETRICISTA PREDIAL"},
     {"id": "7",  "nome": "INTELIGÊNCIA ARTIFICIAL"},
     {"id": "8",  "nome": "MARKETING DIGITAL"},
-    {"id": "9",  "nome": "MONITOR DE LAZER E RECREAÇÃO"},
     {"id": "10", "nome": "PORTEIRO"},
     {"id": "11", "nome": "RECEPCIONISTA"},
 ]
@@ -193,8 +191,6 @@ TURMA_OPTIONS = [
     {"id": "6",  "curso_id": "9",  "local_id": "5",  "turma_codigo": "26/MLRE/18", "agenda_id": "4",  "periodo_id": "6",  "encerramento_id": "6",  "endereco_id": "5"},
     {"id": "7",  "curso_id": "9",  "local_id": "6",  "turma_codigo": "26/MLRE/19", "agenda_id": "5",  "periodo_id": "7",  "encerramento_id": "6",  "endereco_id": "6"},
     {"id": "8",  "curso_id": "9",  "local_id": "7",  "turma_codigo": "26/MLRE/20", "agenda_id": "22", "periodo_id": "7",  "encerramento_id": "6",  "endereco_id": "7"},
-    {"id": "9",  "curso_id": "9",  "local_id": "8",  "turma_codigo": "26/MLRE/21", "agenda_id": "6",  "periodo_id": "8",  "encerramento_id": "7",  "endereco_id": "8"},
-    {"id": "10", "curso_id": "9",  "local_id": "8",  "turma_codigo": "26/MLRE/22", "agenda_id": "7",  "periodo_id": "8",  "encerramento_id": "7",  "endereco_id": "8"},
     {"id": "11", "curso_id": "9",  "local_id": "3",  "turma_codigo": "26/MLRE/23", "agenda_id": "8",  "periodo_id": "9",  "encerramento_id": "8",  "endereco_id": "3"},
 
     # ── MARKETING DIGITAL (curso_id=8) ──
