@@ -48,7 +48,7 @@ LOCAL_OPTIONS = [
     {"id": "14", "nome": "IGREJA BATISTA RIO DA PRAIA - BANGU"},
     {"id": "15", "nome": "VILA CRUZEIRO - PENHA"},
     {"id": "16", "nome": "VILA DO PINHEIRO - MARÉ"},
-    {"id": "17", "nome": "IGREJA BATISTA DO MANDELA - BENFICA"},
+    {"id": "17", "nome": "ASSEMBLEIA DE DEUS ADTS MANDELA - BENFICA"},  # ATUALIZADO
 ]
 
 # ──────────────────────────────────────────────
@@ -83,9 +83,9 @@ SCHEDULE_OPTIONS = {
     "9":  {"dias_aula": "Segunda e Quinta",  "horario": "17h às 21h"},
     "10": {"dias_aula": "Segunda",           "horario": "17h até 21h"},
     "11": {"dias_aula": "Sábado",            "horario": "8h até 12h"},
-    "12": {"dias_aula": "Quarta",            "horario": "08h às 12h"},
+    "12": {"dias_aula": "Quarta e Sexta",    "horario": "08h às 12h"},
     "13": {"dias_aula": "Sábado",            "horario": "10h até 14h"},
-    "14": {"dias_aula": "Terça",             "horario": "18h às 21h30"},
+    "14": {"dias_aula": "Terça",             "horario": "18h até 21h30"},
     "15": {"dias_aula": "Terça",             "horario": "08h até 12h"},
     "16": {"dias_aula": "Segunda e Terça",   "horario": "19h às 21h30"},
     "17": {"dias_aula": "Sábado",            "horario": "08h até 13h"},
@@ -94,6 +94,7 @@ SCHEDULE_OPTIONS = {
     "20": {"dias_aula": "Terça e Quinta",    "horario": "19h às 21h"},
     "21": {"dias_aula": "Terça e Quinta",    "horario": "09h às 11h"},
     "22": {"dias_aula": "Segunda e Quarta",  "horario": "19h às 21h"},
+    "23": {"dias_aula": "Quarta",            "horario": "08h às 12h"},   # NOVO
 }
 
 # ──────────────────────────────────────────────
@@ -119,6 +120,7 @@ START_DATE_OPTIONS = {
     "17": "01/06/2026",
     "18": "25/05/2026",
     "19": "26/05/2026",
+    "20": "10/06/2026",   # NOVO
 }
 
 # ──────────────────────────────────────────────
@@ -148,6 +150,8 @@ END_DATE_OPTIONS = {
     "21": "27/06/2026",
     "22": "10/06/2026",
     "23": "11/06/2026",
+    "24": "03/07/2026",   # NOVO
+    "25": "29/06/2026",   # NOVO
 }
 
 # ──────────────────────────────────────────────
@@ -175,13 +179,14 @@ ADDRESS_OPTIONS = {
 }
 
 # ──────────────────────────────────────────────
-# TURMAS
+# TURMAS  (cronograma atualizado em 19/05/2026)
 # ──────────────────────────────────────────────
 TURMA_OPTIONS = [
     # ── AUXILIAR DE COZINHA (curso_id=3) ──
     {"id": "1",  "curso_id": "3",  "local_id": "1",  "turma_codigo": "26/AXCZ/20", "agenda_id": "1",  "periodo_id": "1",  "encerramento_id": "1",  "endereco_id": "1"},
     {"id": "2",  "curso_id": "3",  "local_id": "2",  "turma_codigo": "26/AXCZ/21", "agenda_id": "1",  "periodo_id": "2",  "encerramento_id": "2",  "endereco_id": "2"},
-    {"id": "3",  "curso_id": "3",  "local_id": "3",  "turma_codigo": "26/AXCZ/19", "agenda_id": "2",  "periodo_id": "3",  "encerramento_id": "3",  "endereco_id": "3"},
+    # início 10/06, encerramento 03/07 (ATUALIZADO)
+    {"id": "3",  "curso_id": "3",  "local_id": "3",  "turma_codigo": "26/AXCZ/19", "agenda_id": "2",  "periodo_id": "20", "encerramento_id": "24", "endereco_id": "3"},
 
     # ── CUIDADOR DE IDOSOS (curso_id=5) ──
     {"id": "4",  "curso_id": "5",  "local_id": "4",  "turma_codigo": "26/CUID/11", "agenda_id": "3",  "periodo_id": "4",  "encerramento_id": "4",  "endereco_id": "4"},
@@ -191,44 +196,56 @@ TURMA_OPTIONS = [
 
     # ── MONITOR DE LAZER E RECREAÇÃO (curso_id=9) ──
     {"id": "6",  "curso_id": "9",  "local_id": "5",  "turma_codigo": "26/MLRE/18", "agenda_id": "4",  "periodo_id": "6",  "encerramento_id": "6",  "endereco_id": "5"},
-    {"id": "7",  "curso_id": "9",  "local_id": "6",  "turma_codigo": "26/MLRE/19", "agenda_id": "5",  "periodo_id": "7",  "encerramento_id": "6",  "endereco_id": "6"},
-    {"id": "8",  "curso_id": "9",  "local_id": "7",  "turma_codigo": "26/MLRE/20", "agenda_id": "22", "periodo_id": "7",  "encerramento_id": "6",  "endereco_id": "7"},
-    {"id": "9",  "curso_id": "9",  "local_id": "8",  "turma_codigo": "26/MLRE/21", "agenda_id": "6",  "periodo_id": "8",  "encerramento_id": "7",  "endereco_id": "8"},
-    {"id": "10", "curso_id": "9",  "local_id": "8",  "turma_codigo": "26/MLRE/22", "agenda_id": "7",  "periodo_id": "8",  "encerramento_id": "7",  "endereco_id": "8"},
-    {"id": "11", "curso_id": "9",  "local_id": "3",  "turma_codigo": "26/MLRE/23", "agenda_id": "8",  "periodo_id": "9",  "encerramento_id": "8",  "endereco_id": "3"},
+    {"id": "7",  "curso_id": "9",  "local_id": "6",  "turma_codigo": "26/MLRE/19", "agenda_id": "5",  "periodo_id": "7",  "encerramento_id": "7",  "endereco_id": "6"},
+    {"id": "8",  "curso_id": "9",  "local_id": "7",  "turma_codigo": "26/MLRE/20", "agenda_id": "22", "periodo_id": "7",  "encerramento_id": "7",  "endereco_id": "7"},
+    {"id": "9",  "curso_id": "9",  "local_id": "8",  "turma_codigo": "26/MLRE/21", "agenda_id": "6",  "periodo_id": "8",  "encerramento_id": "8",  "endereco_id": "8"},
+    {"id": "10", "curso_id": "9",  "local_id": "8",  "turma_codigo": "26/MLRE/22", "agenda_id": "7",  "periodo_id": "8",  "encerramento_id": "8",  "endereco_id": "8"},
+    {"id": "11", "curso_id": "9",  "local_id": "3",  "turma_codigo": "26/MLRE/23", "agenda_id": "8",  "periodo_id": "9",  "encerramento_id": "9",  "endereco_id": "3"},
 
     # ── MARKETING DIGITAL (curso_id=8) ──
-    {"id": "12", "curso_id": "8",  "local_id": "5",  "turma_codigo": "26/MARK/29", "agenda_id": "9",  "periodo_id": "6",  "encerramento_id": "7",  "endereco_id": "5"},
-    {"id": "13", "curso_id": "8",  "local_id": "9",  "turma_codigo": "26/MARK/17", "agenda_id": "10", "periodo_id": "10", "encerramento_id": "9",  "endereco_id": "9"},
-    {"id": "14", "curso_id": "8",  "local_id": "10", "turma_codigo": "26/MARK/28", "agenda_id": "1",  "periodo_id": "11", "encerramento_id": "10", "endereco_id": "10"},
+    # encerramento 27/05 (ATUALIZADO, era 08/06)
+    {"id": "12", "curso_id": "8",  "local_id": "5",  "turma_codigo": "26/MARK/29", "agenda_id": "9",  "periodo_id": "6",  "encerramento_id": "8",  "endereco_id": "5"},
+    # encerramento 13/06 (ATUALIZADO, era 08/06)
+    {"id": "13", "curso_id": "8",  "local_id": "9",  "turma_codigo": "26/MARK/17", "agenda_id": "10", "periodo_id": "10", "encerramento_id": "17", "endereco_id": "9"},
+    # encerramento 27/06 (ATUALIZADO, era 13/06)
+    {"id": "14", "curso_id": "8",  "local_id": "10", "turma_codigo": "26/MARK/28", "agenda_id": "11", "periodo_id": "11", "encerramento_id": "11", "endereco_id": "10"},
 
     # ── INTELIGÊNCIA ARTIFICIAL (curso_id=7) ──
-    {"id": "15", "curso_id": "7",  "local_id": "11", "turma_codigo": "26/INAT/22", "agenda_id": "11", "periodo_id": "12", "encerramento_id": "11", "endereco_id": "11"},
-    {"id": "16", "curso_id": "7",  "local_id": "2",  "turma_codigo": "26/INAT/21", "agenda_id": "12", "periodo_id": "13", "encerramento_id": "12", "endereco_id": "2"},
-    {"id": "17", "curso_id": "7",  "local_id": "12", "turma_codigo": "26/INAT/20", "agenda_id": "13", "periodo_id": "14", "encerramento_id": "13", "endereco_id": "12"},
+    # agenda Quarta 08h às 12h (ATUALIZADO, era Sábado)
+    {"id": "15", "curso_id": "7",  "local_id": "11", "turma_codigo": "26/INAT/22", "agenda_id": "23", "periodo_id": "12", "encerramento_id": "11", "endereco_id": "11"},
+    {"id": "16", "curso_id": "7",  "local_id": "2",  "turma_codigo": "26/INAT/21", "agenda_id": "13", "periodo_id": "13", "encerramento_id": "12", "endereco_id": "2"},
+    {"id": "17", "curso_id": "7",  "local_id": "12", "turma_codigo": "26/INAT/20", "agenda_id": "14", "periodo_id": "14", "encerramento_id": "13", "endereco_id": "12"},
 
     # ── RECEPCIONISTA (curso_id=11) ──
     {"id": "18", "curso_id": "11", "local_id": "3",  "turma_codigo": "26/REP/07",  "agenda_id": "1",  "periodo_id": "12", "encerramento_id": "11", "endereco_id": "3"},
 
     # ── ASSISTENTE DE LOGÍSTICA (curso_id=1) ──
-    {"id": "19", "curso_id": "1",  "local_id": "13", "turma_codigo": "26/ASLO/28", "agenda_id": "14", "periodo_id": "15", "encerramento_id": "14", "endereco_id": "13"},
-    {"id": "20", "curso_id": "1",  "local_id": "2",  "turma_codigo": "26/ASLO/27", "agenda_id": "15", "periodo_id": "16", "encerramento_id": "15", "endereco_id": "2"},
-    {"id": "21", "curso_id": "1",  "local_id": "14", "turma_codigo": "26/ASLO/26", "agenda_id": "16", "periodo_id": "17", "encerramento_id": "16", "endereco_id": "14"},
+    # início 02/06, encerramento 23/06 (ATUALIZADO, era 05/05 e 26/05)
+    {"id": "19", "curso_id": "1",  "local_id": "13", "turma_codigo": "26/ASLO/28", "agenda_id": "14", "periodo_id": "16", "encerramento_id": "15", "endereco_id": "13"},
+    # encerramento 21/06 (ATUALIZADO, era 23/06)
+    {"id": "20", "curso_id": "1",  "local_id": "2",  "turma_codigo": "26/ASLO/27", "agenda_id": "16", "periodo_id": "16", "encerramento_id": "16", "endereco_id": "2"},
+    # encerramento 13/06 (ATUALIZADO, era 21/06)
+    {"id": "21", "curso_id": "1",  "local_id": "14", "turma_codigo": "26/ASLO/26", "agenda_id": "17", "periodo_id": "17", "encerramento_id": "17", "endereco_id": "14"},
 
     # ── BARBEIRO (curso_id=4) ──
-    {"id": "22", "curso_id": "4",  "local_id": "15", "turma_codigo": "26/BARB/02", "agenda_id": "17", "periodo_id": "11", "encerramento_id": "10", "endereco_id": "15"},
+    # encerramento 27/06 (ATUALIZADO, era 13/06)
+    {"id": "22", "curso_id": "4",  "local_id": "15", "turma_codigo": "26/BARB/02", "agenda_id": "11", "periodo_id": "11", "encerramento_id": "11", "endereco_id": "15"},
 
     # ── AUXILIAR ADMINISTRATIVO (curso_id=2) ──
-    {"id": "23", "curso_id": "2",  "local_id": "8",  "turma_codigo": "26/ADMN/37", "agenda_id": "18", "periodo_id": "18", "encerramento_id": "22", "endereco_id": "8"},
-    {"id": "24", "curso_id": "2",  "local_id": "7",  "turma_codigo": "26/ADMN/38", "agenda_id": "18", "periodo_id": "18", "encerramento_id": "22", "endereco_id": "16"},
-    {"id": "25", "curso_id": "2",  "local_id": "7",  "turma_codigo": "26/ADMN/42", "agenda_id": "19", "periodo_id": "18", "encerramento_id": "22", "endereco_id": "16"},
-    {"id": "26", "curso_id": "2",  "local_id": "8",  "turma_codigo": "26/ADMN/39", "agenda_id": "7",  "periodo_id": "19", "encerramento_id": "23", "endereco_id": "8"},
-    {"id": "27", "curso_id": "2",  "local_id": "8",  "turma_codigo": "26/ADMN/40", "agenda_id": "20", "periodo_id": "19", "encerramento_id": "23", "endereco_id": "8"},
-    {"id": "28", "curso_id": "2",  "local_id": "16", "turma_codigo": "26/ADMN/36", "agenda_id": "21", "periodo_id": "16", "encerramento_id": "20", "endereco_id": "17"},
-    {"id": "29", "curso_id": "2",  "local_id": "3",  "turma_codigo": "26/ADMN/41", "agenda_id": "1",  "periodo_id": "14", "encerramento_id": "21", "endereco_id": "3"},
+    {"id": "23", "curso_id": "2",  "local_id": "8",  "turma_codigo": "26/ADMN/37", "agenda_id": "18", "periodo_id": "18", "encerramento_id": "18", "endereco_id": "8"},
+    {"id": "24", "curso_id": "2",  "local_id": "7",  "turma_codigo": "26/ADMN/38", "agenda_id": "18", "periodo_id": "18", "encerramento_id": "18", "endereco_id": "7"},
+    # início 26/05, encerramento 11/06 (ATUALIZADO, era 25/05 e 10/06)
+    {"id": "25", "curso_id": "2",  "local_id": "7",  "turma_codigo": "26/ADMN/42", "agenda_id": "19", "periodo_id": "19", "encerramento_id": "19", "endereco_id": "7"},
+    {"id": "26", "curso_id": "2",  "local_id": "8",  "turma_codigo": "26/ADMN/39", "agenda_id": "7",  "periodo_id": "19", "encerramento_id": "19", "endereco_id": "8"},
+    {"id": "27", "curso_id": "2",  "local_id": "8",  "turma_codigo": "26/ADMN/40", "agenda_id": "20", "periodo_id": "19", "encerramento_id": "19", "endereco_id": "8"},
+    # encerramento 21/06 (ATUALIZADO, era 18/06)
+    {"id": "28", "curso_id": "2",  "local_id": "16", "turma_codigo": "26/ADMN/36", "agenda_id": "16", "periodo_id": "16", "encerramento_id": "16", "endereco_id": "17"},
+    # encerramento 10/06 (ATUALIZADO, era 27/06)
+    {"id": "29", "curso_id": "2",  "local_id": "3",  "turma_codigo": "26/ADMN/41", "agenda_id": "1",  "periodo_id": "14", "encerramento_id": "22", "endereco_id": "3"},
 
     # ── PORTEIRO (curso_id=10) ──
-    {"id": "30", "curso_id": "10", "local_id": "17", "turma_codigo": "26/PORT/01", "agenda_id": "20", "periodo_id": "19", "encerramento_id": "23", "endereco_id": "18"},
+    # local ASSEMBLEIA DE DEUS ADTS MANDELA, encerramento 29/06 (ATUALIZADO, era 11/06)
+    {"id": "30", "curso_id": "10", "local_id": "17", "turma_codigo": "26/PORT/01", "agenda_id": "20", "periodo_id": "19", "encerramento_id": "25", "endereco_id": "18"},
 ]
 
 
@@ -1305,7 +1322,6 @@ TEMPLATE_WIZARD = r'''
             }
 
             function preencherPorLocalCurso(localId, cursoId) {
-                // Encontra a primeira turma que corresponde ao local + curso e preenche tudo
                 var matched = courseOptions.find(function(o) {
                     return String(o.local_id) === String(localId || '')
                         && String(o.curso_id) === String(cursoId || '');
@@ -1516,7 +1532,6 @@ TEMPLATE_WIZARD = r'''
                 if (!courseSelect.value) {
                     setError('curso_id','Selecione um curso.'); courseSelect.focus(); return false;
                 }
-                // opcao_id é preenchido automaticamente ao escolher local + curso
                 if (!opcaoIdInput || !opcaoIdInput.value) {
                     setError('curso_id','Nenhuma turma disponível para esta combinação.'); return false;
                 }
