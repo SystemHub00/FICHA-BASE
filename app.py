@@ -32,220 +32,94 @@ VALID_DDDS = {
 # LOCAIS
 # ──────────────────────────────────────────────
 LOCAL_OPTIONS = [
-    {"id": "1",  "nome": "COZINHA COMUNITÁRIA - REALENGO"},
-    {"id": "2",  "nome": "ASSOCIAÇÃO DOS ARTESÃOS - ANA GONZAGA"},
-    {"id": "3",  "nome": "MINISTÉRIO APOSTÓLICO MOVER PROFÉTICO - SENADOR CAMARÁ"},
-    {"id": "4",  "nome": "RESIDENCIAL RIO SAMBA (CONDOMÍNIO) - MENDANHA"},
-    {"id": "5",  "nome": "CENTRO SOCIAL ESTRELA DA MANHÃ - GUARATIBA"},
-    {"id": "6",  "nome": "CAMPO SOCIETY DE MARQUINHOS - MANGUINHOS"},
-    {"id": "7",  "nome": "CAMPO SOCIETY DE MANGUINHOS - MANGUINHOS"},
-    {"id": "8",  "nome": "QUADRA UNIDOS DE MANGUINHOS - MANGUINHOS"},
-    {"id": "9",  "nome": "SALÃO DE FESTAS (77) - PADRE MIGUEL"},
-    {"id": "10", "nome": "IGR. BATISTA MAANAIM MENDANHA - CAMPO GRANDE"},
-    {"id": "11", "nome": "IGREJA BATISTA SÃO BENTO - BANGU"},
-    {"id": "12", "nome": "REFORÇO ESCOLAR TIA DANI - MARÉ"},
-    {"id": "13", "nome": "MINISTÉRIO APOSTÓLICO TENDA DO ENCONTRO - COSMOS"},
-    {"id": "14", "nome": "IGREJA BATISTA RIO DA PRAIA - BANGU"},
-    {"id": "15", "nome": "VILA CRUZEIRO - PENHA"},
-    {"id": "16", "nome": "VILA DO PINHEIRO - MARÉ"},
-    {"id": "17", "nome": "ASSEMBLEIA DE DEUS ADTS MANDELA - BENFICA"},  # ATUALIZADO
+    {"id": "1", "nome": "VILA DO PINHEIRO - MARÉ"},
+    {"id": "2", "nome": "IGREJA BATISTA SÃO BENTO - BANGU"},
+    {"id": "3", "nome": "REFORÇO ESCOLAR TIA DANI - MARÉ"},
+    {"id": "4", "nome": "SALÃO DE FESTA - PADRE MIGUEL"},
+    {"id": "5", "nome": "CENTRO CULTURAL LOTTUS - MÉIER"},
 ]
 
 # ──────────────────────────────────────────────
 # CATÁLOGO DE CURSOS
 # ──────────────────────────────────────────────
 COURSE_CATALOG = [
-    {"id": "1",  "nome": "ASSISTENTE DE LOGÍSTICA"},
-    {"id": "2",  "nome": "AUXILIAR ADMINISTRATIVO"},
-    {"id": "3",  "nome": "AUXILIAR DE COZINHA"},
-    {"id": "4",  "nome": "BARBEIRO"},
-    {"id": "5",  "nome": "CUIDADOR DE IDOSOS"},
-    {"id": "6",  "nome": "ELETRICISTA PREDIAL"},
-    {"id": "7",  "nome": "INTELIGÊNCIA ARTIFICIAL"},
-    {"id": "8",  "nome": "MARKETING DIGITAL"},
-    {"id": "9",  "nome": "MONITOR DE LAZER E RECREAÇÃO"},
-    {"id": "10", "nome": "PORTEIRO"},
-    {"id": "11", "nome": "RECEPCIONISTA"},
+    {"id": "1", "nome": "AUXILIAR ADMINISTRATIVO"},
+    {"id": "2", "nome": "INTELIGÊNCIA ARTIFICIAL"},
+    {"id": "3", "nome": "MARKETING DIGITAL"},
+    {"id": "4", "nome": "MONITOR DE LAZER E RECREAÇÃO"},
+    {"id": "5", "nome": "SOCIAL MEDIA"},
 ]
 
 # ──────────────────────────────────────────────
 # HORÁRIOS
 # ──────────────────────────────────────────────
 SCHEDULE_OPTIONS = {
-    "1":  {"dias_aula": "Sábado",            "horario": "08h até 12h"},
-    "2":  {"dias_aula": "Quarta e Sexta",    "horario": "16h até 18h"},
-    "3":  {"dias_aula": "Segunda e Quarta",  "horario": "19h até 21h"},
-    "4":  {"dias_aula": "Segunda e Quarta",  "horario": "17h30 às 19h"},
-    "5":  {"dias_aula": "Segunda e Quinta",  "horario": "09h às 11h"},
-    "6":  {"dias_aula": "Terça e Quinta",    "horario": "19h às 21h"},
-    "7":  {"dias_aula": "Terça e Quinta",    "horario": "19h até 21h"},
-    "8":  {"dias_aula": "Quarta e Sexta",    "horario": "19h às 21h"},
-    "9":  {"dias_aula": "Segunda e Quinta",  "horario": "17h às 21h"},
-    "10": {"dias_aula": "Segunda",           "horario": "17h até 21h"},
-    "11": {"dias_aula": "Sábado",            "horario": "8h até 12h"},
-    "12": {"dias_aula": "Quarta e Sexta",    "horario": "08h às 12h"},
-    "13": {"dias_aula": "Sábado",            "horario": "10h até 14h"},
-    "14": {"dias_aula": "Terça",             "horario": "18h até 21h30"},
-    "15": {"dias_aula": "Terça",             "horario": "08h até 12h"},
-    "16": {"dias_aula": "Segunda e Terça",   "horario": "19h às 21h30"},
-    "17": {"dias_aula": "Sábado",            "horario": "08h até 13h"},
-    "18": {"dias_aula": "Segunda e Quarta",  "horario": "09h até 11h"},
-    "19": {"dias_aula": "Segunda e Quarta",  "horario": "9h até 11h"},
-    "20": {"dias_aula": "Terça e Quinta",    "horario": "19h às 21h"},
-    "21": {"dias_aula": "Terça e Quinta",    "horario": "09h às 11h"},
-    "22": {"dias_aula": "Segunda e Quarta",  "horario": "19h às 21h"},
-    "23": {"dias_aula": "Quarta",            "horario": "08h às 12h"},   # NOVO
+    "1": {"dias_aula": "Terça e Quinta",   "horario": "08h às 11h"},
+    "2": {"dias_aula": "Sábado",           "horario": "08h às 12h"},
+    "3": {"dias_aula": "Sábado",           "horario": "10h às 14h"},
+    "4": {"dias_aula": "Terça e Quinta",   "horario": "19h às 21h"},
+    "5": {"dias_aula": "Segunda e Quarta", "horario": "19h às 22h"},
+    "6": {"dias_aula": "Segunda a Quinta", "horario": "18h às 22h"},
 }
 
 # ──────────────────────────────────────────────
 # DATAS DE INÍCIO
 # ──────────────────────────────────────────────
 START_DATE_OPTIONS = {
-    "1":  "16/05/2026",
-    "2":  "09/05/2026",
-    "3":  "03/06/2026",
-    "4":  "15/04/2026",
-    "5":  "18/04/2026",
-    "6":  "18/05/2026",
-    "7":  "27/04/2026",
-    "8":  "28/04/2026",
-    "9":  "29/04/2026",
-    "10": "11/05/2026",
-    "11": "23/05/2026",
-    "12": "06/06/2026",
-    "13": "03/06/2026",
-    "14": "06/06/2026",
-    "15": "05/05/2026",
-    "16": "02/06/2026",
-    "17": "01/06/2026",
-    "18": "25/05/2026",
-    "19": "26/05/2026",
-    "20": "10/06/2026",   # NOVO
+    "1": "02/06/2026",
+    "2": "06/06/2026",
+    "3": "08/06/2026",
 }
 
 # ──────────────────────────────────────────────
 # DATAS DE ENCERRAMENTO
 # ──────────────────────────────────────────────
 END_DATE_OPTIONS = {
-    "1":  "06/06/2026",
-    "2":  "30/05/2026",
-    "3":  "26/06/2026",
-    "4":  "18/05/2026",
-    "5":  "09/05/2026",
-    "6":  "13/05/2026",
-    "7":  "08/06/2026",
-    "8":  "27/05/2026",
-    "9":  "08/06/2026",
-    "10": "13/06/2026",
-    "11": "27/06/2026",
-    "12": "24/06/2026",
-    "13": "27/06/2026",
-    "14": "26/05/2026",
-    "15": "23/06/2026",
-    "16": "21/06/2026",
-    "17": "13/06/2026",
-    "18": "10/06/2026",
-    "19": "11/06/2026",
-    "20": "18/06/2026",
-    "21": "27/06/2026",
-    "22": "10/06/2026",
-    "23": "11/06/2026",
-    "24": "03/07/2026",   # NOVO
-    "25": "29/06/2026",   # NOVO
+    "1": "18/06/2026",
+    "2": "27/06/2026",
+    "3": "30/06/2026",
+    "4": "13/07/2026",
+    "5": "11/06/2026",
 }
 
 # ──────────────────────────────────────────────
 # ENDEREÇOS
 # ──────────────────────────────────────────────
 ADDRESS_OPTIONS = {
-    "1":  "📍Rua General Itapoã, Nº 41, Bairro Realengo - CEP: 21.730-000",
-    "2":  "📍Rua Esmeralda Ana Gonzaga QD, Nº 11, Bairro Ana Gonzaga - CEP: 23.050-489",
-    "3":  "📍Rua Bom Guilherme Francisco Moraes, Nº 03, Bairro Senador Camará - CEP: 21.833-190",
-    "4":  "📍Rua Antônio Carlos Belchior, 200, Mendanha, Campo Grande - CEP: 23.097-032",
-    "5":  "📍Rua Alcides Franco, 175, Bairro Guaratiba - CEP: 23.032-010",
-    "6":  "📍Rua Nossa Senhora dos Navegantes, Nº 13, Bairro Manguinhos - CEP: 21.050-000",
-    "7":  "📍Rua Nossa Senhora dos Navegantes, Nº 01, Bairro Manguinhos - CEP: 21.050-000",
-    "8":  "📍Avenida dos Democráticos, Nº 32, Bairro Manguinhos - CEP: 21.050-000",
-    "9":  "📍Rua Juazeiro do Norte, 639 - Padre Miguel - CEP: 21.775-340",
-    "10": "📍Estrada do Mendanha, nº 4240, Bairro Campo Grande - CEP: 23.092-002",
-    "11": "📍Rua Batuíra, Nº 121, São Bento - Bangu - CEP: 21.860-290",
-    "12": "📍Rua Darcy Vargas, Nº 136, Bairro Maré - CEP: 21.044-040",
-    "13": "📍Rua Framboesa, Nº 21, Bairro Cosmos - CEP: 23.061-322",
-    "14": "📍Rua dos Limadores, Nº 566, Bairro Bangu - CEP: 21.830-005",
-    "15": "📍Rua Sargento Ricardo Filho, Nº 26, Bairro Penha - CEP: 21.070-150",
-    "16": "📍Rua Nossa Senhora dos Navegantes, Nº 03, Bairro Manguinhos - CEP: 21.050-000",
-    "17": "📍Via B9, Nº 379, Bloco 14, Bairro Maré - CEP: 21.046-090",
-    "18": "📍Rua Leopoldo Bulhões, 800, Bairro Benfica - CEP: 20.911-300",
+    "1": "📍Via B9, Nº 379, Bloco 14 - Maré, Rio de Janeiro - RJ",
+    "2": "📍Rua Batuíra, Nº 121 - São Bento, Bangu, Rio de Janeiro - RJ",
+    "3": "📍Rua Darcy Vargas, Nº 136 - Maré, Rio de Janeiro - RJ",
+    "4": "📍Rua Juazeiro do Norte, 639 - Padre Miguel, Rio de Janeiro - RJ",
+    "5": "📍Rua Dias da Cruz, 638, Sala 204 - Méier, Rio de Janeiro - RJ",
 }
 
 # ──────────────────────────────────────────────
-# TURMAS  (cronograma atualizado em 19/05/2026)
+# TURMAS
 # ──────────────────────────────────────────────
 TURMA_OPTIONS = [
-    # ── AUXILIAR DE COZINHA (curso_id=3) ──
-    {"id": "1",  "curso_id": "3",  "local_id": "1",  "turma_codigo": "26/AXCZ/20", "agenda_id": "1",  "periodo_id": "1",  "encerramento_id": "1",  "endereco_id": "1"},
-    {"id": "2",  "curso_id": "3",  "local_id": "2",  "turma_codigo": "26/AXCZ/21", "agenda_id": "1",  "periodo_id": "2",  "encerramento_id": "2",  "endereco_id": "2"},
-    # início 10/06, encerramento 03/07 (ATUALIZADO)
-    {"id": "3",  "curso_id": "3",  "local_id": "3",  "turma_codigo": "26/AXCZ/19", "agenda_id": "2",  "periodo_id": "20", "encerramento_id": "24", "endereco_id": "3"},
+    # AUXILIAR ADMINISTRATIVO — Vila do Pinheiro | Terça e Quinta | 8h às 11h | 02/06 a 18/06
+    {"id": "1", "curso_id": "1", "local_id": "1", "turma_codigo": "26/ADMN/01",
+     "agenda_id": "1", "periodo_id": "1", "encerramento_id": "1", "endereco_id": "1"},
 
-    # ── CUIDADOR DE IDOSOS (curso_id=5) ──
-    {"id": "4",  "curso_id": "5",  "local_id": "4",  "turma_codigo": "26/CUID/11", "agenda_id": "3",  "periodo_id": "4",  "encerramento_id": "4",  "endereco_id": "4"},
+    # INTELIGÊNCIA ARTIFICIAL — Igreja Batista São Bento | Sábado | 8h às 12h | 06/06 a 27/06
+    {"id": "2", "curso_id": "2", "local_id": "2", "turma_codigo": "26/INAT/01",
+     "agenda_id": "2", "periodo_id": "2", "encerramento_id": "2", "endereco_id": "2"},
 
-    # ── ELETRICISTA PREDIAL (curso_id=6) ──
-    {"id": "5",  "curso_id": "6",  "local_id": "1",  "turma_codigo": "26/ELPR/01", "agenda_id": "1",  "periodo_id": "5",  "encerramento_id": "5",  "endereco_id": "1"},
+    # MARKETING DIGITAL — Reforço Escolar Tia Dani | Sábado | 10h às 14h | 06/06 a 27/06
+    {"id": "3", "curso_id": "3", "local_id": "3", "turma_codigo": "26/MARK/01",
+     "agenda_id": "3", "periodo_id": "2", "encerramento_id": "2", "endereco_id": "3"},
 
-    # ── MONITOR DE LAZER E RECREAÇÃO (curso_id=9) ──
-    {"id": "6",  "curso_id": "9",  "local_id": "5",  "turma_codigo": "26/MLRE/18", "agenda_id": "4",  "periodo_id": "6",  "encerramento_id": "6",  "endereco_id": "5"},
-    {"id": "7",  "curso_id": "9",  "local_id": "6",  "turma_codigo": "26/MLRE/19", "agenda_id": "5",  "periodo_id": "7",  "encerramento_id": "7",  "endereco_id": "6"},
-    {"id": "8",  "curso_id": "9",  "local_id": "7",  "turma_codigo": "26/MLRE/20", "agenda_id": "22", "periodo_id": "7",  "encerramento_id": "7",  "endereco_id": "7"},
-    {"id": "9",  "curso_id": "9",  "local_id": "8",  "turma_codigo": "26/MLRE/21", "agenda_id": "6",  "periodo_id": "8",  "encerramento_id": "8",  "endereco_id": "8"},
-    {"id": "10", "curso_id": "9",  "local_id": "8",  "turma_codigo": "26/MLRE/22", "agenda_id": "7",  "periodo_id": "8",  "encerramento_id": "8",  "endereco_id": "8"},
-    {"id": "11", "curso_id": "9",  "local_id": "3",  "turma_codigo": "26/MLRE/23", "agenda_id": "8",  "periodo_id": "9",  "encerramento_id": "9",  "endereco_id": "3"},
+    # MARKETING DIGITAL — Vila do Pinheiro | Terça e Quinta | 19h às 21h | 02/06 a 30/06
+    {"id": "4", "curso_id": "3", "local_id": "1", "turma_codigo": "26/MARK/02",
+     "agenda_id": "4", "periodo_id": "1", "encerramento_id": "3", "endereco_id": "1"},
 
-    # ── MARKETING DIGITAL (curso_id=8) ──
-    # encerramento 27/05 (ATUALIZADO, era 08/06)
-    {"id": "12", "curso_id": "8",  "local_id": "5",  "turma_codigo": "26/MARK/29", "agenda_id": "9",  "periodo_id": "6",  "encerramento_id": "8",  "endereco_id": "5"},
-    # encerramento 13/06 (ATUALIZADO, era 08/06)
-    {"id": "13", "curso_id": "8",  "local_id": "9",  "turma_codigo": "26/MARK/17", "agenda_id": "10", "periodo_id": "10", "encerramento_id": "17", "endereco_id": "9"},
-    # encerramento 27/06 (ATUALIZADO, era 13/06)
-    {"id": "14", "curso_id": "8",  "local_id": "10", "turma_codigo": "26/MARK/28", "agenda_id": "11", "periodo_id": "11", "encerramento_id": "11", "endereco_id": "10"},
+    # MONITOR DE LAZER E RECREAÇÃO — Salão de Festa | Segunda e Quarta | 19h às 22h | 08/06 a 13/07
+    {"id": "5", "curso_id": "4", "local_id": "4", "turma_codigo": "26/MLRE/01",
+     "agenda_id": "5", "periodo_id": "3", "encerramento_id": "4", "endereco_id": "4"},
 
-    # ── INTELIGÊNCIA ARTIFICIAL (curso_id=7) ──
-    # agenda Quarta 08h às 12h (ATUALIZADO, era Sábado)
-    {"id": "15", "curso_id": "7",  "local_id": "11", "turma_codigo": "26/INAT/22", "agenda_id": "23", "periodo_id": "12", "encerramento_id": "11", "endereco_id": "11"},
-    {"id": "16", "curso_id": "7",  "local_id": "2",  "turma_codigo": "26/INAT/21", "agenda_id": "13", "periodo_id": "13", "encerramento_id": "12", "endereco_id": "2"},
-    {"id": "17", "curso_id": "7",  "local_id": "12", "turma_codigo": "26/INAT/20", "agenda_id": "14", "periodo_id": "14", "encerramento_id": "13", "endereco_id": "12"},
-
-    # ── RECEPCIONISTA (curso_id=11) ──
-    {"id": "18", "curso_id": "11", "local_id": "3",  "turma_codigo": "26/REP/07",  "agenda_id": "1",  "periodo_id": "12", "encerramento_id": "11", "endereco_id": "3"},
-
-    # ── ASSISTENTE DE LOGÍSTICA (curso_id=1) ──
-    # início 02/06, encerramento 23/06 (ATUALIZADO, era 05/05 e 26/05)
-    {"id": "19", "curso_id": "1",  "local_id": "13", "turma_codigo": "26/ASLO/28", "agenda_id": "14", "periodo_id": "16", "encerramento_id": "15", "endereco_id": "13"},
-    # encerramento 21/06 (ATUALIZADO, era 23/06)
-    {"id": "20", "curso_id": "1",  "local_id": "2",  "turma_codigo": "26/ASLO/27", "agenda_id": "16", "periodo_id": "16", "encerramento_id": "16", "endereco_id": "2"},
-    # encerramento 13/06 (ATUALIZADO, era 21/06)
-    {"id": "21", "curso_id": "1",  "local_id": "14", "turma_codigo": "26/ASLO/26", "agenda_id": "17", "periodo_id": "17", "encerramento_id": "17", "endereco_id": "14"},
-
-    # ── BARBEIRO (curso_id=4) ──
-    # encerramento 27/06 (ATUALIZADO, era 13/06)
-    {"id": "22", "curso_id": "4",  "local_id": "15", "turma_codigo": "26/BARB/02", "agenda_id": "11", "periodo_id": "11", "encerramento_id": "11", "endereco_id": "15"},
-
-    # ── AUXILIAR ADMINISTRATIVO (curso_id=2) ──
-    {"id": "23", "curso_id": "2",  "local_id": "8",  "turma_codigo": "26/ADMN/37", "agenda_id": "18", "periodo_id": "18", "encerramento_id": "18", "endereco_id": "8"},
-    {"id": "24", "curso_id": "2",  "local_id": "7",  "turma_codigo": "26/ADMN/38", "agenda_id": "18", "periodo_id": "18", "encerramento_id": "18", "endereco_id": "7"},
-    # início 26/05, encerramento 11/06 (ATUALIZADO, era 25/05 e 10/06)
-    {"id": "25", "curso_id": "2",  "local_id": "7",  "turma_codigo": "26/ADMN/42", "agenda_id": "19", "periodo_id": "19", "encerramento_id": "19", "endereco_id": "7"},
-    {"id": "26", "curso_id": "2",  "local_id": "8",  "turma_codigo": "26/ADMN/39", "agenda_id": "7",  "periodo_id": "19", "encerramento_id": "19", "endereco_id": "8"},
-    {"id": "27", "curso_id": "2",  "local_id": "8",  "turma_codigo": "26/ADMN/40", "agenda_id": "20", "periodo_id": "19", "encerramento_id": "19", "endereco_id": "8"},
-    # encerramento 21/06 (ATUALIZADO, era 18/06)
-    {"id": "28", "curso_id": "2",  "local_id": "16", "turma_codigo": "26/ADMN/36", "agenda_id": "16", "periodo_id": "16", "encerramento_id": "16", "endereco_id": "17"},
-    # encerramento 10/06 (ATUALIZADO, era 27/06)
-    {"id": "29", "curso_id": "2",  "local_id": "3",  "turma_codigo": "26/ADMN/41", "agenda_id": "1",  "periodo_id": "14", "encerramento_id": "22", "endereco_id": "3"},
-
-    # ── PORTEIRO (curso_id=10) ──
-    # local ASSEMBLEIA DE DEUS ADTS MANDELA, encerramento 29/06 (ATUALIZADO, era 11/06)
-    {"id": "30", "curso_id": "10", "local_id": "17", "turma_codigo": "26/PORT/01", "agenda_id": "20", "periodo_id": "19", "encerramento_id": "25", "endereco_id": "18"},
+    # SOCIAL MEDIA — Centro Cultural Lottus | Segunda a Quinta | 18h às 22h | 08/06 a 11/06
+    {"id": "6", "curso_id": "5", "local_id": "5", "turma_codigo": "26/SMID/01",
+     "agenda_id": "6", "periodo_id": "3", "encerramento_id": "5", "endereco_id": "5"},
 ]
 
 
@@ -273,18 +147,17 @@ def build_course_options():
     return options
 
 
-COURSE_OPTIONS        = build_course_options()
-COURSE_OPTIONS_BY_ID  = {o["id"]: o for o in COURSE_OPTIONS}
-COURSE_CATALOG_BY_ID  = {o["id"]: o for o in COURSE_CATALOG}
-LOCAL_OPTIONS_BY_ID   = {o["id"]: o for o in LOCAL_OPTIONS}
-COURSE_INFO           = COURSE_OPTIONS[0]
+COURSE_OPTIONS       = build_course_options()
+COURSE_OPTIONS_BY_ID = {o["id"]: o for o in COURSE_OPTIONS}
+COURSE_CATALOG_BY_ID = {o["id"]: o for o in COURSE_CATALOG}
+LOCAL_OPTIONS_BY_ID  = {o["id"]: o for o in LOCAL_OPTIONS}
+COURSE_INFO          = COURSE_OPTIONS[0]
 
 
 def build_whatsapp_share_url(home_url):
     message = (
         "Acabei de me inscrever em uma oportunidade de qualificacao profissional. "
-        "Confira aqui: "
-        f"{home_url}"
+        "Confira aqui: " + home_url
     )
     return f"https://wa.me/?text={quote(message)}"
 
@@ -316,13 +189,8 @@ def fill_form_data_from_option(form_data, option):
 
 
 def fill_form_data_from_selection(form_data):
-    """
-    Dado local_id + curso_id, escolhe automaticamente a primeira turma
-    correspondente (sem expor o campo turma ao usuário).
-    """
-    local_id  = form_data.get("local_id")
-    curso_id  = form_data.get("curso_id")
-
+    local_id = form_data.get("local_id")
+    curso_id = form_data.get("curso_id")
     if local_id and curso_id:
         matched = next(
             (o for o in COURSE_OPTIONS
@@ -332,8 +200,6 @@ def fill_form_data_from_selection(form_data):
         if matched:
             fill_form_data_from_option(form_data, matched)
             return
-
-    # Se não encontrou combinação válida, limpa os campos derivados
     for key in ("local", "curso", "turma", "dias_aula", "horario",
                 "data_inicio", "encerramento", "endereco_curso", "opcao_id"):
         form_data.setdefault(key, "")
@@ -370,108 +236,81 @@ TEMPLATE_WIZARD = r'''
             --cor-borda: #a8c0f4;
             --sombra-card: 0 18px 55px rgba(17, 85, 204, 0.18);
         }
-
         * { box-sizing: border-box; }
         html, body { min-height: 100%; margin: 0; padding: 0; }
-
         body {
             min-height: 100vh;
             background:
-                radial-gradient(circle at top left, rgba(17, 85, 204, 0.14), transparent 34%),
-                radial-gradient(circle at top right, rgba(211, 226, 255, 0.82), transparent 32%),
+                radial-gradient(circle at top left, rgba(17,85,204,0.14), transparent 34%),
+                radial-gradient(circle at top right, rgba(211,226,255,0.82), transparent 32%),
                 linear-gradient(135deg, #f5f9ff 0%, #fff 42%, #dfeaff 100%);
             color: var(--cor-texto);
             font-family: 'Wise', Arial, sans-serif;
         }
-
         .main-header {
             border-bottom: 4px solid var(--cor-principal);
-            background: rgba(255, 255, 255, 0.92);
+            background: rgba(255,255,255,0.92);
             backdrop-filter: blur(8px);
         }
-
         .wizard-page {
             width: min(900px, 98vw);
             margin: 0 auto;
             padding: 8px 0 18px;
             text-align: center;
         }
-
         .wizard-progress {
             margin: 18px auto 22px;
             padding: 18px 18px 20px;
             border-radius: 28px;
-            background: rgba(255, 255, 255, 0.9);
-            box-shadow: 0 12px 30px rgba(17, 85, 204, 0.12);
+            background: rgba(255,255,255,0.9);
+            box-shadow: 0 12px 30px rgba(17,85,204,0.12);
         }
-
         .wizard-track {
             width: 100%; height: 14px;
             background: #dbe6fb; border-radius: 999px; overflow: hidden;
         }
-
         .wizard-fill {
             height: 100%; width: 25%;
             background: linear-gradient(90deg, #1155cc 0%, #4f86ea 100%);
-            border-radius: 999px;
-            transition: width 0.3s ease;
+            border-radius: 999px; transition: width 0.3s ease;
         }
-
         .wizard-labels {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
+            display: grid; grid-template-columns: repeat(4,1fr);
             gap: 10px; margin-top: 14px;
         }
-
         .wizard-label {
             padding: 12px 10px;
             border: 1px solid #c9daf8; border-radius: 18px;
             background: #fff; color: #2f5fb4;
-            font-size: 0.92rem; font-weight: 700;
-            text-align: center;
+            font-size: 0.92rem; font-weight: 700; text-align: center;
             transition: all 0.25s ease;
         }
-
         .wizard-label.ativo {
             border-color: var(--cor-principal);
-            background: var(--cor-clara);
-            color: var(--cor-principal);
+            background: var(--cor-clara); color: var(--cor-principal);
         }
-
         .wizard-shell {
-            background: rgba(255, 255, 255, 0.88);
-            border: 1px solid rgba(255, 255, 255, 0.9);
+            background: rgba(255,255,255,0.88);
+            border: 1px solid rgba(255,255,255,0.9);
             border-radius: 34px;
             box-shadow: var(--sombra-card);
             overflow: hidden;
         }
-
-        .wizard-panel[data-step="index"] .hero-card,
-        .wizard-panel[data-step="dados"] .step-card,
-        .wizard-panel[data-step="escolher"] .step-card,
-        .wizard-panel[data-step="revisao"] .step-card {
-            max-width: 760px; margin: 0 auto;
-        }
-
         .wizard-panel { display: none; padding: 18px 8px; animation: surgir 0.28s ease; }
         .wizard-panel.ativo { display: block; }
-
         @keyframes surgir {
-            from { opacity: 0; transform: translateY(12px); }
-            to   { opacity: 1; transform: translateY(0); }
+            from { opacity:0; transform:translateY(12px); }
+            to   { opacity:1; transform:translateY(0); }
         }
-
         .hero-grid {
-            display: grid; grid-template-columns: minmax(0, 1fr);
+            display: grid; grid-template-columns: minmax(0,1fr);
             gap: 14px; align-items: center; justify-items: center;
         }
-
         .hero-card {
             padding: 32px; border-radius: 30px;
-            background: linear-gradient(135deg, #fff 0%, #f5f9ff 58%, #dfeaff 100%);
+            background: linear-gradient(135deg,#fff 0%,#f5f9ff 58%,#dfeaff 100%);
             border: 1px solid #c9daf8; width: 100%; text-align: center;
         }
-
         .hero-pill {
             display: inline-flex; align-items: center; gap: 8px;
             padding: 10px 18px; border-radius: 999px;
@@ -479,148 +318,108 @@ TEMPLATE_WIZARD = r'''
             font-size: 0.95rem; font-weight: 800;
             letter-spacing: 0.05em; text-transform: uppercase;
         }
-
         .hero-title, .panel-title {
             margin: 18px 0 10px; color: var(--cor-principal);
-            font-size: clamp(2rem, 3.8vw, 3.2rem);
+            font-size: clamp(2rem,3.8vw,3.2rem);
             line-height: 1; letter-spacing: -0.04em;
         }
-
-        .panel-title { font-size: clamp(1.7rem, 3vw, 2.4rem); }
-
+        .panel-title { font-size: clamp(1.7rem,3vw,2.4rem); }
         .hero-subtitle, .panel-subtitle {
             margin: 0; color: #2f5fb4;
             font-size: 1.05rem; line-height: 1.55;
         }
-
         .hero-highlights { display: grid; gap: 10px; margin-top: 16px; }
-
-        .hero-highlight, .info-card, .review-box, .step-card {
-            border-radius: 22px;
-            border: 1px solid #d7e3fb;
-            background: #fff;
-            box-shadow: 0 8px 24px rgba(17, 85, 204, 0.08);
+        .hero-highlight, .review-box, .step-card {
+            border-radius: 22px; border: 1px solid #d7e3fb;
+            background: #fff; box-shadow: 0 8px 24px rgba(17,85,204,0.08);
         }
-
         .hero-highlight {
             padding: 12px 14px; color: #2f5fb4;
             font-size: 0.95rem; font-weight: 700;
         }
-
         .hero-highlight strong {
             display: block; color: var(--cor-principal);
             font-size: 1.15rem; margin-bottom: 4px;
         }
-
         .benefits-slider { display: grid; gap: 12px; margin-top: 8px; }
-
-        .benefits-viewport {
-            position: relative; min-height: 76px; overflow: hidden;
-        }
-
+        .benefits-viewport { position: relative; min-height: 76px; overflow: hidden; }
         .benefit-slide {
             position: absolute; inset: 0;
             display: flex; align-items: center; justify-content: center;
             padding: 10px 12px; border-radius: 16px;
             background: var(--cor-clara); color: var(--cor-principal);
-            font-size: 0.98rem; font-weight: 800;
-            line-height: 1.45; text-align: center;
-            opacity: 0; transform: translateX(18px);
+            font-size: 0.98rem; font-weight: 800; line-height: 1.45;
+            text-align: center; opacity: 0; transform: translateX(18px);
             transition: opacity 0.28s ease, transform 0.28s ease;
             pointer-events: none;
         }
-
-        .benefit-slide.ativo {
-            opacity: 1; transform: translateX(0); pointer-events: auto;
-        }
-
+        .benefit-slide.ativo { opacity:1; transform:translateX(0); pointer-events:auto; }
         .benefits-controls {
             display: flex; align-items: center; justify-content: center; gap: 10px;
         }
-
         .benefits-nav {
             min-width: 44px; min-height: 44px; border: none; border-radius: 999px;
             background: #fff; color: var(--cor-principal);
-            box-shadow: 0 6px 16px rgba(17, 85, 204, 0.14);
+            box-shadow: 0 6px 16px rgba(17,85,204,0.14);
             font: inherit; font-size: 1.1rem; font-weight: 900; cursor: pointer;
         }
-
-        .benefits-dots {
-            display: flex; gap: 6px; align-items: center; justify-content: center;
-        }
-
+        .benefits-dots { display: flex; gap: 6px; align-items: center; justify-content: center; }
         .benefits-dot {
             width: 9px; height: 9px; border-radius: 999px; background: #b7cbf4;
             transition: transform 0.2s ease, background 0.2s ease;
+            border: none; cursor: pointer; padding: 0;
         }
-
         .benefits-dot.ativo { background: var(--cor-principal); transform: scale(1.2); }
-
-        .step-card { padding: 18px 16px; width: 100%; margin: 0 auto; text-align: center; }
-
+        .step-card {
+            padding: 18px 16px; width: 100%; margin: 0 auto;
+            text-align: center; max-width: 760px;
+        }
         .step-grid {
-            display: grid;
-            grid-template-columns: repeat(2, minmax(0, 1fr));
+            display: grid; grid-template-columns: repeat(2,minmax(0,1fr));
             gap: 10px 12px; margin-top: 10px;
             align-items: start; justify-content: center;
         }
-
         .step-grid.step-grid--stacked {
-            grid-template-columns: minmax(0, 1fr);
+            grid-template-columns: minmax(0,1fr);
             max-width: 540px; margin-left: auto; margin-right: auto;
         }
-
         .wizard-panel[data-step="dados"] .form-group,
         .wizard-panel[data-step="escolher"] .form-group {
             align-items: stretch; text-align: left;
         }
-
         .wizard-panel[data-step="dados"] .form-group label,
         .wizard-panel[data-step="escolher"] .form-group label {
             width: 100%; text-align: left;
         }
-
         .wizard-panel[data-step="escolher"] .step-grid.step-grid--stacked { max-width: 470px; }
-
         .wizard-panel[data-step="escolher"] .form-group,
-        .wizard-panel[data-step="escolher"] .form-group.full { width: 100%; max-width: 100%; }
-
-        .wizard-panel[data-step="escolher"] .input-with-action { width: 100%; max-width: 100%; }
-
+        .wizard-panel[data-step="escolher"] .form-group.full {
+            width: 100%; max-width: 100%;
+        }
+        .wizard-panel[data-step="escolher"] .input-with-action { width:100%; max-width:100%; }
         .wizard-panel[data-step="escolher"] #local_display,
         .wizard-panel[data-step="escolher"] #dias_aula,
         .wizard-panel[data-step="escolher"] #horario,
         .wizard-panel[data-step="escolher"] #data_inicio,
         .wizard-panel[data-step="escolher"] #encerramento,
         .wizard-panel[data-step="escolher"] #endereco_curso {
-            width: 100% !important; min-width: 0 !important;
-            max-width: 100% !important; margin: 0 !important;
+            width:100%!important; min-width:0!important; max-width:100%!important; margin:0!important;
         }
-
-        select:disabled {
-            background-color: #e8f0e8;
-            cursor: not-allowed;
-            opacity: 0.7;
-        }
-
+        select:disabled { background-color:#e8f0e8; cursor:not-allowed; opacity:0.7; }
         .form-group {
             display: flex; flex-direction: column; gap: 4px;
             width: 100%; align-self: start;
             align-items: center; text-align: center;
         }
-
-        .form-group.full { grid-column: 1 / -1; }
-
+        .form-group.full { grid-column: 1/-1; }
         .form-group label, .review-title, .mini-title {
             color: var(--cor-principal); font-size: 1rem; font-weight: 800;
         }
-
         .form-group input,
         .form-group select,
         .form-group textarea {
             display: block;
-            width: 100% !important; max-width: 100% !important;
-            min-width: 0 !important; margin: 0 !important;
+            width:100%!important; max-width:100%!important; min-width:0!important; margin:0!important;
             box-sizing: border-box;
             min-height: 38px; height: 38px;
             padding: 7px 10px;
@@ -629,240 +428,149 @@ TEMPLATE_WIZARD = r'''
             font: inherit; line-height: 1.2; text-align: left; outline: none;
             transition: border-color 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
         }
-
         .form-group select {
             appearance: none; -webkit-appearance: none; -moz-appearance: none;
             background-image: url('data:image/svg+xml;utf8,<svg fill="%231155cc" height="20" viewBox="0 0 24 24" width="20" xmlns="http://www.w3.org/2000/svg"><path d="M7 10l5 5 5-5z"/></svg>');
-            background-repeat: no-repeat;
-            background-position: right 14px center;
-            background-size: 20px 20px;
+            background-repeat: no-repeat; background-position: right 14px center; background-size: 20px 20px;
             padding-right: 44px;
         }
-
         .form-group textarea { min-height: 60px; height: auto; resize: vertical; }
-
         .form-group input:focus,
         .form-group select:focus,
         .form-group textarea:focus {
-            border-color: var(--cor-principal);
-            background: #fff;
-            box-shadow: 0 0 0 4px rgba(17, 85, 204, 0.12);
+            border-color: var(--cor-principal); background: #fff;
+            box-shadow: 0 0 0 4px rgba(17,85,204,0.12);
         }
-
-        .readonly-field {
-            background: #eef4ff !important;
-            color: #2f5fb4 !important;
-            font-weight: 700;
-        }
-
+        .readonly-field { background:#eef4ff!important; color:#2f5fb4!important; font-weight:700; }
         .input-with-action {
-            display: grid; grid-template-columns: minmax(0, 1fr);
+            display: grid; grid-template-columns: minmax(0,1fr);
             gap: 10px; align-items: stretch; justify-content: stretch;
         }
-
-        .input-with-action input { width: 100% !important; }
-
+        .input-with-action input { width:100%!important; }
         .icon-button, .cta-button, .secondary-button, .submit-button {
             border: none; border-radius: 18px;
             font: inherit; font-weight: 800; cursor: pointer;
-            transition: transform 0.16s ease, box-shadow 0.16s ease,
-                        background 0.16s ease, color 0.16s ease;
+            transition: transform 0.16s ease, box-shadow 0.16s ease, background 0.16s ease, color 0.16s ease;
         }
-
         .icon-button {
             min-width: 56px; min-height: 52px;
             background: var(--cor-principal); color: #fff;
-            box-shadow: 0 8px 16px rgba(17, 85, 204, 0.22);
+            box-shadow: 0 8px 16px rgba(17,85,204,0.22);
         }
-
         .wizard-panel[data-step="escolher"] .icon-button {
-            width: 100% !important; min-width: 0 !important;
-            max-width: 100% !important;
-            height: 38px !important; min-height: 38px !important;
-            padding: 0; border-radius: 10px; box-shadow: none;
+            width:100%!important; min-width:0!important; max-width:100%!important;
+            height:38px!important; min-height:38px!important;
+            padding:0; border-radius:10px; box-shadow:none;
         }
-
         .panel-actions .cta-button,
         .panel-actions .secondary-button,
         .panel-actions .submit-button {
-            width: 100% !important; max-width: 100% !important;
-            min-width: 0 !important; margin: 0 !important;
-            height: 38px; font-size: 1rem;
+            width:100%!important; max-width:100%!important; min-width:0!important; margin:0!important;
+            height:38px; font-size:1rem;
         }
-
         .cta-button, .submit-button {
-            background: linear-gradient(90deg, #1155cc 0%, #4f86ea 100%);
-            color: #fff; box-shadow: 0 10px 24px rgba(17, 85, 204, 0.24);
+            background: linear-gradient(90deg,#1155cc 0%,#4f86ea 100%);
+            color: #fff; box-shadow: 0 10px 24px rgba(17,85,204,0.24);
         }
-
-        .secondary-button {
-            background: #fff; color: var(--cor-principal);
-            border: 2px solid var(--cor-principal);
-        }
-
+        .secondary-button { background:#fff; color:var(--cor-principal); border:2px solid var(--cor-principal); }
         .cta-button, .secondary-button, .submit-button {
             min-height: 54px; padding: 14px 22px;
             text-transform: uppercase; letter-spacing: 0.04em;
         }
-
-        .cta-button:hover, .secondary-button:hover,
-        .submit-button:hover, .icon-button:hover { transform: translateY(-1px); }
-
+        .cta-button:hover, .secondary-button:hover, .submit-button:hover, .icon-button:hover {
+            transform: translateY(-1px);
+        }
         .panel-actions {
             display: flex; flex-direction: column-reverse;
             align-items: center; gap: 12px;
             justify-content: space-between; margin-top: 28px;
             max-width: 420px; margin-left: auto; margin-right: auto;
         }
-
         .panel-actions > * { flex: 1; }
-
         .balao-erro {
             margin-top: 4px; padding: 10px 14px;
-            border-radius: 14px;
-            border: 1px solid #0d47a1; background: #1155cc;
-            color: #fff; font-size: 0.92rem;
-            font-weight: 700; line-height: 1.35;
+            border-radius: 14px; border: 1px solid #0d47a1;
+            background: #1155cc; color: #fff;
+            font-size: 0.92rem; font-weight: 700; line-height: 1.35;
         }
-
         .balao-erro[hidden] { display: none; }
-
-        .erro-campo {
-            border-color: #1155cc !important;
-            box-shadow: 0 0 0 4px rgba(17, 85, 204, 0.12) !important;
-        }
-
+        .erro-campo { border-color:#1155cc!important; box-shadow:0 0 0 4px rgba(17,85,204,0.12)!important; }
         .review-layout {
-            display: grid; grid-template-columns: 1fr;
-            gap: 8px; margin-top: 10px;
-            max-width: 540px; margin-left: auto; margin-right: auto;
+            display: grid; grid-template-columns: 1fr; gap: 8px;
+            margin-top: 10px; max-width: 540px;
+            margin-left: auto; margin-right: auto;
         }
-
         .review-box { padding: 10px; text-align: center; }
-        .review-box.full { grid-column: 1 / -1; }
-
-        .review-list {
-            display: grid; gap: 6px; margin-top: 8px; text-align: left;
-        }
-
+        .review-box.full { grid-column: 1/-1; }
+        .review-list { display: grid; gap: 6px; margin-top: 8px; text-align: left; }
         .review-item {
             display: grid; grid-template-columns: auto 1fr;
             align-items: center; column-gap: 8px;
             padding: 7px 9px; border-radius: 10px;
             background: var(--cor-clara); text-align: left;
         }
-
-        .review-item strong {
-            color: var(--cor-principal);
-            font-size: 0.88rem; white-space: nowrap;
-        }
-
+        .review-item strong { color:var(--cor-principal); font-size:0.88rem; white-space:nowrap; }
         .review-item strong::after { content: ':'; }
-
-        .review-item span {
-            color: var(--cor-texto); font-size: 0.94rem;
-            word-break: break-word; text-align: left;
-        }
-
+        .review-item span { color:var(--cor-texto); font-size:0.94rem; word-break:break-word; text-align:left; }
         .review-check {
-            display: flex; gap: 12px;
-            align-items: flex-start; justify-content: flex-start;
+            display: flex; gap: 12px; align-items: flex-start; justify-content: flex-start;
             padding: 10px 12px; border-radius: 14px;
             background: var(--cor-clara); color: #6e3d37;
             line-height: 1.45; text-align: left;
         }
-
         .review-check input {
-            margin-top: 3px;
-            width: 20px; min-width: 20px;
-            height: 20px; flex: 0 0 20px;
-            accent-color: var(--cor-principal);
+            margin-top: 3px; width:20px; min-width:20px;
+            height:20px; flex:0 0 20px; accent-color:var(--cor-principal);
         }
+        .review-check span { flex:1 1 auto; min-width:0; }
+        .review-check ul { margin:8px 0 0 18px; padding:0; list-style-position:outside; text-align:left; }
+        .review-box .form-group { align-items:stretch; text-align:left; }
+        .review-box .form-group label { width:100%; text-align:left; }
 
-        .review-check span { flex: 1 1 auto; min-width: 0; }
-
-        .review-check ul {
-            margin: 8px 0 0 18px; padding: 0;
-            list-style-position: outside; text-align: left;
+        @media (max-width:860px) {
+            .hero-grid, .review-layout { grid-template-columns:1fr; }
+            .step-grid { grid-template-columns:repeat(2,minmax(0,1fr)); gap:8px 8px; }
+            .step-grid.step-grid--stacked { grid-template-columns:minmax(0,1fr); max-width:540px; }
+            .wizard-panel[data-step="escolher"] .step-grid.step-grid--stacked { max-width:470px; }
         }
-
-        .review-box .form-group { align-items: stretch; text-align: left; }
-        .review-box .form-group label { width: 100%; text-align: left; }
-
-        @media (max-width: 860px) {
-            .hero-grid, .review-layout { grid-template-columns: 1fr; }
-            .step-grid {
-                grid-template-columns: repeat(2, minmax(0, 1fr));
-                gap: 8px 8px;
-            }
-            .step-grid.step-grid--stacked {
-                grid-template-columns: minmax(0, 1fr); max-width: 540px;
-            }
-            .wizard-panel[data-step="escolher"] .step-grid.step-grid--stacked { max-width: 470px; }
-        }
-
-        @media (max-width: 640px) {
-            html, body {
-                width: 100% !important; max-width: 100% !important;
-                overflow-x: hidden !important;
-            }
-            body * { min-width: 0; }
-            body { overflow-x: hidden; }
-            .main-header { padding: 10px 12px; }
-            .header-logos { display: flex; flex-direction: column; align-items: center; gap: 10px; }
-            .header-logos img, .logo, .logo-prefeitura-topo {
-                max-width: min(88vw, 280px); height: auto;
-            }
-            .wizard-page {
-                width: calc(100% - 8px) !important;
-                max-width: 100% !important; padding: 4px 0 10px;
-            }
-            .wizard-progress, .wizard-panel {
-                width: 100% !important; max-width: 100% !important; padding: 8px;
-            }
-            .wizard-labels { grid-template-columns: 1fr; gap: 6px; }
-            .hero-card, .step-card, .review-box {
-                width: 100% !important; max-width: 100% !important; padding: 8px;
-            }
-            .input-with-action {
-                grid-template-columns: minmax(0, 1fr);
-                width: 100% !important; max-width: 100% !important;
-            }
-            .panel-actions > * { width: 100%; }
-            .step-grid {
-                grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 6px 6px;
-            }
-            .step-grid.step-grid--stacked {
-                grid-template-columns: minmax(0, 1fr); max-width: 100%;
-            }
-            .review-layout { grid-template-columns: 1fr; max-width: 100%; gap: 10px; }
+        @media (max-width:640px) {
+            html, body { width:100%!important; max-width:100%!important; overflow-x:hidden!important; }
+            body * { min-width:0; }
+            body { overflow-x:hidden; }
+            .main-header { padding:10px 12px; }
+            .header-logos { display:flex; flex-direction:column; align-items:center; gap:10px; }
+            .header-logos img { max-width:min(88vw,280px); height:auto; }
+            .wizard-page { width:calc(100% - 8px)!important; max-width:100%!important; padding:4px 0 10px; }
+            .wizard-progress, .wizard-panel { width:100%!important; max-width:100%!important; padding:8px; }
+            .wizard-labels { grid-template-columns:1fr; gap:6px; }
+            .hero-card, .step-card, .review-box { width:100%!important; max-width:100%!important; padding:8px; }
+            .input-with-action { grid-template-columns:minmax(0,1fr); width:100%!important; max-width:100%!important; }
+            .panel-actions > * { width:100%; }
+            .step-grid { grid-template-columns:repeat(2,minmax(0,1fr)); gap:6px 6px; }
+            .step-grid.step-grid--stacked { grid-template-columns:minmax(0,1fr); max-width:100%; }
+            .review-layout { grid-template-columns:1fr; max-width:100%; gap:10px; }
             .review-item, .form-group, .form-group input, .form-group select,
             .form-group textarea, .wizard-shell, .panel-actions,
-            .review-check, .balao-erro {
-                width: 100% !important; max-width: 100% !important;
+            .review-check, .balao-erro { width:100%!important; max-width:100%!important; }
+            .form-group label, .review-title, .review-item span, .review-check { word-break:break-word; }
+            img, svg { max-width:100%!important; height:auto!important; }
+            .form-group input, .form-group select, .form-group textarea, .icon-button {
+                min-height:32px; height:32px; font-size:0.98em;
             }
-            .form-group label, .review-title,
-            .review-item span, .review-check { word-break: break-word; }
-            img, svg { max-width: 100% !important; height: auto !important; }
-            .form-group input, .form-group select,
-            .form-group textarea, .icon-button {
-                min-height: 32px; height: 32px; font-size: 0.98em;
-            }
-            .form-group textarea { min-height: 60px; height: auto; }
-            .review-check { flex-direction: row; align-items: flex-start; padding: 8px; }
-            .review-check input { width: 22px; min-width: 22px; height: 22px; flex-basis: 22px; }
-            .review-check ul { padding-left: 2px; }
-            .hero-title, .panel-title { font-size: 1.3rem; }
-            .hero-subtitle, .panel-subtitle { font-size: 0.92rem; }
-            .wizard-shell { border-radius: 16px; }
-            .form-group.full { grid-column: auto; }
+            .form-group textarea { min-height:60px; height:auto; }
+            .review-check { flex-direction:row; align-items:flex-start; padding:8px; }
+            .review-check input { width:22px; min-width:22px; height:22px; flex-basis:22px; }
+            .review-check ul { padding-left:2px; }
+            .hero-title, .panel-title { font-size:1.3rem; }
+            .hero-subtitle, .panel-subtitle { font-size:0.92rem; }
+            .wizard-shell { border-radius:16px; }
+            .form-group.full { grid-column:auto; }
         }
     </style>
 </head>
 <body data-start-step="{{ current_step }}">
     <noscript><img height="1" width="1" style="display:none"
-    src="https://www.facebook.com/tr?id=2008632536670997&ev=PageView&noscript=1"
-    /></noscript>
+    src="https://www.facebook.com/tr?id=2008632536670997&ev=PageView&noscript=1"/></noscript>
     <script src="/static/assistant.js"></script>
     <header class="main-header">
         <div class="header-logos">
@@ -898,17 +606,11 @@ TEMPLATE_WIZARD = r'''
                             <div class="hero-highlights">
                                 <div class="hero-highlight" style="text-align:center;">
                                     <strong>CURSOS DISPONÍVEIS:</strong>
-                                    📦 ASSISTENTE DE LOGÍSTICA<br>
                                     📂 AUXILIAR ADMINISTRATIVO<br>
-                                    🍳 AUXILIAR DE COZINHA<br>
-                                    💈 BARBEIRO<br>
-                                    👵 CUIDADOR DE IDOSOS<br>
-                                    ⚡ ELETRICISTA PREDIAL<br>
                                     🤖 INTELIGÊNCIA ARTIFICIAL<br>
                                     📱 MARKETING DIGITAL<br>
                                     🎈 MONITOR DE LAZER E RECREAÇÃO<br>
-                                    🔑 PORTEIRO<br>
-                                    🛎️ RECEPCIONISTA
+                                    📲 SOCIAL MEDIA
                                 </div>
                                 <div class="hero-highlight">
                                     <strong>BENEFÍCIOS</strong>
@@ -924,9 +626,9 @@ TEMPLATE_WIZARD = r'''
                                             <div class="benefit-slide">Apoio na elaboração de currículo</div>
                                         </div>
                                         <div class="benefits-controls">
-                                            <button type="button" class="benefits-nav" data-benefits-prev aria-label="Benefício anterior">‹</button>
+                                            <button type="button" class="benefits-nav" data-benefits-prev aria-label="Benefício anterior">&#8249;</button>
                                             <div class="benefits-dots" data-benefits-dots></div>
-                                            <button type="button" class="benefits-nav" data-benefits-next aria-label="Próximo benefício">›</button>
+                                            <button type="button" class="benefits-nav" data-benefits-next aria-label="Próximo benefício">&#8250;</button>
                                         </div>
                                     </div>
                                 </div>
@@ -946,14 +648,12 @@ TEMPLATE_WIZARD = r'''
                 <section class="wizard-panel" data-step="dados">
                     <div class="step-card">
                         <h2 class="panel-title">Dados pessoais</h2>
-
                         <div class="step-grid step-grid--stacked">
                             <div class="form-group full">
                                 <label for="nome">Nome completo *</label>
                                 <input type="text" id="nome" name="nome" maxlength="50" placeholder="Digite seu nome completo" value="{{ form_data.get('nome', '') }}">
                                 <div class="balao-erro" id="nome-error" {% if not errors.get('nome') %}hidden{% endif %}>{{ errors.get('nome', '') }}</div>
                             </div>
-
                             <div class="form-group">
                                 <label for="genero">Gênero *</label>
                                 <select id="genero" name="genero">
@@ -964,44 +664,37 @@ TEMPLATE_WIZARD = r'''
                                 </select>
                                 <div class="balao-erro" id="genero-error" {% if not errors.get('genero') %}hidden{% endif %}>{{ errors.get('genero', '') }}</div>
                             </div>
-
                             <div class="form-group">
                                 <label for="cpf">CPF *</label>
                                 <input type="text" id="cpf" name="cpf" maxlength="14" placeholder="000.000.000-00" value="{{ form_data.get('cpf', '') }}">
                                 <div class="balao-erro" id="cpf-error" {% if not errors.get('cpf') %}hidden{% endif %}>{{ errors.get('cpf', '') }}</div>
                             </div>
-
                             <div class="form-group">
                                 <label for="nascimento">Data de nascimento *</label>
                                 <input type="text" id="nascimento" name="nascimento" maxlength="10" placeholder="dd/mm/aaaa" value="{{ form_data.get('nascimento', '') }}">
                                 <div class="balao-erro" id="nascimento-error" {% if not errors.get('nascimento') %}hidden{% endif %}>{{ errors.get('nascimento', '') }}</div>
                             </div>
-
                             <div class="form-group">
                                 <label for="whatsapp">WhatsApp *</label>
                                 <input type="text" id="whatsapp" name="whatsapp" maxlength="16" placeholder="(00) 00000-0000" value="{{ form_data.get('whatsapp', '') }}">
                                 <div class="balao-erro" id="whatsapp-error" {% if not errors.get('whatsapp') %}hidden{% endif %}>{{ errors.get('whatsapp', '') }}</div>
                             </div>
-
                             <div class="form-group">
                                 <label for="cep">CEP *</label>
                                 <input type="text" id="cep" name="cep" maxlength="9" placeholder="00000-000" value="{{ form_data.get('cep', '') }}">
                                 <div class="balao-erro" id="cep-error" {% if not errors.get('cep') %}hidden{% endif %}>{{ errors.get('cep', '') }}</div>
                             </div>
-
                             <div class="form-group">
                                 <label for="bairro">Bairro *</label>
                                 <input type="text" id="bairro" name="bairro" maxlength="40" placeholder="Nome do bairro" value="{{ form_data.get('bairro', '') }}">
                                 <div class="balao-erro" id="bairro-error" {% if not errors.get('bairro') %}hidden{% endif %}>{{ errors.get('bairro', '') }}</div>
                             </div>
-
                             <div class="form-group full">
                                 <label for="email">E-mail *</label>
                                 <input type="email" id="email" name="email" maxlength="60" placeholder="seuemail@gmail.com" value="{{ form_data.get('email', '') }}">
                                 <div class="balao-erro" id="email-error" {% if not errors.get('email') %}hidden{% endif %}>{{ errors.get('email', '') }}</div>
                             </div>
                         </div>
-
                         <div class="panel-actions">
                             <button type="button" class="secondary-button" data-prev="index">Voltar</button>
                             <button type="button" class="cta-button" data-next="escolher">Próximo</button>
@@ -1013,9 +706,7 @@ TEMPLATE_WIZARD = r'''
                 <section class="wizard-panel" data-step="escolher">
                     <div class="step-card">
                         <h2 class="panel-title">Escolha seu curso</h2>
-
                         <div class="step-grid step-grid--stacked">
-
                             <div class="form-group full">
                                 <label for="local_id">Local *</label>
                                 <select id="local_id" name="local_id">
@@ -1026,7 +717,6 @@ TEMPLATE_WIZARD = r'''
                                 </select>
                                 <div class="balao-erro" id="local_id-error" {% if not errors.get('local_id') %}hidden{% endif %}>{{ errors.get('local_id', '') }}</div>
                             </div>
-
                             <div class="form-group full">
                                 <label for="curso_id">Curso *</label>
                                 <select id="curso_id" name="curso_id" disabled>
@@ -1035,46 +725,40 @@ TEMPLATE_WIZARD = r'''
                                 <div class="balao-erro" id="curso_id-error" {% if not errors.get('curso_id') %}hidden{% endif %}>{{ errors.get('curso_id', '') }}</div>
                             </div>
 
-                            <!-- Hidden fields preenchidos via JS -->
-                            <input type="hidden" id="opcao_id" name="opcao_id" value="{{ form_data.get('opcao_id', '') }}">
-                            <input type="hidden" id="local"    name="local"    value="{{ form_data.get('local', '') }}">
-                            <input type="hidden" id="curso"    name="curso"    value="{{ form_data.get('curso', '') }}">
-                            <input type="hidden" id="turma"    name="turma"    value="{{ form_data.get('turma', '') }}">
+                            <!-- Hidden fields -->
+                            <input type="hidden" id="opcao_id"   name="opcao_id"   value="{{ form_data.get('opcao_id', '') }}">
+                            <input type="hidden" id="local"      name="local"      value="{{ form_data.get('local', '') }}">
+                            <input type="hidden" id="curso"      name="curso"      value="{{ form_data.get('curso', '') }}">
+                            <input type="hidden" id="turma"      name="turma"      value="{{ form_data.get('turma', '') }}">
 
                             <div class="form-group full">
                                 <label for="local_display">LOCAL SELECIONADO</label>
                                 <input type="text" id="local_display" class="readonly-field" readonly value="{{ form_data.get('local', '') }}">
                             </div>
-
                             <div class="form-group">
                                 <label for="dias_aula">DIA DE AULA</label>
                                 <input type="text" id="dias_aula" name="dias_aula" class="readonly-field" readonly value="{{ form_data.get('dias_aula', '') }}">
                             </div>
-
                             <div class="form-group">
                                 <label for="horario">HORÁRIO</label>
                                 <input type="text" id="horario" name="horario" class="readonly-field" readonly value="{{ form_data.get('horario', '') }}">
                             </div>
-
                             <div class="form-group">
                                 <label for="data_inicio">DATA DE INÍCIO</label>
                                 <input type="text" id="data_inicio" name="data_inicio" class="readonly-field" readonly value="{{ form_data.get('data_inicio', '') }}">
                             </div>
-
                             <div class="form-group">
                                 <label for="encerramento">ENCERRAMENTO</label>
                                 <input type="text" id="encerramento" name="encerramento" class="readonly-field" readonly value="{{ form_data.get('encerramento', '') }}">
                             </div>
-
                             <div class="form-group full">
                                 <label for="endereco_curso">ENDEREÇO</label>
                                 <div class="input-with-action">
                                     <input type="text" id="endereco_curso" name="endereco_curso" class="readonly-field" readonly value="{{ form_data.get('endereco_curso', '') }}">
-                                    <button type="button" class="icon-button" id="btn-copiar-endereco" title="Copiar endereço">COPIAR 📋</button>
+                                    <button type="button" class="icon-button" id="btn-copiar-endereco" title="Copiar endereço">COPIAR &#128203;</button>
                                 </div>
                             </div>
                         </div>
-
                         <div class="panel-actions">
                             <button type="button" class="secondary-button" data-prev="dados">Voltar</button>
                             <button type="button" class="cta-button" data-next="revisao">Ir para revisão</button>
@@ -1087,7 +771,6 @@ TEMPLATE_WIZARD = r'''
                     <div class="step-card">
                         <h2 class="panel-title">Revise antes de finalizar</h2>
                         <p class="panel-subtitle">Confira os dados preenchidos e confirme sua participação.</p>
-
                         <div class="review-layout">
                             <div class="review-box">
                                 <div class="review-title">Dados pessoais</div>
@@ -1102,7 +785,6 @@ TEMPLATE_WIZARD = r'''
                                     <div class="review-item"><strong>E-mail</strong><span data-review="email"></span></div>
                                 </div>
                             </div>
-
                             <div class="review-box">
                                 <div class="review-title">Informações do curso</div>
                                 <div class="review-list">
@@ -1115,7 +797,6 @@ TEMPLATE_WIZARD = r'''
                                     <div class="review-item"><strong>Endereço</strong><span data-review="endereco_curso"></span></div>
                                 </div>
                             </div>
-
                             <div class="review-box full">
                                 <div class="form-group">
                                     <label for="como_conheceu">Como conheceu (opcional)</label>
@@ -1123,9 +804,8 @@ TEMPLATE_WIZARD = r'''
                                     <div class="balao-erro" id="como_conheceu-error" {% if not errors.get('como_conheceu') %}hidden{% endif %}>{{ errors.get('como_conheceu', '') }}</div>
                                 </div>
                             </div>
-
                             <div class="review-box full">
-                                <div class="review-info-text" style="margin-bottom:10px; color:#2f5fb4; font-size:0.98rem; text-align:left;">
+                                <div class="review-info-text" style="margin-bottom:10px;color:#2f5fb4;font-size:0.98rem;text-align:left;">
                                     <strong>Elegibilidade:</strong> Este curso é destinado a pessoas com 16 anos ou mais interessadas em qualificação profissional.
                                 </div>
                                 <label class="review-check" for="confirma_dados">
@@ -1147,7 +827,6 @@ TEMPLATE_WIZARD = r'''
                                 <div class="balao-erro" id="confirma_dados-error" {% if not errors.get('confirma_dados') %}hidden{% endif %}>{{ errors.get('confirma_dados', '') }}</div>
                             </div>
                         </div>
-
                         <div class="panel-actions">
                             <button type="button" class="secondary-button" data-prev="escolher">Voltar</button>
                             <button type="submit" class="submit-button">Finalizar inscrição</button>
@@ -1174,7 +853,7 @@ TEMPLATE_WIZARD = r'''
             var courseCatalog    = {{ course_catalog|tojson }};
             var courseOptions    = {{ course_options|tojson }};
             var localOptions     = {{ local_options|tojson }};
-            
+
             var courseCatalogById = Object.fromEntries(courseCatalog.map(function(c){ return [String(c.id), c]; }));
             var courseOptionsById = Object.fromEntries(courseOptions.map(function(o){ return [String(o.id), o]; }));
 
@@ -1234,49 +913,34 @@ TEMPLATE_WIZARD = r'''
                     slides.forEach(function(s, j){ s.classList.toggle('ativo', j === cur); });
                     dots.forEach(function(d, j){ d.classList.toggle('ativo', j === cur); });
                 }
-
                 function restart() {
                     clearInterval(timer);
                     timer = setInterval(function(){ show(cur + 1); }, 3200);
                 }
-
                 prevBtn.addEventListener('click', function(){ show(cur - 1); restart(); });
                 nextBtn.addEventListener('click', function(){ show(cur + 1); restart(); });
                 slider.addEventListener('mouseenter', function(){ clearInterval(timer); });
                 slider.addEventListener('mouseleave', restart);
-
                 show(cur); restart();
             }
 
             /* ── Lógica: Local → Curso → preenche campos automaticamente ── */
-
             function aplicarOpcao(opcaoId) {
                 var op = courseOptionsById[String(opcaoId || '')];
                 if (!op) {
-                    if (opcaoIdInput)    opcaoIdInput.value    = '';
-                    localInput.value        = '';
-                    if (localDisplay) localDisplay.value = '';
-                    cursoInput.value        = '';
-                    turmaInput.value        = '';
-                    diasAulaInput.value     = '';
-                    horarioInput.value      = '';
-                    dataInicioInput.value   = '';
-                    encerramentoInput.value = '';
-                    enderecoInput.value     = '';
+                    if (opcaoIdInput) opcaoIdInput.value = '';
+                    localInput.value = ''; if (localDisplay) localDisplay.value = '';
+                    cursoInput.value = ''; turmaInput.value = '';
+                    diasAulaInput.value = ''; horarioInput.value = '';
+                    dataInicioInput.value = ''; encerramentoInput.value = ''; enderecoInput.value = '';
                     return;
                 }
-
                 if (opcaoIdInput) opcaoIdInput.value = op.id;
-                localInput.value        = op.local;
-                if (localDisplay) localDisplay.value = op.local;
-                cursoInput.value        = op.curso;
-                turmaInput.value        = op.turma;
-                diasAulaInput.value     = op.dias_aula;
-                horarioInput.value      = op.horario;
-                dataInicioInput.value   = op.data_inicio;
-                encerramentoInput.value = op.encerramento;
-                enderecoInput.value     = op.endereco_curso;
-
+                localInput.value = op.local; if (localDisplay) localDisplay.value = op.local;
+                cursoInput.value = op.curso; turmaInput.value = op.turma;
+                diasAulaInput.value = op.dias_aula; horarioInput.value = op.horario;
+                dataInicioInput.value = op.data_inicio; encerramentoInput.value = op.encerramento;
+                enderecoInput.value = op.endereco_curso;
                 setError('curso_id', '');
                 syncReview();
             }
@@ -1284,18 +948,14 @@ TEMPLATE_WIZARD = r'''
             function atualizarCursosPorLocal(localId, selectedCursoId) {
                 courseSelect.disabled = false;
                 courseSelect.innerHTML = '';
-
                 var placeholder = document.createElement('option');
-                placeholder.value = '';
-                placeholder.textContent = 'Selecione um curso';
+                placeholder.value = ''; placeholder.textContent = 'Selecione um curso';
                 placeholder.selected = !selectedCursoId;
                 courseSelect.appendChild(placeholder);
 
                 var cursosIds = new Set();
                 courseOptions.forEach(function(o) {
-                    if (String(o.local_id) === String(localId || '')) {
-                        cursosIds.add(String(o.curso_id));
-                    }
+                    if (String(o.local_id) === String(localId || '')) cursosIds.add(String(o.curso_id));
                 });
 
                 cursosIds.forEach(function(cursoId) {
@@ -1309,11 +969,9 @@ TEMPLATE_WIZARD = r'''
                     }
                 });
 
-                // Auto-seleciona se há apenas um curso disponível
                 if (cursosIds.size === 1 && !selectedCursoId) {
-                    var unicoCursoId = Array.from(cursosIds)[0];
-                    courseSelect.value = String(unicoCursoId);
-                    preencherPorLocalCurso(localId, unicoCursoId);
+                    courseSelect.value = String(Array.from(cursosIds)[0]);
+                    preencherPorLocalCurso(localId, courseSelect.value);
                 } else if (selectedCursoId && cursosIds.has(String(selectedCursoId))) {
                     preencherPorLocalCurso(localId, selectedCursoId);
                 } else {
@@ -1331,7 +989,7 @@ TEMPLATE_WIZARD = r'''
 
             function obterLocalSelecionado() {
                 var selectedLocalId = localSelect.value;
-                var localObj = localOptions.find(function(l) { return String(l.id) === String(selectedLocalId); });
+                var localObj = localOptions.find(function(l){ return String(l.id) === String(selectedLocalId); });
                 if (localObj) {
                     localInput.value = localObj.nome;
                     if (localDisplay) localDisplay.value = localObj.nome;
@@ -1342,11 +1000,9 @@ TEMPLATE_WIZARD = r'''
                 syncReview();
             }
 
-            // Eventos
             localSelect.addEventListener('change', function() {
                 setError('local_id', '');
                 obterLocalSelecionado();
-
                 var localId = localSelect.value;
                 if (localId) {
                     atualizarCursosPorLocal(localId, '');
@@ -1416,23 +1072,20 @@ TEMPLATE_WIZARD = r'''
                 dig = (soma * 10) % 11; if (dig === 10) dig = 0;
                 return dig === Number(d[10]);
             }
-
             function validarEmail(e){
-                return /^[a-zA-Z0-9_.+-]+@((gmail|hotmail|outlook|yahoo)\.(com|com\.br))$/i.test((e || '').trim());
+                return /^[a-zA-Z0-9_.+-]+@((gmail|hotmail|outlook|yahoo)\.(com|com\.br))$/i.test((e||'').trim());
             }
-
             function idadePermitida(v){
-                var p = (v || '').split('/');
+                var p = (v||'').split('/');
                 if (p.length !== 3) return false;
-                var dia = Number(p[0]), mes = Number(p[1]) - 1, ano = Number(p[2]);
+                var dia = Number(p[0]), mes = Number(p[1])-1, ano = Number(p[2]);
                 var d = new Date(ano, mes, dia);
-                if (isNaN(d.getTime()) || d.getDate() !== dia || d.getMonth() !== mes || d.getFullYear() !== ano) return false;
+                if (isNaN(d.getTime())||d.getDate()!==dia||d.getMonth()!==mes||d.getFullYear()!==ano) return false;
                 var hoje = new Date();
                 var idade = hoje.getFullYear() - d.getFullYear();
-                if (hoje.getMonth() - d.getMonth() < 0 || (hoje.getMonth() === d.getMonth() && hoje.getDate() < d.getDate())) idade--;
+                if (hoje.getMonth()-d.getMonth()<0||(hoje.getMonth()===d.getMonth()&&hoje.getDate()<d.getDate())) idade--;
                 return idade >= 16 && idade <= 90;
             }
-
             function validarDDD(w){
                 var d = somenteDigitos(w);
                 if (d.length < 11) return false;
@@ -1440,178 +1093,154 @@ TEMPLATE_WIZARD = r'''
                         '31','32','33','34','35','37','38','41','42','43','44','45','46','47','48','49',
                         '51','53','54','55','61','62','63','64','65','66','67','68','69',
                         '71','73','74','75','77','79','81','82','83','84','85','86','87','88','89',
-                        '91','92','93','94','95','96','97','98','99'].includes(d.slice(0, 2));
+                        '91','92','93','94','95','96','97','98','99'].includes(d.slice(0,2));
             }
-
             function mascCPF(){
-                var v = somenteDigitos(cpfInput.value).slice(0, 11);
-                if (v.length > 9) v = v.replace(/(\d{3})(\d{3})(\d{3})(\d{1,2})/, '$1.$2.$3-$4');
-                else if (v.length > 6) v = v.replace(/(\d{3})(\d{3})(\d{1,3})/, '$1.$2.$3');
-                else if (v.length > 3) v = v.replace(/(\d{3})(\d{1,3})/, '$1.$2');
+                var v = somenteDigitos(cpfInput.value).slice(0,11);
+                if (v.length>9) v=v.replace(/(\d{3})(\d{3})(\d{3})(\d{1,2})/,'$1.$2.$3-$4');
+                else if(v.length>6) v=v.replace(/(\d{3})(\d{3})(\d{1,3})/,'$1.$2.$3');
+                else if(v.length>3) v=v.replace(/(\d{3})(\d{1,3})/,'$1.$2');
                 cpfInput.value = v;
             }
             function mascNasc(){
-                var v = somenteDigitos(nascimentoInput.value).slice(0, 8);
-                if (v.length > 4) v = v.replace(/(\d{2})(\d{2})(\d{1,4})/, '$1/$2/$3');
-                else if (v.length > 2) v = v.replace(/(\d{2})(\d{1,2})/, '$1/$2');
+                var v = somenteDigitos(nascimentoInput.value).slice(0,8);
+                if(v.length>4) v=v.replace(/(\d{2})(\d{2})(\d{1,4})/,'$1/$2/$3');
+                else if(v.length>2) v=v.replace(/(\d{2})(\d{1,2})/,'$1/$2');
                 nascimentoInput.value = v;
             }
             function mascWpp(){
-                var v = somenteDigitos(whatsappInput.value).slice(0, 11);
-                if (v.length > 6) v = v.replace(/(\d{2})(\d{5})(\d{0,4})/, '($1) $2-$3');
-                else if (v.length > 2) v = v.replace(/(\d{2})(\d{1,5})/, '($1) $2');
+                var v = somenteDigitos(whatsappInput.value).slice(0,11);
+                if(v.length>6) v=v.replace(/(\d{2})(\d{5})(\d{0,4})/,'($1) $2-$3');
+                else if(v.length>2) v=v.replace(/(\d{2})(\d{1,5})/,'($1) $2');
                 whatsappInput.value = v;
             }
             function mascCep(){
-                var v = somenteDigitos(cepInput.value).slice(0, 8);
-                if (v.length > 5) v = v.replace(/(\d{5})(\d{1,3})/, '$1-$2');
+                var v = somenteDigitos(cepInput.value).slice(0,8);
+                if(v.length>5) v=v.replace(/(\d{5})(\d{1,3})/,'$1-$2');
                 cepInput.value = v;
             }
-
             function vNome(){
-                var v = nomeInput.value.trim();
-                if (!v) { setError('nome','Digite seu nome completo.'); return false; }
-                if (v.length > 50) { setError('nome','Máximo 50 caracteres.'); return false; }
-                if (!/^[A-Za-zÀ-ÿ '´`^~.-]+$/.test(v)) { setError('nome','Use apenas letras e sinais permitidos.'); return false; }
-                setError('nome',''); return true;
+                var v=nomeInput.value.trim();
+                if(!v){setError('nome','Digite seu nome completo.');return false;}
+                if(v.length>50){setError('nome','Máximo 50 caracteres.');return false;}
+                if(!/^[A-Za-zÀ-ÿ '´`^~.-]+$/.test(v)){setError('nome','Use apenas letras e sinais permitidos.');return false;}
+                setError('nome','');return true;
             }
             function vGenero(){
-                if (!generoInput.value) { setError('genero','Selecione o gênero.'); return false; }
-                setError('genero',''); return true;
+                if(!generoInput.value){setError('genero','Selecione o gênero.');return false;}
+                setError('genero','');return true;
             }
             function vCPF(){
-                if (!validarCPF(cpfInput.value)) { setError('cpf','CPF inválido.'); return false; }
-                setError('cpf',''); return true;
+                if(!validarCPF(cpfInput.value)){setError('cpf','CPF inválido.');return false;}
+                setError('cpf','');return true;
             }
             function vNasc(){
-                if (!idadePermitida(nascimentoInput.value)) { setError('nascimento','Idade permitida: 16 a 90 anos.'); return false; }
-                setError('nascimento',''); return true;
+                if(!idadePermitida(nascimentoInput.value)){setError('nascimento','Idade permitida: 16 a 90 anos.');return false;}
+                setError('nascimento','');return true;
             }
             function vWpp(){
-                var d = somenteDigitos(whatsappInput.value);
-                if (d.length !== 11 || !/^\(\d{2}\) \d{5}-\d{4}$/.test(whatsappInput.value) || !validarDDD(whatsappInput.value)) {
-                    setError('whatsapp','Informe um WhatsApp com DDD válido do Brasil.'); return false;
+                var d=somenteDigitos(whatsappInput.value);
+                if(d.length!==11||!/^\(\d{2}\) \d{5}-\d{4}$/.test(whatsappInput.value)||!validarDDD(whatsappInput.value)){
+                    setError('whatsapp','Informe um WhatsApp com DDD válido do Brasil.');return false;
                 }
-                setError('whatsapp',''); return true;
+                setError('whatsapp','');return true;
             }
             function vCep(){
-                if (!/^\d{5}-\d{3}$/.test(cepInput.value.trim())) { setError('cep','CEP inválido. Formato: 00000-000.'); return false; }
-                setError('cep',''); return true;
+                if(!/^\d{5}-\d{3}$/.test(cepInput.value.trim())){setError('cep','CEP inválido. Formato: 00000-000.');return false;}
+                setError('cep','');return true;
             }
             function vBairro(){
-                var v = bairroInput.value.trim();
-                if (!v) { setError('bairro','Informe o bairro.'); return false; }
-                if (v.length > 40) { setError('bairro','Máximo 40 caracteres.'); return false; }
-                setError('bairro',''); return true;
+                var v=bairroInput.value.trim();
+                if(!v){setError('bairro','Informe o bairro.');return false;}
+                if(v.length>40){setError('bairro','Máximo 40 caracteres.');return false;}
+                setError('bairro','');return true;
             }
             function vEmail(){
-                if (!validarEmail(emailInput.value)) { setError('email','Digite um e-mail válido (Gmail, Hotmail, Outlook ou Yahoo).'); return false; }
-                setError('email',''); return true;
+                if(!validarEmail(emailInput.value)){setError('email','Digite um e-mail válido (Gmail, Hotmail, Outlook ou Yahoo).');return false;}
+                setError('email','');return true;
             }
-
             function validarPassoDados(){
-                var checks = [
-                    { ok: vNome(),   f: nomeInput },
-                    { ok: vGenero(), f: generoInput },
-                    { ok: vCPF(),    f: cpfInput },
-                    { ok: vNasc(),   f: nascimentoInput },
-                    { ok: vWpp(),    f: whatsappInput },
-                    { ok: vCep(),    f: cepInput },
-                    { ok: vBairro(), f: bairroInput },
-                    { ok: vEmail(),  f: emailInput },
+                var checks=[
+                    {ok:vNome(),f:nomeInput},{ok:vGenero(),f:generoInput},
+                    {ok:vCPF(),f:cpfInput},{ok:vNasc(),f:nascimentoInput},
+                    {ok:vWpp(),f:whatsappInput},{ok:vCep(),f:cepInput},
+                    {ok:vBairro(),f:bairroInput},{ok:vEmail(),f:emailInput},
                 ];
-                var first = checks.find(function(c){ return !c.ok; });
-                if (first) { first.f.focus(); return false; }
+                var first=checks.find(function(c){return !c.ok;});
+                if(first){first.f.focus();return false;}
                 return true;
             }
-
             function validarPassoEscolher(){
-                if (!localSelect.value) {
-                    setError('local_id','Selecione um local.'); localSelect.focus(); return false;
-                }
-                if (!courseSelect.value) {
-                    setError('curso_id','Selecione um curso.'); courseSelect.focus(); return false;
-                }
-                if (!opcaoIdInput || !opcaoIdInput.value) {
-                    setError('curso_id','Nenhuma turma disponível para esta combinação.'); return false;
-                }
+                if(!localSelect.value){setError('local_id','Selecione um local.');localSelect.focus();return false;}
+                if(!courseSelect.value){setError('curso_id','Selecione um curso.');courseSelect.focus();return false;}
+                if(!opcaoIdInput||!opcaoIdInput.value){setError('curso_id','Nenhuma turma disponível para esta combinação.');return false;}
                 return true;
             }
-
             function validarPassoRevisao(){
-                if (!confirmaDadosInput.checked) {
-                    setError('confirma_dados','Confirme os dados para finalizar.'); confirmaDadosInput.focus(); return false;
-                }
-                setError('confirma_dados',''); return true;
+                if(!confirmaDadosInput.checked){setError('confirma_dados','Confirme os dados para finalizar.');confirmaDadosInput.focus();return false;}
+                setError('confirma_dados','');return true;
             }
-
             async function buscarBairro(){
-                var limpo = somenteDigitos(cepInput.value);
-                if (limpo.length !== 8) return;
-                try {
-                    var res  = await fetch('https://viacep.com.br/ws/' + limpo + '/json/');
-                    var data = await res.json();
-                    if (!data.erro && data.bairro) { bairroInput.value = data.bairro; vBairro(); syncReview(); }
-                } catch (e) { console.error(e); }
+                var limpo=somenteDigitos(cepInput.value);
+                if(limpo.length!==8)return;
+                try{
+                    var res=await fetch('https://viacep.com.br/ws/'+limpo+'/json/');
+                    var data=await res.json();
+                    if(!data.erro&&data.bairro){bairroInput.value=data.bairro;vBairro();syncReview();}
+                }catch(e){console.error(e);}
             }
 
             document.querySelectorAll('[data-next]').forEach(function(btn){
-                btn.addEventListener('click', function(){
-                    var target = btn.dataset.next;
-                    if (target === 'escolher' && !validarPassoDados()) return;
-                    if (target === 'revisao'  && !validarPassoEscolher()) return;
-                    syncReview();
-                    mostrarPasso(target);
+                btn.addEventListener('click',function(){
+                    var target=btn.dataset.next;
+                    if(target==='escolher'&&!validarPassoDados())return;
+                    if(target==='revisao'&&!validarPassoEscolher())return;
+                    syncReview();mostrarPasso(target);
                 });
             });
-
             document.querySelectorAll('[data-prev]').forEach(function(btn){
-                btn.addEventListener('click', function(){ syncReview(); mostrarPasso(btn.dataset.prev); });
+                btn.addEventListener('click',function(){syncReview();mostrarPasso(btn.dataset.prev);});
             });
-
-            form.addEventListener('submit', function(e){
-                if (!validarPassoDados()) { e.preventDefault(); mostrarPasso('dados'); return; }
+            form.addEventListener('submit',function(e){
+                if(!validarPassoDados()){e.preventDefault();mostrarPasso('dados');return;}
                 syncReview();
-                if (!validarPassoRevisao()) { e.preventDefault(); mostrarPasso('revisao'); }
+                if(!validarPassoRevisao()){e.preventDefault();mostrarPasso('revisao');}
             });
 
-            nomeInput.addEventListener('blur', vNome);
-            generoInput.addEventListener('change', vGenero);
-            cpfInput.addEventListener('input', function(){
+            nomeInput.addEventListener('blur',vNome);
+            generoInput.addEventListener('change',vGenero);
+            cpfInput.addEventListener('input',function(){
                 mascCPF();
-                if (somenteDigitos(cpfInput.value).length === 11) vCPF(); else setError('cpf','');
+                if(somenteDigitos(cpfInput.value).length===11)vCPF();else setError('cpf','');
                 syncReview();
             });
-            nascimentoInput.addEventListener('input', function(){ mascNasc(); syncReview(); });
-            nascimentoInput.addEventListener('blur', vNasc);
-            whatsappInput.addEventListener('input', function(){
+            nascimentoInput.addEventListener('input',function(){mascNasc();syncReview();});
+            nascimentoInput.addEventListener('blur',vNasc);
+            whatsappInput.addEventListener('input',function(){
                 mascWpp();
-                if (somenteDigitos(whatsappInput.value).length >= 10) vWpp(); else setError('whatsapp','');
+                if(somenteDigitos(whatsappInput.value).length>=10)vWpp();else setError('whatsapp','');
                 syncReview();
             });
-            cepInput.addEventListener('input', function(){
-                mascCep(); bairroInput.value = '';
-                if (cepInput.value.length === 9) { vCep(); buscarBairro(); } else setError('cep','');
+            cepInput.addEventListener('input',function(){
+                mascCep();bairroInput.value='';
+                if(cepInput.value.length===9){vCep();buscarBairro();}else setError('cep','');
                 syncReview();
             });
-            bairroInput.addEventListener('blur', function(){ vBairro(); syncReview(); });
-            emailInput.addEventListener('input', function(){
-                if (emailInput.value.trim()) vEmail(); else setError('email','');
+            bairroInput.addEventListener('blur',function(){vBairro();syncReview();});
+            emailInput.addEventListener('input',function(){
+                if(emailInput.value.trim())vEmail();else setError('email','');
                 syncReview();
             });
-            confirmaDadosInput.addEventListener('change', function(){
-                if (confirmaDadosInput.checked) setError('confirma_dados','');
+            confirmaDadosInput.addEventListener('change',function(){
+                if(confirmaDadosInput.checked)setError('confirma_dados','');
             });
-
             ['nome','genero','whatsapp','cep','bairro','email','local_id','curso_id','como_conheceu'].forEach(function(id){
-                var f = document.getElementById(id);
-                if (f) { f.addEventListener('input', syncReview); f.addEventListener('change', syncReview); }
+                var f=document.getElementById(id);
+                if(f){f.addEventListener('input',syncReview);f.addEventListener('change',syncReview);}
             });
 
-            /* ── Inicialização ── */
             var initLocalId = '{{ form_data.get("local_id", "") }}';
             var initCursoId = '{{ form_data.get("curso_id", "") }}';
-
             if (initLocalId) {
                 localSelect.value = initLocalId;
                 obterLocalSelecionado();
@@ -1654,95 +1283,54 @@ TEMPLATE_CONFIRMACAO = r'''
     </script>
     <style>
         :root {
-            --cor-principal: #1155cc;
-            --cor-clara: #eef4ff;
-            --cor-texto: #17386d;
-            --sombra-card: 0 18px 55px rgba(17, 85, 204, 0.18);
+            --cor-principal: #1155cc; --cor-clara: #eef4ff;
+            --cor-texto: #17386d; --sombra-card: 0 18px 55px rgba(17,85,204,0.18);
         }
         body {
-            min-height: 100vh; margin: 0;
+            min-height:100vh; margin:0;
             background:
-                radial-gradient(circle at top left, rgba(17,85,204,0.15), transparent 32%),
-                linear-gradient(140deg, #f5f9ff 0%, #fff 55%, #dfeaff 100%);
-            font-family: 'Wise', Arial, sans-serif;
+                radial-gradient(circle at top left,rgba(17,85,204,0.15),transparent 32%),
+                linear-gradient(140deg,#f5f9ff 0%,#fff 55%,#dfeaff 100%);
+            font-family:'Wise',Arial,sans-serif;
         }
-        .main-header { border-bottom: 4px solid #1155cc; background: rgba(255,255,255,0.92); }
-        .confirm-page {
-            width: min(680px, calc(100% - 16px));
-            margin: 0 auto; padding: 10px 0 20px; text-align: center;
-        }
-        .wizard-progress {
-            margin: 12px auto 16px; padding: 14px 14px 16px;
-            border-radius: 28px; background: rgba(255,255,255,0.9);
-            box-shadow: 0 12px 30px rgba(17,85,204,0.12);
-        }
-        .wizard-track {
-            width: 100%; height: 14px; border-radius: 999px;
-            background: #dbe6fb; overflow: hidden;
-        }
-        .wizard-fill {
-            width: 100%; height: 100%;
-            background: linear-gradient(90deg,#1155cc 0%,#4f86ea 100%);
-            border-radius: 999px;
-        }
-        .wizard-labels {
-            display: grid; grid-template-columns: repeat(4,1fr);
-            gap: 8px; margin-top: 12px;
-        }
-        .wizard-label {
-            padding: 10px 8px; border: 1px solid #c9daf8; border-radius: 16px;
-            background: #fff; color: #2f5fb4; font-size: 0.84rem;
-            font-weight: 700; text-align: center;
-        }
-        .wizard-label.ativo { border-color: var(--cor-principal); background: var(--cor-clara); color: var(--cor-principal); }
-        .confirm-shell {
-            background: rgba(255,255,255,0.88); border: 1px solid rgba(255,255,255,0.9);
-            border-radius: 30px; box-shadow: var(--sombra-card); overflow: hidden; text-align: center;
-        }
-        .confirm-card {
-            padding: 20px 16px 18px; background: transparent;
-            text-align: center; max-width: 620px; margin: 0 auto;
-        }
-        .checkmark { width: 120px; height: 120px; margin: 0 auto 12px; }
-        .checkmark svg { width: 100%; height: 100%; stroke: #1155cc; fill: none; }
-        .confirm-card h1 { margin: 0 0 10px; color: #1155cc; font-size: clamp(1.8rem,4vw,2.6rem); letter-spacing: -0.04em; }
-        .protocol-box {
-            margin: 16px auto 12px; padding: 14px; max-width: 320px;
-            border-radius: 16px; background: #eef4ff; border: 2px solid #1155cc;
-        }
-        .protocol-box strong { display: block; color: #1155cc; font-size: 0.98rem; margin-bottom: 8px; text-transform: uppercase; letter-spacing: 0.04em; }
-        .protocol-box span { display: block; color: #1155cc; font-size: 1.35rem; font-weight: 900; letter-spacing: 0.08em; word-break: break-all; }
-        .next-steps {
-            margin: 16px auto 0; max-width: 460px; padding: 14px;
-            border-radius: 18px; background: #fff; border: 1px solid #d7e3fb;
-        }
-        .next-steps h2 { margin: 0 0 12px; color: #1155cc; font-size: 1.2rem; }
-        .next-steps ol { margin: 0; padding-left: 22px; color: #2f5fb4; line-height: 1.55; list-style-position: inside; }
-        .actions { display: grid; gap: 10px; margin-top: 16px; max-width: 380px; margin-left: auto; margin-right: auto; }
-        .action-button {
-            display: flex; align-items: center; justify-content: center;
-            min-height: 42px; padding: 10px 14px; border-radius: 12px;
-            text-decoration: none; text-transform: uppercase;
-            font-weight: 800; letter-spacing: 0.03em;
-            transition: transform 0.16s ease;
-        }
-        .action-button.primary { background: linear-gradient(90deg,#1155cc 0%,#4f86ea 100%); color: #fff; box-shadow: 0 10px 24px rgba(17,85,204,0.24); }
-        .action-button.secondary { background: #fff; color: #1155cc; border: 2px solid #1155cc; }
-        .action-button:hover { transform: translateY(-1px); }
-        @media (max-width: 640px) {
-            html,body { width:100%!important; max-width:100%!important; overflow-x:hidden!important; }
-            body * { min-width:0; }
-            .main-header { padding: 10px 12px; }
-            .header-logos { display:flex; flex-direction:column; align-items:center; gap:10px; }
-            .header-logos img { max-width: min(88vw,280px); height:auto; }
-            .confirm-page { width:calc(100% - 8px)!important; max-width:100%!important; padding:6px 0 12px; }
-            .confirm-card { width:100%!important; max-width:100%!important; padding:14px 10px 12px; }
-            .wizard-progress { width:100%!important; max-width:100%!important; padding:10px; border-radius:18px; }
-            .wizard-labels { grid-template-columns:1fr; gap:6px; }
-            .confirm-shell { width:100%!important; max-width:100%!important; border-radius:18px; }
-            .protocol-box span { font-size:1.3rem; }
-            .next-steps,.actions,.action-button,.protocol-box,.wizard-label,.wizard-track { width:100%!important; max-width:100%!important; }
-            img,svg { max-width:100%!important; height:auto!important; }
+        .main-header{border-bottom:4px solid #1155cc;background:rgba(255,255,255,0.92);}
+        .confirm-page{width:min(680px,calc(100% - 16px));margin:0 auto;padding:10px 0 20px;text-align:center;}
+        .wizard-progress{margin:12px auto 16px;padding:14px;border-radius:28px;background:rgba(255,255,255,0.9);box-shadow:0 12px 30px rgba(17,85,204,0.12);}
+        .wizard-track{width:100%;height:14px;border-radius:999px;background:#dbe6fb;overflow:hidden;}
+        .wizard-fill{width:100%;height:100%;background:linear-gradient(90deg,#1155cc 0%,#4f86ea 100%);border-radius:999px;}
+        .wizard-labels{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-top:12px;}
+        .wizard-label{padding:10px 8px;border:1px solid #c9daf8;border-radius:16px;background:#fff;color:#2f5fb4;font-size:0.84rem;font-weight:700;text-align:center;}
+        .wizard-label.ativo{border-color:var(--cor-principal);background:var(--cor-clara);color:var(--cor-principal);}
+        .confirm-shell{background:rgba(255,255,255,0.88);border:1px solid rgba(255,255,255,0.9);border-radius:30px;box-shadow:var(--sombra-card);overflow:hidden;text-align:center;}
+        .confirm-card{padding:20px 16px 18px;text-align:center;max-width:620px;margin:0 auto;}
+        .checkmark{width:120px;height:120px;margin:0 auto 12px;}
+        .checkmark svg{width:100%;height:100%;stroke:#1155cc;fill:none;}
+        .confirm-card h1{margin:0 0 10px;color:#1155cc;font-size:clamp(1.8rem,4vw,2.6rem);letter-spacing:-0.04em;}
+        .protocol-box{margin:16px auto 12px;padding:14px;max-width:320px;border-radius:16px;background:#eef4ff;border:2px solid #1155cc;}
+        .protocol-box strong{display:block;color:#1155cc;font-size:0.98rem;margin-bottom:8px;text-transform:uppercase;letter-spacing:0.04em;}
+        .protocol-box span{display:block;color:#1155cc;font-size:1.35rem;font-weight:900;letter-spacing:0.08em;word-break:break-all;}
+        .next-steps{margin:16px auto 0;max-width:460px;padding:14px;border-radius:18px;background:#fff;border:1px solid #d7e3fb;}
+        .next-steps h2{margin:0 0 12px;color:#1155cc;font-size:1.2rem;}
+        .next-steps ol{margin:0;padding-left:22px;color:#2f5fb4;line-height:1.55;list-style-position:inside;}
+        .actions{display:grid;gap:10px;margin-top:16px;max-width:380px;margin-left:auto;margin-right:auto;}
+        .action-button{display:flex;align-items:center;justify-content:center;min-height:42px;padding:10px 14px;border-radius:12px;text-decoration:none;text-transform:uppercase;font-weight:800;letter-spacing:0.03em;transition:transform 0.16s ease;}
+        .action-button.primary{background:linear-gradient(90deg,#1155cc 0%,#4f86ea 100%);color:#fff;box-shadow:0 10px 24px rgba(17,85,204,0.24);}
+        .action-button.secondary{background:#fff;color:#1155cc;border:2px solid #1155cc;}
+        .action-button:hover{transform:translateY(-1px);}
+        @media(max-width:640px){
+            html,body{width:100%!important;max-width:100%!important;overflow-x:hidden!important;}
+            body *{min-width:0;}
+            .main-header{padding:10px 12px;}
+            .header-logos{display:flex;flex-direction:column;align-items:center;gap:10px;}
+            .header-logos img{max-width:min(88vw,280px);height:auto;}
+            .confirm-page{width:calc(100% - 8px)!important;max-width:100%!important;padding:6px 0 12px;}
+            .confirm-card{width:100%!important;max-width:100%!important;padding:14px 10px 12px;}
+            .wizard-progress{width:100%!important;max-width:100%!important;padding:10px;border-radius:18px;}
+            .wizard-labels{grid-template-columns:1fr;gap:6px;}
+            .confirm-shell{width:100%!important;max-width:100%!important;border-radius:18px;}
+            .protocol-box span{font-size:1.3rem;}
+            .next-steps,.actions,.action-button,.protocol-box,.wizard-label,.wizard-track{width:100%!important;max-width:100%!important;}
+            img,svg{max-width:100%!important;height:auto!important;}
         }
     </style>
 </head>
@@ -1755,7 +1343,6 @@ TEMPLATE_CONFIRMACAO = r'''
             <img src="/static/logo-prefeitura.png" alt="Prefeitura do Rio" class="logo-prefeitura-topo">
         </div>
     </header>
-
     <div class="confirm-page">
         <div class="wizard-progress">
             <div class="wizard-track"><div class="wizard-fill"></div></div>
@@ -1766,7 +1353,6 @@ TEMPLATE_CONFIRMACAO = r'''
                 <div class="wizard-label ativo">4. Confirmação</div>
             </div>
         </div>
-
         <div class="confirm-shell">
             <div class="confirm-card">
                 <div class="checkmark">
@@ -1814,7 +1400,6 @@ def get_default_form_data(source=None):
         "encerramento": "", "endereco_curso": "",
         "como_conheceu": "", "confirma_dados": "",
     }
-
     if source:
         for key in form_data:
             value = source.get(key, form_data[key])
@@ -1822,9 +1407,7 @@ def get_default_form_data(source=None):
                 form_data[key] = "sim" if value else ""
             else:
                 form_data[key] = (value or "").strip()
-
         fill_form_data_from_selection(form_data)
-
     return form_data
 
 
@@ -1832,17 +1415,12 @@ def cpf_valido(cpf):
     digits = re.sub(r"\D", "", cpf or "")
     if len(digits) != 11 or len(set(digits)) == 1:
         return False
-
-    total = sum(int(digits[index]) * (10 - index) for index in range(9))
-    digit = (total * 10) % 11
-    digit = 0 if digit == 10 else digit
-    if digit != int(digits[9]):
-        return False
-
-    total = sum(int(digits[index]) * (11 - index) for index in range(10))
-    digit = (total * 10) % 11
-    digit = 0 if digit == 10 else digit
-    return digit == int(digits[10])
+    total = sum(int(digits[i]) * (10 - i) for i in range(9))
+    d = (total * 10) % 11; d = 0 if d == 10 else d
+    if d != int(digits[9]): return False
+    total = sum(int(digits[i]) * (11 - i) for i in range(10))
+    d = (total * 10) % 11; d = 0 if d == 10 else d
+    return d == int(digits[10])
 
 
 def idade_aceita(nascimento):
@@ -1859,16 +1437,13 @@ def idade_aceita(nascimento):
 
 def whatsapp_valido(whatsapp):
     digits = re.sub(r"\D", "", whatsapp or "")
-    if len(digits) != 11:
-        return False
-    if not re.fullmatch(r"\(\d{2}\) \d{5}-\d{4}", whatsapp or ""):
-        return False
+    if len(digits) != 11: return False
+    if not re.fullmatch(r"\(\d{2}\) \d{5}-\d{4}", whatsapp or ""): return False
     return digits[:2] in VALID_DDDS
 
 
 def validate_form_data(form_data):
     errors = {}
-
     selected_local  = form_data.get("local_id")
     selected_curso  = form_data.get("curso_id")
     selected_option = get_course_option(form_data.get("opcao_id", ""))
@@ -1885,12 +1460,9 @@ def validate_form_data(form_data):
         errors["curso_id"] = "A turma não pertence ao curso escolhido."
 
     nome = form_data["nome"]
-    if not nome:
-        errors["nome"] = "Digite seu nome completo."
-    elif len(nome) > 50:
-        errors["nome"] = "O nome deve ter no máximo 50 caracteres."
-    elif not NAME_PATTERN.fullmatch(nome):
-        errors["nome"] = "Use apenas letras e sinais permitidos no nome."
+    if not nome: errors["nome"] = "Digite seu nome completo."
+    elif len(nome) > 50: errors["nome"] = "O nome deve ter no máximo 50 caracteres."
+    elif not NAME_PATTERN.fullmatch(nome): errors["nome"] = "Use apenas letras e sinais permitidos no nome."
 
     if form_data["genero"] not in {"Feminino", "Masculino", "Outro", "Prefiro não dizer"}:
         errors["genero"] = "Selecione o gênero."
@@ -1904,10 +1476,8 @@ def validate_form_data(form_data):
         errors["cep"] = "CEP inválido. Formato: 00000-000."
 
     bairro = form_data["bairro"]
-    if not bairro:
-        errors["bairro"] = "Informe o bairro."
-    elif len(bairro) > 40:
-        errors["bairro"] = "O bairro deve ter no máximo 40 caracteres."
+    if not bairro: errors["bairro"] = "Informe o bairro."
+    elif len(bairro) > 40: errors["bairro"] = "O bairro deve ter no máximo 40 caracteres."
 
     if not ALLOWED_EMAIL_PATTERN.fullmatch(form_data["email"] or ""):
         errors["email"] = "Digite um e-mail válido do Gmail, Hotmail, Outlook ou Yahoo."
@@ -1918,17 +1488,14 @@ def validate_form_data(form_data):
 
 
 def error_step(errors):
-    if "confirma_dados" in errors:
-        return "revisao"
-    if "local_id" in errors or "curso_id" in errors:
-        return "escolher"
+    if "confirma_dados" in errors: return "revisao"
+    if "local_id" in errors or "curso_id" in errors: return "escolher"
     return "dados"
 
 
 def render_wizard(form_data=None, errors=None, current_step="index"):
     current_form_data = form_data or get_default_form_data()
     selected_option = get_course_option(current_form_data.get("opcao_id")) or COURSE_INFO
-
     return render_template_string(
         TEMPLATE_WIZARD,
         course_info=selected_option,
@@ -1997,9 +1564,7 @@ def confirmacao():
     protocolo = session.get("protocolo")
     if not protocolo:
         return redirect(url_for("home"))
-
-    home_url = "https://movimenta-rio-mare.onrender.com"
-
+    home_url = os.environ.get("HOME_URL", "https://movimenta-rio.onrender.com")
     return render_template_string(
         TEMPLATE_CONFIRMACAO,
         protocolo=protocolo,
@@ -2007,6 +1572,7 @@ def confirmacao():
     )
 
 
+# ── SUPABASE ──────────────────────────────────────────────────────────────────
 SUPABASE_FUNCTION_URL = os.environ.get(
     "SUPABASE_FUNCTION_URL",
     "https://egpyhfzatabyftwajoad.supabase.co/functions/v1/fgm-register",
@@ -2019,35 +1585,31 @@ SUPABASE_API_KEY = os.environ.get(
 
 def normalize_phone_number(phone):
     digits = re.sub(r"[^\d]", "", phone or "")
-    if len(digits) == 11:
-        return f"55{digits}"
-    return digits
+    return f"55{digits}" if len(digits) == 11 else digits
 
 
 def send_registration_to_supabase(form_data):
     phone = normalize_phone_number(form_data.get("whatsapp", ""))
     payload = {
-        "name": form_data.get("nome", ""),
-        "phone": phone,
-        "curso": form_data.get("curso", ""),
-        "local": form_data.get("local", ""),
-        "dia_semana": form_data.get("dias_aula", ""),
-        "dias_semana": form_data.get("dias_aula", ""),
-        "data_inicio": form_data.get("data_inicio", ""),
+        "name":           form_data.get("nome", ""),
+        "phone":          phone,
+        "curso":          form_data.get("curso", ""),
+        "local":          form_data.get("local", ""),
+        "dia_semana":     form_data.get("dias_aula", ""),
+        "dias_semana":    form_data.get("dias_aula", ""),
+        "data_inicio":    form_data.get("data_inicio", ""),
         "data_inscricao": datetime.utcnow().isoformat() + "Z",
-        "horario": form_data.get("horario", ""),
+        "horario":        form_data.get("horario", ""),
     }
     headers = {
-        "Content-Type": "application/json",
-        "Accept": "application/json",
-        "x-api-key": SUPABASE_API_KEY,
+        "Content-Type":  "application/json",
+        "Accept":        "application/json",
+        "x-api-key":     SUPABASE_API_KEY,
         "Authorization": f"Bearer {SUPABASE_API_KEY}",
     }
     response = requests.post(SUPABASE_FUNCTION_URL, headers=headers, json=payload, timeout=10)
     if not response.ok:
-        raise RuntimeError(
-            f"Supabase retornou {response.status_code}: {response.text[:500]}"
-        )
+        raise RuntimeError(f"Supabase retornou {response.status_code}: {response.text[:500]}")
     return response
 
 
