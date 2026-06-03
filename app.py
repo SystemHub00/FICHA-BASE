@@ -32,167 +32,920 @@ VALID_DDDS = {
 # 1. LOCAIS
 # =============================================================================
 LOCAL_OPTIONS = [
-    {"id": "1", "nome": "IGREJA FONTE DE VIDA ETERNA - PRAÇA SECA"},
+    {"id": "1",  "nome": "Ig. Ass de Deus Resg. Valores — Campo Grande"},
+    {"id": "2",  "nome": "Cozinha Comunitária — Realengo"},
+    {"id": "3",  "nome": "Associação Amigos do Barata — Realengo"},
+    {"id": "4",  "nome": "Igreja Batista São Bento — Bangu"},
+    {"id": "5",  "nome": "Residencial Rio Samba — Campo Grande"},
+    {"id": "6",  "nome": "Ig. Metodista Embarcados C/Cristo — Campo Grande"},
+    {"id": "7",  "nome": "Reforço Escolar Tia Dani — Maré"},
+    {"id": "8",  "nome": "Igreja Batista Ebenezer — Inhoaiba"},
+    {"id": "9",  "nome": "Associação de Moradores São Jorge — Inhoaiba"},
+    {"id": "10", "nome": "Creche Tia Aninha — Campo Grande"},
+    {"id": "11", "nome": "Igreja Batista Maanaim Mendanha — Campo Grande"},
+    {"id": "12", "nome": "Salão de Festas (77) — Padre Miguel"},
+    {"id": "13", "nome": "Centro Social Estrela da Manhã — Guaratiba"},
+    {"id": "14", "nome": "Salão de Festas Encantos Mil — Santa Cruz"},
+    {"id": "15", "nome": "Campo Socyte de Manguinhos — Manguinhos"},
+    {"id": "16", "nome": "Quadra Unidos de Manguinhos — Manguinhos"},
+    {"id": "17", "nome": "Ministério Apostólico Mover Profético — Senador Camará"},
+    {"id": "18", "nome": "Igreja Batista de Colégio — Colégio"},
+    {"id": "19", "nome": "Vila Cruzeiro — Penha"},
+    {"id": "20", "nome": "Igreja Batista do Mandela — Benfica"},
+    {"id": "21", "nome": "Igreja União Evangélica Pentecostal — Cosmos"},
+    {"id": "22", "nome": "Centro Cultural Lottus — Méier"},
+    {"id": "23", "nome": "Vila do Pinheiro — Maré"},
+    {"id": "24", "nome": "Ministério Apostólico Tenda do Encontro — Cosmos"},
+    {"id": "25", "nome": "Igreja Batista Rio da Prata — Bangu"},
+    {"id": "26", "nome": "Associação dos Artesãos — Ana Gonzaga"},
+    {"id": "27", "nome": "Tia Lu — Realengo"},
+    {"id": "28", "nome": "Amubua (Associação) — Santa Cruz"},
+    {"id": "29", "nome": "Prefeitura — Centro"},
+    {"id": "30", "nome": "Assembleia de Deus na Pavuna — Cosmos"},
+    {"id": "31", "nome": "Igreja Evangélica Pão da Vida — Curicica"},
+    {"id": "32", "nome": "Associação Moradores Conjunto Liberdade — Santa Cruz"},
+    {"id": "33", "nome": "IMMEC Church — Campo Grande"},
 ]
 
 # =============================================================================
 # 2. CATÁLOGO DE CURSOS
 # =============================================================================
 COURSE_CATALOG = [
-    {"id": "1",  "nome": "INTELIGÊNCIA ARTIFICIAL"},
-    {"id": "2",  "nome": "SOCIAL MEDIA"},
-    {"id": "3",  "nome": "ORIENTADOR DE HOTELARIA"},
-    {"id": "4",  "nome": "AGENTE DE TURISMO CORPORATIVO"},
-    {"id": "5",  "nome": "UX/UI DESIGN"},
-    {"id": "6",  "nome": "OPERADOR DE SISTEMA DE COMPOSTAGEM E RESÍDUOS ORGÂNICOS"},
-    {"id": "7",  "nome": "GERENCIAMENTO DE TRÁFEGO PAGO"},
-    {"id": "8",  "nome": "CAMAREIRO"},
-    {"id": "9",  "nome": "MONITOR DE LAZER E RECREAÇÃO"},
+    {"id": "1",  "nome": "AGENTE DE TURISMO CORPORATIVO"},
+    {"id": "2",  "nome": "ASSISTENTE DE LOGÍSTICA"},
+    {"id": "3",  "nome": "AUXILIAR ADMINISTRATIVO"},
+    {"id": "4",  "nome": "AUXILIAR DE COZINHA"},
+    {"id": "5",  "nome": "BARBEIRO"},
+    {"id": "6",  "nome": "CUIDADOR DE IDOSO"},
+    {"id": "7",  "nome": "ELETRICISTA PREDIAL"},
+    {"id": "8",  "nome": "INTELIGÊNCIA ARTIFICIAL"},
+    {"id": "9",  "nome": "MARKETING DIGITAL"},
+    {"id": "10", "nome": "MONITOR DE LAZER E RECREAÇÃO"},
+    {"id": "11", "nome": "OPERADOR DE SISTEMA DE COMPOSTAGEM E RESÍDUOS ORGÂNICOS"},
+    {"id": "12", "nome": "PORTEIRO"},
+    {"id": "13", "nome": "RECEPCIONISTA"},
+    {"id": "14", "nome": "SOCIAL MEDIA"},
 ]
 
 # =============================================================================
-# 3. HORÁRIOS (AGENDAS)
+# 3. TURMAS (geradas diretamente do Excel)
+# Campos: id, curso_id, local_id, turma_codigo, turma_label,
+#         dias_aula, horario, data_inicio, encerramento, endereco_curso, local_nome, curso_nome
 # =============================================================================
-SCHEDULE_OPTIONS = {
-    "1": {"dias_aula": "Segunda e Quarta", "horario": "9h às 11h"},
-    "2": {"dias_aula": "Segunda e Quarta", "horario": "13h às 15h"},
-    "3": {"dias_aula": "Segunda e Quarta", "horario": "16h às 18h"},
-    "4": {"dias_aula": "Terça e Quinta",   "horario": "16h às 18h"},
-}
-
-# =============================================================================
-# 4. DATAS DE INÍCIO
-# =============================================================================
-START_DATE_OPTIONS = {
-    "1": "08/06/2026",
-}
-
-# =============================================================================
-# 5. DATAS DE ENCERRAMENTO
-# =============================================================================
-END_DATE_OPTIONS = {
-    "1": "08/07/2026",
-}
-
-# =============================================================================
-# 6. ENDEREÇOS
-# =============================================================================
-ADDRESS_OPTIONS = {
-    "1": "📍Rua Marangá, n° 300, Bairro: Praça Seca/RJ, Cep: 21321-060 (Igreja Fonte de Vida Eterna)",
-}
-
-# =============================================================================
-# 7. TURMAS
-# =============================================================================
-# turma_label: aparece no select quando o curso tem mais de uma turma
 TURMA_OPTIONS = [
-    # INTELIGÊNCIA ARTIFICIAL — 1 turma
+    # ── AGENTE DE TURISMO CORPORATIVO ──────────────────────────────────────
     {
-        "id": "1",  "curso_id": "1", "local_id": "1",
-        "turma_codigo": "IA-PS-01",
-        "turma_label": "Seg/Qua — 9h às 11h (início 08/06)",
-        "agenda_id": "1", "periodo_id": "1", "encerramento_id": "1", "endereco_id": "1",
+        "id": "1", "curso_id": "1", "local_id": "22",
+        "turma_codigo": "26/ATCO 04",
+        "turma_label": "Sexta — 18h às 22h (início 08/05) — Centro Cultural Lottus/Méier",
+        "dias_aula": "Sexta", "horario": "18h até 22h",
+        "data_inicio": "08/05/2026", "encerramento": "29/05/2026",
+        "endereco_curso": "Rua Dias da Cruz, Nº 638, Sala 204, Bairro Meier",
+        "local_nome": "Centro Cultural Lottus — Méier",
+        "curso_nome": "AGENTE DE TURISMO CORPORATIVO",
     },
-    # SOCIAL MEDIA — 1 turma
+
+    # ── ASSISTENTE DE LOGÍSTICA ─────────────────────────────────────────────
     {
-        "id": "2",  "curso_id": "2", "local_id": "1",
-        "turma_codigo": "SM-PS-01",
-        "turma_label": "Seg/Qua — 9h às 11h (início 08/06)",
-        "agenda_id": "1", "periodo_id": "1", "encerramento_id": "1", "endereco_id": "1",
-    },
-    # ORIENTADOR DE HOTELARIA — 2 turmas
-    {
-        "id": "3",  "curso_id": "3", "local_id": "1",
-        "turma_codigo": "OH-PS-01",
-        "turma_label": "Seg/Qua — 9h às 11h (início 08/06)",
-        "agenda_id": "1", "periodo_id": "1", "encerramento_id": "1", "endereco_id": "1",
-    },
-    {
-        "id": "4",  "curso_id": "3", "local_id": "1",
-        "turma_codigo": "OH-PS-02",
-        "turma_label": "Seg/Qua — 16h às 18h (início 08/06)",
-        "agenda_id": "3", "periodo_id": "1", "encerramento_id": "1", "endereco_id": "1",
-    },
-    # AGENTE DE TURISMO CORPORATIVO — 1 turma
-    {
-        "id": "5",  "curso_id": "4", "local_id": "1",
-        "turma_codigo": "ATC-PS-01",
-        "turma_label": "Seg/Qua — 13h às 15h (início 08/06)",
-        "agenda_id": "2", "periodo_id": "1", "encerramento_id": "1", "endereco_id": "1",
-    },
-    # UX/UI DESIGN — 1 turma
-    {
-        "id": "6",  "curso_id": "5", "local_id": "1",
-        "turma_codigo": "UX-PS-01",
-        "turma_label": "Seg/Qua — 13h às 15h (início 08/06)",
-        "agenda_id": "2", "periodo_id": "1", "encerramento_id": "1", "endereco_id": "1",
-    },
-    # OPERADOR DE COMPOSTAGEM E RESÍDUOS ORGÂNICOS — 1 turma
-    {
-        "id": "7",  "curso_id": "6", "local_id": "1",
-        "turma_codigo": "CR-PS-01",
-        "turma_label": "Seg/Qua — 13h às 15h (início 08/06)",
-        "agenda_id": "2", "periodo_id": "1", "encerramento_id": "1", "endereco_id": "1",
-    },
-    # GERENCIAMENTO DE TRÁFEGO PAGO — 1 turma  ← ALTERADO: Ter/Qui 16h às 18h
-    {
-        "id": "8",  "curso_id": "7", "local_id": "1",
-        "turma_codigo": "GTP-PS-01",
-        "turma_label": "Ter/Qui — 16h às 18h (início 08/06)",
-        "agenda_id": "4", "periodo_id": "1", "encerramento_id": "1", "endereco_id": "1",
-    },
-    # CAMAREIRO — 2 turmas
-    {
-        "id": "9",  "curso_id": "8", "local_id": "1",
-        "turma_codigo": "CAM-PS-01",
-        "turma_label": "Seg/Qua — 16h às 18h (início 08/06)",
-        "agenda_id": "3", "periodo_id": "1", "encerramento_id": "1", "endereco_id": "1",
+        "id": "2", "curso_id": "2", "local_id": "1",
+        "turma_codigo": "26/ASLO 22",
+        "turma_label": "Sábado — 08h às 12h (início 11/04) — Ig. Ass de Deus/Campo Grande",
+        "dias_aula": "Sábado", "horario": "08h até 12h",
+        "data_inicio": "11/04/2026", "encerramento": "02/05/2026",
+        "endereco_curso": "Rua Ofelia Costa Lot. 09 Qd H, Bairro Arnaldo Eugênio, Campo Grande",
+        "local_nome": "Ig. Ass de Deus Resg. Valores — Campo Grande",
+        "curso_nome": "ASSISTENTE DE LOGÍSTICA",
     },
     {
-        "id": "10", "curso_id": "8", "local_id": "1",
-        "turma_codigo": "CAM-PS-02",
-        "turma_label": "Ter/Qui — 16h às 18h (início 08/06)",
-        "agenda_id": "4", "periodo_id": "1", "encerramento_id": "1", "endereco_id": "1",
-    },
-    # MONITOR DE LAZER E RECREAÇÃO — 2 turmas  ← ALTERADO: Seg/Qua 16h às 18h
-    {
-        "id": "11", "curso_id": "9", "local_id": "1",
-        "turma_codigo": "MLR-PS-01",
-        "turma_label": "Seg/Qua — 16h às 18h (início 08/06) — Turma 1",
-        "agenda_id": "3", "periodo_id": "1", "encerramento_id": "1", "endereco_id": "1",
+        "id": "3", "curso_id": "2", "local_id": "5",
+        "turma_codigo": "26/ASLO 25",
+        "turma_label": "Sábado — 08h às 12h (início 30/05) — Residencial Rio Samba/Campo Grande",
+        "dias_aula": "Sábado", "horario": "08h até 12h",
+        "data_inicio": "30/05/2026", "encerramento": "20/06/2026",
+        "endereco_curso": "Rua Antonio Carlos Belchior, 200, Mendanha, Campo Grande",
+        "local_nome": "Residencial Rio Samba — Campo Grande",
+        "curso_nome": "ASSISTENTE DE LOGÍSTICA",
     },
     {
-        "id": "12", "curso_id": "9", "local_id": "1",
-        "turma_codigo": "MLR-PS-02",
-        "turma_label": "Seg/Qua — 16h às 18h (início 08/06) — Turma 2",
-        "agenda_id": "3", "periodo_id": "1", "encerramento_id": "1", "endereco_id": "1",
+        "id": "4", "curso_id": "2", "local_id": "8",
+        "turma_codigo": "26/ASLO 17",
+        "turma_label": "Sábado — 08h às 12h (início 25/04) — Igreja Batista Ebenezer/Inhoaiba",
+        "dias_aula": "Sábado", "horario": "08h até 12h",
+        "data_inicio": "25/04/2026", "encerramento": "02/05/2026",
+        "endereco_curso": "Avenida A, nº 2756, Bairro Inhoaiba, Campo Grande",
+        "local_nome": "Igreja Batista Ebenezer — Inhoaiba",
+        "curso_nome": "ASSISTENTE DE LOGÍSTICA",
+    },
+    {
+        "id": "5", "curso_id": "2", "local_id": "8",
+        "turma_codigo": "26/ASLO 24",
+        "turma_label": "Segunda — 18h às 22h (início 18/05) — Igreja Batista Ebenezer/Inhoaiba",
+        "dias_aula": "Segunda", "horario": "18h até 22h",
+        "data_inicio": "18/05/2026", "encerramento": "08/06/2026",
+        "endereco_curso": "Avenida A, 2756, Inhoiba",
+        "local_nome": "Igreja Batista Ebenezer — Inhoaiba",
+        "curso_nome": "ASSISTENTE DE LOGÍSTICA",
+    },
+    {
+        "id": "6", "curso_id": "2", "local_id": "9",
+        "turma_codigo": "26/ASLO 18",
+        "turma_label": "Sábado — 08h às 12h (início 25/04) — Assoc. de Moradores São Jorge/Inhoaiba",
+        "dias_aula": "Sábado", "horario": "08h até 12h",
+        "data_inicio": "25/04/2026", "encerramento": "02/05/2026",
+        "endereco_curso": "Rua Moranga, 125, Cs 102 Bairro Inhoaiba, Campo Grande",
+        "local_nome": "Associação de Moradores São Jorge — Inhoaiba",
+        "curso_nome": "ASSISTENTE DE LOGÍSTICA",
+    },
+    {
+        "id": "7", "curso_id": "2", "local_id": "10",
+        "turma_codigo": "26/ASLO 19",
+        "turma_label": "Sábado — 08h às 12h (início 11/04) — Creche Tia Aninha/Campo Grande",
+        "dias_aula": "Sábado", "horario": "08h até 12h",
+        "data_inicio": "11/04/2026", "encerramento": "02/05/2026",
+        "endereco_curso": "Rua Treze nº 18, Bairro Vilar Carioca, Campo Grande",
+        "local_nome": "Creche Tia Aninha — Campo Grande",
+        "curso_nome": "ASSISTENTE DE LOGÍSTICA",
+    },
+    {
+        "id": "8", "curso_id": "2", "local_id": "11",
+        "turma_codigo": "26/ASLO 20",
+        "turma_label": "Sábado — 08h às 12h (início 11/04) — Ig. Batista Maanaim Mendanha/Campo Grande",
+        "dias_aula": "Sábado", "horario": "08h até 12h",
+        "data_inicio": "11/04/2026", "encerramento": "02/05/2026",
+        "endereco_curso": "Estrada do Mendanha, 4240 - Campo Grande",
+        "local_nome": "Igreja Batista Maanaim Mendanha — Campo Grande",
+        "curso_nome": "ASSISTENTE DE LOGÍSTICA",
+    },
+    {
+        "id": "9", "curso_id": "2", "local_id": "21",
+        "turma_codigo": "26/ASLO 28",
+        "turma_label": "Sábado — 14h às 18h (início 25/04) — Igreja União Evangélica/Cosmos",
+        "dias_aula": "Sábado", "horario": "14h até 18h",
+        "data_inicio": "25/04/2026", "encerramento": "09/05/2026",
+        "endereco_curso": "Rua Herval Rossano, Lt. 26, Qd. 16, bairro Cosmos",
+        "local_nome": "Igreja União Evangélica Pentecostal — Cosmos",
+        "curso_nome": "ASSISTENTE DE LOGÍSTICA",
+    },
+    {
+        "id": "10", "curso_id": "2", "local_id": "24",
+        "turma_codigo": "26/ASLO 23",
+        "turma_label": "Terça — 18h às 22h (início 05/05) — Min. Ap. Tenda do Encontro/Cosmos",
+        "dias_aula": "Terça", "horario": "18h até 22h",
+        "data_inicio": "05/05/2026", "encerramento": "26/05/2026",
+        "endereco_curso": "Rua Framboesa, Nº 21, Bairro Cosmos",
+        "local_nome": "Ministério Apostólico Tenda do Encontro — Cosmos",
+        "curso_nome": "ASSISTENTE DE LOGÍSTICA",
+    },
+    {
+        "id": "11", "curso_id": "2", "local_id": "25",
+        "turma_codigo": "26/ASLO 26",
+        "turma_label": "Segunda e Terça — 19h às 21h30 (início 01/06) — Ig. Batista Rio da Prata/Bangu",
+        "dias_aula": "Segunda e Terça", "horario": "19h até 21h30",
+        "data_inicio": "01/06/2026", "encerramento": "23/06/2026",
+        "endereco_curso": "Rua dos Limadores, Nº 866, Bairro Bangu",
+        "local_nome": "Igreja Batista Rio da Prata — Bangu",
+        "curso_nome": "ASSISTENTE DE LOGÍSTICA",
+    },
+    {
+        "id": "12", "curso_id": "2", "local_id": "26",
+        "turma_codigo": "26/ASLO 27",
+        "turma_label": "Terça — 08h às 12h (início 02/06) — Associação dos Artesãos/Ana Gonzaga",
+        "dias_aula": "Terça", "horario": "08h até 12h",
+        "data_inicio": "02/06/2026", "encerramento": "23/06/2026",
+        "endereco_curso": "Rua Esmeralda Ana Gonzaga QD, Nº 11, Bairro Ana Gonzaga",
+        "local_nome": "Associação dos Artesãos — Ana Gonzaga",
+        "curso_nome": "ASSISTENTE DE LOGÍSTICA",
+    },
+    {
+        "id": "13", "curso_id": "2", "local_id": "31",
+        "turma_codigo": "26/ASLO 21",
+        "turma_label": "Segunda e Quarta — 19h às 21h (início 11/04) — Ig. Evangélica Pão da Vida/Curicica",
+        "dias_aula": "Segunda e Quarta", "horario": "19h até 21h",
+        "data_inicio": "11/04/2026", "encerramento": "29/04/2026",
+        "endereco_curso": "Rua Mandima, nº 2, bairro Curicica",
+        "local_nome": "Igreja Evangélica Pão da Vida — Curicica",
+        "curso_nome": "ASSISTENTE DE LOGÍSTICA",
+    },
+    {
+        "id": "14", "curso_id": "2", "local_id": "33",
+        "turma_codigo": "FGM-AL-01",
+        "turma_label": "Sábado — 08h às 12h (início 30/05) — IMMEC Church/Campo Grande",
+        "dias_aula": "Sábado", "horario": "08:00 às 12:00",
+        "data_inicio": "30/05/2026", "encerramento": "20/06/2026",
+        "endereco_curso": "Estrada do Cabuçu, 2692 - Campo Grande, RJ",
+        "local_nome": "IMMEC Church — Campo Grande",
+        "curso_nome": "ASSISTENTE DE LOGÍSTICA",
+    },
+
+    # ── AUXILIAR ADMINISTRATIVO ─────────────────────────────────────────────
+    {
+        "id": "15", "curso_id": "3", "local_id": "12",
+        "turma_codigo": "26/ADMN 29",
+        "turma_label": "Segunda e Quarta — 19h às 21h (início 27/04) — Salão de Festas (77)/Padre Miguel",
+        "dias_aula": "Segunda e Quarta", "horario": "19h até 21h",
+        "data_inicio": "27/04/2026", "encerramento": "23/05/2026",
+        "endereco_curso": "Rua Juazeiro do Norte, 639 - Padre Miguel",
+        "local_nome": "Salão de Festas (77) — Padre Miguel",
+        "curso_nome": "AUXILIAR ADMINISTRATIVO",
+    },
+    {
+        "id": "16", "curso_id": "3", "local_id": "13",
+        "turma_codigo": "26/ADMN 28",
+        "turma_label": "Terça e Quinta — 18h às 20h (início 28/04) — Centro Social Estrela da Manhã/Guaratiba",
+        "dias_aula": "Terça e Quinta", "horario": "18h até 20h",
+        "data_inicio": "28/04/2026", "encerramento": "14/05/2026",
+        "endereco_curso": "Rua Alcides Franco, nº 175, bairro Guaratiba",
+        "local_nome": "Centro Social Estrela da Manhã — Guaratiba",
+        "curso_nome": "AUXILIAR ADMINISTRATIVO",
+    },
+    {
+        "id": "17", "curso_id": "3", "local_id": "13",
+        "turma_codigo": "26/ADMN 33",
+        "turma_label": "Terça e Quinta — 9h30 às 11h30 (início 19/05) — Centro Social Estrela da Manhã/Guaratiba",
+        "dias_aula": "Terça e Quinta", "horario": "9:30 até 11:30",
+        "data_inicio": "19/05/2026", "encerramento": "11/06/2026",
+        "endereco_curso": "Rua Alcides Franco, nº 175, bairro Guaratiba",
+        "local_nome": "Centro Social Estrela da Manhã — Guaratiba",
+        "curso_nome": "AUXILIAR ADMINISTRATIVO",
+    },
+    {
+        "id": "18", "curso_id": "3", "local_id": "15",
+        "turma_codigo": "26/ADMN 42",
+        "turma_label": "Segunda e Quarta — 09h às 11h (início 25/05) — Campo Socyte de Manguinhos — Turma 1",
+        "dias_aula": "Segunda e Quarta", "horario": "09h até 11h",
+        "data_inicio": "25/05/2026", "encerramento": "10/06/2026",
+        "endereco_curso": "Rua Nossa Senhora dos Navegantes, Nº 03, Bairro Manguinhos",
+        "local_nome": "Campo Socyte de Manguinhos — Manguinhos",
+        "curso_nome": "AUXILIAR ADMINISTRATIVO",
+    },
+    {
+        "id": "19", "curso_id": "3", "local_id": "15",
+        "turma_codigo": "26/ADMN 38",
+        "turma_label": "Segunda e Quarta — 09h às 11h (início 25/05) — Campo Socyte de Manguinhos — Turma 2",
+        "dias_aula": "Segunda e Quarta", "horario": "09h até 11h",
+        "data_inicio": "25/05/2026", "encerramento": "10/06/2026",
+        "endereco_curso": "Rua Nossa Senhora dos Navegantes, Nº 03, Bairro Manguinhos",
+        "local_nome": "Campo Socyte de Manguinhos — Manguinhos",
+        "curso_nome": "AUXILIAR ADMINISTRATIVO",
+    },
+    {
+        "id": "20", "curso_id": "3", "local_id": "16",
+        "turma_codigo": "26/ADMN 37",
+        "turma_label": "Segunda e Quarta — 19h às 21h (início 25/05) — Quadra Unidos de Manguinhos",
+        "dias_aula": "Segunda e Quarta", "horario": "19h até 21h",
+        "data_inicio": "25/05/2026", "encerramento": "10/06/2026",
+        "endereco_curso": "Avenida dos Democráticos, Nº 32, Bairro Manguinhos",
+        "local_nome": "Quadra Unidos de Manguinhos — Manguinhos",
+        "curso_nome": "AUXILIAR ADMINISTRATIVO",
+    },
+    {
+        "id": "21", "curso_id": "3", "local_id": "16",
+        "turma_codigo": "26/ADMN 39",
+        "turma_label": "Terça e Quinta — 19h às 21h (início 26/05) — Quadra Unidos de Manguinhos — Turma 1",
+        "dias_aula": "Terça e Quinta", "horario": "19h até 21h",
+        "data_inicio": "26/05/2026", "encerramento": "11/06/2026",
+        "endereco_curso": "Avenida dos Democráticos, Nº 32, Bairro Manguinhos",
+        "local_nome": "Quadra Unidos de Manguinhos — Manguinhos",
+        "curso_nome": "AUXILIAR ADMINISTRATIVO",
+    },
+    {
+        "id": "22", "curso_id": "3", "local_id": "16",
+        "turma_codigo": "26/ADMN 40",
+        "turma_label": "Terça e Quinta — 19h às 21h (início 26/05) — Quadra Unidos de Manguinhos — Turma 2",
+        "dias_aula": "Terça e Quinta", "horario": "19h até 21h",
+        "data_inicio": "26/05/2026", "encerramento": "11/06/2026",
+        "endereco_curso": "Avenida dos Democráticos, Nº 32, Bairro Manguinhos",
+        "local_nome": "Quadra Unidos de Manguinhos — Manguinhos",
+        "curso_nome": "AUXILIAR ADMINISTRATIVO",
+    },
+    {
+        "id": "23", "curso_id": "3", "local_id": "17",
+        "turma_codigo": "26/ADMN 41",
+        "turma_label": "Sábado — 08h às 12h (início 06/06) — Min. Ap. Mover Profético/Senador Camará",
+        "dias_aula": "Sábado", "horario": "08h até 12h",
+        "data_inicio": "06/06/2026", "encerramento": "27/06/2026",
+        "endereco_curso": "Rua Bom Guilherme Francisco Moraes, Nº 03, Bairro Senador Camará",
+        "local_nome": "Ministério Apostólico Mover Profético — Senador Camará",
+        "curso_nome": "AUXILIAR ADMINISTRATIVO",
+    },
+    {
+        "id": "24", "curso_id": "3", "local_id": "18",
+        "turma_codigo": "26/ADMN 25",
+        "turma_label": "Segunda e Terça — 14h às 16h (início 27/04) — Igreja Batista de Colégio",
+        "dias_aula": "Segunda e Terça", "horario": "14h até 16h",
+        "data_inicio": "27/04/2026", "encerramento": "19/05/2026",
+        "endereco_curso": "Estrada de Colégio, Nº 121, Bairro Colégio",
+        "local_nome": "Igreja Batista de Colégio — Colégio",
+        "curso_nome": "AUXILIAR ADMINISTRATIVO",
+    },
+    {
+        "id": "25", "curso_id": "3", "local_id": "21",
+        "turma_codigo": "26/ADMN 35",
+        "turma_label": "Sábado — 14h às 18h (início 30/05) — Igreja União Evangélica Pentecostal/Cosmos",
+        "dias_aula": "Sábado", "horario": "14h até 18h",
+        "data_inicio": "30/05/2026", "encerramento": "20/06/2026",
+        "endereco_curso": "Rua Herval Rossano, Lt. 26, Qd. 16, bairro Cosmos",
+        "local_nome": "Igreja União Evangélica Pentecostal — Cosmos",
+        "curso_nome": "AUXILIAR ADMINISTRATIVO",
+    },
+    {
+        "id": "26", "curso_id": "3", "local_id": "23",
+        "turma_codigo": "26/ADMN 24",
+        "turma_label": "Sábado — 08h às 12h (início 02/05) — Vila do Pinheiro/Maré",
+        "dias_aula": "Sábado", "horario": "08h até 12h",
+        "data_inicio": "02/05/2026", "encerramento": "23/05/2026",
+        "endereco_curso": "Via B9, Nº 379, Bloco 14, Bairro Mare",
+        "local_nome": "Vila do Pinheiro — Maré",
+        "curso_nome": "AUXILIAR ADMINISTRATIVO",
+    },
+    {
+        "id": "27", "curso_id": "3", "local_id": "23",
+        "turma_codigo": "26/ADMN 32",
+        "turma_label": "Terça e Quinta — 08h às 11h (início 02/06) — Vila do Pinheiro/Maré",
+        "dias_aula": "Terça e Quinta", "horario": "08h até 11h",
+        "data_inicio": "02/06/2026", "encerramento": "18/06/2026",
+        "endereco_curso": "Via B9, Nº 379, Bloco 14, Bairro Mare",
+        "local_nome": "Vila do Pinheiro — Maré",
+        "curso_nome": "AUXILIAR ADMINISTRATIVO",
+    },
+    {
+        "id": "28", "curso_id": "3", "local_id": "26",
+        "turma_codigo": "26/ADMN 26",
+        "turma_label": "Terça — 08h às 12h (início 05/05) — Associação dos Artesãos/Ana Gonzaga",
+        "dias_aula": "Terça", "horario": "08h até 12h",
+        "data_inicio": "05/05/2026", "encerramento": "26/05/2026",
+        "endereco_curso": "Rua Esmeralda Ana Gonzaga QD, Nº 11, Bairro Ana Gonzaga",
+        "local_nome": "Associação dos Artesãos — Ana Gonzaga",
+        "curso_nome": "AUXILIAR ADMINISTRATIVO",
+    },
+    {
+        "id": "29", "curso_id": "3", "local_id": "28",
+        "turma_codigo": "26/ADMN 27",
+        "turma_label": "Sábado — 08h às 12h (início 05/05) — Amubua (Associação)/Santa Cruz",
+        "dias_aula": "Sábado", "horario": "08h até 12h",
+        "data_inicio": "05/05/2026", "encerramento": "28/05/2026",
+        "endereco_curso": "Rua José Silton Pinheiro, Nº 51, Bairro Santa Cruz",
+        "local_nome": "Amubua (Associação) — Santa Cruz",
+        "curso_nome": "AUXILIAR ADMINISTRATIVO",
+    },
+    {
+        "id": "30", "curso_id": "3", "local_id": "30",
+        "turma_codigo": "26/ADMN 31",
+        "turma_label": "Segunda — 18h30 às 22h (início 18/05) — Assembleia de Deus na Pavuna/Cosmos",
+        "dias_aula": "Segunda", "horario": "18:30 até 22h",
+        "data_inicio": "18/05/2026", "encerramento": "08/06/2026",
+        "endereco_curso": "Rua 9, lote 19, casa 2, Cj Urucania, Cosmos",
+        "local_nome": "Assembleia de Deus na Pavuna — Cosmos",
+        "curso_nome": "AUXILIAR ADMINISTRATIVO",
+    },
+    {
+        "id": "31", "curso_id": "3", "local_id": "31",
+        "turma_codigo": "26/ADMN 34",
+        "turma_label": "Segunda e Quarta — 19h30 às 21h30 (início 18/05) — Ig. Ev. Pão da Vida/Curicica",
+        "dias_aula": "Segunda e Quarta", "horario": "19:30 até 21:30",
+        "data_inicio": "18/05/2026", "encerramento": "10/06/2026",
+        "endereco_curso": "Rua Mandina, 2, Curicica",
+        "local_nome": "Igreja Evangélica Pão da Vida — Curicica",
+        "curso_nome": "AUXILIAR ADMINISTRATIVO",
+    },
+    {
+        "id": "32", "curso_id": "3", "local_id": "32",
+        "turma_codigo": "26/ADMN 23",
+        "turma_label": "Sábado — 09h às 13h (início 09/05) — Assoc. Moradores Conj. Liberdade/Santa Cruz",
+        "dias_aula": "Sábado", "horario": "09h até 13h",
+        "data_inicio": "09/05/2026", "encerramento": "30/05/2026",
+        "endereco_curso": "Avenida Canal Margem Direita, Nº 54, Bairro Santa Cruz",
+        "local_nome": "Associação Moradores Conjunto Liberdade — Santa Cruz",
+        "curso_nome": "AUXILIAR ADMINISTRATIVO",
+    },
+    {
+        "id": "33", "curso_id": "3", "local_id": "32",
+        "turma_codigo": "26/ADMN 36",
+        "turma_label": "Sábado — 09h às 13h (início 13/06) — Assoc. Moradores Conj. Liberdade/Santa Cruz",
+        "dias_aula": "Sábado", "horario": "09h até 13h",
+        "data_inicio": "13/06/2026", "encerramento": "04/07/2026",
+        "endereco_curso": "Avenida Canal Margem Direita, Nº 54, Bairro Santa Cruz",
+        "local_nome": "Associação Moradores Conjunto Liberdade — Santa Cruz",
+        "curso_nome": "AUXILIAR ADMINISTRATIVO",
+    },
+
+    # ── AUXILIAR DE COZINHA ─────────────────────────────────────────────────
+    {
+        "id": "34", "curso_id": "4", "local_id": "14",
+        "turma_codigo": "26/AXCZ 16",
+        "turma_label": "Sábado — 08h às 12h (início 18/04) — Salão de Festas Encantos Mil/Santa Cruz — Turma 1",
+        "dias_aula": "Sábado", "horario": "8h até 12h",
+        "data_inicio": "18/04/2026", "encerramento": "09/05/2026",
+        "endereco_curso": "Avenida Marginal, nº 107, bairro Santa Cruz",
+        "local_nome": "Salão de Festas Encantos Mil — Santa Cruz",
+        "curso_nome": "AUXILIAR DE COZINHA",
+    },
+    {
+        "id": "35", "curso_id": "4", "local_id": "14",
+        "turma_codigo": "26/AXCZ 18",
+        "turma_label": "Sábado — 08h às 12h (início 16/05) — Salão de Festas Encantos Mil/Santa Cruz — Turma 2",
+        "dias_aula": "Sábado", "horario": "08h até 12h",
+        "data_inicio": "16/05/2026", "encerramento": "06/06/2026",
+        "endereco_curso": "Avenida Marginal, nº 107, bairro: Santa Cruz",
+        "local_nome": "Salão de Festas Encantos Mil — Santa Cruz",
+        "curso_nome": "AUXILIAR DE COZINHA",
+    },
+    {
+        "id": "36", "curso_id": "4", "local_id": "17",
+        "turma_codigo": "26/AXCZ 19",
+        "turma_label": "Quarta e Sexta — 16h às 18h (início 10/06) — Min. Ap. Mover Profético/Senador Camará",
+        "dias_aula": "Quarta e Sexta", "horario": "16h até 18h",
+        "data_inicio": "10/06/2026", "encerramento": "03/07/2026",
+        "endereco_curso": "Rua Bom Guilherme Francisco Moraes, Nº 03, Bairro Senador Camará",
+        "local_nome": "Ministério Apostólico Mover Profético — Senador Camará",
+        "curso_nome": "AUXILIAR DE COZINHA",
+    },
+    {
+        "id": "37", "curso_id": "4", "local_id": "20",
+        "turma_codigo": "26/AXCZ 15",
+        "turma_label": "Segunda e Terça — 19h às 21h (início 27/04) — Igreja Batista do Mandela/Benfica",
+        "dias_aula": "Segunda e Terça", "horario": "19h até 21h",
+        "data_inicio": "27/04/2026", "encerramento": "19/05/2026",
+        "endereco_curso": "Rua Leopoldo Bulhões, Nº 800, Bairro Benfica",
+        "local_nome": "Igreja Batista do Mandela — Benfica",
+        "curso_nome": "AUXILIAR DE COZINHA",
+    },
+    {
+        "id": "38", "curso_id": "4", "local_id": "26",
+        "turma_codigo": "26/AXCZ 17",
+        "turma_label": "Sábado — 14h às 18h (início 09/05) — Associação dos Artesãos/Ana Gonzaga — Turma 1",
+        "dias_aula": "Sábado", "horario": "14h até 18h",
+        "data_inicio": "09/05/2026", "encerramento": "30/05/2026",
+        "endereco_curso": "Rua Esmeralda Ana Gonzaga QD, Nº 11, Bairro Ana Gonzaga",
+        "local_nome": "Associação dos Artesãos — Ana Gonzaga",
+        "curso_nome": "AUXILIAR DE COZINHA",
+    },
+    {
+        "id": "39", "curso_id": "4", "local_id": "26",
+        "turma_codigo": "26/AXCZ 20",
+        "turma_label": "Sábado — 14h às 18h (início 06/06) — Associação dos Artesãos/Ana Gonzaga — Turma 2",
+        "dias_aula": "Sábado", "horario": "14h até 18h",
+        "data_inicio": "06/06/2026", "encerramento": "27/06/2026",
+        "endereco_curso": "Rua Esmeralda Ana Gonzaga QD, Nº 11, Bairro Ana Gonzaga",
+        "local_nome": "Associação dos Artesãos — Ana Gonzaga",
+        "curso_nome": "AUXILIAR DE COZINHA",
+    },
+    {
+        "id": "40", "curso_id": "4", "local_id": "33",
+        "turma_codigo": "FGM-AC-01",
+        "turma_label": "Sábado — 09h às 13h (início 30/05) — IMMEC Church/Campo Grande",
+        "dias_aula": "Sábado", "horario": "09:00 às 13:00",
+        "data_inicio": "30/05/2026", "encerramento": "20/06/2026",
+        "endereco_curso": "Estrada do Cabuçu, 2692 - Campo Grande, RJ",
+        "local_nome": "IMMEC Church — Campo Grande",
+        "curso_nome": "AUXILIAR DE COZINHA",
+    },
+
+    # ── BARBEIRO ────────────────────────────────────────────────────────────
+    {
+        "id": "41", "curso_id": "5", "local_id": "19",
+        "turma_codigo": "26/BARB 01",
+        "turma_label": "Sábado — 08h às 12h (início 23/05) — Vila Cruzeiro/Penha",
+        "dias_aula": "Sábado", "horario": "08h até 12h",
+        "data_inicio": "23/05/2026", "encerramento": "13/06/2026",
+        "endereco_curso": "Rua Sargento Ricardo Filho, Nº 26, Bairro Penha",
+        "local_nome": "Vila Cruzeiro — Penha",
+        "curso_nome": "BARBEIRO",
+    },
+
+    # ── CUIDADOR DE IDOSO ───────────────────────────────────────────────────
+    {
+        "id": "42", "curso_id": "6", "local_id": "5",
+        "turma_codigo": "26/CUDI",
+        "turma_label": "Segunda e Quarta — 19h às 21h (início 08/04) — Residencial Rio Samba/Campo Grande",
+        "dias_aula": "Segunda e Quarta", "horario": "19h até 21h",
+        "data_inicio": "08/04/2026", "encerramento": "29/04/2026",
+        "endereco_curso": "Rua Antonio Carlos Belchior, 200, Mendanha, Campo Grande",
+        "local_nome": "Residencial Rio Samba — Campo Grande",
+        "curso_nome": "CUIDADOR DE IDOSO",
+    },
+
+    # ── ELETRICISTA PREDIAL ─────────────────────────────────────────────────
+    {
+        "id": "43", "curso_id": "7", "local_id": "2",
+        "turma_codigo": "26/ELPR 01",
+        "turma_label": "Sábado — 18h às 21h (início 11/04) — Cozinha Comunitária/Realengo",
+        "dias_aula": "Sábado", "horario": "18h até 21h",
+        "data_inicio": "11/04/2026", "encerramento": "09/05/2026",
+        "endereco_curso": "Rua General Raposo, Nº 41, Bairro Realengo",
+        "local_nome": "Cozinha Comunitária — Realengo",
+        "curso_nome": "ELETRICISTA PREDIAL",
+    },
+    {
+        "id": "44", "curso_id": "7", "local_id": "2",
+        "turma_codigo": "26/ELPR 02",
+        "turma_label": "Terça e Quinta — 18h às 21h (início 26/05) — Cozinha Comunitária/Realengo",
+        "dias_aula": "Terça e Quinta", "horario": "18h até 21h",
+        "data_inicio": "26/05/2026", "encerramento": "09/06/2026",
+        "endereco_curso": "Rua General Raposo, Nº 41, Bairro Realengo",
+        "local_nome": "Cozinha Comunitária — Realengo",
+        "curso_nome": "ELETRICISTA PREDIAL",
+    },
+
+    # ── INTELIGÊNCIA ARTIFICIAL ─────────────────────────────────────────────
+    {
+        "id": "45", "curso_id": "8", "local_id": "4",
+        "turma_codigo": "26/INAT 14",
+        "turma_label": "Sábado — 09h às 13h (início 02/05) — Igreja Batista São Bento/Bangu",
+        "dias_aula": "Sábado", "horario": "09h até 13h",
+        "data_inicio": "02/05/2026", "encerramento": "23/05/2026",
+        "endereco_curso": "Rua Batuira, Nº 121, Bairro São Bento - Bangu",
+        "local_nome": "Igreja Batista São Bento — Bangu",
+        "curso_nome": "INTELIGÊNCIA ARTIFICIAL",
+    },
+    {
+        "id": "46", "curso_id": "8", "local_id": "4",
+        "turma_codigo": "26/INAT 18",
+        "turma_label": "Sábado — 08h às 12h (início 06/06) — Igreja Batista São Bento/Bangu",
+        "dias_aula": "Sábado", "horario": "08h até 12h",
+        "data_inicio": "06/06/2026", "encerramento": "27/06/2026",
+        "endereco_curso": "Rua Batuira, Nº 121, Bairro São Bento - Bangu",
+        "local_nome": "Igreja Batista São Bento — Bangu",
+        "curso_nome": "INTELIGÊNCIA ARTIFICIAL",
+    },
+    {
+        "id": "47", "curso_id": "8", "local_id": "6",
+        "turma_codigo": "26/INAT 21",
+        "turma_label": "Sábado — 08h às 12h (início 30/05) — Ig. Metodista Embarcados C/Cristo/Campo Grande",
+        "dias_aula": "Sábado", "horario": "08h até 12h",
+        "data_inicio": "30/05/2026", "encerramento": "20/06/2026",
+        "endereco_curso": "Est. do Cabuçu, 2692, Bairro Rio da Prata, Campo Grande",
+        "local_nome": "Ig. Metodista Embarcados C/Cristo — Campo Grande",
+        "curso_nome": "INTELIGÊNCIA ARTIFICIAL",
+    },
+    {
+        "id": "48", "curso_id": "8", "local_id": "7",
+        "turma_codigo": "26/INAT 19",
+        "turma_label": "Sábado — 10h às 14h (início 06/06) — Reforço Escolar Tia Dani/Maré",
+        "dias_aula": "Sábado", "horario": "10h até 14h",
+        "data_inicio": "06/06/2026", "encerramento": "27/06/2026",
+        "endereco_curso": "Rua Darcy Vargas, Nº 136, Bairro Maré",
+        "local_nome": "Reforço Escolar Tia Dani — Maré",
+        "curso_nome": "INTELIGÊNCIA ARTIFICIAL",
+    },
+    {
+        "id": "49", "curso_id": "8", "local_id": "23",
+        "turma_codigo": "26/INAT 15",
+        "turma_label": "Sábado — 09h às 13h (início 09/05) — Vila do Pinheiro/Maré",
+        "dias_aula": "Sábado", "horario": "09h até 13h",
+        "data_inicio": "09/05/2026", "encerramento": "30/05/2026",
+        "endereco_curso": "Via B9, Nº 379, Bloco 14, Bairro Mare",
+        "local_nome": "Vila do Pinheiro — Maré",
+        "curso_nome": "INTELIGÊNCIA ARTIFICIAL",
+    },
+    {
+        "id": "50", "curso_id": "8", "local_id": "26",
+        "turma_codigo": "26/INAT 20",
+        "turma_label": "Quarta — 08h às 12h (início 03/06) — Associação dos Artesãos/Ana Gonzaga",
+        "dias_aula": "Quarta", "horario": "08h até 12h",
+        "data_inicio": "03/06/2026", "encerramento": "24/06/2026",
+        "endereco_curso": "Rua Esmeralda Ana Gonzaga QD, Nº 11, Bairro Ana Gonzaga",
+        "local_nome": "Associação dos Artesãos — Ana Gonzaga",
+        "curso_nome": "INTELIGÊNCIA ARTIFICIAL",
+    },
+
+    # ── MARKETING DIGITAL ───────────────────────────────────────────────────
+    {
+        "id": "51", "curso_id": "9", "local_id": "6",
+        "turma_codigo": "26/MARK 17",
+        "turma_label": "Sábado — 08h às 12h (início 11/04) — Ig. Metodista Embarcados C/Cristo/Campo Grande",
+        "dias_aula": "Sábado", "horario": "08h até 12h",
+        "data_inicio": "11/04/2026", "encerramento": "02/05/2026",
+        "endereco_curso": "Est. do Cabuçu, 2692, Bairro Rio da Prata, Campo Grande",
+        "local_nome": "Ig. Metodista Embarcados C/Cristo — Campo Grande",
+        "curso_nome": "MARKETING DIGITAL",
+    },
+    {
+        "id": "52", "curso_id": "9", "local_id": "7",
+        "turma_codigo": "26/MARK 18",
+        "turma_label": "Sábado — 10h às 14h (início 25/04) — Reforço Escolar Tia Dani/Maré",
+        "dias_aula": "Sábado", "horario": "10h até 14h",
+        "data_inicio": "25/04/2026", "encerramento": "16/05/2026",
+        "endereco_curso": "Rua Darcy Vargas, Nº 136, Bairro Maré",
+        "local_nome": "Reforço Escolar Tia Dani — Maré",
+        "curso_nome": "MARKETING DIGITAL",
+    },
+    {
+        "id": "53", "curso_id": "9", "local_id": "11",
+        "turma_codigo": "26/MARK 22",
+        "turma_label": "Sábado — 08h às 12h (início 23/05) — Ig. Batista Maanaim Mendanha/Campo Grande",
+        "dias_aula": "Sábado", "horario": "08h até 12h",
+        "data_inicio": "23/05/2026", "encerramento": "13/06/2026",
+        "endereco_curso": "Estrada do Mendanha, 4240, Campo Grande",
+        "local_nome": "Igreja Batista Maanaim Mendanha — Campo Grande",
+        "curso_nome": "MARKETING DIGITAL",
+    },
+    {
+        "id": "54", "curso_id": "9", "local_id": "13",
+        "turma_codigo": "26/MARK 16",
+        "turma_label": "Segunda e Quinta — 9h30 às 11h30 (início 20/04) — Centro Social Estrela da Manhã/Guaratiba",
+        "dias_aula": "Segunda e Quinta", "horario": "09h30 até 11h30",
+        "data_inicio": "20/04/2026", "encerramento": "14/05/2026",
+        "endereco_curso": "Rua Alcides Franco, nº 175, bairro Guaratiba",
+        "local_nome": "Centro Social Estrela da Manhã — Guaratiba",
+        "curso_nome": "MARKETING DIGITAL",
+    },
+    {
+        "id": "55", "curso_id": "9", "local_id": "13",
+        "turma_codigo": "26/MARK 27",
+        "turma_label": "Segunda — 17h às 21h (início 18/05) — Centro Social Estrela da Manhã/Guaratiba",
+        "dias_aula": "Segunda", "horario": "17h até 21h",
+        "data_inicio": "18/05/2026", "encerramento": "08/06/2026",
+        "endereco_curso": "Rua Alcides Franco, nº 175, bairro Guaratiba",
+        "local_nome": "Centro Social Estrela da Manhã — Guaratiba",
+        "curso_nome": "MARKETING DIGITAL",
+    },
+    {
+        "id": "56", "curso_id": "9", "local_id": "23",
+        "turma_codigo": "26/MARK 26",
+        "turma_label": "Terça e Quinta — 19h às 21h (início 02/06) — Vila do Pinheiro/Maré",
+        "dias_aula": "Terça e Quinta", "horario": "19h até 21h",
+        "data_inicio": "02/06/2026", "encerramento": "30/06/2026",
+        "endereco_curso": "Via B9, Nº 379, Bloco 14, Bairro Mare",
+        "local_nome": "Vila do Pinheiro — Maré",
+        "curso_nome": "MARKETING DIGITAL",
+    },
+    {
+        "id": "57", "curso_id": "9", "local_id": "24",
+        "turma_codigo": "26/MARK 29",
+        "turma_label": "Terça — 18h às 22h (início 02/06) — Min. Ap. Tenda do Encontro/Cosmos",
+        "dias_aula": "Terça", "horario": "18h até 22h",
+        "data_inicio": "02/06/2026", "encerramento": "23/06/2026",
+        "endereco_curso": "Rua Framboesa, Nº 21, Bairro Cosmos",
+        "local_nome": "Ministério Apostólico Tenda do Encontro — Cosmos",
+        "curso_nome": "MARKETING DIGITAL",
+    },
+    {
+        "id": "58", "curso_id": "9", "local_id": "26",
+        "turma_codigo": "26/MARK 20",
+        "turma_label": "Quarta — 08h às 12h (início 06/05) — Associação dos Artesãos/Ana Gonzaga",
+        "dias_aula": "Quarta", "horario": "08h até 12h",
+        "data_inicio": "06/05/2026", "encerramento": "27/05/2026",
+        "endereco_curso": "Rua Esmeralda Ana Gonzaga QD, Nº 11, Bairro Ana Gonzaga",
+        "local_nome": "Associação dos Artesãos — Ana Gonzaga",
+        "curso_nome": "MARKETING DIGITAL",
+    },
+    {
+        "id": "59", "curso_id": "9", "local_id": "27",
+        "turma_codigo": "26/MARK 19",
+        "turma_label": "Segunda e Sexta — 08h às 12h (início 04/05) — Tia Lu/Realengo",
+        "dias_aula": "Segunda e Sexta", "horario": "08h até 12h",
+        "data_inicio": "04/05/2026", "encerramento": "11/05/2026",
+        "endereco_curso": "Rua Pedro Gomes, Nº 2, Bairro Realengo",
+        "local_nome": "Tia Lu — Realengo",
+        "curso_nome": "MARKETING DIGITAL",
+    },
+    {
+        "id": "60", "curso_id": "9", "local_id": "29",
+        "turma_codigo": "26/MARK 21",
+        "turma_label": "Sexta — 08h às 12h (início 08/05) — Prefeitura/Centro",
+        "dias_aula": "Sexta", "horario": "08h até 12h",
+        "data_inicio": "08/05/2026", "encerramento": "29/05/2026",
+        "endereco_curso": "Rua Alfonso Cavalcanti, Nº 455, 9º Andar do Prédio Anexo - Cidade Nova, Bairro Centro",
+        "local_nome": "Prefeitura — Centro",
+        "curso_nome": "MARKETING DIGITAL",
+    },
+    {
+        "id": "61", "curso_id": "9", "local_id": "29",
+        "turma_codigo": "26/MARK 28",
+        "turma_label": "Quarta — 10h às 16h (início 03/06) — Prefeitura/Centro",
+        "dias_aula": "Quarta", "horario": "10h até 16h",
+        "data_inicio": "03/06/2026", "encerramento": "24/06/2026",
+        "endereco_curso": "Rua Alfonso Cavalcanti, Nº 455, 9º Andar do Prédio Anexo - Cidade Nova, Bairro Centro",
+        "local_nome": "Prefeitura — Centro",
+        "curso_nome": "MARKETING DIGITAL",
+    },
+
+    # ── MONITOR DE LAZER E RECREAÇÃO ────────────────────────────────────────
+    {
+        "id": "62", "curso_id": "10", "local_id": "12",
+        "turma_codigo": "26/MLRE 16",
+        "turma_label": "Segunda e Quarta — 19h às 22h (início 08/06) — Salão de Festas (77)/Padre Miguel",
+        "dias_aula": "Segunda e Quarta", "horario": "19h até 22h",
+        "data_inicio": "08/06/2026", "encerramento": "01/07/2026",
+        "endereco_curso": "Rua Juazeiro do Norte, 639 - Padre Miguel",
+        "local_nome": "Salão de Festas (77) — Padre Miguel",
+        "curso_nome": "MONITOR DE LAZER E RECREAÇÃO",
+    },
+    {
+        "id": "63", "curso_id": "10", "local_id": "13",
+        "turma_codigo": "26/MIRE 04",
+        "turma_label": "Segunda e Quarta — 17h30 às 19h30 (início 20/04) — Centro Social Estrela da Manhã/Guaratiba",
+        "dias_aula": "Segunda e Quarta", "horario": "17h30 até 19h30",
+        "data_inicio": "20/04/2026", "encerramento": "13/05/2026",
+        "endereco_curso": "Rua Alcides Franco, nº 175, bairro Guaratiba",
+        "local_nome": "Centro Social Estrela da Manhã — Guaratiba",
+        "curso_nome": "MONITOR DE LAZER E RECREAÇÃO",
+    },
+    {
+        "id": "64", "curso_id": "10", "local_id": "13",
+        "turma_codigo": "26/MLRE 17",
+        "turma_label": "Terça e Quinta — 17h30 às 21h30 (início 19/05) — Centro Social Estrela da Manhã/Guaratiba",
+        "dias_aula": "Terça e Quinta", "horario": "17:30 até 21:30",
+        "data_inicio": "19/05/2026", "encerramento": "11/06/2026",
+        "endereco_curso": "Rua Alcides Franco, nº 175, bairro Guaratiba",
+        "local_nome": "Centro Social Estrela da Manhã — Guaratiba",
+        "curso_nome": "MONITOR DE LAZER E RECREAÇÃO",
+    },
+    {
+        "id": "65", "curso_id": "10", "local_id": "15",
+        "turma_codigo": "26/MLRE 08",
+        "turma_label": "Segunda e Quarta — 09h às 11h (início 27/04) — Campo Socyte de Manguinhos — Turma 1",
+        "dias_aula": "Segunda e Quarta", "horario": "09h até 11h",
+        "data_inicio": "27/04/2026", "encerramento": "20/05/2026",
+        "endereco_curso": "Rua Nossa Senhora dos Navegantes, Nº 03, Bairro Manguinhos",
+        "local_nome": "Campo Socyte de Manguinhos — Manguinhos",
+        "curso_nome": "MONITOR DE LAZER E RECREAÇÃO",
+    },
+    {
+        "id": "66", "curso_id": "10", "local_id": "15",
+        "turma_codigo": "26/MLRE 11",
+        "turma_label": "Segunda e Quarta — 09h às 11h (início 27/04) — Campo Socyte de Manguinhos — Turma 2",
+        "dias_aula": "Segunda e Quarta", "horario": "09h até 11h",
+        "data_inicio": "27/04/2026", "encerramento": "20/05/2026",
+        "endereco_curso": "Rua Nossa Senhora dos Navegantes, Nº 03, Bairro Manguinhos",
+        "local_nome": "Campo Socyte de Manguinhos — Manguinhos",
+        "curso_nome": "MONITOR DE LAZER E RECREAÇÃO",
+    },
+    {
+        "id": "67", "curso_id": "10", "local_id": "16",
+        "turma_codigo": "26/MLRE 14",
+        "turma_label": "Segunda e Quarta — 19h às 21h (início 27/04) — Quadra Unidos de Manguinhos",
+        "dias_aula": "Segunda e Quarta", "horario": "19h até 21h",
+        "data_inicio": "27/04/2026", "encerramento": "20/05/2026",
+        "endereco_curso": "Avenida dos Democráticos, Nº 32, Bairro Manguinhos",
+        "local_nome": "Quadra Unidos de Manguinhos — Manguinhos",
+        "curso_nome": "MONITOR DE LAZER E RECREAÇÃO",
+    },
+    {
+        "id": "68", "curso_id": "10", "local_id": "16",
+        "turma_codigo": "26/MLRE 09",
+        "turma_label": "Terça e Quarta — 19h às 21h (início 28/04) — Quadra Unidos de Manguinhos — Turma 1",
+        "dias_aula": "Terça e Quarta", "horario": "19h até 21h",
+        "data_inicio": "28/04/2026", "encerramento": "20/05/2026",
+        "endereco_curso": "Avenida dos Democráticos, Nº 32, Bairro Manguinhos",
+        "local_nome": "Quadra Unidos de Manguinhos — Manguinhos",
+        "curso_nome": "MONITOR DE LAZER E RECREAÇÃO",
+    },
+    {
+        "id": "69", "curso_id": "10", "local_id": "16",
+        "turma_codigo": "26/MLRE 10",
+        "turma_label": "Terça e Quarta — 19h às 21h (início 28/04) — Quadra Unidos de Manguinhos — Turma 2",
+        "dias_aula": "Terça e Quarta", "horario": "19h até 21h",
+        "data_inicio": "28/04/2026", "encerramento": "20/05/2026",
+        "endereco_curso": "Avenida dos Democráticos, Nº 32, Bairro Manguinhos",
+        "local_nome": "Quadra Unidos de Manguinhos — Manguinhos",
+        "curso_nome": "MONITOR DE LAZER E RECREAÇÃO",
+    },
+    {
+        "id": "70", "curso_id": "10", "local_id": "17",
+        "turma_codigo": "26/MLRE 12",
+        "turma_label": "Quarta e Sexta — 19h às 21h (início 29/04) — Min. Ap. Mover Profético/Senador Camará",
+        "dias_aula": "Quarta e Sexta", "horario": "19h até 21h",
+        "data_inicio": "29/04/2026", "encerramento": "27/05/2026",
+        "endereco_curso": "Rua Bom Guilherme Francisco Moraes, Nº 03, Bairro Senador Camara",
+        "local_nome": "Ministério Apostólico Mover Profético — Senador Camará",
+        "curso_nome": "MONITOR DE LAZER E RECREAÇÃO",
+    },
+    {
+        "id": "71", "curso_id": "10", "local_id": "25",
+        "turma_codigo": "26/MLRE 13",
+        "turma_label": "Sábado — 08h às 12h (início 02/05) — Igreja Batista Rio da Prata/Bangu",
+        "dias_aula": "Sábado", "horario": "08h até 12h",
+        "data_inicio": "02/05/2026", "encerramento": "23/05/2026",
+        "endereco_curso": "Rua dos Limadores, Nº 866, Bairro Bangu",
+        "local_nome": "Igreja Batista Rio da Prata — Bangu",
+        "curso_nome": "MONITOR DE LAZER E RECREAÇÃO",
+    },
+    {
+        "id": "72", "curso_id": "10", "local_id": "28",
+        "turma_codigo": "26/MLRE 18",
+        "turma_label": "Terça e Quinta — 08h às 12h (início 02/06) — Amubua (Associação)/Santa Cruz",
+        "dias_aula": "Terça e Quinta", "horario": "08h até 12h",
+        "data_inicio": "02/06/2026", "encerramento": "25/06/2026",
+        "endereco_curso": "Rua José Silton Pinheiro, Nº 51, Bairro Santa Cruz",
+        "local_nome": "Amubua (Associação) — Santa Cruz",
+        "curso_nome": "MONITOR DE LAZER E RECREAÇÃO",
+    },
+
+    # ── OPERADOR DE SISTEMA DE COMPOSTAGEM E RESÍDUOS ORGÂNICOS ─────────────
+    {
+        "id": "73", "curso_id": "11", "local_id": "2",
+        "turma_codigo": "26/OSCO 01",
+        "turma_label": "Terça e Quinta — 18h às 21h (início 28/04) — Cozinha Comunitária/Realengo",
+        "dias_aula": "Terça e Quinta", "horario": "18h até 21h",
+        "data_inicio": "28/04/2026", "encerramento": "21/05/2026",
+        "endereco_curso": "Rua General Raposo, Nº 41, Bairro Realengo",
+        "local_nome": "Cozinha Comunitária — Realengo",
+        "curso_nome": "OPERADOR DE SISTEMA DE COMPOSTAGEM E RESÍDUOS ORGÂNICOS",
+    },
+    {
+        "id": "74", "curso_id": "11", "local_id": "3",
+        "turma_codigo": "26/OSCO 02",
+        "turma_label": "Segunda e Quarta — 14h às 17h (início 08/06) — Assoc. Amigos do Barata/Realengo",
+        "dias_aula": "Segunda e Quarta", "horario": "14h até 17h",
+        "data_inicio": "08/06/2026", "encerramento": "29/07/2026",
+        "endereco_curso": "Rua Correia Teixeira, nº 79 (Fundos) - Bairro: Realengo",
+        "local_nome": "Associação Amigos do Barata — Realengo",
+        "curso_nome": "OPERADOR DE SISTEMA DE COMPOSTAGEM E RESÍDUOS ORGÂNICOS",
+    },
+
+    # ── PORTEIRO ────────────────────────────────────────────────────────────
+    {
+        "id": "75", "curso_id": "12", "local_id": "20",
+        "turma_codigo": "26/PORT 01",
+        "turma_label": "Terça e Quinta — 19h às 21h (início 26/05) — Igreja Batista do Mandela/Benfica",
+        "dias_aula": "Terça e Quinta", "horario": "19h até 21h",
+        "data_inicio": "26/05/2026", "encerramento": "29/06/2026",
+        "endereco_curso": "Rua Leopoldo Bulhões, Nº 800, Bairro Benfica",
+        "local_nome": "Igreja Batista do Mandela — Benfica",
+        "curso_nome": "PORTEIRO",
+    },
+
+    # ── RECEPCIONISTA ───────────────────────────────────────────────────────
+    {
+        "id": "76", "curso_id": "13", "local_id": "9",
+        "turma_codigo": "26/RECP 05",
+        "turma_label": "Sábado — 08h às 12h (início 16/05) — Assoc. de Moradores São Jorge/Inhoaiba",
+        "dias_aula": "Sábado", "horario": "08h até 12h",
+        "data_inicio": "16/05/2026", "encerramento": "06/06/2026",
+        "endereco_curso": "Rua Moranga, 125, Cs 102, Inhoiba",
+        "local_nome": "Associação de Moradores São Jorge — Inhoaiba",
+        "curso_nome": "RECEPCIONISTA",
+    },
+    {
+        "id": "77", "curso_id": "13", "local_id": "17",
+        "turma_codigo": "26/RECP 04",
+        "turma_label": "Sábado — 08h às 12h (início 02/05) — Min. Ap. Mover Profético/Senador Camará",
+        "dias_aula": "Sábado", "horario": "08h até 12h",
+        "data_inicio": "02/05/2026", "encerramento": "23/05/2026",
+        "endereco_curso": "Rua Bom Guilherme Francisco Moraes, Nº 03, Bairro Senador Camará",
+        "local_nome": "Ministério Apostólico Mover Profético — Senador Camará",
+        "curso_nome": "RECEPCIONISTA",
+    },
+
+    # ── SOCIAL MEDIA ────────────────────────────────────────────────────────
+    {
+        "id": "78", "curso_id": "14", "local_id": "4",
+        "turma_codigo": "26/SOMD 13",
+        "turma_label": "Segunda e Quarta — 14h às 17h (início 27/04) — Igreja Batista São Bento/Bangu",
+        "dias_aula": "Segunda e Quarta", "horario": "14h até 17h",
+        "data_inicio": "27/04/2026", "encerramento": "06/05/2026",
+        "endereco_curso": "Rua Batuira, Nº 121, Bairro São Bento - Bangu",
+        "local_nome": "Igreja Batista São Bento — Bangu",
+        "curso_nome": "SOCIAL MEDIA",
+    },
+    {
+        "id": "79", "curso_id": "14", "local_id": "4",
+        "turma_codigo": "26/SOMD 15",
+        "turma_label": "Segunda e Quarta — 14h às 17h (início 13/05) — Igreja Batista São Bento/Bangu",
+        "dias_aula": "Segunda e Quarta", "horario": "14h até 17h",
+        "data_inicio": "13/05/2026", "encerramento": "24/05/2026",
+        "endereco_curso": "Rua Batuira, Nº 121, Bairro São Bento - Bangu",
+        "local_nome": "Igreja Batista São Bento — Bangu",
+        "curso_nome": "SOCIAL MEDIA",
+    },
+    {
+        "id": "80", "curso_id": "14", "local_id": "22",
+        "turma_codigo": "26/SOMD 14",
+        "turma_label": "Segunda a Quinta — 18h às 22h (início 08/06) — Centro Cultural Lottus/Méier",
+        "dias_aula": "Segunda a Quinta", "horario": "18h até 22h",
+        "data_inicio": "08/06/2026", "encerramento": "11/06/2026",
+        "endereco_curso": "Rua Dias da Cruz, 638 - Sala 204, Meier",
+        "local_nome": "Centro Cultural Lottus — Méier",
+        "curso_nome": "SOCIAL MEDIA",
     },
 ]
 
 # =============================================================================
-# 8. FUNÇÕES AUXILIARES
+# 4. FUNÇÕES AUXILIARES
 # =============================================================================
 def build_course_options():
     local_by_id  = {opt["id"]: opt for opt in LOCAL_OPTIONS}
     course_by_id = {opt["id"]: opt for opt in COURSE_CATALOG}
     options = []
     for t in TURMA_OPTIONS:
-        local    = local_by_id[t["local_id"]]
-        course   = course_by_id[t["curso_id"]]
-        schedule = SCHEDULE_OPTIONS[t["agenda_id"]]
+        local  = local_by_id[t["local_id"]]
+        course = course_by_id[t["curso_id"]]
         options.append({
             "id":             t["id"],
             "curso_id":       t["curso_id"],
             "local_id":       t["local_id"],
             "turma_label":    t["turma_label"],
+            "turma_codigo":   t["turma_codigo"],
             "local":          local["nome"],
             "curso":          course["nome"],
             "turma":          f"{t['turma_codigo']} - {course['nome']}",
-            "dias_aula":      schedule["dias_aula"],
-            "horario":        schedule["horario"],
-            "data_inicio":    START_DATE_OPTIONS[t["periodo_id"]],
-            "encerramento":   END_DATE_OPTIONS[t["encerramento_id"]],
-            "endereco_curso": ADDRESS_OPTIONS[t["endereco_id"]],
+            "dias_aula":      t["dias_aula"],
+            "horario":        t["horario"],
+            "data_inicio":    t["data_inicio"],
+            "encerramento":   t["encerramento"],
+            "endereco_curso": t["endereco_curso"],
         })
     return options
 
@@ -201,6 +954,7 @@ COURSE_OPTIONS_BY_ID = {opt["id"]: opt for opt in COURSE_OPTIONS}
 COURSE_CATALOG_BY_ID = {opt["id"]: opt for opt in COURSE_CATALOG}
 LOCAL_OPTIONS_BY_ID  = {opt["id"]: opt for opt in LOCAL_OPTIONS}
 COURSE_INFO          = COURSE_OPTIONS[0] if COURSE_OPTIONS else None
+
 
 def build_whatsapp_share_url(home_url):
     message = (
@@ -252,7 +1006,7 @@ def fill_form_data_from_selection(form_data):
 
 
 # =============================================================================
-# 9. TEMPLATES
+# 5. TEMPLATES
 # =============================================================================
 TEMPLATE_WIZARD = r'''
 <!DOCTYPE html>
@@ -798,7 +1552,7 @@ TEMPLATE_WIZARD = r'''
                     <div class="hero-grid">
                         <div class="hero-card">
                             <span class="hero-pill">PROJETO: MOVIMENTA RIO</span>
-                            <h1 class="hero-title">CURSOS GRATUITOS EM PRAÇA SECA</h1>
+                            <h1 class="hero-title">CURSOS GRATUITOS NO RIO DE JANEIRO</h1>
                             <p class="hero-subtitle">
                                 Programa Movimenta Rio • Prefeitura do Rio de Janeiro
                             </p>
@@ -806,14 +1560,20 @@ TEMPLATE_WIZARD = r'''
                                 <div class="hero-highlight" style="text-align:center;">
                                     <strong>CURSOS DISPONÍVEIS:</strong>
                                     🤖 INTELIGÊNCIA ARTIFICIAL<br>
-                                    📚 SOCIAL MEDIA<br>
-                                    📚 ORIENTADOR DE HOTELARIA<br>
-                                    📚 AGENTE DE TURISMO CORPORATIVO<br>
-                                    📚 UX/UI DESIGN<br>
-                                    📚 OPERADOR DE SISTEMA DE COMPOSTAGEM E RESÍDUOS ORGÂNICOS<br>
-                                    📚 GERENCIAMENTO DE TRÁFEGO PAGO<br>
-                                    📚 CAMAREIRO<br>
-                                    🎈 MONITOR DE LAZER E RECREAÇÃO
+                                    📱 SOCIAL MEDIA<br>
+                                    📣 MARKETING DIGITAL<br>
+                                    🏨 AGENTE DE TURISMO CORPORATIVO<br>
+                                    🎨 UX/UI DESIGN<br>
+                                    ♻️ OPERADOR DE SISTEMA DE COMPOSTAGEM E RESÍDUOS ORGÂNICOS<br>
+                                    📦 ASSISTENTE DE LOGÍSTICA<br>
+                                    🏢 AUXILIAR ADMINISTRATIVO<br>
+                                    🍳 AUXILIAR DE COZINHA<br>
+                                    ✂️ BARBEIRO<br>
+                                    👴 CUIDADOR DE IDOSO<br>
+                                    ⚡ ELETRICISTA PREDIAL<br>
+                                    🎈 MONITOR DE LAZER E RECREAÇÃO<br>
+                                    🚪 PORTEIRO<br>
+                                    📋 RECEPCIONISTA
                                 </div>
                                 <div class="hero-highlight">
                                     <strong>BENEFÍCIOS</strong>
@@ -916,12 +1676,6 @@ TEMPLATE_WIZARD = r'''
 
                         <div class="step-grid step-grid--stacked">
 
-                            <!-- Local: único, exibido como input readonly -->
-                            <div class="form-group full">
-                                <label for="local_display_top">Local *</label>
-                                <input type="text" id="local_display_top" class="readonly-field" readonly value="{{ local_options[0].nome if local_options else '' }}">
-                            </div>
-
                             <!-- Curso -->
                             <div class="form-group full">
                                 <label for="curso_id">Curso *</label>
@@ -934,9 +1688,9 @@ TEMPLATE_WIZARD = r'''
                                 <div class="balao-erro" id="curso_id-error" {% if not errors.get('curso_id') %}hidden{% endif %}>{{ errors.get('curso_id', '') }}</div>
                             </div>
 
-                            <!-- Turma (aparece quando há mais de uma opção para o curso) -->
+                            <!-- Turma -->
                             <div class="form-group full" id="turma-group" style="display:none;">
-                                <label for="opcao_id_select">Turma / Horário *</label>
+                                <label for="opcao_id_select">Local / Turma / Horário *</label>
                                 <select id="opcao_id_select">
                                     <option value="">Selecione uma turma</option>
                                 </select>
@@ -1083,11 +1837,9 @@ TEMPLATE_WIZARD = r'''
 
             var courseCatalog = {{ course_catalog|tojson }};
             var courseOptions = {{ course_options|tojson }};
-            var localOptions  = {{ local_options|tojson }};
 
             var courseOptionsById = Object.fromEntries(courseOptions.map(function(o){ return [String(o.id), o]; }));
 
-            // ── Elementos — dados pessoais
             var nomeInput          = document.getElementById('nome');
             var generoInput        = document.getElementById('genero');
             var cpfInput           = document.getElementById('cpf');
@@ -1098,7 +1850,6 @@ TEMPLATE_WIZARD = r'''
             var emailInput         = document.getElementById('email');
             var confirmaDadosInput = document.getElementById('confirma_dados');
 
-            // ── Elementos — escolha do curso
             var courseSelect      = document.getElementById('curso_id');
             var opcaoSelectEl     = document.getElementById('opcao_id_select');
             var turmaGroup        = document.getElementById('turma-group');
@@ -1115,8 +1866,6 @@ TEMPLATE_WIZARD = r'''
             var enderecoInput     = document.getElementById('endereco_curso');
             var btnCopiarEndereco = document.getElementById('btn-copiar-endereco');
 
-            var unicoLocal = localOptions[0] || null;
-
             function somenteDigitos(v) { return (v || '').replace(/\D/g, ''); }
 
             function setError(fieldId, msg) {
@@ -1130,9 +1879,9 @@ TEMPLATE_WIZARD = r'''
                 var op = courseOptionsById[String(opcaoId || '')];
                 if (!op) {
                     opcaoIdInput.value      = '';
-                    localIdInput.value      = unicoLocal ? unicoLocal.id : '';
-                    localInput.value        = unicoLocal ? unicoLocal.nome : '';
-                    if (localDisplay) localDisplay.value = unicoLocal ? unicoLocal.nome : '';
+                    localIdInput.value      = '';
+                    localInput.value        = '';
+                    if (localDisplay) localDisplay.value = '';
                     cursoInput.value        = '';
                     turmaInput.value        = '';
                     diasAulaInput.value     = '';
@@ -1180,7 +1929,7 @@ TEMPLATE_WIZARD = r'''
                 turmaGroup.style.display = '';
                 var placeholder = document.createElement('option');
                 placeholder.value = '';
-                placeholder.textContent = 'Selecione uma turma';
+                placeholder.textContent = 'Selecione local e horário';
                 opcaoSelectEl.appendChild(placeholder);
 
                 turmasDoCurso.forEach(function(op) {
@@ -1378,7 +2127,7 @@ TEMPLATE_WIZARD = r'''
                     setError('curso_id','Selecione um curso.'); courseSelect.focus(); return false;
                 }
                 if (turmaGroup.style.display !== 'none' && !opcaoSelectEl.value) {
-                    setError('opcao_id','Selecione uma turma.'); opcaoSelectEl.focus(); return false;
+                    setError('opcao_id','Selecione um local e horário.'); opcaoSelectEl.focus(); return false;
                 }
                 if (!opcaoIdInput.value) {
                     setError('curso_id','Não foi possível determinar a turma. Tente novamente.'); return false;
@@ -1484,12 +2233,6 @@ TEMPLATE_WIZARD = r'''
 
             var initCursoId = '{{ form_data.get("curso_id", "") }}';
             var initOpcaoId = '{{ form_data.get("opcao_id", "") }}';
-
-            if (unicoLocal) {
-                localIdInput.value  = unicoLocal.id;
-                localInput.value    = unicoLocal.nome;
-                if (localDisplay) localDisplay.value = unicoLocal.nome;
-            }
 
             if (initCursoId) {
                 courseSelect.value = initCursoId;
@@ -1645,7 +2388,7 @@ TEMPLATE_CONFIRMACAO = r'''
 '''
 
 # =============================================================================
-# 10. APLICAÇÃO FLASK
+# 6. APLICAÇÃO FLASK
 # =============================================================================
 app = Flask(__name__)
 app.secret_key = os.environ.get("FLASK_SECRET_KEY", "chave-secreta-para-sessao")
@@ -1711,7 +2454,7 @@ def validate_form_data(form_data):
     if not selected_curso:
         errors["curso_id"] = "Selecione um curso."
     if not selected_option:
-        errors["curso_id"] = errors.get("curso_id", "Selecione um horário para o curso.")
+        errors["curso_id"] = errors.get("curso_id", "Selecione um local e horário para o curso.")
     elif selected_option and selected_curso and selected_option["curso_id"] != selected_curso:
         errors["curso_id"] = "A turma não pertence ao curso escolhido."
 
@@ -1826,7 +2569,7 @@ def confirmacao():
     )
 
 # =============================================================================
-# 11. SUPABASE
+# 7. SUPABASE
 # =============================================================================
 SUPABASE_FUNCTION_URL = os.environ.get(
     "SUPABASE_FUNCTION_URL",
