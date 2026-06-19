@@ -49,9 +49,9 @@ LOCAL_OPTIONS = [
     {"id": "15", "nome": "CAMPO SOCYTE DE MANGUINHOS — MANGUINHOS"},
     {"id": "16", "nome": "QUADRA UNIDOS DE MANGUINHOS — MANGUINHOS"},
     {"id": "17", "nome": "MINISTÉRIO APOSTÓLICO MOVER PROFÉTICO — SENADOR CAMARÁ"},
-    {"id": "18", "nome": "IGREJA BATISTA DE COLÉGIO — COLÉGIO"},
+    {"id": "18", "nome": "ASSEMBLEIA DE DEUS ADTS DE COLÉGIO — COLÉGIO"},
     {"id": "19", "nome": "VILA CRUZEIRO — PENHA"},
-    {"id": "20", "nome": "IGREJA BATISTA DO MANDELA — BENFICA"},
+    {"id": "20", "nome": "ASSEMBLEIA DE DEUS ADTS MANDELA — BENFICA"},
     {"id": "21", "nome": "IGREJA UNIÃO EVANGÉLICA PENTECOSTAL — COSMOS"},
     {"id": "22", "nome": "CENTRO CULTURAL LOTTUS — MÉIER"},
     {"id": "23", "nome": "VILA DO PINHEIRO — MARÉ"},
@@ -65,6 +65,8 @@ LOCAL_OPTIONS = [
     {"id": "31", "nome": "IGREJA EVANGÉLICA PÃO DA VIDA — CURICICA"},
     {"id": "32", "nome": "ASSOCIAÇÃO MORADORES CONJUNTO LIBERDADE — SANTA CRUZ"},
     {"id": "33", "nome": "IMMEC CHURCH — CAMPO GRANDE"},
+    {"id": "34", "nome": "CENTRO CULTURAL LOTTUS — MÉIER"},
+    {"id": "35", "nome": "SALÃO DE FESTAS — SANTA CRUZ"},
 ]
 
 # =============================================================================
@@ -89,7 +91,7 @@ COURSE_CATALOG = [
 ]
 
 # =============================================================================
-# 3. TURMAS (filtradas — apenas turmas com encerramento >= 12/06/2026 — e novas turmas adicionadas)
+# 3. TURMAS (filtradas — apenas turmas com encerramento >= 19/06/2026 — e novas turmas adicionadas)
 # Campos: id, curso_id, local_id, turma_codigo, turma_label,
 #         dias_aula, horario, data_inicio, encerramento, endereco_curso, local_nome, curso_nome
 # =============================================================================
@@ -188,18 +190,6 @@ TURMA_OPTIONS = [
         "endereco_curso": "Estrada do Cabuçu, 2692 - Campo Grande, RJ",
         "local_nome": "IMMEC Church — Campo Grande",
         "curso_nome": "AUXILIAR DE COZINHA",
-    },
-
-    # ── BARBEIRO ────────────────────────────────────────────────────────────
-    {
-        "id": "41", "curso_id": "5", "local_id": "19",
-        "turma_codigo": "26/BARB 01",
-        "turma_label": "Sábado — 08h às 12h (início 23/05) — Vila Cruzeiro/Penha",
-        "dias_aula": "Sábado", "horario": "08h até 12h",
-        "data_inicio": "23/05/2026", "encerramento": "13/06/2026",
-        "endereco_curso": "Rua Sargento Ricardo Filho, Nº 26, Bairro Penha",
-        "local_nome": "Vila Cruzeiro — Penha",
-        "curso_nome": "BARBEIRO",
     },
 
     # ── INTELIGÊNCIA ARTIFICIAL ─────────────────────────────────────────────
@@ -314,33 +304,23 @@ TURMA_OPTIONS = [
     {
         "id": "75", "curso_id": "12", "local_id": "20",
         "turma_codigo": "26/PORT 01",
-        "turma_label": "Terça e Quinta — 19h às 21h (início 26/05) — Igreja Batista do Mandela/Benfica",
+        "turma_label": "Terça e Quinta — 19h às 21h (início 26/05) — Assembleia de Deus ADTS Mandela/Benfica",
         "dias_aula": "Terça e Quinta", "horario": "19h até 21h",
         "data_inicio": "26/05/2026", "encerramento": "29/06/2026",
         "endereco_curso": "Rua Leopoldo Bulhões, Nº 800, Bairro Benfica",
-        "local_nome": "Igreja Batista do Mandela — Benfica",
+        "local_nome": "Assembleia de Deus ADTS Mandela — Benfica",
         "curso_nome": "PORTEIRO",
     },
 
-    # ── NOVAS TURMAS (adicionadas) ──────────────────────────────────────────
-    {
-        "id": "81", "curso_id": "9", "local_id": "27",
-        "turma_codigo": "26/MARK 30",
-        "turma_label": "Terça e Quinta — 08h às 12h (início 09/06) — Tia Lu/Realengo",
-        "dias_aula": "Terça e Quinta", "horario": "08h até 12h",
-        "data_inicio": "09/06/2026", "encerramento": "18/06/2026",
-        "endereco_curso": "📍Rua Pedro Gomes, 2 - CEP: 21715-040",
-        "local_nome": "Tia Lu — Realengo",
-        "curso_nome": "MARKETING DIGITAL",
-    },
+    # ── (turmas anteriores, ID 82 corrigido) ────────────────────────────────
     {
         "id": "82", "curso_id": "2", "local_id": "18",
         "turma_codigo": "26/ASLO 29",
-        "turma_label": "Sábado — 08h às 12h (início 13/06) — Igreja Batista de Colégio",
+        "turma_label": "Sábado — 08h às 12h (início 13/06) — Assembleia de Deus ADTS de Colégio",
         "dias_aula": "Sábado", "horario": "08h até 12h",
         "data_inicio": "13/06/2026", "encerramento": "04/07/2026",
-        "endereco_curso": "📍Rua Pedro Gomes, 2 - CEP: 21715-040",
-        "local_nome": "Igreja Batista de Colégio — Colégio",
+        "endereco_curso": "📍Estrada de Colégio, 121 - CEP: 21.235-280",
+        "local_nome": "Assembleia de Deus ADTS de Colégio — Colégio",
         "curso_nome": "ASSISTENTE DE LOGÍSTICA",
     },
     {
@@ -602,6 +582,140 @@ TURMA_OPTIONS = [
         "endereco_curso": "📍Rua Antonio Carlos Belchior, 200 - Mendanha, Campo Grande",
         "local_nome": "Residencial Rio Samba — Campo Grande",
         "curso_nome": "ASSISTENTE DE LOGÍSTICA",
+    },
+
+    # ══════════════════ NOVAS TURMAS (lote atual) ══════════════════════════
+    # ASSISTENTE DE LOGÍSTICA — Associação Moradores Conjunto Liberdade
+    {
+        "id": "109", "curso_id": "2", "local_id": "32",
+        "turma_codigo": "26/ASLO 33",
+        "turma_label": "Sábado — 09h às 13h (início 11/07) — Assoc. Moradores Conj. Liberdade/Santa Cruz",
+        "dias_aula": "Sábado", "horario": "09h até 13h",
+        "data_inicio": "11/07/2026", "encerramento": "11/08/2026",
+        "endereco_curso": "📍Av Canal Margem Direita, 54 - CEP: 23560-366",
+        "local_nome": "Associação Moradores Conjunto Liberdade — Santa Cruz",
+        "curso_nome": "ASSISTENTE DE LOGÍSTICA",
+    },
+    # ASSISTENTE DE LOGÍSTICA — Assembleia de Deus ADTS de Colégio (2ª turma)
+    {
+        "id": "110", "curso_id": "2", "local_id": "18",
+        "turma_codigo": "26/ASLO 34",
+        "turma_label": "Sábado — 09h às 11h (início 27/06) — Assembleia de Deus ADTS de Colégio",
+        "dias_aula": "Sábado", "horario": "09h até 11h",
+        "data_inicio": "27/06/2026", "encerramento": "25/07/2026",
+        "endereco_curso": "📍Estrada de Colégio, 121 - CEP: 21235-280",
+        "local_nome": "Assembleia de Deus ADTS de Colégio — Colégio",
+        "curso_nome": "ASSISTENTE DE LOGÍSTICA",
+    },
+    # RECEPCIONISTA — Assembleia de Deus ADTS Mandela
+    {
+        "id": "111", "curso_id": "13", "local_id": "20",
+        "turma_codigo": "26/RECP 11",
+        "turma_label": "Segunda, Terça e Quinta — 19h às 21h (início 18/06) — Assembleia de Deus ADTS Mandela",
+        "dias_aula": "Segunda, Terça e Quinta", "horario": "19h até 21h",
+        "data_inicio": "18/06/2026", "encerramento": "30/06/2026",
+        "endereco_curso": "📍Rua Leopoldo Bulhões, 800 - CEP: 20911-300",
+        "local_nome": "Assembleia de Deus ADTS Mandela — Benfica",
+        "curso_nome": "RECEPCIONISTA",
+    },
+    # INTELIGÊNCIA ARTIFICIAL — Igreja Batista São Bento (nova turma)
+    {
+        "id": "112", "curso_id": "8", "local_id": "4",
+        "turma_codigo": "26/INAT 29",
+        "turma_label": "Sábado — 08h às 12h (início 04/07) — Igreja Batista São Bento/Bangu",
+        "dias_aula": "Sábado", "horario": "08h até 12h",
+        "data_inicio": "04/07/2026", "encerramento": "25/07/2026",
+        "endereco_curso": "📍Rua Batuíra, 121 - CEP: 21.860-290",
+        "local_nome": "Igreja Batista São Bento — Bangu",
+        "curso_nome": "INTELIGÊNCIA ARTIFICIAL",
+    },
+    # SOCIAL MEDIA — Igreja Batista Maanaim Mendanha
+    {
+        "id": "113", "curso_id": "14", "local_id": "11",
+        "turma_codigo": "26/SOMD 19",
+        "turma_label": "Sábado — 08h às 12h (início 27/06) — Igreja Batista Maanaim Mendanha",
+        "dias_aula": "Sábado", "horario": "08h até 12h",
+        "data_inicio": "27/06/2026", "encerramento": "18/07/2026",
+        "endereco_curso": "📍Estrada do Mendanha, 4240",
+        "local_nome": "Igreja Batista Maanaim Mendanha — Campo Grande",
+        "curso_nome": "SOCIAL MEDIA",
+    },
+    # AUXILIAR DE COZINHA — Salão de Festas/Santa Cruz
+    {
+        "id": "114", "curso_id": "4", "local_id": "35",
+        "turma_codigo": "26/AXCZ 21",
+        "turma_label": "Sábado — 08h às 12h (início 20/06) — Salão de Festas/Santa Cruz",
+        "dias_aula": "Sábado", "horario": "08h até 12h",
+        "data_inicio": "20/06/2026", "encerramento": "11/07/2026",
+        "endereco_curso": "📍Avenida Marginal, 107 - CEP: 23595-020 - Santa Cruz",
+        "local_nome": "Salão de Festas — Santa Cruz",
+        "curso_nome": "AUXILIAR DE COZINHA",
+    },
+    # MARKETING DIGITAL — Centro Cultural Lottus/Méier
+    {
+        "id": "115", "curso_id": "9", "local_id": "34",
+        "turma_codigo": "26/MARK 32",
+        "turma_label": "Segunda e Quinta — 18h às 22h (início 04/07) — Centro Cultural Lottus/Méier",
+        "dias_aula": "Segunda e Quinta", "horario": "18h até 22h",
+        "data_inicio": "04/07/2026", "encerramento": "25/07/2026",
+        "endereco_curso": "📍Rua Dias da Cruz, 638 - Sala 204 - CEP: 20.720-013",
+        "local_nome": "Centro Cultural Lottus — Méier",
+        "curso_nome": "MARKETING DIGITAL",
+    },
+    # BARBEIRO — Vila Cruzeiro (nova turma)
+    {
+        "id": "116", "curso_id": "5", "local_id": "19",
+        "turma_codigo": "26/BARB 03",
+        "turma_label": "Sábado — 08h às 12h (início 27/06) — Vila Cruzeiro/Penha",
+        "dias_aula": "Sábado", "horario": "08h até 12h",
+        "data_inicio": "27/06/2026", "encerramento": "27/07/2026",
+        "endereco_curso": "📍R: Sargento Ricardo Filho, 26 - CEP: 21070-170",
+        "local_nome": "Vila Cruzeiro — Penha",
+        "curso_nome": "BARBEIRO",
+    },
+    # AUXILIAR ADMINISTRATIVO — Associação dos Artesãos/Ana Gonzaga (nova turma)
+    {
+        "id": "117", "curso_id": "3", "local_id": "26",
+        "turma_codigo": "26/ADMN 46",
+        "turma_label": "Terça — 14h às 18h (início 07/07) — Associação dos Artesãos/Ana Gonzaga",
+        "dias_aula": "Terça", "horario": "14h até 18h",
+        "data_inicio": "07/07/2026", "encerramento": "28/07/2026",
+        "endereco_curso": "📍Rua Esmeralda Ana Gonzaga QD 11 - CEP: 23050-489",
+        "local_nome": "Associação dos Artesãos — Ana Gonzaga",
+        "curso_nome": "AUXILIAR ADMINISTRATIVO",
+    },
+    # MARKETING DIGITAL — Associação dos Artesãos/Ana Gonzaga (nova turma)
+    {
+        "id": "118", "curso_id": "9", "local_id": "26",
+        "turma_codigo": "26/MARK 33",
+        "turma_label": "Quarta — 08h às 12h (início 08/07) — Associação dos Artesãos/Ana Gonzaga",
+        "dias_aula": "Quarta", "horario": "08h até 12h",
+        "data_inicio": "08/07/2026", "encerramento": "29/07/2026",
+        "endereco_curso": "📍Rua Esmeralda Ana Gonzaga QD 11 - CEP: 23050-489",
+        "local_nome": "Associação dos Artesãos — Ana Gonzaga",
+        "curso_nome": "MARKETING DIGITAL",
+    },
+    # AUXILIAR DE COZINHA — Associação dos Artesãos/Ana Gonzaga (nova turma)
+    {
+        "id": "119", "curso_id": "4", "local_id": "26",
+        "turma_codigo": "26/AXCZ 22",
+        "turma_label": "Sábado — 14h às 18h (início 04/07) — Associação dos Artesãos/Ana Gonzaga",
+        "dias_aula": "Sábado", "horario": "14h até 18h",
+        "data_inicio": "04/07/2026", "encerramento": "25/07/2026",
+        "endereco_curso": "📍Rua Esmeralda Ana Gonzaga QD 11 - CEP: 23050-489",
+        "local_nome": "Associação dos Artesãos — Ana Gonzaga",
+        "curso_nome": "AUXILIAR DE COZINHA",
+    },
+    # RECEPCIONISTA — Igreja União Evangélica Pentecostal/Cosmos
+    {
+        "id": "120", "curso_id": "13", "local_id": "21",
+        "turma_codigo": "26/RECP 12",
+        "turma_label": "Sábado — 14h às 18h (início 11/07) — Igreja União Evangélica Pentecostal/Cosmos",
+        "dias_aula": "Sábado", "horario": "14h até 18h",
+        "data_inicio": "11/07/2026", "encerramento": "01/08/2026",
+        "endereco_curso": "📍Rua Herval Rossano LT 26 QD 16 - CEP: 23066-350 - Cosmos",
+        "local_nome": "Igreja União Evangélica Pentecostal — Cosmos",
+        "curso_nome": "RECEPCIONISTA",
     },
 ]
 
