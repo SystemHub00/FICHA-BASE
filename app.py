@@ -219,6 +219,10 @@ TURMA_OPTIONS = [
     {"id":"162","curso_id":"9","local_id":"29","turma_codigo":"26/MARK 42","turma_label":"Quarta \u2014 10h \u00e0s 16h (in\u00edcio 05/08) \u2014 Prefeitura/Centro","dias_aula":"Quarta","horario":"10h at\u00e9 16h","data_inicio":"05/08/2026","encerramento":"26/08/2026","endereco_curso":"\U0001f4cdRua Afonso Cavalcanti, 455 - Cidade Nova, Rio de Janeiro - RJ, CEP: 20211-110","local_nome":"Prefeitura \u2014 Centro","curso_nome":"MARKETING DIGITAL"},
     # AUXILIAR ADMINISTRATIVO \u2014 Sal\u00e3o de Festas 77 / Padre Miguel
     {"id":"163","curso_id":"3","local_id":"12","turma_codigo":"26/ADMN 52","turma_label":"Segunda e Quarta \u2014 19h \u00e0s 21h (in\u00edcio 03/08) \u2014 Sal\u00e3o de Festas (77)/Padre Miguel","dias_aula":"Segunda e Quarta","horario":"19h at\u00e9 21h","data_inicio":"03/08/2026","encerramento":"28/08/2026","endereco_curso":"\U0001f4cdR: Juazeiro do Norte, 639 - Padre Miguel","local_nome":"Sal\u00e3o de Festas (77) \u2014 Padre Miguel","curso_nome":"AUXILIAR ADMINISTRATIVO"},
+    # AUXILIAR ADMINISTRATIVO — Vila do Pinheiro / Maré (nova turma)
+    {"id":"164","curso_id":"3","local_id":"23","turma_codigo":"26/ADMN 53","turma_label":"Terça e Quinta — (início 28/07) — Vila do Pinheiro/Maré — BL 14","dias_aula":"Terça e Quinta","horario":"A confirmar","data_inicio":"28/07/2026","encerramento":"13/08/2026","endereco_curso":"📍Via B9, 379, BL 14 - CEP: 21046-090","local_nome":"Vila do Pinheiro — Maré","curso_nome":"AUXILIAR ADMINISTRATIVO"},
+    # GARÇOM — Centro Social Estrela da Manhã (nova turma)
+    {"id":"165","curso_id":"16","local_id":"13","turma_codigo":"26/GRCM 02","turma_label":"(início 21/07) — Centro Social Estrela da Manhã/Guaratiba","dias_aula":"A confirmar","horario":"A confirmar","data_inicio":"21/07/2026","encerramento":"11/08/2026","endereco_curso":"📍Rua Alcides Franco, 175 - CEP: 23032-010 - Guaratiba","local_nome":"Centro Social Estrela da Manhã — Guaratiba","curso_nome":"GARÇOM"},
 ]
 
 
