@@ -26,212 +26,177 @@ VALID_DDDS = {
 }
 
 # =============================================================================
-# 1. LOCAIS
+# 1. LOCAIS  (34 locais — gerado da planilha CRONOGRAMA_CHARBEL)
 # =============================================================================
 LOCAL_OPTIONS = [
-    {"id": "1",  "nome": "IG. ASS DE DEUS RESG. VALORES \u2014 CAMPO GRANDE"},
-    {"id": "2",  "nome": "COZINHA COMUNIT\u00c1RIA \u2014 REALENGO"},
-    {"id": "3",  "nome": "ASSOCIA\u00c7\u00c3O AMIGOS DO BARATA \u2014 REALENGO"},
-    {"id": "4",  "nome": "IGREJA BATISTA S\u00c3O BENTO \u2014 BANGU"},
-    {"id": "5",  "nome": "RESIDENCIAL RIO SAMBA \u2014 CAMPO GRANDE"},
-    {"id": "6",  "nome": "IG. METODISTA EMBARCADOS C/CRISTO \u2014 CAMPO GRANDE"},
-    {"id": "7",  "nome": "REFOR\u00c7O ESCOLAR TIA DANI \u2014 MAR\u00c9"},
-    {"id": "8",  "nome": "IGREJA BATISTA EBENEZER \u2014 INHOAIBA"},
-    {"id": "9",  "nome": "ASSOCIA\u00c7\u00c3O DE MORADORES S\u00c3O JORGE \u2014 INHOAIBA"},
-    {"id": "10", "nome": "CRECHE TIA ANINHA \u2014 CAMPO GRANDE"},
-    {"id": "11", "nome": "IGREJA BATISTA MAANAIM MENDANHA \u2014 CAMPO GRANDE"},
-    {"id": "12", "nome": "SAL\u00c3O DE FESTAS (77) \u2014 PADRE MIGUEL"},
-    {"id": "13", "nome": "CENTRO SOCIAL ESTRELA DA MANH\u00c3 \u2014 GUARATIBA"},
-    {"id": "14", "nome": "SAL\u00c3O DE FESTAS ENCANTOS MIL \u2014 SANTA CRUZ"},
-    {"id": "15", "nome": "CAMPO SOCYTE DE MANGUINHOS \u2014 MANGUINHOS"},
-    {"id": "16", "nome": "QUADRA UNIDOS DE MANGUINHOS \u2014 MANGUINHOS"},
-    {"id": "17", "nome": "MINIST\u00c9RIO APOST\u00d3LICO MOVER PROF\u00c9TICO \u2014 SENADOR CAMAR\u00c1"},
-    {"id": "18", "nome": "ASSEMBLEIA DE DEUS ADTS DE COL\u00c9GIO \u2014 COL\u00c9GIO"},
-    {"id": "19", "nome": "VILA CRUZEIRO \u2014 PENHA"},
-    {"id": "20", "nome": "ASSEMBLEIA DE DEUS ADTS MANDELA \u2014 BENFICA"},
-    {"id": "21", "nome": "IGREJA UNI\u00c3O EVANG\u00c9LICA PENTECOSTAL \u2014 COSMOS"},
-    {"id": "22", "nome": "CENTRO CULTURAL LOTTUS \u2014 M\u00c9IER"},
-    {"id": "23", "nome": "VILA DO PINHEIRO \u2014 MAR\u00c9"},
-    {"id": "24", "nome": "MINIST\u00c9RIO APOST\u00d3LICO TENDA DO ENCONTRO \u2014 COSMOS"},
-    {"id": "25", "nome": "IGREJA BATISTA RIO DA PRATA \u2014 BANGU"},
-    {"id": "26", "nome": "ASSOCIA\u00c7\u00c3O DOS ARTES\u00c3OS \u2014 ANA GONZAGA"},
-    {"id": "27", "nome": "TIA LU \u2014 REALENGO"},
-    {"id": "28", "nome": "AMUBUA (ASSOCIA\u00c7\u00c3O) \u2014 SANTA CRUZ"},
-    {"id": "29", "nome": "PREFEITURA \u2014 CENTRO"},
-    {"id": "30", "nome": "ASSEMBLEIA DE DEUS NA PAVUNA \u2014 COSMOS"},
-    {"id": "31", "nome": "IGREJA EVANG\u00c9LICA P\u00c3O DA VIDA \u2014 CURICICA"},
-    {"id": "32", "nome": "ASSOCIA\u00c7\u00c3O MORADORES CONJUNTO LIBERDADE \u2014 SANTA CRUZ"},
-    {"id": "33", "nome": "IMMEC CHURCH \u2014 CAMPO GRANDE"},
-    {"id": "34", "nome": "CENTRO CULTURAL LOTTUS \u2014 M\u00c9IER"},
-    {"id": "35", "nome": "SAL\u00c3O DE FESTAS \u2014 SANTA CRUZ"},
-    # lote julho/agosto 2026
-    {"id": "36", "nome": "CASA COSTA MATOS \u2014 RIO DE JANEIRO"},
-    {"id": "37", "nome": "MAR\u00c9 1 \u2014 RUA CAPIT\u00c3O CARLOS (BONSUCESSO)"},
-    {"id": "38", "nome": "MAR\u00c9 2 \u2014 RUA CAPIT\u00c3O CARLOS (BONSUCESSO)"},
-    # NOVO
-    {"id": "39", "nome": "CABU\u00c7U DE BAIXO \u2014 GUARATIBA"},
+    {"id": "1",  "nome": "Residencial Rio Samba \u2014 Campo Grande"},
+    {"id": "2",  "nome": "Igreja Batista Rio da Prata \u2014 Bangu"},
+    {"id": "3",  "nome": "Associa\u00e7\u00e3o dos Artes\u00e3os \u2014 Ana Gonzaga"},
+    {"id": "4",  "nome": "IMMEC Church \u2014 Campo Grande"},
+    {"id": "5",  "nome": "Min. Ap. Mover Prof\u00e9tico \u2014 Senador Camar\u00e1"},
+    {"id": "6",  "nome": "Assoc. Moradores Conj. Liberdade \u2014 Santa Cruz"},
+    {"id": "7",  "nome": "Igreja Batista S\u00e3o Bento \u2014 Bangu"},
+    {"id": "8",  "nome": "Ig. Metodista Embarcados C/Cristo \u2014 Campo Grande"},
+    {"id": "9",  "nome": "Refor\u00e7o Escolar Tia Dani \u2014 Mar\u00e9"},
+    {"id": "10", "nome": "Vila do Pinheiro \u2014 Mar\u00e9"},
+    {"id": "11", "nome": "Min. Ap. Tenda do Encontro \u2014 Cosmos"},
+    {"id": "12", "nome": "Prefeitura \u2014 Centro"},
+    {"id": "13", "nome": "Sal\u00e3o de Festas (77) \u2014 Padre Miguel"},
+    {"id": "14", "nome": "Amubua (Associa\u00e7\u00e3o) \u2014 Santa Cruz"},
+    {"id": "15", "nome": "Assoc. Amigos do Barata \u2014 Realengo"},
+    {"id": "16", "nome": "AD ADTS Mandela \u2014 Benfica"},
+    {"id": "17", "nome": "AD ADTS de Col\u00e9gio \u2014 Col\u00e9gio"},
+    {"id": "18", "nome": "Centro Social Estrela da Manh\u00e3 \u2014 Guaratiba"},
+    {"id": "19", "nome": "Campo Socyte de Manguinhos \u2014 Manguinhos"},
+    {"id": "20", "nome": "Quadra Unidos de Manguinhos \u2014 Manguinhos"},
+    {"id": "21", "nome": "Igreja Batista Ebenezer \u2014 Inhoa\u00edba"},
+    {"id": "22", "nome": "Assoc. de Moradores S\u00e3o Jorge \u2014 Inhoa\u00edba"},
+    {"id": "23", "nome": "Ig. Evang\u00e9lica P\u00e3o da Vida \u2014 Curicica"},
+    {"id": "24", "nome": "AD na Pavuna \u2014 Cosmos"},
+    {"id": "25", "nome": "Ig. Batista Maanaim Mendanha \u2014 Campo Grande"},
+    {"id": "26", "nome": "Sal\u00e3o de Festas \u2014 Santa Cruz"},
+    {"id": "27", "nome": "Centro Cultural Lottus \u2014 M\u00e9ier"},
+    {"id": "28", "nome": "Vila Cruzeiro \u2014 Penha"},
+    {"id": "29", "nome": "Ig. Uni\u00e3o Evang\u00e9lica Pentecostal \u2014 Cosmos"},
+    {"id": "30", "nome": "Tia Lu \u2014 Realengo"},
+    {"id": "31", "nome": "Cozinha Comunit\u00e1ria \u2014 Realengo"},
+    {"id": "32", "nome": "Casa Costa Matos \u2014 Rio de Janeiro"},
+    {"id": "33", "nome": "Mar\u00e9 1 \u2014 Rua Capit\u00e3o Carlos \u2014 Bonsucesso"},
+    {"id": "34", "nome": "Mar\u00e9 2 \u2014 Rua Capit\u00e3o Carlos \u2014 Bonsucesso"},
 ]
 
 # =============================================================================
-# 2. CAT\u00c1LOGO DE CURSOS
+# 2. CATÁLOGO DE CURSOS  (16 cursos — gerado da planilha)
 # =============================================================================
 COURSE_CATALOG = [
-    {"id": "1",  "nome": "AGENTE DE TURISMO CORPORATIVO"},
-    {"id": "2",  "nome": "ASSISTENTE DE LOG\u00cdSTICA"},
-    {"id": "3",  "nome": "AUXILIAR ADMINISTRATIVO"},
-    {"id": "4",  "nome": "AUXILIAR DE COZINHA"},
-    {"id": "5",  "nome": "BARBEIRO"},
-    {"id": "6",  "nome": "CUIDADOR DE IDOSO"},
-    {"id": "7",  "nome": "ELETRICISTA PREDIAL"},
-    {"id": "8",  "nome": "INTELIG\u00caNCIA ARTIFICIAL"},
-    {"id": "9",  "nome": "MARKETING DIGITAL"},
-    {"id": "10", "nome": "MONITOR DE LAZER E RECREA\u00c7\u00c3O"},
-    {"id": "11", "nome": "OPERADOR DE SISTEMA DE COMPOSTAGEM E RES\u00cdDUOS ORG\u00c2NICOS"},
-    {"id": "12", "nome": "PORTEIRO"},
-    {"id": "13", "nome": "RECEPCIONISTA"},
-    {"id": "14", "nome": "SOCIAL MEDIA"},
-    {"id": "15", "nome": "VENDEDOR"},
-    {"id": "16", "nome": "GAR\u00c7OM"},
-    {"id": "17", "nome": "GERENCIAMENTO DE TR\u00c1FEGO PAGO"},
+    {"id": "1",  "nome": "ASSISTENTE DE LOG\u00cdSTICA"},
+    {"id": "2",  "nome": "AUXILIAR ADMINISTRATIVO"},
+    {"id": "3",  "nome": "AUXILIAR DE COZINHA"},
+    {"id": "4",  "nome": "INTELIG\u00caNCIA ARTIFICIAL"},
+    {"id": "5",  "nome": "MARKETING DIGITAL"},
+    {"id": "6",  "nome": "MONITOR DE LAZER E RECREA\u00c7\u00c3O"},
+    {"id": "7",  "nome": "OPERADOR DE SISTEMA DE COMPOSTAGEM E RES\u00cdDUOS ORG\u00c2NICOS"},
+    {"id": "8",  "nome": "PORTEIRO"},
+    {"id": "9",  "nome": "RECEPCIONISTA"},
+    {"id": "10", "nome": "VENDEDOR"},
+    {"id": "11", "nome": "SOCIAL MEDIA"},
+    {"id": "12", "nome": "BARBEIRO"},
+    {"id": "13", "nome": "GAR\u00c7OM"},
+    {"id": "14", "nome": "AGENTE DE TURISMO CORPORATIVO"},
+    {"id": "15", "nome": "GERENCIAMENTO DE TR\u00c1FEGO PAGO"},
+    {"id": "16", "nome": "ELETRICISTA PREDIAL"},
 ]
 
 # =============================================================================
-# 3. TURMAS
+# 3. TURMAS  (98 turmas — gerado da planilha CRONOGRAMA_CHARBEL)
 # =============================================================================
 TURMA_OPTIONS = [
-    # ── ASSISTENTE DE LOG\u00cdSTICA ─────────────────────────────────────────────
-    {"id":"3","curso_id":"2","local_id":"5","turma_codigo":"26/ASLO 25","turma_label":"S\u00e1bado \u2014 08h \u00e0s 12h (in\u00edcio 30/05) \u2014 Residencial Rio Samba/Campo Grande","dias_aula":"S\u00e1bado","horario":"08h at\u00e9 12h","data_inicio":"30/05/2026","encerramento":"20/06/2026","endereco_curso":"Rua Antonio Carlos Belchior, 200, Mendanha, Campo Grande","local_nome":"Residencial Rio Samba \u2014 Campo Grande","curso_nome":"ASSISTENTE DE LOG\u00cdSTICA"},
-    {"id":"11","curso_id":"2","local_id":"25","turma_codigo":"26/ASLO 26","turma_label":"Segunda e Ter\u00e7a \u2014 19h \u00e0s 21h30 (in\u00edcio 01/06) \u2014 Ig. Batista Rio da Prata/Bangu","dias_aula":"Segunda e Ter\u00e7a","horario":"19h at\u00e9 21h30","data_inicio":"01/06/2026","encerramento":"23/06/2026","endereco_curso":"Rua dos Limadores, N\u00ba 866, Bairro Bangu","local_nome":"Igreja Batista Rio da Prata \u2014 Bangu","curso_nome":"ASSISTENTE DE LOG\u00cdSTICA"},
-    {"id":"12","curso_id":"2","local_id":"26","turma_codigo":"26/ASLO 27","turma_label":"Ter\u00e7a \u2014 08h \u00e0s 12h (in\u00edcio 02/06) \u2014 Associa\u00e7\u00e3o dos Artes\u00e3os/Ana Gonzaga","dias_aula":"Ter\u00e7a","horario":"08h at\u00e9 12h","data_inicio":"02/06/2026","encerramento":"23/06/2026","endereco_curso":"Rua Esmeralda Ana Gonzaga QD, N\u00ba 11, Bairro Ana Gonzaga","local_nome":"Associa\u00e7\u00e3o dos Artes\u00e3os \u2014 Ana Gonzaga","curso_nome":"ASSISTENTE DE LOG\u00cdSTICA"},
-    {"id":"14","curso_id":"2","local_id":"33","turma_codigo":"FGM-AL-01","turma_label":"S\u00e1bado \u2014 08h \u00e0s 12h (in\u00edcio 30/05) \u2014 IMMEC Church/Campo Grande","dias_aula":"S\u00e1bado","horario":"08:00 \u00e0s 12:00","data_inicio":"30/05/2026","encerramento":"20/06/2026","endereco_curso":"Estrada do Cabu\u00e7u, 2692 - Campo Grande, RJ","local_nome":"IMMEC Church \u2014 Campo Grande","curso_nome":"ASSISTENTE DE LOG\u00cdSTICA"},
-    # ── AUXILIAR ADMINISTRATIVO ─────────────────────────────────────────────
-    {"id":"23","curso_id":"3","local_id":"17","turma_codigo":"26/ADMN 41","turma_label":"S\u00e1bado \u2014 08h \u00e0s 12h (in\u00edcio 06/06) \u2014 Min. Ap. Mover Prof\u00e9tico/Senador Camar\u00e1","dias_aula":"S\u00e1bado","horario":"08h at\u00e9 12h","data_inicio":"06/06/2026","encerramento":"27/06/2026","endereco_curso":"Rua Bom Guilherme Francisco Moraes, N\u00ba 03, Bairro Senador Camar\u00e1","local_nome":"Minist\u00e9rio Apost\u00f3lico Mover Prof\u00e9tico \u2014 Senador Camar\u00e1","curso_nome":"AUXILIAR ADMINISTRATIVO"},
-    {"id":"33","curso_id":"3","local_id":"32","turma_codigo":"26/ADMN 36","turma_label":"S\u00e1bado \u2014 09h \u00e0s 13h (in\u00edcio 13/06) \u2014 Assoc. Moradores Conj. Liberdade/Santa Cruz","dias_aula":"S\u00e1bado","horario":"09h at\u00e9 13h","data_inicio":"13/06/2026","encerramento":"04/07/2026","endereco_curso":"Avenida Canal Margem Direita, N\u00ba 54, Bairro Santa Cruz","local_nome":"Associa\u00e7\u00e3o Moradores Conjunto Liberdade \u2014 Santa Cruz","curso_nome":"AUXILIAR ADMINISTRATIVO"},
-    # ── AUXILIAR DE COZINHA ─────────────────────────────────────────────────
-    {"id":"36","curso_id":"4","local_id":"17","turma_codigo":"26/AXCZ 19","turma_label":"Quarta e Sexta \u2014 16h \u00e0s 18h (in\u00edcio 10/06) \u2014 Min. Ap. Mover Prof\u00e9tico/Senador Camar\u00e1","dias_aula":"Quarta e Sexta","horario":"16h at\u00e9 18h","data_inicio":"10/06/2026","encerramento":"03/07/2026","endereco_curso":"Rua Bom Guilherme Francisco Moraes, N\u00ba 03, Bairro Senador Camar\u00e1","local_nome":"Minist\u00e9rio Apost\u00f3lico Mover Prof\u00e9tico \u2014 Senador Camar\u00e1","curso_nome":"AUXILIAR DE COZINHA"},
-    {"id":"39","curso_id":"4","local_id":"26","turma_codigo":"26/AXCZ 20","turma_label":"S\u00e1bado \u2014 14h \u00e0s 18h (in\u00edcio 06/06) \u2014 Associa\u00e7\u00e3o dos Artes\u00e3os/Ana Gonzaga \u2014 Turma 2","dias_aula":"S\u00e1bado","horario":"14h at\u00e9 18h","data_inicio":"06/06/2026","encerramento":"27/06/2026","endereco_curso":"Rua Esmeralda Ana Gonzaga QD, N\u00ba 11, Bairro Ana Gonzaga","local_nome":"Associa\u00e7\u00e3o dos Artes\u00e3os \u2014 Ana Gonzaga","curso_nome":"AUXILIAR DE COZINHA"},
-    {"id":"40","curso_id":"4","local_id":"33","turma_codigo":"FGM-AC-01","turma_label":"S\u00e1bado \u2014 09h \u00e0s 13h (in\u00edcio 30/05) \u2014 IMMEC Church/Campo Grande","dias_aula":"S\u00e1bado","horario":"09:00 \u00e0s 13:00","data_inicio":"30/05/2026","encerramento":"20/06/2026","endereco_curso":"Estrada do Cabu\u00e7u, 2692 - Campo Grande, RJ","local_nome":"IMMEC Church \u2014 Campo Grande","curso_nome":"AUXILIAR DE COZINHA"},
-    # ── INTELIG\u00caNCIA ARTIFICIAL ─────────────────────────────────────────────
-    {"id":"46","curso_id":"8","local_id":"4","turma_codigo":"26/INAT 18","turma_label":"S\u00e1bado \u2014 08h \u00e0s 12h (in\u00edcio 06/06) \u2014 Igreja Batista S\u00e3o Bento/Bangu","dias_aula":"S\u00e1bado","horario":"08h at\u00e9 12h","data_inicio":"06/06/2026","encerramento":"27/06/2026","endereco_curso":"Rua Batuira, N\u00ba 121, Bairro S\u00e3o Bento - Bangu","local_nome":"Igreja Batista S\u00e3o Bento \u2014 Bangu","curso_nome":"INTELIG\u00caNCIA ARTIFICIAL"},
-    {"id":"47","curso_id":"8","local_id":"6","turma_codigo":"26/INAT 21","turma_label":"S\u00e1bado \u2014 08h \u00e0s 12h (in\u00edcio 30/05) \u2014 Ig. Metodista Embarcados C/Cristo/Campo Grande","dias_aula":"S\u00e1bado","horario":"08h at\u00e9 12h","data_inicio":"30/05/2026","encerramento":"20/06/2026","endereco_curso":"Est. do Cabu\u00e7u, 2692, Bairro Rio da Prata, Campo Grande","local_nome":"Ig. Metodista Embarcados C/Cristo \u2014 Campo Grande","curso_nome":"INTELIG\u00caNCIA ARTIFICIAL"},
-    {"id":"48","curso_id":"8","local_id":"7","turma_codigo":"26/INAT 19","turma_label":"S\u00e1bado \u2014 10h \u00e0s 14h (in\u00edcio 06/06) \u2014 Refor\u00e7o Escolar Tia Dani/Mar\u00e9","dias_aula":"S\u00e1bado","horario":"10h at\u00e9 14h","data_inicio":"06/06/2026","encerramento":"27/06/2026","endereco_curso":"Rua Darcy Vargas, N\u00ba 136, Bairro Mar\u00e9","local_nome":"Refor\u00e7o Escolar Tia Dani \u2014 Mar\u00e9","curso_nome":"INTELIG\u00caNCIA ARTIFICIAL"},
-    {"id":"50","curso_id":"8","local_id":"26","turma_codigo":"26/INAT 20","turma_label":"Quarta \u2014 08h \u00e0s 12h (in\u00edcio 03/06) \u2014 Associa\u00e7\u00e3o dos Artes\u00e3os/Ana Gonzaga","dias_aula":"Quarta","horario":"08h at\u00e9 12h","data_inicio":"03/06/2026","encerramento":"24/06/2026","endereco_curso":"Rua Esmeralda Ana Gonzaga QD, N\u00ba 11, Bairro Ana Gonzaga","local_nome":"Associa\u00e7\u00e3o dos Artes\u00e3os \u2014 Ana Gonzaga","curso_nome":"INTELIG\u00caNCIA ARTIFICIAL"},
-    # ── MARKETING DIGITAL ───────────────────────────────────────────────────
-    {"id":"56","curso_id":"9","local_id":"23","turma_codigo":"26/MARK 26","turma_label":"Ter\u00e7a e Quinta \u2014 19h \u00e0s 21h (in\u00edcio 02/06) \u2014 Vila do Pinheiro/Mar\u00e9","dias_aula":"Ter\u00e7a e Quinta","horario":"19h at\u00e9 21h","data_inicio":"02/06/2026","encerramento":"30/06/2026","endereco_curso":"Via B9, N\u00ba 379, Bloco 14, Bairro Mare","local_nome":"Vila do Pinheiro \u2014 Mar\u00e9","curso_nome":"MARKETING DIGITAL"},
-    {"id":"57","curso_id":"9","local_id":"24","turma_codigo":"26/MARK 29","turma_label":"Ter\u00e7a \u2014 18h \u00e0s 22h (in\u00edcio 02/06) \u2014 Min. Ap. Tenda do Encontro/Cosmos","dias_aula":"Ter\u00e7a","horario":"18h at\u00e9 22h","data_inicio":"02/06/2026","encerramento":"23/06/2026","endereco_curso":"Rua Framboesa, N\u00ba 21, Bairro Cosmos","local_nome":"Minist\u00e9rio Apost\u00f3lico Tenda do Encontro \u2014 Cosmos","curso_nome":"MARKETING DIGITAL"},
-    {"id":"61","curso_id":"9","local_id":"29","turma_codigo":"26/MARK 28","turma_label":"Quarta \u2014 10h \u00e0s 16h (in\u00edcio 03/06) \u2014 Prefeitura/Centro","dias_aula":"Quarta","horario":"10h at\u00e9 16h","data_inicio":"03/06/2026","encerramento":"24/06/2026","endereco_curso":"Rua Alfonso Cavalcanti, N\u00ba 455, 9\u00ba Andar do Pr\u00e9dio Anexo - Cidade Nova, Bairro Centro","local_nome":"Prefeitura \u2014 Centro","curso_nome":"MARKETING DIGITAL"},
-    # ── MONITOR DE LAZER ────────────────────────────────────────────────────
-    {"id":"62","curso_id":"10","local_id":"12","turma_codigo":"26/MLRE 16","turma_label":"Segunda e Quarta \u2014 19h \u00e0s 22h (in\u00edcio 08/06) \u2014 Sal\u00e3o de Festas (77)/Padre Miguel","dias_aula":"Segunda e Quarta","horario":"19h at\u00e9 22h","data_inicio":"08/06/2026","encerramento":"01/07/2026","endereco_curso":"Rua Juazeiro do Norte, 639 - Padre Miguel","local_nome":"Sal\u00e3o de Festas (77) \u2014 Padre Miguel","curso_nome":"MONITOR DE LAZER E RECREA\u00c7\u00c3O"},
-    {"id":"72","curso_id":"10","local_id":"28","turma_codigo":"26/MLRE 18","turma_label":"Ter\u00e7a e Quinta \u2014 08h \u00e0s 12h (in\u00edcio 02/06) \u2014 Amubua (Associa\u00e7\u00e3o)/Santa Cruz","dias_aula":"Ter\u00e7a e Quinta","horario":"08h at\u00e9 12h","data_inicio":"02/06/2026","encerramento":"25/06/2026","endereco_curso":"Rua Jos\u00e9 Silton Pinheiro, N\u00ba 51, Bairro Santa Cruz","local_nome":"Amubua (Associa\u00e7\u00e3o) \u2014 Santa Cruz","curso_nome":"MONITOR DE LAZER E RECREA\u00c7\u00c3O"},
-    # ── OPERADOR DE COMPOSTAGEM ──────────────────────────────────────────────
-    {"id":"74","curso_id":"11","local_id":"3","turma_codigo":"26/OSCO 02","turma_label":"Segunda e Quarta \u2014 14h \u00e0s 17h (in\u00edcio 08/06) \u2014 Assoc. Amigos do Barata/Realengo","dias_aula":"Segunda e Quarta","horario":"14h at\u00e9 17h","data_inicio":"08/06/2026","encerramento":"29/07/2026","endereco_curso":"Rua Correia Teixeira, n\u00ba 79 (Fundos) - Bairro: Realengo","local_nome":"Associa\u00e7\u00e3o Amigos do Barata \u2014 Realengo","curso_nome":"OPERADOR DE SISTEMA DE COMPOSTAGEM E RES\u00cdDUOS ORG\u00c2NICOS"},
-    # ── PORTEIRO ────────────────────────────────────────────────────────────
-    {"id":"75","curso_id":"12","local_id":"20","turma_codigo":"26/PORT 01","turma_label":"Ter\u00e7a e Quinta \u2014 19h \u00e0s 21h (in\u00edcio 26/05) \u2014 Assembleia de Deus ADTS Mandela/Benfica","dias_aula":"Ter\u00e7a e Quinta","horario":"19h at\u00e9 21h","data_inicio":"26/05/2026","encerramento":"29/06/2026","endereco_curso":"Rua Leopoldo Bulh\u00f5es, N\u00ba 800, Bairro Benfica","local_nome":"Assembleia de Deus ADTS Mandela \u2014 Benfica","curso_nome":"PORTEIRO"},
-    {"id":"82","curso_id":"2","local_id":"18","turma_codigo":"26/ASLO 29","turma_label":"S\u00e1bado \u2014 08h \u00e0s 12h (in\u00edcio 13/06) \u2014 Assembleia de Deus ADTS de Col\u00e9gio","dias_aula":"S\u00e1bado","horario":"08h at\u00e9 12h","data_inicio":"13/06/2026","encerramento":"04/07/2026","endereco_curso":"\U0001f4cdEstrada de Col\u00e9gio, 121 - CEP: 21.235-280","local_nome":"Assembleia de Deus ADTS de Col\u00e9gio \u2014 Col\u00e9gio","curso_nome":"ASSISTENTE DE LOG\u00cdSTICA"},
-    {"id":"83","curso_id":"8","local_id":"23","turma_codigo":"26/INAT 22","turma_label":"S\u00e1bado \u2014 09h \u00e0s 13h (in\u00edcio 04/07) \u2014 Vila do Pinheiro/Mar\u00e9 \u2014 BL 14","dias_aula":"S\u00e1bado","horario":"09h at\u00e9 13h","data_inicio":"04/07/2026","encerramento":"25/07/2026","endereco_curso":"\U0001f4cdVia B9, 379, BL 14 - CEP: 21046-090","local_nome":"Vila do Pinheiro \u2014 Mar\u00e9","curso_nome":"INTELIG\u00caNCIA ARTIFICIAL"},
-    {"id":"84","curso_id":"3","local_id":"23","turma_codigo":"26/ADMN 43","turma_label":"Ter\u00e7a e Quinta \u2014 08h \u00e0s 11h (in\u00edcio 29/06) \u2014 Vila do Pinheiro/Mar\u00e9 \u2014 BL 14","dias_aula":"Ter\u00e7a e Quinta","horario":"08h at\u00e9 11h","data_inicio":"29/06/2026","encerramento":"16/07/2026","endereco_curso":"\U0001f4cdVia B9, 379, BL 14 - CEP: 21046-090","local_nome":"Vila do Pinheiro \u2014 Mar\u00e9","curso_nome":"AUXILIAR ADMINISTRATIVO"},
-    {"id":"85","curso_id":"11","local_id":"3","turma_codigo":"26/OSCO 03","turma_label":"Ter\u00e7a e Quinta \u2014 18h \u00e0s 21h (in\u00edcio 25/06) \u2014 Assoc. Amigos do Barata \u2014 Fundos/Realengo","dias_aula":"Ter\u00e7a e Quinta","horario":"18h at\u00e9 21h","data_inicio":"25/06/2026","encerramento":"14/07/2026","endereco_curso":"\U0001f4cdR: Correia Texeira, 79 - Fundos","local_nome":"Associa\u00e7\u00e3o Amigos do Barata \u2014 Realengo","curso_nome":"OPERADOR DE SISTEMA DE COMPOSTAGEM E RES\u00cdDUOS ORG\u00c2NICOS"},
-    {"id":"86","curso_id":"2","local_id":"13","turma_codigo":"26/ASLO 30","turma_label":"Ter\u00e7a \u2014 08h \u00e0s 12h (in\u00edcio 16/06) \u2014 Centro Social Estrela da Manh\u00e3/Guaratiba","dias_aula":"Ter\u00e7a","horario":"08h at\u00e9 12h","data_inicio":"16/06/2026","encerramento":"13/07/2026","endereco_curso":"\U0001f4cdRua Alcides Franco, 175 - CEP: 23032-010","local_nome":"Centro Social Estrela da Manh\u00e3 \u2014 Guaratiba","curso_nome":"ASSISTENTE DE LOG\u00cdSTICA"},
-    {"id":"87","curso_id":"13","local_id":"13","turma_codigo":"26/RECP 06","turma_label":"Ter\u00e7a \u2014 17h \u00e0s 20h30 (in\u00edcio 17/06) \u2014 Centro Social Estrela da Manh\u00e3/Guaratiba","dias_aula":"Ter\u00e7a","horario":"17h at\u00e9 20h30","data_inicio":"17/06/2026","encerramento":"13/07/2026","endereco_curso":"\U0001f4cdRua Alcides Franco, 175 - CEP: 23032-010","local_nome":"Centro Social Estrela da Manh\u00e3 \u2014 Guaratiba","curso_nome":"RECEPCIONISTA"},
-    {"id":"88","curso_id":"13","local_id":"15","turma_codigo":"26/RECP 07","turma_label":"Segunda e Quarta \u2014 09h \u00e0s 11h (in\u00edcio 17/06) \u2014 Campo Socyte de Manguinhos","dias_aula":"Segunda e Quarta","horario":"09h at\u00e9 11h","data_inicio":"17/06/2026","encerramento":"13/07/2026","endereco_curso":"\U0001f4cdRua Nossa Senhora dos Navegantes, 3 - CEP: 21.050-000","local_nome":"Campo Socyte de Manguinhos \u2014 Manguinhos","curso_nome":"RECEPCIONISTA"},
-    {"id":"89","curso_id":"13","local_id":"16","turma_codigo":"26/RECP 08","turma_label":"Ter\u00e7a e Quinta \u2014 19h \u00e0s 21h (in\u00edcio 18/06) \u2014 Quadra Unidos de Manguinhos \u2014 Turma 1","dias_aula":"Ter\u00e7a e Quinta","horario":"19h at\u00e9 21h","data_inicio":"18/06/2026","encerramento":"14/07/2026","endereco_curso":"\U0001f4cdAv dos Democr\u00e1ticos, 32 - CEP: 21050-000","local_nome":"Quadra Unidos de Manguinhos \u2014 Manguinhos","curso_nome":"RECEPCIONISTA"},
-    {"id":"90","curso_id":"13","local_id":"16","turma_codigo":"26/RECP 09","turma_label":"Ter\u00e7a e Quinta \u2014 19h \u00e0s 21h (in\u00edcio 18/06) \u2014 Quadra Unidos de Manguinhos \u2014 Turma 2","dias_aula":"Ter\u00e7a e Quinta","horario":"19h at\u00e9 21h","data_inicio":"18/06/2026","encerramento":"14/07/2026","endereco_curso":"\U0001f4cdAv dos Democr\u00e1ticos, 32 - CEP: 21050-000","local_nome":"Quadra Unidos de Manguinhos \u2014 Manguinhos","curso_nome":"RECEPCIONISTA"},
-    {"id":"91","curso_id":"13","local_id":"15","turma_codigo":"26/RECP 10","turma_label":"Segunda e Quarta \u2014 09h \u00e0s 11h (in\u00edcio 17/06) \u2014 Campo Socyte de Manguinhos \u2014 Turma 2","dias_aula":"Segunda e Quarta","horario":"09h at\u00e9 11h","data_inicio":"17/06/2026","encerramento":"13/07/2026","endereco_curso":"\U0001f4cdRua Nossa Senhora dos Navegantes, 3 - CEP: 21.050-000","local_nome":"Campo Socyte de Manguinhos \u2014 Manguinhos","curso_nome":"RECEPCIONISTA"},
-    {"id":"92","curso_id":"10","local_id":"17","turma_codigo":"26/MLRE 19","turma_label":"Quarta e Sexta \u2014 16h \u00e0s 18h (in\u00edcio 17/07) \u2014 Min. Ap. Mover Prof\u00e9tico/Senador Camar\u00e1","dias_aula":"Quarta e Sexta","horario":"16h at\u00e9 18h","data_inicio":"17/07/2026","encerramento":"07/08/2026","endereco_curso":"\U0001f4cdRua Guilherme Francisco de Moraes, Lote 3, Quadra D - Senador Camar\u00e1, CEP: 21833-190","local_nome":"Minist\u00e9rio Apost\u00f3lico Mover Prof\u00e9tico \u2014 Senador Camar\u00e1","curso_nome":"MONITOR DE LAZER E RECREA\u00c7\u00c3O"},
-    {"id":"93","curso_id":"2","local_id":"17","turma_codigo":"26/ASLO 31","turma_label":"S\u00e1bado \u2014 08h \u00e0s 12h (in\u00edcio 11/07) \u2014 Min. Ap. Mover Prof\u00e9tico/Senador Camar\u00e1","dias_aula":"S\u00e1bado","horario":"08h at\u00e9 12h","data_inicio":"11/07/2026","encerramento":"01/08/2026","endereco_curso":"\U0001f4cdRua Guilherme Francisco de Moraes, Lote 3, Quadra D - Senador Camar\u00e1, CEP: 21833-190","local_nome":"Minist\u00e9rio Apost\u00f3lico Mover Prof\u00e9tico \u2014 Senador Camar\u00e1","curso_nome":"ASSISTENTE DE LOG\u00cdSTICA"},
-    {"id":"94","curso_id":"9","local_id":"8","turma_codigo":"26/MARK 31","turma_label":"Segunda \u2014 18h \u00e0s 21h (in\u00edcio 15/06) \u2014 Igreja Batista Ebenezer/Inhoaiba","dias_aula":"Segunda","horario":"18h at\u00e9 21h","data_inicio":"15/06/2026","encerramento":"06/07/2026","endereco_curso":"\U0001f4cdAvenida A, 2756 - CEP: 23.062-000","local_nome":"Igreja Batista Ebenezer \u2014 Inhoaiba","curso_nome":"MARKETING DIGITAL"},
-    {"id":"95","curso_id":"15","local_id":"9","turma_codigo":"26/VEND 01","turma_label":"S\u00e1bado \u2014 08h \u00e0s 12h (in\u00edcio 20/06) \u2014 Assoc. de Moradores S\u00e3o Jorge/Inhoaiba","dias_aula":"S\u00e1bado","horario":"08h at\u00e9 12h","data_inicio":"20/06/2026","encerramento":"18/07/2026","endereco_curso":"\U0001f4cdRua Moranga, 125 - Campo Grande, Inhoaiba","local_nome":"Associa\u00e7\u00e3o de Moradores S\u00e3o Jorge \u2014 Inhoaiba","curso_nome":"VENDEDOR"},
-    {"id":"96","curso_id":"3","local_id":"31","turma_codigo":"26/ADMN 44","turma_label":"Segunda e Quarta \u2014 19h \u00e0s 21h (in\u00edcio 22/06) \u2014 Ig. Evang\u00e9lica P\u00e3o da Vida/Curicica","dias_aula":"Segunda e Quarta","horario":"19h at\u00e9 21h","data_inicio":"22/06/2026","encerramento":"13/07/2026","endereco_curso":"\U0001f4cdRua Mandina, 2 - CEP: 22780-530 - Curicica","local_nome":"Igreja Evang\u00e9lica P\u00e3o da Vida \u2014 Curicica","curso_nome":"AUXILIAR ADMINISTRATIVO"},
-    {"id":"97","curso_id":"3","local_id":"4","turma_codigo":"26/ADMN 45","turma_label":"Segunda e Quarta \u2014 14h \u00e0s 17h (in\u00edcio 17/06) \u2014 Igreja Batista S\u00e3o Bento/Bangu","dias_aula":"Segunda e Quarta","horario":"14h at\u00e9 17h","data_inicio":"17/06/2026","encerramento":"13/07/2026","endereco_curso":"\U0001f4cdRua Batu\u00edra, 121 - CEP: 21860-160","local_nome":"Igreja Batista S\u00e3o Bento \u2014 Bangu","curso_nome":"AUXILIAR ADMINISTRATIVO"},
-    {"id":"98","curso_id":"14","local_id":"25","turma_codigo":"26/SOMD 16","turma_label":"Segunda \u2014 17h30 \u00e0s 19h30 (in\u00edcio 06/07) \u2014 Igreja Batista Rio da Prata/Bangu","dias_aula":"Segunda","horario":"17h30 at\u00e9 19h30","data_inicio":"06/07/2026","encerramento":"27/07/2026","endereco_curso":"\U0001f4cdRua dos Limadores, 866 - CEP: 21.830-005","local_nome":"Igreja Batista Rio da Prata \u2014 Bangu","curso_nome":"SOCIAL MEDIA"},
-    {"id":"99","curso_id":"14","local_id":"7","turma_codigo":"26/SOMD 17","turma_label":"S\u00e1bado \u2014 10h \u00e0s 14h (in\u00edcio 06/06) \u2014 Refor\u00e7o Escolar Tia Dani/Mar\u00e9","dias_aula":"S\u00e1bado","horario":"10h at\u00e9 14h","data_inicio":"06/06/2026","encerramento":"27/07/2026","endereco_curso":"\U0001f4cdRua Darcy Vargas, 136 - Bairro Mar\u00e9","local_nome":"Refor\u00e7o Escolar Tia Dani \u2014 Mar\u00e9","curso_nome":"SOCIAL MEDIA"},
-    {"id":"100","curso_id":"14","local_id":"16","turma_codigo":"26/SOMD 18","turma_label":"Segunda e Quarta \u2014 19h \u00e0s 21h (in\u00edcio 17/06) \u2014 Quadra Unidos de Manguinhos","dias_aula":"Segunda e Quarta","horario":"19h at\u00e9 21h","data_inicio":"17/06/2026","encerramento":"13/07/2026","endereco_curso":"\U0001f4cdAvenida dos Democr\u00e1ticos, 32 - CEP: 21050-000","local_nome":"Quadra Unidos de Manguinhos \u2014 Manguinhos","curso_nome":"SOCIAL MEDIA"},
-    {"id":"101","curso_id":"8","local_id":"24","turma_codigo":"26/INAT 23","turma_label":"Ter\u00e7a \u2014 18h \u00e0s 22h (in\u00edcio 07/07) \u2014 Min. Ap. Tenda do Encontro/Cosmos","dias_aula":"Ter\u00e7a","horario":"18h \u00e0s 22h","data_inicio":"07/07/2026","encerramento":"28/07/2026","endereco_curso":"\U0001f4cdRua Framboesa, 21 - CEP: 23.061-522","local_nome":"Minist\u00e9rio Apost\u00f3lico Tenda do Encontro \u2014 Cosmos","curso_nome":"INTELIG\u00caNCIA ARTIFICIAL"},
-    {"id":"102","curso_id":"8","local_id":"13","turma_codigo":"26/INAT 24","turma_label":"Segunda \u2014 17h \u00e0s 21h (in\u00edcio 15/06) \u2014 Centro Social Estrela da Manh\u00e3/Guaratiba","dias_aula":"Segunda","horario":"17h at\u00e9 21h","data_inicio":"15/06/2026","encerramento":"06/07/2026","endereco_curso":"\U0001f4cdRua Alcides Franco, 175 - CEP: 23032-010","local_nome":"Centro Social Estrela da Manh\u00e3 \u2014 Guaratiba","curso_nome":"INTELIG\u00caNCIA ARTIFICIAL"},
-    {"id":"103","curso_id":"8","local_id":"15","turma_codigo":"26/INAT 25","turma_label":"Segunda e Quarta \u2014 09h \u00e0s 11h (in\u00edcio 18/06) \u2014 Campo Socyte de Manguinhos \u2014 Turma 1","dias_aula":"Segunda e Quarta","horario":"09h at\u00e9 11h","data_inicio":"18/06/2026","encerramento":"14/07/2026","endereco_curso":"\U0001f4cdRua Nossa Senhora dos Navegantes, 3 - CEP: 21.050-000","local_nome":"Campo Socyte de Manguinhos \u2014 Manguinhos","curso_nome":"INTELIG\u00caNCIA ARTIFICIAL"},
-    {"id":"104","curso_id":"8","local_id":"16","turma_codigo":"26/INAT 26","turma_label":"Ter\u00e7a e Quinta \u2014 19h \u00e0s 21h (in\u00edcio 18/06) \u2014 Quadra Unidos de Manguinhos \u2014 Turma 1","dias_aula":"Ter\u00e7a e Quinta","horario":"19h at\u00e9 21h","data_inicio":"18/06/2026","encerramento":"14/07/2026","endereco_curso":"\U0001f4cdAvenida dos Democr\u00e1ticos, 32 - CEP: 21050-000","local_nome":"Quadra Unidos de Manguinhos \u2014 Manguinhos","curso_nome":"INTELIG\u00caNCIA ARTIFICIAL"},
-    {"id":"105","curso_id":"8","local_id":"16","turma_codigo":"26/INAT 27","turma_label":"Ter\u00e7a e Quinta \u2014 19h \u00e0s 21h (in\u00edcio 18/06) \u2014 Quadra Unidos de Manguinhos \u2014 Turma 2","dias_aula":"Ter\u00e7a e Quinta","horario":"19h at\u00e9 21h","data_inicio":"18/06/2026","encerramento":"14/07/2026","endereco_curso":"\U0001f4cdAvenida dos Democr\u00e1ticos, 32 - CEP: 21050-000","local_nome":"Quadra Unidos de Manguinhos \u2014 Manguinhos","curso_nome":"INTELIG\u00caNCIA ARTIFICIAL"},
-    {"id":"106","curso_id":"8","local_id":"15","turma_codigo":"26/INAT 28","turma_label":"Segunda e Quarta \u2014 09h \u00e0s 11h (in\u00edcio 18/06) \u2014 Campo Socyte de Manguinhos \u2014 Turma 2","dias_aula":"Segunda e Quarta","horario":"09h at\u00e9 11h","data_inicio":"18/06/2026","encerramento":"14/07/2026","endereco_curso":"\U0001f4cdRua Nossa Senhora dos Navegantes, 3 - CEP: 21.050-000","local_nome":"Campo Socyte de Manguinhos \u2014 Manguinhos","curso_nome":"INTELIG\u00caNCIA ARTIFICIAL"},
-    {"id":"107","curso_id":"5","local_id":"30","turma_codigo":"26/BARB 02","turma_label":"S\u00e1bado \u2014 08h \u00e0s 12h (in\u00edcio 15/06) \u2014 Assembleia de Deus na Pavuna/Cosmos","dias_aula":"S\u00e1bado","horario":"08h at\u00e9 12h","data_inicio":"15/06/2026","encerramento":"06/07/2026","endereco_curso":"\U0001f4cdR: 9, Lt 19, Casa 2 - Cj Urucania, CEP: 23059-340","local_nome":"Assembleia de Deus na Pavuna \u2014 Cosmos","curso_nome":"BARBEIRO"},
-    {"id":"108","curso_id":"2","local_id":"5","turma_codigo":"26/ASLO 32","turma_label":"Ter\u00e7a e Quinta \u2014 18h \u00e0s 22h (in\u00edcio 16/06) \u2014 Residencial Rio Samba/Campo Grande","dias_aula":"Ter\u00e7a e Quinta","horario":"18h at\u00e9 22h","data_inicio":"16/06/2026","encerramento":"25/06/2026","endereco_curso":"\U0001f4cdRua Antonio Carlos Belchior, 200 - Mendanha, Campo Grande","local_nome":"Residencial Rio Samba \u2014 Campo Grande","curso_nome":"ASSISTENTE DE LOG\u00cdSTICA"},
-    {"id":"109","curso_id":"2","local_id":"32","turma_codigo":"26/ASLO 33","turma_label":"S\u00e1bado \u2014 09h \u00e0s 13h (in\u00edcio 11/07) \u2014 Assoc. Moradores Conj. Liberdade/Santa Cruz","dias_aula":"S\u00e1bado","horario":"09h at\u00e9 13h","data_inicio":"11/07/2026","encerramento":"11/08/2026","endereco_curso":"\U0001f4cdAv Canal Margem Direita, 54 - CEP: 23560-366","local_nome":"Associa\u00e7\u00e3o Moradores Conjunto Liberdade \u2014 Santa Cruz","curso_nome":"ASSISTENTE DE LOG\u00cdSTICA"},
-    {"id":"110","curso_id":"2","local_id":"18","turma_codigo":"26/ASLO 34","turma_label":"S\u00e1bado \u2014 09h \u00e0s 11h (in\u00edcio 27/06) \u2014 Assembleia de Deus ADTS de Col\u00e9gio","dias_aula":"S\u00e1bado","horario":"09h at\u00e9 11h","data_inicio":"27/06/2026","encerramento":"25/07/2026","endereco_curso":"\U0001f4cdEstrada de Col\u00e9gio, 121 - CEP: 21235-280","local_nome":"Assembleia de Deus ADTS de Col\u00e9gio \u2014 Col\u00e9gio","curso_nome":"ASSISTENTE DE LOG\u00cdSTICA"},
-    {"id":"111","curso_id":"13","local_id":"20","turma_codigo":"26/RECP 11","turma_label":"Segunda, Ter\u00e7a e Quinta \u2014 19h \u00e0s 21h (in\u00edcio 18/06) \u2014 Assembleia de Deus ADTS Mandela","dias_aula":"Segunda, Ter\u00e7a e Quinta","horario":"19h at\u00e9 21h","data_inicio":"18/06/2026","encerramento":"30/06/2026","endereco_curso":"\U0001f4cdRua Leopoldo Bulh\u00f5es, 800 - CEP: 20911-300","local_nome":"Assembleia de Deus ADTS Mandela \u2014 Benfica","curso_nome":"RECEPCIONISTA"},
-    {"id":"112","curso_id":"8","local_id":"4","turma_codigo":"26/INAT 29","turma_label":"S\u00e1bado \u2014 08h \u00e0s 12h (in\u00edcio 04/07) \u2014 Igreja Batista S\u00e3o Bento/Bangu","dias_aula":"S\u00e1bado","horario":"08h at\u00e9 12h","data_inicio":"04/07/2026","encerramento":"25/07/2026","endereco_curso":"\U0001f4cdRua Batu\u00edra, 121 - CEP: 21.860-290","local_nome":"Igreja Batista S\u00e3o Bento \u2014 Bangu","curso_nome":"INTELIG\u00caNCIA ARTIFICIAL"},
-    {"id":"113","curso_id":"14","local_id":"11","turma_codigo":"26/SOMD 19","turma_label":"S\u00e1bado \u2014 08h \u00e0s 12h (in\u00edcio 27/06) \u2014 Igreja Batista Maanaim Mendanha","dias_aula":"S\u00e1bado","horario":"08h at\u00e9 12h","data_inicio":"27/06/2026","encerramento":"18/07/2026","endereco_curso":"\U0001f4cdEstrada do Mendanha, 4240","local_nome":"Igreja Batista Maanaim Mendanha \u2014 Campo Grande","curso_nome":"SOCIAL MEDIA"},
-    {"id":"114","curso_id":"4","local_id":"35","turma_codigo":"26/AXCZ 21","turma_label":"S\u00e1bado \u2014 08h \u00e0s 12h (in\u00edcio 20/06) \u2014 Sal\u00e3o de Festas/Santa Cruz","dias_aula":"S\u00e1bado","horario":"08h at\u00e9 12h","data_inicio":"20/06/2026","encerramento":"11/07/2026","endereco_curso":"\U0001f4cdAvenida Marginal, 107 - CEP: 23595-020 - Santa Cruz","local_nome":"Sal\u00e3o de Festas \u2014 Santa Cruz","curso_nome":"AUXILIAR DE COZINHA"},
-    {"id":"115","curso_id":"9","local_id":"34","turma_codigo":"26/MARK 32","turma_label":"Segunda e Quinta \u2014 18h \u00e0s 22h (in\u00edcio 04/07) \u2014 Centro Cultural Lottus/M\u00e9ier","dias_aula":"Segunda e Quinta","horario":"18h at\u00e9 22h","data_inicio":"04/07/2026","encerramento":"25/07/2026","endereco_curso":"\U0001f4cdRua Dias da Cruz, 638 - Sala 204 - CEP: 20.720-013","local_nome":"Centro Cultural Lottus \u2014 M\u00e9ier","curso_nome":"MARKETING DIGITAL"},
-    {"id":"116","curso_id":"5","local_id":"19","turma_codigo":"26/BARB 03","turma_label":"S\u00e1bado \u2014 08h \u00e0s 12h (in\u00edcio 27/06) \u2014 Vila Cruzeiro/Penha","dias_aula":"S\u00e1bado","horario":"08h at\u00e9 12h","data_inicio":"27/06/2026","encerramento":"27/07/2026","endereco_curso":"\U0001f4cdR: Sargento Ricardo Filho, 26 - CEP: 21070-170","local_nome":"Vila Cruzeiro \u2014 Penha","curso_nome":"BARBEIRO"},
-    {"id":"117","curso_id":"3","local_id":"26","turma_codigo":"26/ADMN 46","turma_label":"Ter\u00e7a \u2014 14h \u00e0s 18h (in\u00edcio 07/07) \u2014 Associa\u00e7\u00e3o dos Artes\u00e3os/Ana Gonzaga","dias_aula":"Ter\u00e7a","horario":"14h at\u00e9 18h","data_inicio":"07/07/2026","encerramento":"28/07/2026","endereco_curso":"\U0001f4cdRua Esmeralda Ana Gonzaga QD 11 - CEP: 23050-489","local_nome":"Associa\u00e7\u00e3o dos Artes\u00e3os \u2014 Ana Gonzaga","curso_nome":"AUXILIAR ADMINISTRATIVO"},
-    {"id":"118","curso_id":"9","local_id":"26","turma_codigo":"26/MARK 33","turma_label":"Quarta \u2014 08h \u00e0s 12h (in\u00edcio 08/07) \u2014 Associa\u00e7\u00e3o dos Artes\u00e3os/Ana Gonzaga","dias_aula":"Quarta","horario":"08h at\u00e9 12h","data_inicio":"08/07/2026","encerramento":"29/07/2026","endereco_curso":"\U0001f4cdRua Esmeralda Ana Gonzaga QD 11 - CEP: 23050-489","local_nome":"Associa\u00e7\u00e3o dos Artes\u00e3os \u2014 Ana Gonzaga","curso_nome":"MARKETING DIGITAL"},
-    {"id":"119","curso_id":"4","local_id":"26","turma_codigo":"26/AXCZ 22","turma_label":"S\u00e1bado \u2014 14h \u00e0s 18h (in\u00edcio 04/07) \u2014 Associa\u00e7\u00e3o dos Artes\u00e3os/Ana Gonzaga","dias_aula":"S\u00e1bado","horario":"14h at\u00e9 18h","data_inicio":"04/07/2026","encerramento":"25/07/2026","endereco_curso":"\U0001f4cdRua Esmeralda Ana Gonzaga QD 11 - CEP: 23050-489","local_nome":"Associa\u00e7\u00e3o dos Artes\u00e3os \u2014 Ana Gonzaga","curso_nome":"AUXILIAR DE COZINHA"},
-    {"id":"120","curso_id":"13","local_id":"21","turma_codigo":"26/RECP 12","turma_label":"S\u00e1bado \u2014 14h \u00e0s 18h (in\u00edcio 11/07) \u2014 Igreja Uni\u00e3o Evang\u00e9lica Pentecostal/Cosmos","dias_aula":"S\u00e1bado","horario":"14h at\u00e9 18h","data_inicio":"11/07/2026","encerramento":"01/08/2026","endereco_curso":"\U0001f4cdRua Herval Rossano LT 26 QD 16 - CEP: 23066-350 - Cosmos","local_nome":"Igreja Uni\u00e3o Evang\u00e9lica Pentecostal \u2014 Cosmos","curso_nome":"RECEPCIONISTA"},
-    {"id":"121","curso_id":"9","local_id":"12","turma_codigo":"26/MARK 34","turma_label":"Segunda e Quarta \u2014 19h \u00e0s 21h (in\u00edcio 06/07) \u2014 Sal\u00e3o de Festas (77)/Padre Miguel","dias_aula":"Segunda e Quarta","horario":"19h at\u00e9 21h","data_inicio":"06/07/2026","encerramento":"29/07/2026","endereco_curso":"\U0001f4cdRua Juazeiro do Norte, 639 \u2014 Sal\u00e3o de Festas 77, Padre Miguel","local_nome":"Sal\u00e3o de Festas (77) \u2014 Padre Miguel","curso_nome":"MARKETING DIGITAL"},
-    {"id":"122","curso_id":"8","local_id":"27","turma_codigo":"26/INAT 30","turma_label":"Quarta, Quinta e Sexta \u2014 13h30 \u00e0s 16h (in\u00edcio 30/06) \u2014 Tia Lu/Realengo","dias_aula":"Quarta, Quinta e Sexta","horario":"13h30 at\u00e9 16h","data_inicio":"30/06/2026","encerramento":"09/07/2026","endereco_curso":"\U0001f4cdRua Pedro Gomes, 2 \u2014 CEP: 21715-040 (Tia Lu, Realengo)","local_nome":"Tia Lu \u2014 Realengo","curso_nome":"INTELIG\u00caNCIA ARTIFICIAL"},
-    {"id":"123","curso_id":"8","local_id":"6","turma_codigo":"26/INAT 31","turma_label":"S\u00e1bado \u2014 08h \u00e0s 12h (in\u00edcio 04/07) \u2014 Ig. Metodista Embarcados C/Cristo/Campo Grande","dias_aula":"S\u00e1bado","horario":"08h at\u00e9 12h","data_inicio":"04/07/2026","encerramento":"25/07/2026","endereco_curso":"\U0001f4cdEstrada do Cabu\u00e7u, 2692 \u2014 Rio da Prata, Campo Grande","local_nome":"Ig. Metodista Embarcados C/Cristo \u2014 Campo Grande","curso_nome":"INTELIG\u00caNCIA ARTIFICIAL"},
-    {"id":"124","curso_id":"13","local_id":"26","turma_codigo":"26/RECP 13","turma_label":"S\u00e1bado \u2014 08h \u00e0s 12h (in\u00edcio 05/07) \u2014 Associa\u00e7\u00e3o dos Artes\u00e3os/Ana Gonzaga","dias_aula":"S\u00e1bado","horario":"08h at\u00e9 12h","data_inicio":"05/07/2026","encerramento":"26/07/2026","endereco_curso":"\U0001f4cdRua Esmeralda Ana Gonzaga QD 11 \u2014 CEP: 23050-489","local_nome":"Associa\u00e7\u00e3o dos Artes\u00e3os \u2014 Ana Gonzaga","curso_nome":"RECEPCIONISTA"},
-    {"id":"125","curso_id":"9","local_id":"29","turma_codigo":"26/MARK 35","turma_label":"Quarta \u2014 10h \u00e0s 16h (in\u00edcio 02/07) \u2014 Prefeitura/Centro","dias_aula":"Quarta","horario":"10h at\u00e9 16h","data_inicio":"02/07/2026","encerramento":"23/07/2026","endereco_curso":"\U0001f4cdRua Afonso Cavalcanti, 455 \u2014 Cidade Nova, Rio de Janeiro \u2014 CEP: 20211-110","local_nome":"Prefeitura \u2014 Centro","curso_nome":"MARKETING DIGITAL"},
-    {"id":"126","curso_id":"4","local_id":"21","turma_codigo":"26/AXCZ 23","turma_label":"S\u00e1bado \u2014 08h \u00e0s 12h (in\u00edcio 11/07) \u2014 Igreja Uni\u00e3o Evang\u00e9lica Pentecostal/Cosmos","dias_aula":"S\u00e1bado","horario":"08h at\u00e9 12h","data_inicio":"11/07/2026","encerramento":"01/08/2026","endereco_curso":"\U0001f4cdRua Herval Rossano, 26 \u2014 Cosmos","local_nome":"Igreja Uni\u00e3o Evang\u00e9lica Pentecostal \u2014 Cosmos","curso_nome":"AUXILIAR DE COZINHA"},
-    {"id":"127","curso_id":"4","local_id":"33","turma_codigo":"26/AXCZ 24","turma_label":"S\u00e1bado \u2014 08h \u00e0s 12h (in\u00edcio 11/07) \u2014 IMMEC Church/Campo Grande","dias_aula":"S\u00e1bado","horario":"08h at\u00e9 12h","data_inicio":"11/07/2026","encerramento":"01/08/2026","endereco_curso":"\U0001f4cdEstrada do Cabu\u00e7u, 2692 \u2014 Vila Jardim, Campo Grande","local_nome":"IMMEC Church \u2014 Campo Grande","curso_nome":"AUXILIAR DE COZINHA"},
-    {"id":"128","curso_id":"16","local_id":"2","turma_codigo":"26/GRCM 01","turma_label":"Segunda e Quarta \u2014 14h \u00e0s 17h (in\u00edcio 29/06) \u2014 Cozinha Comunit\u00e1ria/Realengo","dias_aula":"Segunda e Quarta","horario":"14h at\u00e9 17h","data_inicio":"29/06/2026","encerramento":"15/07/2026","endereco_curso":"\U0001f4cdRua General Raposo, 41 \u2014 CEP: 21730-000, Realengo","local_nome":"Cozinha Comunit\u00e1ria \u2014 Realengo","curso_nome":"GAR\u00c7OM"},
-    {"id":"129","curso_id":"3","local_id":"7","turma_codigo":"26/ADMN 47","turma_label":"S\u00e1bado \u2014 10h \u00e0s 14h (in\u00edcio 11/07) \u2014 Refor\u00e7o Escolar Tia Dani/Mar\u00e9","dias_aula":"S\u00e1bado","horario":"10h at\u00e9 14h","data_inicio":"11/07/2026","encerramento":"01/08/2026","endereco_curso":"\U0001f4cdRua Darcy Vargas, 136 \u2013 Rio de Janeiro, RJ","local_nome":"Refor\u00e7o Escolar Tia Dani \u2014 Mar\u00e9","curso_nome":"AUXILIAR ADMINISTRATIVO"},
-    {"id":"130","curso_id":"3","local_id":"8","turma_codigo":"26/ADMN 48","turma_label":"Segunda \u2014 18h \u00e0s 22h (in\u00edcio 13/07) \u2014 Igreja Batista Ebenezer/Inhoaiba","dias_aula":"Segunda","horario":"18h at\u00e9 22h","data_inicio":"13/07/2026","encerramento":"03/08/2026","endereco_curso":"\U0001f4cdAvenida A, 2756 \u2013 CEP 23.062-000 \u2013 Inhoaiba","local_nome":"Igreja Batista Ebenezer \u2014 Inhoaiba","curso_nome":"AUXILIAR ADMINISTRATIVO"},
-    {"id":"131","curso_id":"11","local_id":"36","turma_codigo":"26/OSCO 04","turma_label":"Ter\u00e7a e Quinta \u2014 9h \u00e0s 12h (in\u00edcio 28/07) \u2014 Casa Costa Matos","dias_aula":"Ter\u00e7a e Quinta","horario":"9h at\u00e9 12h","data_inicio":"28/07/2026","encerramento":"13/08/2026","endereco_curso":"\U0001f4cdRua Capit\u00e3o Teixeira, 583 \u2013 CEP 21.755-000 \u2013 Rio de Janeiro, RJ","local_nome":"Casa Costa Matos \u2014 Rio de Janeiro","curso_nome":"OPERADOR DE SISTEMA DE COMPOSTAGEM E RES\u00cdDUOS ORG\u00c2NICOS"},
-    {"id":"132","curso_id":"1","local_id":"16","turma_codigo":"26/AGTU 01","turma_label":"Segunda e Quarta \u2014 19h \u00e0s 21h (in\u00edcio 20/07) \u2014 Quadra Unidos de Manguinhos (T1)","dias_aula":"Segunda e Quarta","horario":"19h at\u00e9 21h","data_inicio":"20/07/2026","encerramento":"12/08/2026","endereco_curso":"\U0001f4cdAvenida dos Democr\u00e1ticos, 32 \u2013 CEP 21050-000","local_nome":"Quadra Unidos de Manguinhos \u2014 Manguinhos","curso_nome":"AGENTE DE TURISMO CORPORATIVO"},
-    {"id":"133","curso_id":"1","local_id":"15","turma_codigo":"26/AGTU 02","turma_label":"Ter\u00e7a e Quinta \u2014 9h \u00e0s 11h (in\u00edcio 20/07) \u2014 Campo Socyte de Manguinhos (T1)","dias_aula":"Ter\u00e7a e Quinta","horario":"9h at\u00e9 11h","data_inicio":"20/07/2026","encerramento":"12/08/2026","endereco_curso":"\U0001f4cdRua Nossa Senhora dos Navegantes, 3 \u2013 CEP 21.050-000","local_nome":"Campo Socyte de Manguinhos \u2014 Manguinhos","curso_nome":"AGENTE DE TURISMO CORPORATIVO"},
-    {"id":"134","curso_id":"1","local_id":"16","turma_codigo":"26/AGTU 03","turma_label":"Ter\u00e7a e Quinta \u2014 19h \u00e0s 21h (in\u00edcio 21/07) \u2014 Quadra Unidos de Manguinhos (T2)","dias_aula":"Ter\u00e7a e Quinta","horario":"19h at\u00e9 21h","data_inicio":"21/07/2026","encerramento":"13/08/2026","endereco_curso":"\U0001f4cdAvenida dos Democr\u00e1ticos, 32 \u2013 CEP 21050-000","local_nome":"Quadra Unidos de Manguinhos \u2014 Manguinhos","curso_nome":"AGENTE DE TURISMO CORPORATIVO"},
-    {"id":"135","curso_id":"1","local_id":"15","turma_codigo":"26/AGTU 04","turma_label":"Ter\u00e7a e Quinta \u2014 9h \u00e0s 11h (in\u00edcio 20/07) \u2014 Campo Socyte de Manguinhos (T2)","dias_aula":"Ter\u00e7a e Quinta","horario":"9h at\u00e9 11h","data_inicio":"20/07/2026","encerramento":"12/08/2026","endereco_curso":"\U0001f4cdRua Nossa Senhora dos Navegantes, 3 \u2013 CEP 21.050-000","local_nome":"Campo Socyte de Manguinhos \u2014 Manguinhos","curso_nome":"AGENTE DE TURISMO CORPORATIVO"},
-    {"id":"136","curso_id":"13","local_id":"30","turma_codigo":"26/RECP 14","turma_label":"Ter\u00e7a \u2014 18h \u00e0s 22h (in\u00edcio 13/07) \u2014 Assembleia de Deus na Pavuna/Cosmos","dias_aula":"Ter\u00e7a","horario":"18h at\u00e9 22h","data_inicio":"13/07/2026","encerramento":"03/08/2026","endereco_curso":"\U0001f4cdRua 9, Lote 19, Casa 2 \u2013 Cj Urucania \u2013 CEP 23.059-340","local_nome":"Assembleia de Deus na Pavuna \u2014 Cosmos","curso_nome":"RECEPCIONISTA"},
-    {"id":"137","curso_id":"8","local_id":"37","turma_codigo":"26/INAT 32","turma_label":"S\u00e1bado \u2014 9h \u00e0s 13h (in\u00edcio 18/07) \u2014 Mar\u00e9 1/Rua Capit\u00e3o Carlos","dias_aula":"S\u00e1bado","horario":"9h at\u00e9 13h","data_inicio":"18/07/2026","encerramento":"15/08/2026","endereco_curso":"\U0001f4cdRua Capit\u00e3o Carlos, 311 \u2013 Bonsucesso \u2013 CEP 21042-150","local_nome":"Mar\u00e9 1 \u2014 Rua Capit\u00e3o Carlos","curso_nome":"INTELIG\u00caNCIA ARTIFICIAL"},
-    {"id":"138","curso_id":"17","local_id":"37","turma_codigo":"26/TRFG 01","turma_label":"S\u00e1bado \u2014 14h \u00e0s 18h (in\u00edcio 18/07) \u2014 Mar\u00e9 1/Rua Capit\u00e3o Carlos","dias_aula":"S\u00e1bado","horario":"14h at\u00e9 18h","data_inicio":"18/07/2026","encerramento":"15/08/2026","endereco_curso":"\U0001f4cdRua Capit\u00e3o Carlos, 311 \u2013 Bonsucesso \u2013 CEP 21042-150","local_nome":"Mar\u00e9 1 \u2014 Rua Capit\u00e3o Carlos","curso_nome":"GERENCIAMENTO DE TR\u00c1FEGO PAGO"},
-    {"id":"139","curso_id":"9","local_id":"37","turma_codigo":"26/MARK 36","turma_label":"Segunda e Quarta \u2014 16h \u00e0s 18h (in\u00edcio 20/07) \u2014 Mar\u00e9 1/Rua Capit\u00e3o Carlos","dias_aula":"Segunda e Quarta","horario":"16h at\u00e9 18h","data_inicio":"20/07/2026","encerramento":"19/08/2026","endereco_curso":"\U0001f4cdRua Capit\u00e3o Carlos, 311 \u2013 Bonsucesso \u2013 CEP 21042-150","local_nome":"Mar\u00e9 1 \u2014 Rua Capit\u00e3o Carlos","curso_nome":"MARKETING DIGITAL"},
-    {"id":"140","curso_id":"14","local_id":"38","turma_codigo":"26/SOMD 20","turma_label":"Segunda e Quarta \u2014 16h \u00e0s 18h (in\u00edcio 20/07) \u2014 Mar\u00e9 2/Rua Capit\u00e3o Carlos","dias_aula":"Segunda e Quarta","horario":"16h at\u00e9 18h","data_inicio":"20/07/2026","encerramento":"19/08/2026","endereco_curso":"\U0001f4cdRua Capit\u00e3o Carlos, 311 \u2013 Bonsucesso \u2013 CEP 21042-150","local_nome":"Mar\u00e9 2 \u2014 Rua Capit\u00e3o Carlos","curso_nome":"SOCIAL MEDIA"},
-    {"id":"141","curso_id":"9","local_id":"38","turma_codigo":"26/MARK 37","turma_label":"Ter\u00e7a e Quinta \u2014 16h \u00e0s 18h (in\u00edcio 21/07) \u2014 Mar\u00e9 2/Rua Capit\u00e3o Carlos","dias_aula":"Ter\u00e7a e Quinta","horario":"16h at\u00e9 18h","data_inicio":"21/07/2026","encerramento":"20/08/2026","endereco_curso":"\U0001f4cdRua Capit\u00e3o Carlos, 311 \u2013 Bonsucesso \u2013 CEP 21042-150","local_nome":"Mar\u00e9 2 \u2014 Rua Capit\u00e3o Carlos","curso_nome":"MARKETING DIGITAL"},
-    {"id":"142","curso_id":"3","local_id":"38","turma_codigo":"26/ADMN 49","turma_label":"Ter\u00e7a e Quinta \u2014 19h \u00e0s 21h (in\u00edcio 21/07) \u2014 Mar\u00e9 2/Rua Capit\u00e3o Carlos","dias_aula":"Ter\u00e7a e Quinta","horario":"19h at\u00e9 21h","data_inicio":"21/07/2026","encerramento":"20/08/2026","endereco_curso":"\U0001f4cdRua Capit\u00e3o Carlos, 311 \u2013 Bonsucesso \u2013 CEP 21042-150","local_nome":"Mar\u00e9 2 \u2014 Rua Capit\u00e3o Carlos","curso_nome":"AUXILIAR ADMINISTRATIVO"},
-    {"id":"143","curso_id":"9","local_id":"27","turma_codigo":"26/MARK 38","turma_label":"Segunda, Quarta e Quinta \u2014 14h \u00e0s 16h (in\u00edcio 03/08) \u2014 Tia Lu/Realengo","dias_aula":"Segunda, Quarta e Quinta","horario":"14h at\u00e9 16h","data_inicio":"03/08/2026","encerramento":"14/08/2026","endereco_curso":"\U0001f4cdRua Pedro Gomes, 2, Realengo CEP: 21715-040","local_nome":"Tia Lu \u2014 Realengo","curso_nome":"MARKETING DIGITAL"},
-    {"id":"144","curso_id":"4","local_id":"35","turma_codigo":"26/AXCZ 25","turma_label":"S\u00e1bado \u2014 08h \u00e0s 12h (in\u00edcio 18/07) \u2014 Sal\u00e3o de Festas/Santa Cruz","dias_aula":"S\u00e1bado","horario":"08h at\u00e9 12h","data_inicio":"18/07/2026","encerramento":"08/08/2026","endereco_curso":"\U0001f4cdAvenida Marginal, 107 - CEP 23595-020 - Santa Cruz","local_nome":"Sal\u00e3o de Festas \u2014 Santa Cruz","curso_nome":"AUXILIAR DE COZINHA"},
-    {"id":"145","curso_id":"5","local_id":"19","turma_codigo":"26/BARB 04","turma_label":"S\u00e1bado \u2014 08h \u00e0s 12h (in\u00edcio 01/08) \u2014 Vila Cruzeiro/Penha","dias_aula":"S\u00e1bado","horario":"08h at\u00e9 12h","data_inicio":"01/08/2026","encerramento":"22/08/2026","endereco_curso":"\U0001f4cdR: Sargento Ricardo Filho 26 - Olaria CEP:21070-170","local_nome":"Vila Cruzeiro \u2014 Penha","curso_nome":"BARBEIRO"},
-    {"id":"146","curso_id":"2","local_id":"26","turma_codigo":"26/ASLO 35","turma_label":"Ter\u00e7a \u2014 08h \u00e0s 12h (in\u00edcio 04/08) \u2014 Associa\u00e7\u00e3o dos Artes\u00e3os/Ana Gonzaga","dias_aula":"Ter\u00e7a","horario":"08h at\u00e9 12h","data_inicio":"04/08/2026","encerramento":"25/08/2026","endereco_curso":"\U0001f4cdRua Esmeralda de Ana Gonzaga - Inhoaiba - QD 11 LT 24 - CEP: 23050-489","local_nome":"Associa\u00e7\u00e3o dos Artes\u00e3os \u2014 Ana Gonzaga","curso_nome":"ASSISTENTE DE LOG\u00cdSTICA"},
-    {"id":"147","curso_id":"8","local_id":"26","turma_codigo":"26/INAT 33","turma_label":"Quarta \u2014 8h \u00e0s 12h (in\u00edcio 05/08) \u2014 Associa\u00e7\u00e3o dos Artes\u00e3os/Ana Gonzaga","dias_aula":"Quarta","horario":"8h at\u00e9 12h","data_inicio":"05/08/2026","encerramento":"26/08/2026","endereco_curso":"\U0001f4cdRua Esmeralda de Ana Gonzaga - Inhoaiba - QD 11 LT 24 - CEP: 23050-489","local_nome":"Associa\u00e7\u00e3o dos Artes\u00e3os \u2014 Ana Gonzaga","curso_nome":"INTELIG\u00caNCIA ARTIFICIAL"},
-    {"id":"148","curso_id":"4","local_id":"26","turma_codigo":"26/AXCZ 26","turma_label":"S\u00e1bado \u2014 08h \u00e0s 12h (in\u00edcio 05/08) \u2014 Associa\u00e7\u00e3o dos Artes\u00e3os/Ana Gonzaga","dias_aula":"S\u00e1bado","horario":"08h at\u00e9 12h","data_inicio":"05/08/2026","encerramento":"26/08/2026","endereco_curso":"\U0001f4cdRua Esmeralda de Ana Gonzaga - Inhoaiba - QD 11 LT 24 - CEP: 23050-489","local_nome":"Associa\u00e7\u00e3o dos Artes\u00e3os \u2014 Ana Gonzaga","curso_nome":"AUXILIAR DE COZINHA"},
-    {"id":"149","curso_id":"15","local_id":"31","turma_codigo":"26/VEND 02","turma_label":"Segunda e Quarta \u2014 19h30 \u00e0s 21h30 (in\u00edcio 29/07) \u2014 Igreja Evang\u00e9lica P\u00e3o da Vida/Curicica","dias_aula":"Segunda e Quarta","horario":"19h30 at\u00e9 21h30","data_inicio":"29/07/2026","encerramento":"13/08/2026","endereco_curso":"\U0001f4cdRua Mandina 2 - Curicica CEP: 22780-530","local_nome":"Igreja Evang\u00e9lica P\u00e3o da Vida \u2014 Curicica","curso_nome":"VENDEDOR"},
-    {"id":"150","curso_id":"7","local_id":"32","turma_codigo":"26/ELET 01","turma_label":"S\u00e1bado \u2014 9h \u00e0s 13h (in\u00edcio 15/08) \u2014 Associa\u00e7\u00e3o Moradores Conj. Liberdade/Santa Cruz","dias_aula":"S\u00e1bado","horario":"9h at\u00e9 13h","data_inicio":"15/08/2026","encerramento":"05/09/2026","endereco_curso":"\U0001f4cdAv Canal Margem Direita, 54 - CEP: 23560-366 - Santa Cruz","local_nome":"Associa\u00e7\u00e3o Moradores Conjunto Liberdade \u2014 Santa Cruz","curso_nome":"ELETRICISTA PREDIAL"},
-    {"id":"151","curso_id":"3","local_id":"25","turma_codigo":"26/ADMN 50","turma_label":"Segunda \u2014 17h30 \u00e0s 21h30 (in\u00edcio 03/08) \u2014 Igreja Batista Rio da Prata/Bangu","dias_aula":"Segunda","horario":"17h30 at\u00e9 21h30","data_inicio":"03/08/2026","encerramento":"24/08/2026","endereco_curso":"\U0001f4cdRua dos Limadores, 866 - CEP: 21830-005 - Bangu","local_nome":"Igreja Batista Rio da Prata \u2014 Bangu","curso_nome":"AUXILIAR ADMINISTRATIVO"},
-    {"id":"152","curso_id":"14","local_id":"9","turma_codigo":"26/SOMD 21","turma_label":"S\u00e1bado \u2014 8h \u00e0s 12h (in\u00edcio 01/08) \u2014 Associa\u00e7\u00e3o de Moradores S\u00e3o Jorge/Cosmos","dias_aula":"S\u00e1bado","horario":"8h at\u00e9 12h","data_inicio":"01/08/2026","encerramento":"22/08/2026","endereco_curso":"\U0001f4cdRua Pedro Autran, 71 - CEP: 23059-105 - Cosmos","local_nome":"Associa\u00e7\u00e3o de Moradores S\u00e3o Jorge \u2014 Inhoaiba","curso_nome":"SOCIAL MEDIA"},
-    {"id":"153","curso_id":"8","local_id":"13","turma_codigo":"26/INAT 34","turma_label":"Segunda \u2014 17h \u00e0s 21h (in\u00edcio 27/07) \u2014 Centro Social Estrela da Manh\u00e3/Guaratiba","dias_aula":"Segunda","horario":"17h at\u00e9 21h","data_inicio":"27/07/2026","encerramento":"17/08/2026","endereco_curso":"\U0001f4cdRua Alcides Franco, 175 - CEP: 23032-010 - Guaratiba","local_nome":"Centro Social Estrela da Manh\u00e3 \u2014 Guaratiba","curso_nome":"INTELIG\u00caNCIA ARTIFICIAL"},
-    {"id":"154","curso_id":"7","local_id":"2","turma_codigo":"26/ELET 02","turma_label":"Ter\u00e7a e Quinta \u2014 18h \u00e0s 17h (in\u00edcio 28/07) \u2014 Cozinha Comunit\u00e1ria/Realengo","dias_aula":"Ter\u00e7a e Quinta","horario":"18h at\u00e9 17h","data_inicio":"28/07/2026","encerramento":"20/08/2026","endereco_curso":"\U0001f4cdRua General Raposo, 41 - CEP: 21730-000 - Realengo","local_nome":"Cozinha Comunit\u00e1ria \u2014 Realengo","curso_nome":"ELETRICISTA PREDIAL"},
-    # ══════════════ NOVAS TURMAS (lote agosto 2026 \u2014 Cabu\u00e7u de Baixo + outros) ══════════════
-    # AUXILIAR DE COZINHA \u2014 Cabu\u00e7u de Baixo
-    {"id":"155","curso_id":"4","local_id":"39","turma_codigo":"26/AXCZ 27","turma_label":"Ter\u00e7a e Quinta \u2014 9h \u00e0s 11h (in\u00edcio 28/07) \u2014 Cabu\u00e7u de Baixo/Guaratiba","dias_aula":"Ter\u00e7a e Quinta","horario":"9h at\u00e9 11h","data_inicio":"28/07/2026","encerramento":"27/08/2026","endereco_curso":"\U0001f4cdEstr. Cabu\u00e7u de Baixo, 767 - Guaratiba, Rio de Janeiro - RJ, CEP: 23036-060","local_nome":"Cabu\u00e7u de Baixo \u2014 Guaratiba","curso_nome":"AUXILIAR DE COZINHA"},
-    # AUXILIAR ADMINISTRATIVO \u2014 Cabu\u00e7u de Baixo
-    {"id":"156","curso_id":"3","local_id":"39","turma_codigo":"26/ADMN 51","turma_label":"Ter\u00e7a e Quinta \u2014 13h \u00e0s 15h (in\u00edcio 28/07) \u2014 Cabu\u00e7u de Baixo/Guaratiba","dias_aula":"Ter\u00e7a e Quinta","horario":"13h at\u00e9 15h","data_inicio":"28/07/2026","encerramento":"27/08/2026","endereco_curso":"\U0001f4cdEstr. Cabu\u00e7u de Baixo, 767 - Guaratiba, Rio de Janeiro - RJ, CEP: 23036-060","local_nome":"Cabu\u00e7u de Baixo \u2014 Guaratiba","curso_nome":"AUXILIAR ADMINISTRATIVO"},
-    # SOCIAL MEDIA \u2014 Cabu\u00e7u de Baixo
-    {"id":"157","curso_id":"14","local_id":"39","turma_codigo":"26/SOMD 22","turma_label":"Ter\u00e7a e Quinta \u2014 16h \u00e0s 18h (in\u00edcio 28/07) \u2014 Cabu\u00e7u de Baixo/Guaratiba","dias_aula":"Ter\u00e7a e Quinta","horario":"16h at\u00e9 18h","data_inicio":"28/07/2026","encerramento":"27/08/2026","endereco_curso":"\U0001f4cdEstr. Cabu\u00e7u de Baixo, 767 - Guaratiba, Rio de Janeiro - RJ, CEP: 23036-060","local_nome":"Cabu\u00e7u de Baixo \u2014 Guaratiba","curso_nome":"SOCIAL MEDIA"},
-    # MARKETING DIGITAL \u2014 Cabu\u00e7u de Baixo \u2014 Turma 1 S\u00e1bado manh\u00e3
-    {"id":"158","curso_id":"9","local_id":"39","turma_codigo":"26/MARK 39","turma_label":"S\u00e1bado \u2014 8h \u00e0s 12h (in\u00edcio 01/08) \u2014 Cabu\u00e7u de Baixo/Guaratiba \u2014 Turma 1","dias_aula":"S\u00e1bado","horario":"8h at\u00e9 12h","data_inicio":"01/08/2026","encerramento":"29/08/2026","endereco_curso":"\U0001f4cdEstr. Cabu\u00e7u de Baixo, 767 - Guaratiba, Rio de Janeiro - RJ, CEP: 23036-060","local_nome":"Cabu\u00e7u de Baixo \u2014 Guaratiba","curso_nome":"MARKETING DIGITAL"},
-    # MARKETING DIGITAL \u2014 Cabu\u00e7u de Baixo \u2014 Turma 2 S\u00e1bado tarde
-    {"id":"159","curso_id":"9","local_id":"39","turma_codigo":"26/MARK 40","turma_label":"S\u00e1bado \u2014 16h \u00e0s 20h (in\u00edcio 01/08) \u2014 Cabu\u00e7u de Baixo/Guaratiba \u2014 Turma 2","dias_aula":"S\u00e1bado","horario":"16h at\u00e9 20h","data_inicio":"01/08/2026","encerramento":"28/08/2026","endereco_curso":"\U0001f4cdEstr. Cabu\u00e7u de Baixo, 767 - Guaratiba, Rio de Janeiro - RJ, CEP: 23036-060","local_nome":"Cabu\u00e7u de Baixo \u2014 Guaratiba","curso_nome":"MARKETING DIGITAL"},
-    # MARKETING DIGITAL \u2014 Cabu\u00e7u de Baixo \u2014 Turma 3 S\u00e1bado meio-dia
-    {"id":"160","curso_id":"9","local_id":"39","turma_codigo":"26/MARK 41","turma_label":"S\u00e1bado \u2014 12h \u00e0s 16h (in\u00edcio 01/08) \u2014 Cabu\u00e7u de Baixo/Guaratiba \u2014 Turma 3","dias_aula":"S\u00e1bado","horario":"12h at\u00e9 16h","data_inicio":"01/08/2026","encerramento":"28/08/2026","endereco_curso":"\U0001f4cdEstr. Cabu\u00e7u de Baixo, 767 - Guaratiba, Rio de Janeiro - RJ, CEP: 23036-060","local_nome":"Cabu\u00e7u de Baixo \u2014 Guaratiba","curso_nome":"MARKETING DIGITAL"},
-    # ELETRICISTA PREDIAL \u2014 Assembleia de Deus ADTS de Col\u00e9gio
-    {"id":"161","curso_id":"7","local_id":"18","turma_codigo":"26/ELET 03","turma_label":"S\u00e1bado \u2014 9h \u00e0s 12h (in\u00edcio 01/08) \u2014 Assembleia de Deus ADTS de Col\u00e9gio","dias_aula":"S\u00e1bado","horario":"9h at\u00e9 12h","data_inicio":"01/08/2026","encerramento":"29/08/2026","endereco_curso":"\U0001f4cdEstrada de Col\u00e9gio, 121 - Col\u00e9gio - CEP: 21235-280","local_nome":"Assembleia de Deus ADTS de Col\u00e9gio \u2014 Col\u00e9gio","curso_nome":"ELETRICISTA PREDIAL"},
-    # MARKETING DIGITAL \u2014 Prefeitura/Centro (nova turma)
-    {"id":"162","curso_id":"9","local_id":"29","turma_codigo":"26/MARK 42","turma_label":"Quarta \u2014 10h \u00e0s 16h (in\u00edcio 05/08) \u2014 Prefeitura/Centro","dias_aula":"Quarta","horario":"10h at\u00e9 16h","data_inicio":"05/08/2026","encerramento":"26/08/2026","endereco_curso":"\U0001f4cdRua Afonso Cavalcanti, 455 - Cidade Nova, Rio de Janeiro - RJ, CEP: 20211-110","local_nome":"Prefeitura \u2014 Centro","curso_nome":"MARKETING DIGITAL"},
-    # AUXILIAR ADMINISTRATIVO \u2014 Sal\u00e3o de Festas 77 / Padre Miguel
-    {"id":"163","curso_id":"3","local_id":"12","turma_codigo":"26/ADMN 52","turma_label":"Segunda e Quarta \u2014 19h \u00e0s 21h (in\u00edcio 03/08) \u2014 Sal\u00e3o de Festas (77)/Padre Miguel","dias_aula":"Segunda e Quarta","horario":"19h at\u00e9 21h","data_inicio":"03/08/2026","encerramento":"28/08/2026","endereco_curso":"\U0001f4cdR: Juazeiro do Norte, 639 - Padre Miguel","local_nome":"Sal\u00e3o de Festas (77) \u2014 Padre Miguel","curso_nome":"AUXILIAR ADMINISTRATIVO"},
-    # AUXILIAR ADMINISTRATIVO — Vila do Pinheiro / Maré (nova turma)
-    {"id":"164","curso_id":"3","local_id":"23","turma_codigo":"26/ADMN 53","turma_label":"Terça e Quinta — (início 28/07) — Vila do Pinheiro/Maré — BL 14","dias_aula":"Terça e Quinta","horario":"A confirmar","data_inicio":"28/07/2026","encerramento":"13/08/2026","endereco_curso":"📍Via B9, 379, BL 14 - CEP: 21046-090","local_nome":"Vila do Pinheiro — Maré","curso_nome":"AUXILIAR ADMINISTRATIVO"},
-    # GARÇOM — Centro Social Estrela da Manhã (nova turma)
-    {"id":"165","curso_id":"16","local_id":"13","turma_codigo":"26/GRCM 02","turma_label":"(início 21/07) — Centro Social Estrela da Manhã/Guaratiba","dias_aula":"A confirmar","horario":"A confirmar","data_inicio":"21/07/2026","encerramento":"11/08/2026","endereco_curso":"📍Rua Alcides Franco, 175 - CEP: 23032-010 - Guaratiba","local_nome":"Centro Social Estrela da Manhã — Guaratiba","curso_nome":"GARÇOM"},
+    {"id":"1","curso_id":"1","local_id":"1","turma_codigo":"26/ASLO 25","turma_label":"S\u00e1bado \u2014 08h \u00e0s 12h (in\u00edcio 30/05/2026) \u2014 Residencial Rio Samba \u2014 Campo Grande","dias_aula":"S\u00e1bado","horario":"08h \u00e0s 12h","data_inicio":"30/05/2026","encerramento":"20/06/2026","endereco_curso":"\U0001f4cdRua Antonio Carlos Belchior, 200 \u2013 Mendanha \u2013 Campo Grande"},
+    {"id":"2","curso_id":"1","local_id":"2","turma_codigo":"26/ASLO 26","turma_label":"Segunda e Ter\u00e7a \u2014 19h \u00e0s 21h30 (in\u00edcio 01/06/2026) \u2014 Igreja Batista Rio da Prata \u2014 Bangu","dias_aula":"Segunda e Ter\u00e7a","horario":"19h \u00e0s 21h30","data_inicio":"01/06/2026","encerramento":"23/06/2026","endereco_curso":"\U0001f4cdRua dos Limadores, 866 \u2013 Bangu"},
+    {"id":"3","curso_id":"1","local_id":"3","turma_codigo":"26/ASLO 27","turma_label":"Ter\u00e7a \u2014 08h \u00e0s 12h (in\u00edcio 02/06/2026) \u2014 Associa\u00e7\u00e3o dos Artes\u00e3os \u2014 Ana Gonzaga","dias_aula":"Ter\u00e7a","horario":"08h \u00e0s 12h","data_inicio":"02/06/2026","encerramento":"23/06/2026","endereco_curso":"\U0001f4cdRua Esmeralda Ana Gonzaga QD 11 \u2013 Ana Gonzaga"},
+    {"id":"4","curso_id":"1","local_id":"4","turma_codigo":"FGM-AL-01","turma_label":"S\u00e1bado \u2014 08h \u00e0s 12h (in\u00edcio 30/05/2026) \u2014 IMMEC Church \u2014 Campo Grande","dias_aula":"S\u00e1bado","horario":"08h \u00e0s 12h","data_inicio":"30/05/2026","encerramento":"20/06/2026","endereco_curso":"\U0001f4cdEstrada do Cabu\u00e7u, 2692 \u2013 Campo Grande"},
+    {"id":"5","curso_id":"2","local_id":"5","turma_codigo":"26/ADMN 41","turma_label":"S\u00e1bado \u2014 08h \u00e0s 12h (in\u00edcio 06/06/2026) \u2014 Min. Ap. Mover Prof\u00e9tico \u2014 Senador Camar\u00e1","dias_aula":"S\u00e1bado","horario":"08h \u00e0s 12h","data_inicio":"06/06/2026","encerramento":"27/06/2026","endereco_curso":"\U0001f4cdRua Bom Guilherme Francisco Moraes, 03 \u2013 Senador Camar\u00e1"},
+    {"id":"6","curso_id":"2","local_id":"6","turma_codigo":"26/ADMN 36","turma_label":"S\u00e1bado \u2014 09h \u00e0s 13h (in\u00edcio 13/06/2026) \u2014 Assoc. Moradores Conj. Liberdade \u2014 Santa Cruz","dias_aula":"S\u00e1bado","horario":"09h \u00e0s 13h","data_inicio":"13/06/2026","encerramento":"04/07/2026","endereco_curso":"\U0001f4cdAv. Canal Margem Direita, 54 \u2013 Santa Cruz"},
+    {"id":"7","curso_id":"3","local_id":"5","turma_codigo":"26/AXCZ 19","turma_label":"Quarta e Sexta \u2014 16h \u00e0s 18h (in\u00edcio 10/06/2026) \u2014 Min. Ap. Mover Prof\u00e9tico \u2014 Senador Camar\u00e1","dias_aula":"Quarta e Sexta","horario":"16h \u00e0s 18h","data_inicio":"10/06/2026","encerramento":"03/07/2026","endereco_curso":"\U0001f4cdRua Bom Guilherme Francisco Moraes, 03 \u2013 Senador Camar\u00e1"},
+    {"id":"8","curso_id":"3","local_id":"3","turma_codigo":"26/AXCZ 20","turma_label":"S\u00e1bado \u2014 14h \u00e0s 18h (in\u00edcio 06/06/2026) \u2014 Associa\u00e7\u00e3o dos Artes\u00e3os \u2014 Ana Gonzaga","dias_aula":"S\u00e1bado","horario":"14h \u00e0s 18h","data_inicio":"06/06/2026","encerramento":"27/06/2026","endereco_curso":"\U0001f4cdRua Esmeralda Ana Gonzaga QD 11 \u2013 Ana Gonzaga"},
+    {"id":"9","curso_id":"3","local_id":"4","turma_codigo":"FGM-AC-01","turma_label":"S\u00e1bado \u2014 09h \u00e0s 13h (in\u00edcio 30/05/2026) \u2014 IMMEC Church \u2014 Campo Grande","dias_aula":"S\u00e1bado","horario":"09h \u00e0s 13h","data_inicio":"30/05/2026","encerramento":"20/06/2026","endereco_curso":"\U0001f4cdEstrada do Cabu\u00e7u, 2692 \u2013 Campo Grande"},
+    {"id":"10","curso_id":"4","local_id":"7","turma_codigo":"26/INAT 18","turma_label":"S\u00e1bado \u2014 08h \u00e0s 12h (in\u00edcio 06/06/2026) \u2014 Igreja Batista S\u00e3o Bento \u2014 Bangu","dias_aula":"S\u00e1bado","horario":"08h \u00e0s 12h","data_inicio":"06/06/2026","encerramento":"27/06/2026","endereco_curso":"\U0001f4cdRua Batu\u00edra, 121 \u2013 Bangu"},
+    {"id":"11","curso_id":"4","local_id":"8","turma_codigo":"26/INAT 21","turma_label":"S\u00e1bado \u2014 08h \u00e0s 12h (in\u00edcio 30/05/2026) \u2014 Ig. Metodista Embarcados C/Cristo \u2014 Campo Grande","dias_aula":"S\u00e1bado","horario":"08h \u00e0s 12h","data_inicio":"30/05/2026","encerramento":"20/06/2026","endereco_curso":"\U0001f4cdEst. do Cabu\u00e7u, 2692 \u2013 Campo Grande"},
+    {"id":"12","curso_id":"4","local_id":"9","turma_codigo":"26/INAT 19","turma_label":"S\u00e1bado \u2014 10h \u00e0s 14h (in\u00edcio 06/06/2026) \u2014 Refor\u00e7o Escolar Tia Dani \u2014 Mar\u00e9","dias_aula":"S\u00e1bado","horario":"10h \u00e0s 14h","data_inicio":"06/06/2026","encerramento":"27/06/2026","endereco_curso":"\U0001f4cdRua Darcy Vargas, 136 \u2013 Mar\u00e9"},
+    {"id":"13","curso_id":"4","local_id":"3","turma_codigo":"26/INAT 20","turma_label":"Quarta \u2014 08h \u00e0s 12h (in\u00edcio 03/06/2026) \u2014 Associa\u00e7\u00e3o dos Artes\u00e3os \u2014 Ana Gonzaga","dias_aula":"Quarta","horario":"08h \u00e0s 12h","data_inicio":"03/06/2026","encerramento":"24/06/2026","endereco_curso":"\U0001f4cdRua Esmeralda Ana Gonzaga QD 11 \u2013 Ana Gonzaga"},
+    {"id":"14","curso_id":"5","local_id":"10","turma_codigo":"26/MARK 26","turma_label":"Ter\u00e7a e Quinta \u2014 19h \u00e0s 21h (in\u00edcio 02/06/2026) \u2014 Vila do Pinheiro \u2014 Mar\u00e9","dias_aula":"Ter\u00e7a e Quinta","horario":"19h \u00e0s 21h","data_inicio":"02/06/2026","encerramento":"30/06/2026","endereco_curso":"\U0001f4cdVia B9, 379, Bloco 14 \u2013 Mar\u00e9"},
+    {"id":"15","curso_id":"5","local_id":"11","turma_codigo":"26/MARK 29","turma_label":"Ter\u00e7a \u2014 18h \u00e0s 22h (in\u00edcio 02/06/2026) \u2014 Min. Ap. Tenda do Encontro \u2014 Cosmos","dias_aula":"Ter\u00e7a","horario":"18h \u00e0s 22h","data_inicio":"02/06/2026","encerramento":"23/06/2026","endereco_curso":"\U0001f4cdRua Framboesa, 21 \u2013 Cosmos"},
+    {"id":"16","curso_id":"5","local_id":"12","turma_codigo":"26/MARK 28","turma_label":"Quarta \u2014 10h \u00e0s 16h (in\u00edcio 03/06/2026) \u2014 Prefeitura \u2014 Centro","dias_aula":"Quarta","horario":"10h \u00e0s 16h","data_inicio":"03/06/2026","encerramento":"24/06/2026","endereco_curso":"\U0001f4cdRua Alfonso Cavalcanti, 455 \u2013 Centro"},
+    {"id":"17","curso_id":"6","local_id":"13","turma_codigo":"26/MLRE 16","turma_label":"Segunda e Quarta \u2014 19h \u00e0s 22h (in\u00edcio 08/06/2026) \u2014 Sal\u00e3o de Festas (77) \u2014 Padre Miguel","dias_aula":"Segunda e Quarta","horario":"19h \u00e0s 22h","data_inicio":"08/06/2026","encerramento":"01/07/2026","endereco_curso":"\U0001f4cdRua Juazeiro do Norte, 639 \u2013 Padre Miguel"},
+    {"id":"18","curso_id":"6","local_id":"14","turma_codigo":"26/MLRE 18","turma_label":"Ter\u00e7a e Quinta \u2014 08h \u00e0s 12h (in\u00edcio 02/06/2026) \u2014 Amubua (Associa\u00e7\u00e3o) \u2014 Santa Cruz","dias_aula":"Ter\u00e7a e Quinta","horario":"08h \u00e0s 12h","data_inicio":"02/06/2026","encerramento":"25/06/2026","endereco_curso":"\U0001f4cdRua Jos\u00e9 Silton Pinheiro, 51 \u2013 Santa Cruz"},
+    {"id":"19","curso_id":"7","local_id":"15","turma_codigo":"26/OSCO 02","turma_label":"Segunda e Quarta \u2014 14h \u00e0s 17h (in\u00edcio 08/06/2026) \u2014 Assoc. Amigos do Barata \u2014 Realengo","dias_aula":"Segunda e Quarta","horario":"14h \u00e0s 17h","data_inicio":"08/06/2026","encerramento":"29/07/2026","endereco_curso":"\U0001f4cdRua Correia Teixeira, 79 (Fundos) \u2013 Realengo"},
+    {"id":"20","curso_id":"8","local_id":"16","turma_codigo":"26/PORT 01","turma_label":"Ter\u00e7a e Quinta \u2014 19h \u00e0s 21h (in\u00edcio 26/05/2026) \u2014 AD ADTS Mandela \u2014 Benfica","dias_aula":"Ter\u00e7a e Quinta","horario":"19h \u00e0s 21h","data_inicio":"26/05/2026","encerramento":"29/06/2026","endereco_curso":"\U0001f4cdRua Leopoldo Bulh\u00f5es, 800 \u2013 Benfica"},
+    {"id":"21","curso_id":"1","local_id":"17","turma_codigo":"26/ASLO 29","turma_label":"S\u00e1bado \u2014 08h \u00e0s 12h (in\u00edcio 13/06/2026) \u2014 AD ADTS de Col\u00e9gio \u2014 Col\u00e9gio","dias_aula":"S\u00e1bado","horario":"08h \u00e0s 12h","data_inicio":"13/06/2026","encerramento":"04/07/2026","endereco_curso":"\U0001f4cdEstrada de Col\u00e9gio, 121 \u2013 CEP 21235-280"},
+    {"id":"22","curso_id":"4","local_id":"10","turma_codigo":"26/INAT 22","turma_label":"S\u00e1bado \u2014 09h \u00e0s 13h (in\u00edcio 04/07/2026) \u2014 Vila do Pinheiro \u2014 Mar\u00e9","dias_aula":"S\u00e1bado","horario":"09h \u00e0s 13h","data_inicio":"04/07/2026","encerramento":"25/07/2026","endereco_curso":"\U0001f4cdVia B9, 379, BL 14 \u2013 CEP 21046-090"},
+    {"id":"23","curso_id":"2","local_id":"10","turma_codigo":"26/ADMN 43","turma_label":"Ter\u00e7a e Quinta \u2014 08h \u00e0s 11h (in\u00edcio 29/06/2026) \u2014 Vila do Pinheiro \u2014 Mar\u00e9","dias_aula":"Ter\u00e7a e Quinta","horario":"08h \u00e0s 11h","data_inicio":"29/06/2026","encerramento":"16/07/2026","endereco_curso":"\U0001f4cdVia B9, 379, BL 14 \u2013 CEP 21046-090"},
+    {"id":"24","curso_id":"7","local_id":"15","turma_codigo":"26/OSCO 03","turma_label":"Ter\u00e7a e Quinta \u2014 18h \u00e0s 21h (in\u00edcio 25/06/2026) \u2014 Assoc. Amigos do Barata \u2014 Realengo","dias_aula":"Ter\u00e7a e Quinta","horario":"18h \u00e0s 21h","data_inicio":"25/06/2026","encerramento":"14/07/2026","endereco_curso":"\U0001f4cdRua Correia Teixeira, 79 \u2013 Fundos \u2013 Realengo"},
+    {"id":"25","curso_id":"1","local_id":"18","turma_codigo":"26/ASLO 30","turma_label":"Ter\u00e7a \u2014 08h \u00e0s 12h (in\u00edcio 16/06/2026) \u2014 Centro Social Estrela da Manh\u00e3 \u2014 Guaratiba","dias_aula":"Ter\u00e7a","horario":"08h \u00e0s 12h","data_inicio":"16/06/2026","encerramento":"13/07/2026","endereco_curso":"\U0001f4cdRua Alcides Franco, 175 \u2013 CEP 23032-010"},
+    {"id":"26","curso_id":"9","local_id":"18","turma_codigo":"26/RECP 06","turma_label":"Ter\u00e7a \u2014 17h \u00e0s 20h30 (in\u00edcio 17/06/2026) \u2014 Centro Social Estrela da Manh\u00e3 \u2014 Guaratiba","dias_aula":"Ter\u00e7a","horario":"17h \u00e0s 20h30","data_inicio":"17/06/2026","encerramento":"13/07/2026","endereco_curso":"\U0001f4cdRua Alcides Franco, 175 \u2013 CEP 23032-010"},
+    {"id":"27","curso_id":"9","local_id":"19","turma_codigo":"26/RECP 07","turma_label":"Segunda e Quarta \u2014 09h \u00e0s 11h (in\u00edcio 17/06/2026) \u2014 Campo Socyte de Manguinhos \u2014 Manguinhos","dias_aula":"Segunda e Quarta","horario":"09h \u00e0s 11h","data_inicio":"17/06/2026","encerramento":"13/07/2026","endereco_curso":"\U0001f4cdRua N. Sra. dos Navegantes, 3 \u2013 CEP 21.050-000"},
+    {"id":"28","curso_id":"9","local_id":"20","turma_codigo":"26/RECP 08","turma_label":"Ter\u00e7a e Quinta \u2014 19h \u00e0s 21h (in\u00edcio 18/06/2026) \u2014 Quadra Unidos de Manguinhos \u2014 Manguinhos","dias_aula":"Ter\u00e7a e Quinta","horario":"19h \u00e0s 21h","data_inicio":"18/06/2026","encerramento":"14/07/2026","endereco_curso":"\U0001f4cdAv. dos Democr\u00e1ticos, 32 \u2013 CEP 21050-000"},
+    {"id":"29","curso_id":"9","local_id":"20","turma_codigo":"26/RECP 09","turma_label":"Ter\u00e7a e Quinta \u2014 19h \u00e0s 21h (in\u00edcio 18/06/2026) \u2014 Quadra Unidos de Manguinhos \u2014 Manguinhos","dias_aula":"Ter\u00e7a e Quinta","horario":"19h \u00e0s 21h","data_inicio":"18/06/2026","encerramento":"14/07/2026","endereco_curso":"\U0001f4cdAv. dos Democr\u00e1ticos, 32 \u2013 CEP 21050-000"},
+    {"id":"30","curso_id":"9","local_id":"19","turma_codigo":"26/RECP 10","turma_label":"Segunda e Quarta \u2014 09h \u00e0s 11h (in\u00edcio 17/06/2026) \u2014 Campo Socyte de Manguinhos \u2014 Manguinhos","dias_aula":"Segunda e Quarta","horario":"09h \u00e0s 11h","data_inicio":"17/06/2026","encerramento":"13/07/2026","endereco_curso":"\U0001f4cdRua N. Sra. dos Navegantes, 3 \u2013 CEP 21.050-000"},
+    {"id":"31","curso_id":"6","local_id":"5","turma_codigo":"26/MLRE 19","turma_label":"Quarta e Sexta \u2014 16h \u00e0s 18h (in\u00edcio 17/07/2026) \u2014 Min. Ap. Mover Prof\u00e9tico \u2014 Senador Camar\u00e1","dias_aula":"Quarta e Sexta","horario":"16h \u00e0s 18h","data_inicio":"17/07/2026","encerramento":"07/08/2026","endereco_curso":"\U0001f4cdRua Guilherme Francisco de Moraes, Lote 3 \u2013 Senador Camar\u00e1"},
+    {"id":"32","curso_id":"1","local_id":"5","turma_codigo":"26/ASLO 31","turma_label":"S\u00e1bado \u2014 08h \u00e0s 12h (in\u00edcio 11/07/2026) \u2014 Min. Ap. Mover Prof\u00e9tico \u2014 Senador Camar\u00e1","dias_aula":"S\u00e1bado","horario":"08h \u00e0s 12h","data_inicio":"11/07/2026","encerramento":"01/08/2026","endereco_curso":"\U0001f4cdRua Guilherme Francisco de Moraes, Lote 3 \u2013 Senador Camar\u00e1"},
+    {"id":"33","curso_id":"5","local_id":"21","turma_codigo":"26/MARK 31","turma_label":"Segunda \u2014 18h \u00e0s 21h (in\u00edcio 15/06/2026) \u2014 Igreja Batista Ebenezer \u2014 Inhoa\u00edba","dias_aula":"Segunda","horario":"18h \u00e0s 21h","data_inicio":"15/06/2026","encerramento":"06/07/2026","endereco_curso":"\U0001f4cdAvenida A, 2756 \u2013 CEP 23.062-000"},
+    {"id":"34","curso_id":"10","local_id":"22","turma_codigo":"26/VEND 01","turma_label":"S\u00e1bado \u2014 08h \u00e0s 12h (in\u00edcio 20/06/2026) \u2014 Assoc. de Moradores S\u00e3o Jorge \u2014 Inhoa\u00edba","dias_aula":"S\u00e1bado","horario":"08h \u00e0s 12h","data_inicio":"20/06/2026","encerramento":"18/07/2026","endereco_curso":"\U0001f4cdRua Moranga, 125 \u2013 Campo Grande, Inhoa\u00edba"},
+    {"id":"35","curso_id":"2","local_id":"23","turma_codigo":"26/ADMN 44","turma_label":"Segunda e Quarta \u2014 19h \u00e0s 21h (in\u00edcio 22/06/2026) \u2014 Ig. Evang\u00e9lica P\u00e3o da Vida \u2014 Curicica","dias_aula":"Segunda e Quarta","horario":"19h \u00e0s 21h","data_inicio":"22/06/2026","encerramento":"13/07/2026","endereco_curso":"\U0001f4cdRua Mandina, 2 \u2013 CEP 22780-530 \u2013 Curicica"},
+    {"id":"36","curso_id":"2","local_id":"7","turma_codigo":"26/ADMN 45","turma_label":"Segunda e Quarta \u2014 14h \u00e0s 17h (in\u00edcio 17/06/2026) \u2014 Igreja Batista S\u00e3o Bento \u2014 Bangu","dias_aula":"Segunda e Quarta","horario":"14h \u00e0s 17h","data_inicio":"17/06/2026","encerramento":"13/07/2026","endereco_curso":"\U0001f4cdRua Batu\u00edra, 121 \u2013 CEP 21860-160"},
+    {"id":"37","curso_id":"11","local_id":"2","turma_codigo":"26/SOMD 16","turma_label":"Segunda \u2014 17h30 \u00e0s 19h30 (in\u00edcio 06/07/2026) \u2014 Igreja Batista Rio da Prata \u2014 Bangu","dias_aula":"Segunda","horario":"17h30 \u00e0s 19h30","data_inicio":"06/07/2026","encerramento":"27/07/2026","endereco_curso":"\U0001f4cdRua dos Limadores, 866 \u2013 CEP 21.830-005"},
+    {"id":"38","curso_id":"11","local_id":"9","turma_codigo":"26/SOMD 17","turma_label":"S\u00e1bado \u2014 10h \u00e0s 14h (in\u00edcio 06/06/2026) \u2014 Refor\u00e7o Escolar Tia Dani \u2014 Mar\u00e9","dias_aula":"S\u00e1bado","horario":"10h \u00e0s 14h","data_inicio":"06/06/2026","encerramento":"27/07/2026","endereco_curso":"\U0001f4cdRua Darcy Vargas, 136 \u2013 Mar\u00e9"},
+    {"id":"39","curso_id":"11","local_id":"20","turma_codigo":"26/SOMD 18","turma_label":"Segunda e Quarta \u2014 19h \u00e0s 21h (in\u00edcio 17/06/2026) \u2014 Quadra Unidos de Manguinhos \u2014 Manguinhos","dias_aula":"Segunda e Quarta","horario":"19h \u00e0s 21h","data_inicio":"17/06/2026","encerramento":"13/07/2026","endereco_curso":"\U0001f4cdAv. dos Democr\u00e1ticos, 32 \u2013 CEP 21050-000"},
+    {"id":"40","curso_id":"4","local_id":"11","turma_codigo":"26/INAT 23","turma_label":"Ter\u00e7a \u2014 18h \u00e0s 22h (in\u00edcio 07/07/2026) \u2014 Min. Ap. Tenda do Encontro \u2014 Cosmos","dias_aula":"Ter\u00e7a","horario":"18h \u00e0s 22h","data_inicio":"07/07/2026","encerramento":"28/07/2026","endereco_curso":"\U0001f4cdRua Framboesa, 21 \u2013 CEP 23.061-522"},
+    {"id":"41","curso_id":"4","local_id":"18","turma_codigo":"26/INAT 24","turma_label":"Segunda \u2014 17h \u00e0s 21h (in\u00edcio 15/06/2026) \u2014 Centro Social Estrela da Manh\u00e3 \u2014 Guaratiba","dias_aula":"Segunda","horario":"17h \u00e0s 21h","data_inicio":"15/06/2026","encerramento":"06/07/2026","endereco_curso":"\U0001f4cdRua Alcides Franco, 175 \u2013 CEP 23032-010"},
+    {"id":"42","curso_id":"4","local_id":"19","turma_codigo":"26/INAT 25","turma_label":"Segunda e Quarta \u2014 09h \u00e0s 11h (in\u00edcio 18/06/2026) \u2014 Campo Socyte de Manguinhos \u2014 Manguinhos","dias_aula":"Segunda e Quarta","horario":"09h \u00e0s 11h","data_inicio":"18/06/2026","encerramento":"14/07/2026","endereco_curso":"\U0001f4cdRua N. Sra. dos Navegantes, 3 \u2013 CEP 21.050-000"},
+    {"id":"43","curso_id":"4","local_id":"20","turma_codigo":"26/INAT 26","turma_label":"Ter\u00e7a e Quinta \u2014 19h \u00e0s 21h (in\u00edcio 18/06/2026) \u2014 Quadra Unidos de Manguinhos \u2014 Manguinhos","dias_aula":"Ter\u00e7a e Quinta","horario":"19h \u00e0s 21h","data_inicio":"18/06/2026","encerramento":"14/07/2026","endereco_curso":"\U0001f4cdAv. dos Democr\u00e1ticos, 32 \u2013 CEP 21050-000"},
+    {"id":"44","curso_id":"4","local_id":"20","turma_codigo":"26/INAT 27","turma_label":"Ter\u00e7a e Quinta \u2014 19h \u00e0s 21h (in\u00edcio 18/06/2026) \u2014 Quadra Unidos de Manguinhos \u2014 Manguinhos","dias_aula":"Ter\u00e7a e Quinta","horario":"19h \u00e0s 21h","data_inicio":"18/06/2026","encerramento":"14/07/2026","endereco_curso":"\U0001f4cdAv. dos Democr\u00e1ticos, 32 \u2013 CEP 21050-000"},
+    {"id":"45","curso_id":"4","local_id":"19","turma_codigo":"26/INAT 28","turma_label":"Segunda e Quarta \u2014 09h \u00e0s 11h (in\u00edcio 18/06/2026) \u2014 Campo Socyte de Manguinhos \u2014 Manguinhos","dias_aula":"Segunda e Quarta","horario":"09h \u00e0s 11h","data_inicio":"18/06/2026","encerramento":"14/07/2026","endereco_curso":"\U0001f4cdRua N. Sra. dos Navegantes, 3 \u2013 CEP 21.050-000"},
+    {"id":"46","curso_id":"12","local_id":"24","turma_codigo":"26/BARB 02","turma_label":"S\u00e1bado \u2014 08h \u00e0s 12h (in\u00edcio 15/06/2026) \u2014 AD na Pavuna \u2014 Cosmos","dias_aula":"S\u00e1bado","horario":"08h \u00e0s 12h","data_inicio":"15/06/2026","encerramento":"06/07/2026","endereco_curso":"\U0001f4cdRua 9, Lote 19, Casa 2 \u2013 Cj Urucania \u2013 CEP 23059-340"},
+    {"id":"47","curso_id":"1","local_id":"1","turma_codigo":"26/ASLO 32","turma_label":"Ter\u00e7a e Quinta \u2014 18h \u00e0s 22h (in\u00edcio 16/06/2026) \u2014 Residencial Rio Samba \u2014 Campo Grande","dias_aula":"Ter\u00e7a e Quinta","horario":"18h \u00e0s 22h","data_inicio":"16/06/2026","encerramento":"25/06/2026","endereco_curso":"\U0001f4cdRua Antonio Carlos Belchior, 200 \u2013 Campo Grande"},
+    {"id":"48","curso_id":"1","local_id":"6","turma_codigo":"26/ASLO 33","turma_label":"S\u00e1bado \u2014 09h \u00e0s 13h (in\u00edcio 11/07/2026) \u2014 Assoc. Moradores Conj. Liberdade \u2014 Santa Cruz","dias_aula":"S\u00e1bado","horario":"09h \u00e0s 13h","data_inicio":"11/07/2026","encerramento":"11/08/2026","endereco_curso":"\U0001f4cdAv. Canal Margem Direita, 54 \u2013 CEP 23560-366"},
+    {"id":"49","curso_id":"1","local_id":"17","turma_codigo":"26/ASLO 34","turma_label":"S\u00e1bado \u2014 09h \u00e0s 11h (in\u00edcio 27/06/2026) \u2014 AD ADTS de Col\u00e9gio \u2014 Col\u00e9gio","dias_aula":"S\u00e1bado","horario":"09h \u00e0s 11h","data_inicio":"27/06/2026","encerramento":"25/07/2026","endereco_curso":"\U0001f4cdEstrada de Col\u00e9gio, 121 \u2013 CEP 21235-280"},
+    {"id":"50","curso_id":"9","local_id":"16","turma_codigo":"26/RECP 11","turma_label":"Seg, Ter e Qui \u2014 19h \u00e0s 21h (in\u00edcio 18/06/2026) \u2014 AD ADTS Mandela \u2014 Benfica","dias_aula":"Seg, Ter e Qui","horario":"19h \u00e0s 21h","data_inicio":"18/06/2026","encerramento":"30/06/2026","endereco_curso":"\U0001f4cdRua Leopoldo Bulh\u00f5es, 800 \u2013 CEP 20911-300"},
+    {"id":"51","curso_id":"4","local_id":"7","turma_codigo":"26/INAT 29","turma_label":"S\u00e1bado \u2014 08h \u00e0s 12h (in\u00edcio 04/07/2026) \u2014 Igreja Batista S\u00e3o Bento \u2014 Bangu","dias_aula":"S\u00e1bado","horario":"08h \u00e0s 12h","data_inicio":"04/07/2026","encerramento":"25/07/2026","endereco_curso":"\U0001f4cdRua Batu\u00edra, 121 \u2013 CEP 21.860-290"},
+    {"id":"52","curso_id":"11","local_id":"25","turma_codigo":"26/SOMD 19","turma_label":"S\u00e1bado \u2014 08h \u00e0s 12h (in\u00edcio 27/06/2026) \u2014 Ig. Batista Maanaim Mendanha \u2014 Campo Grande","dias_aula":"S\u00e1bado","horario":"08h \u00e0s 12h","data_inicio":"27/06/2026","encerramento":"18/07/2026","endereco_curso":"\U0001f4cdEstrada do Mendanha, 4240"},
+    {"id":"53","curso_id":"3","local_id":"26","turma_codigo":"26/AXCZ 21","turma_label":"S\u00e1bado \u2014 08h \u00e0s 12h (in\u00edcio 20/06/2026) \u2014 Sal\u00e3o de Festas \u2014 Santa Cruz","dias_aula":"S\u00e1bado","horario":"08h \u00e0s 12h","data_inicio":"20/06/2026","encerramento":"11/07/2026","endereco_curso":"\U0001f4cdAv. Marginal, 107 \u2013 CEP 23595-020 \u2013 Santa Cruz"},
+    {"id":"54","curso_id":"5","local_id":"27","turma_codigo":"26/MARK 32","turma_label":"Segunda e Quinta \u2014 18h \u00e0s 22h (in\u00edcio 04/07/2026) \u2014 Centro Cultural Lottus \u2014 M\u00e9ier","dias_aula":"Segunda e Quinta","horario":"18h \u00e0s 22h","data_inicio":"04/07/2026","encerramento":"25/07/2026","endereco_curso":"\U0001f4cdRua Dias da Cruz, 638 \u2013 Sala 204 \u2013 CEP 20.720-013"},
+    {"id":"55","curso_id":"12","local_id":"28","turma_codigo":"26/BARB 03","turma_label":"S\u00e1bado \u2014 08h \u00e0s 12h (in\u00edcio 27/06/2026) \u2014 Vila Cruzeiro \u2014 Penha","dias_aula":"S\u00e1bado","horario":"08h \u00e0s 12h","data_inicio":"27/06/2026","encerramento":"27/07/2026","endereco_curso":"\U0001f4cdRua Sargento Ricardo Filho, 26 \u2013 CEP 21070-170"},
+    {"id":"56","curso_id":"2","local_id":"3","turma_codigo":"26/ADMN 46","turma_label":"Ter\u00e7a \u2014 14h \u00e0s 18h (in\u00edcio 07/07/2026) \u2014 Associa\u00e7\u00e3o dos Artes\u00e3os \u2014 Ana Gonzaga","dias_aula":"Ter\u00e7a","horario":"14h \u00e0s 18h","data_inicio":"07/07/2026","encerramento":"28/07/2026","endereco_curso":"\U0001f4cdRua Esmeralda Ana Gonzaga QD 11 \u2013 CEP 23050-489"},
+    {"id":"57","curso_id":"5","local_id":"3","turma_codigo":"26/MARK 33","turma_label":"Quarta \u2014 08h \u00e0s 12h (in\u00edcio 08/07/2026) \u2014 Associa\u00e7\u00e3o dos Artes\u00e3os \u2014 Ana Gonzaga","dias_aula":"Quarta","horario":"08h \u00e0s 12h","data_inicio":"08/07/2026","encerramento":"29/07/2026","endereco_curso":"\U0001f4cdRua Esmeralda Ana Gonzaga QD 11 \u2013 CEP 23050-489"},
+    {"id":"58","curso_id":"3","local_id":"3","turma_codigo":"26/AXCZ 22","turma_label":"S\u00e1bado \u2014 14h \u00e0s 18h (in\u00edcio 04/07/2026) \u2014 Associa\u00e7\u00e3o dos Artes\u00e3os \u2014 Ana Gonzaga","dias_aula":"S\u00e1bado","horario":"14h \u00e0s 18h","data_inicio":"04/07/2026","encerramento":"25/07/2026","endereco_curso":"\U0001f4cdRua Esmeralda Ana Gonzaga QD 11 \u2013 CEP 23050-489"},
+    {"id":"59","curso_id":"9","local_id":"29","turma_codigo":"26/RECP 12","turma_label":"S\u00e1bado \u2014 14h \u00e0s 18h (in\u00edcio 11/07/2026) \u2014 Ig. Uni\u00e3o Evang\u00e9lica Pentecostal \u2014 Cosmos","dias_aula":"S\u00e1bado","horario":"14h \u00e0s 18h","data_inicio":"11/07/2026","encerramento":"01/08/2026","endereco_curso":"\U0001f4cdRua Herval Rossano LT 26 QD 16 \u2013 Cosmos"},
+    {"id":"60","curso_id":"5","local_id":"13","turma_codigo":"26/MARK 34","turma_label":"Segunda e Quarta \u2014 19h \u00e0s 21h (in\u00edcio 06/07/2026) \u2014 Sal\u00e3o de Festas (77) \u2014 Padre Miguel","dias_aula":"Segunda e Quarta","horario":"19h \u00e0s 21h","data_inicio":"06/07/2026","encerramento":"29/07/2026","endereco_curso":"\U0001f4cdRua Juazeiro do Norte, 639 \u2013 Padre Miguel"},
+    {"id":"61","curso_id":"4","local_id":"30","turma_codigo":"26/INAT 30","turma_label":"Qua, Qui e Sex \u2014 13h30 \u00e0s 16h (in\u00edcio 30/06/2026) \u2014 Tia Lu \u2014 Realengo","dias_aula":"Qua, Qui e Sex","horario":"13h30 \u00e0s 16h","data_inicio":"30/06/2026","encerramento":"09/07/2026","endereco_curso":"\U0001f4cdRua Pedro Gomes, 2 \u2013 CEP 21715-040 \u2013 Realengo"},
+    {"id":"62","curso_id":"4","local_id":"8","turma_codigo":"26/INAT 31","turma_label":"S\u00e1bado \u2014 08h \u00e0s 12h (in\u00edcio 04/07/2026) \u2014 Ig. Metodista Embarcados C/Cristo \u2014 Campo Grande","dias_aula":"S\u00e1bado","horario":"08h \u00e0s 12h","data_inicio":"04/07/2026","encerramento":"25/07/2026","endereco_curso":"\U0001f4cdEstrada do Cabu\u00e7u, 2692 \u2013 Campo Grande"},
+    {"id":"63","curso_id":"9","local_id":"3","turma_codigo":"26/RECP 13","turma_label":"S\u00e1bado \u2014 08h \u00e0s 12h (in\u00edcio 05/07/2026) \u2014 Associa\u00e7\u00e3o dos Artes\u00e3os \u2014 Ana Gonzaga","dias_aula":"S\u00e1bado","horario":"08h \u00e0s 12h","data_inicio":"05/07/2026","encerramento":"26/07/2026","endereco_curso":"\U0001f4cdRua Esmeralda Ana Gonzaga QD 11 \u2013 CEP 23050-489"},
+    {"id":"64","curso_id":"5","local_id":"12","turma_codigo":"26/MARK 35","turma_label":"Quarta \u2014 10h \u00e0s 16h (in\u00edcio 02/07/2026) \u2014 Prefeitura \u2014 Centro","dias_aula":"Quarta","horario":"10h \u00e0s 16h","data_inicio":"02/07/2026","encerramento":"23/07/2026","endereco_curso":"\U0001f4cdRua Afonso Cavalcanti, 455 \u2013 CEP 20211-110 \u2013 Centro"},
+    {"id":"65","curso_id":"3","local_id":"29","turma_codigo":"26/AXCZ 23","turma_label":"S\u00e1bado \u2014 08h \u00e0s 12h (in\u00edcio 11/07/2026) \u2014 Ig. Uni\u00e3o Evang\u00e9lica Pentecostal \u2014 Cosmos","dias_aula":"S\u00e1bado","horario":"08h \u00e0s 12h","data_inicio":"11/07/2026","encerramento":"01/08/2026","endereco_curso":"\U0001f4cdRua Herval Rossano, 26 \u2013 Cosmos"},
+    {"id":"66","curso_id":"3","local_id":"4","turma_codigo":"26/AXCZ 24","turma_label":"S\u00e1bado \u2014 08h \u00e0s 12h (in\u00edcio 11/07/2026) \u2014 IMMEC Church \u2014 Campo Grande","dias_aula":"S\u00e1bado","horario":"08h \u00e0s 12h","data_inicio":"11/07/2026","encerramento":"01/08/2026","endereco_curso":"\U0001f4cdEstrada do Cabu\u00e7u, 2692 \u2013 Campo Grande"},
+    {"id":"67","curso_id":"13","local_id":"31","turma_codigo":"26/GRCM 01","turma_label":"Segunda e Quarta \u2014 14h \u00e0s 17h (in\u00edcio 29/06/2026) \u2014 Cozinha Comunit\u00e1ria \u2014 Realengo","dias_aula":"Segunda e Quarta","horario":"14h \u00e0s 17h","data_inicio":"29/06/2026","encerramento":"15/07/2026","endereco_curso":"\U0001f4cdRua General Raposo, 41 \u2013 CEP 21730-000 \u2013 Realengo"},
+    {"id":"68","curso_id":"2","local_id":"9","turma_codigo":"26/ADMN 47","turma_label":"S\u00e1bado \u2014 10h \u00e0s 14h (in\u00edcio 11/07/2026) \u2014 Refor\u00e7o Escolar Tia Dani \u2014 Mar\u00e9","dias_aula":"S\u00e1bado","horario":"10h \u00e0s 14h","data_inicio":"11/07/2026","encerramento":"01/08/2026","endereco_curso":"\U0001f4cdRua Darcy Vargas, 136 \u2013 Mar\u00e9"},
+    {"id":"69","curso_id":"2","local_id":"21","turma_codigo":"26/ADMN 48","turma_label":"Segunda \u2014 18h \u00e0s 22h (in\u00edcio 13/07/2026) \u2014 Igreja Batista Ebenezer \u2014 Inhoa\u00edba","dias_aula":"Segunda","horario":"18h \u00e0s 22h","data_inicio":"13/07/2026","encerramento":"03/08/2026","endereco_curso":"\U0001f4cdAv. A, 2756 \u2013 CEP 23.062-000 \u2013 Inhoa\u00edba"},
+    {"id":"70","curso_id":"7","local_id":"32","turma_codigo":"26/OSCO 04","turma_label":"Ter\u00e7a e Quinta \u2014 9h \u00e0s 12h (in\u00edcio 28/07/2026) \u2014 Casa Costa Matos \u2014 Rio de Janeiro","dias_aula":"Ter\u00e7a e Quinta","horario":"9h \u00e0s 12h","data_inicio":"28/07/2026","encerramento":"13/08/2026","endereco_curso":"\U0001f4cdRua Capit\u00e3o Teixeira, 583 \u2013 CEP 21.755-000"},
+    {"id":"71","curso_id":"14","local_id":"20","turma_codigo":"26/AGTU 01","turma_label":"Segunda e Quarta \u2014 19h \u00e0s 21h (in\u00edcio 20/07/2026) \u2014 Quadra Unidos de Manguinhos \u2014 Manguinhos","dias_aula":"Segunda e Quarta","horario":"19h \u00e0s 21h","data_inicio":"20/07/2026","encerramento":"12/08/2026","endereco_curso":"\U0001f4cdAv. dos Democr\u00e1ticos, 32 \u2013 CEP 21050-000"},
+    {"id":"72","curso_id":"14","local_id":"19","turma_codigo":"26/AGTU 02","turma_label":"Ter\u00e7a e Quinta \u2014 9h \u00e0s 11h (in\u00edcio 20/07/2026) \u2014 Campo Socyte de Manguinhos \u2014 Manguinhos","dias_aula":"Ter\u00e7a e Quinta","horario":"9h \u00e0s 11h","data_inicio":"20/07/2026","encerramento":"12/08/2026","endereco_curso":"\U0001f4cdRua N. Sra. dos Navegantes, 3 \u2013 CEP 21.050-000"},
+    {"id":"73","curso_id":"14","local_id":"20","turma_codigo":"26/AGTU 03","turma_label":"Ter\u00e7a e Quinta \u2014 19h \u00e0s 21h (in\u00edcio 21/07/2026) \u2014 Quadra Unidos de Manguinhos \u2014 Manguinhos","dias_aula":"Ter\u00e7a e Quinta","horario":"19h \u00e0s 21h","data_inicio":"21/07/2026","encerramento":"13/08/2026","endereco_curso":"\U0001f4cdAv. dos Democr\u00e1ticos, 32 \u2013 CEP 21050-000"},
+    {"id":"74","curso_id":"14","local_id":"19","turma_codigo":"26/AGTU 04","turma_label":"Ter\u00e7a e Quinta \u2014 9h \u00e0s 11h (in\u00edcio 20/07/2026) \u2014 Campo Socyte de Manguinhos \u2014 Manguinhos","dias_aula":"Ter\u00e7a e Quinta","horario":"9h \u00e0s 11h","data_inicio":"20/07/2026","encerramento":"12/08/2026","endereco_curso":"\U0001f4cdRua N. Sra. dos Navegantes, 3 \u2013 CEP 21.050-000"},
+    {"id":"75","curso_id":"9","local_id":"24","turma_codigo":"26/RECP 14","turma_label":"Ter\u00e7a \u2014 18h \u00e0s 22h (in\u00edcio 13/07/2026) \u2014 AD na Pavuna \u2014 Cosmos","dias_aula":"Ter\u00e7a","horario":"18h \u00e0s 22h","data_inicio":"13/07/2026","encerramento":"03/08/2026","endereco_curso":"\U0001f4cdRua 9, Lote 19 \u2013 Cj Urucania \u2013 CEP 23.059-340"},
+    {"id":"76","curso_id":"4","local_id":"33","turma_codigo":"26/INAT 32","turma_label":"S\u00e1bado \u2014 9h \u00e0s 13h (in\u00edcio 18/07/2026) \u2014 Mar\u00e9 1 \u2014 Rua Capit\u00e3o Carlos \u2014 Bonsucesso","dias_aula":"S\u00e1bado","horario":"9h \u00e0s 13h","data_inicio":"18/07/2026","encerramento":"15/08/2026","endereco_curso":"\U0001f4cdRua Capit\u00e3o Carlos, 311 \u2013 CEP 21042-150 \u2013 Bonsucesso"},
+    {"id":"77","curso_id":"15","local_id":"33","turma_codigo":"26/TRFG 01","turma_label":"S\u00e1bado \u2014 14h \u00e0s 18h (in\u00edcio 18/07/2026) \u2014 Mar\u00e9 1 \u2014 Rua Capit\u00e3o Carlos \u2014 Bonsucesso","dias_aula":"S\u00e1bado","horario":"14h \u00e0s 18h","data_inicio":"18/07/2026","encerramento":"15/08/2026","endereco_curso":"\U0001f4cdRua Capit\u00e3o Carlos, 311 \u2013 CEP 21042-150 \u2013 Bonsucesso"},
+    {"id":"78","curso_id":"5","local_id":"33","turma_codigo":"26/MARK 36","turma_label":"Segunda e Quarta \u2014 16h \u00e0s 18h (in\u00edcio 20/07/2026) \u2014 Mar\u00e9 1 \u2014 Rua Capit\u00e3o Carlos \u2014 Bonsucesso","dias_aula":"Segunda e Quarta","horario":"16h \u00e0s 18h","data_inicio":"20/07/2026","encerramento":"19/08/2026","endereco_curso":"\U0001f4cdRua Capit\u00e3o Carlos, 311 \u2013 CEP 21042-150 \u2013 Bonsucesso"},
+    {"id":"79","curso_id":"11","local_id":"34","turma_codigo":"26/SOMD 20","turma_label":"Segunda e Quarta \u2014 16h \u00e0s 18h (in\u00edcio 20/07/2026) \u2014 Mar\u00e9 2 \u2014 Rua Capit\u00e3o Carlos \u2014 Bonsucesso","dias_aula":"Segunda e Quarta","horario":"16h \u00e0s 18h","data_inicio":"20/07/2026","encerramento":"19/08/2026","endereco_curso":"\U0001f4cdRua Capit\u00e3o Carlos, 311 \u2013 CEP 21042-150 \u2013 Bonsucesso"},
+    {"id":"80","curso_id":"5","local_id":"34","turma_codigo":"26/MARK 37","turma_label":"Ter\u00e7a e Quinta \u2014 16h \u00e0s 18h (in\u00edcio 21/07/2026) \u2014 Mar\u00e9 2 \u2014 Rua Capit\u00e3o Carlos \u2014 Bonsucesso","dias_aula":"Ter\u00e7a e Quinta","horario":"16h \u00e0s 18h","data_inicio":"21/07/2026","encerramento":"20/08/2026","endereco_curso":"\U0001f4cdRua Capit\u00e3o Carlos, 311 \u2013 CEP 21042-150 \u2013 Bonsucesso"},
+    {"id":"81","curso_id":"2","local_id":"34","turma_codigo":"26/ADMN 49","turma_label":"Ter\u00e7a e Quinta \u2014 19h \u00e0s 21h (in\u00edcio 21/07/2026) \u2014 Mar\u00e9 2 \u2014 Rua Capit\u00e3o Carlos \u2014 Bonsucesso","dias_aula":"Ter\u00e7a e Quinta","horario":"19h \u00e0s 21h","data_inicio":"21/07/2026","encerramento":"20/08/2026","endereco_curso":"\U0001f4cdRua Capit\u00e3o Carlos, 311 \u2013 CEP 21042-150 \u2013 Bonsucesso"},
+    {"id":"82","curso_id":"5","local_id":"30","turma_codigo":"26/MARK 38","turma_label":"Seg, Qua e Qui \u2014 14h \u00e0s 16h (in\u00edcio 03/08/2026) \u2014 Tia Lu \u2014 Realengo","dias_aula":"Seg, Qua e Qui","horario":"14h \u00e0s 16h","data_inicio":"03/08/2026","encerramento":"14/08/2026","endereco_curso":"\U0001f4cdRua Pedro Gomes, 2 \u2013 Realengo \u2013 CEP 21715-040"},
+    {"id":"83","curso_id":"3","local_id":"26","turma_codigo":"26/AXCZ 25","turma_label":"S\u00e1bado \u2014 08h \u00e0s 12h (in\u00edcio 18/07/2026) \u2014 Sal\u00e3o de Festas \u2014 Santa Cruz","dias_aula":"S\u00e1bado","horario":"08h \u00e0s 12h","data_inicio":"18/07/2026","encerramento":"08/08/2026","endereco_curso":"\U0001f4cdAv. Marginal, 107 \u2013 CEP 23595-020 \u2013 Santa Cruz"},
+    {"id":"84","curso_id":"12","local_id":"28","turma_codigo":"26/BARB 04","turma_label":"S\u00e1bado \u2014 08h \u00e0s 12h (in\u00edcio 01/08/2026) \u2014 Vila Cruzeiro \u2014 Penha","dias_aula":"S\u00e1bado","horario":"08h \u00e0s 12h","data_inicio":"01/08/2026","encerramento":"22/08/2026","endereco_curso":"\U0001f4cdRua Sargento Ricardo Filho, 26 \u2013 CEP 21070-170 \u2013 Olaria"},
+    {"id":"85","curso_id":"1","local_id":"3","turma_codigo":"26/ASLO 35","turma_label":"Ter\u00e7a \u2014 08h \u00e0s 12h (in\u00edcio 04/08/2026) \u2014 Associa\u00e7\u00e3o dos Artes\u00e3os \u2014 Ana Gonzaga","dias_aula":"Ter\u00e7a","horario":"08h \u00e0s 12h","data_inicio":"04/08/2026","encerramento":"25/08/2026","endereco_curso":"\U0001f4cdRua Esmeralda de Ana Gonzaga \u2013 Inhoa\u00edba \u2013 QD 11 LT 24 \u2013 CEP 23050-489"},
+    {"id":"86","curso_id":"4","local_id":"3","turma_codigo":"26/INAT 33","turma_label":"Quarta \u2014 8h \u00e0s 12h (in\u00edcio 05/08/2026) \u2014 Associa\u00e7\u00e3o dos Artes\u00e3os \u2014 Ana Gonzaga","dias_aula":"Quarta","horario":"8h \u00e0s 12h","data_inicio":"05/08/2026","encerramento":"26/08/2026","endereco_curso":"\U0001f4cdRua Esmeralda de Ana Gonzaga \u2013 Inhoa\u00edba \u2013 QD 11 LT 24 \u2013 CEP 23050-489"},
+    {"id":"87","curso_id":"3","local_id":"3","turma_codigo":"26/AXCZ 26","turma_label":"S\u00e1bado \u2014 08h \u00e0s 12h (in\u00edcio 05/08/2026) \u2014 Associa\u00e7\u00e3o dos Artes\u00e3os \u2014 Ana Gonzaga","dias_aula":"S\u00e1bado","horario":"08h \u00e0s 12h","data_inicio":"05/08/2026","encerramento":"26/08/2026","endereco_curso":"\U0001f4cdRua Esmeralda de Ana Gonzaga \u2013 Inhoa\u00edba \u2013 QD 11 LT 24 \u2013 CEP 23050-489"},
+    {"id":"88","curso_id":"10","local_id":"23","turma_codigo":"26/VEND 02","turma_label":"Segunda e Quarta \u2014 19h30 \u00e0s 21h30 (in\u00edcio 29/07/2026) \u2014 Ig. Evang\u00e9lica P\u00e3o da Vida \u2014 Curicica","dias_aula":"Segunda e Quarta","horario":"19h30 \u00e0s 21h30","data_inicio":"29/07/2026","encerramento":"13/08/2026","endereco_curso":"\U0001f4cdRua Mandina 2 \u2013 Curicica \u2013 CEP 22780-530"},
+    {"id":"89","curso_id":"16","local_id":"6","turma_codigo":"26/ELET 01","turma_label":"S\u00e1bado \u2014 9h \u00e0s 13h (in\u00edcio 15/08/2026) \u2014 Assoc. Moradores Conj. Liberdade \u2014 Santa Cruz","dias_aula":"S\u00e1bado","horario":"9h \u00e0s 13h","data_inicio":"15/08/2026","encerramento":"05/09/2026","endereco_curso":"\U0001f4cdAv. Canal Margem Direita, 54 \u2013 CEP 23560-366 \u2013 Santa Cruz"},
+    {"id":"90","curso_id":"2","local_id":"2","turma_codigo":"26/ADMN 50","turma_label":"Segunda \u2014 17h30 \u00e0s 21h30 (in\u00edcio 03/08/2026) \u2014 Igreja Batista Rio da Prata \u2014 Bangu","dias_aula":"Segunda","horario":"17h30 \u00e0s 21h30","data_inicio":"03/08/2026","encerramento":"24/08/2026","endereco_curso":"\U0001f4cdRua dos Limadores, 866 \u2013 CEP 21830-005 \u2013 Bangu"},
+    {"id":"91","curso_id":"11","local_id":"22","turma_codigo":"26/SOMD 21","turma_label":"S\u00e1bado \u2014 8h \u00e0s 12h (in\u00edcio 01/08/2026) \u2014 Assoc. de Moradores S\u00e3o Jorge \u2014 Inhoa\u00edba","dias_aula":"S\u00e1bado","horario":"8h \u00e0s 12h","data_inicio":"01/08/2026","encerramento":"22/08/2026","endereco_curso":"\U0001f4cdRua Pedro Autran, 71 \u2013 CEP 23059-105 \u2013 Cosmos"},
+    {"id":"92","curso_id":"4","local_id":"18","turma_codigo":"26/INAT 34","turma_label":"Segunda \u2014 17h \u00e0s 21h (in\u00edcio 27/07/2026) \u2014 Centro Social Estrela da Manh\u00e3 \u2014 Guaratiba","dias_aula":"Segunda","horario":"17h \u00e0s 21h","data_inicio":"27/07/2026","encerramento":"17/08/2026","endereco_curso":"\U0001f4cdRua Alcides Franco, 175 \u2013 CEP 23032-010 \u2013 Guaratiba"},
+    {"id":"93","curso_id":"16","local_id":"31","turma_codigo":"26/ELET 02","turma_label":"Ter\u00e7a e Quinta \u2014 18h \u00e0s 21h (in\u00edcio 28/07/2026) \u2014 Cozinha Comunit\u00e1ria \u2014 Realengo","dias_aula":"Ter\u00e7a e Quinta","horario":"18h \u00e0s 21h","data_inicio":"28/07/2026","encerramento":"20/08/2026","endereco_curso":"\U0001f4cdRua General Raposo, 41 \u2013 CEP 21730-000 \u2013 Realengo"},
+    {"id":"94","curso_id":"16","local_id":"17","turma_codigo":"26/ELET 03","turma_label":"S\u00e1bado \u2014 9h \u00e0s 12h (in\u00edcio 01/08/2026) \u2014 AD ADTS de Col\u00e9gio \u2014 Col\u00e9gio","dias_aula":"S\u00e1bado","horario":"9h \u00e0s 12h","data_inicio":"01/08/2026","encerramento":"29/08/2026","endereco_curso":"\U0001f4cdEstrada de Col\u00e9gio, 121 \u2013 Col\u00e9gio \u2013 CEP 21235-280"},
+    {"id":"95","curso_id":"5","local_id":"12","turma_codigo":"26/MARK 42","turma_label":"Quarta \u2014 10h \u00e0s 16h (in\u00edcio 05/08/2026) \u2014 Prefeitura \u2014 Centro","dias_aula":"Quarta","horario":"10h \u00e0s 16h","data_inicio":"05/08/2026","encerramento":"26/08/2026","endereco_curso":"\U0001f4cdRua Afonso Cavalcanti, 455 \u2013 Cidade Nova \u2013 CEP 20211-110"},
+    {"id":"96","curso_id":"2","local_id":"13","turma_codigo":"26/ADMN 52","turma_label":"Segunda e Quarta \u2014 19h \u00e0s 21h (in\u00edcio 03/08/2026) \u2014 Sal\u00e3o de Festas (77) \u2014 Padre Miguel","dias_aula":"Segunda e Quarta","horario":"19h \u00e0s 21h","data_inicio":"03/08/2026","encerramento":"28/08/2026","endereco_curso":"\U0001f4cdRua Juazeiro do Norte, 639 \u2013 Padre Miguel"},
+    {"id":"97","curso_id":"2","local_id":"10","turma_codigo":"26/ADMN 53","turma_label":"Ter\u00e7a e Quinta \u2014 A confirmar (in\u00edcio 28/07/2026) \u2014 Vila do Pinheiro \u2014 Mar\u00e9","dias_aula":"Ter\u00e7a e Quinta","horario":"A confirmar","data_inicio":"28/07/2026","encerramento":"13/08/2026","endereco_curso":"\U0001f4cdVia B9, 379, BL 14 \u2013 CEP 21046-090"},
+    {"id":"98","curso_id":"13","local_id":"18","turma_codigo":"26/GRCM 02","turma_label":"A confirmar \u2014 A confirmar (in\u00edcio 21/07/2026) \u2014 Centro Social Estrela da Manh\u00e3 \u2014 Guaratiba","dias_aula":"A confirmar","horario":"A confirmar","data_inicio":"21/07/2026","encerramento":"11/08/2026","endereco_curso":"\U0001f4cdRua Alcides Franco, 175 \u2013 CEP 23032-010 \u2013 Guaratiba"},
 ]
-
 
 # =============================================================================
 # 4. FUNÇÕES AUXILIARES
 # =============================================================================
 def build_course_options():
-    local_by_id  = {opt["id"]: opt for opt in LOCAL_OPTIONS}
-    course_by_id = {opt["id"]: opt for opt in COURSE_CATALOG}
+    local_by_id  = {o["id"]: o for o in LOCAL_OPTIONS}
+    course_by_id = {o["id"]: o for o in COURSE_CATALOG}
     options = []
     for t in TURMA_OPTIONS:
         local  = local_by_id[t["local_id"]]
@@ -254,9 +219,9 @@ def build_course_options():
     return options
 
 COURSE_OPTIONS       = build_course_options()
-COURSE_OPTIONS_BY_ID = {opt["id"]: opt for opt in COURSE_OPTIONS}
-COURSE_CATALOG_BY_ID = {opt["id"]: opt for opt in COURSE_CATALOG}
-LOCAL_OPTIONS_BY_ID  = {opt["id"]: opt for opt in LOCAL_OPTIONS}
+COURSE_OPTIONS_BY_ID = {o["id"]: o for o in COURSE_OPTIONS}
+COURSE_CATALOG_BY_ID = {o["id"]: o for o in COURSE_CATALOG}
+LOCAL_OPTIONS_BY_ID  = {o["id"]: o for o in LOCAL_OPTIONS}
 COURSE_INFO          = COURSE_OPTIONS[0] if COURSE_OPTIONS else None
 
 def build_whatsapp_share_url(home_url):
@@ -303,7 +268,6 @@ def fill_form_data_from_selection(form_data):
     for key in ("local", "curso", "turma", "dias_aula", "horario",
                 "data_inicio", "encerramento", "endereco_curso", "opcao_id"):
         form_data.setdefault(key, "")
-
 
 # =============================================================================
 # 5. TEMPLATES
@@ -353,7 +317,7 @@ TEMPLATE_WIZARD = r"""
         .panel-title { font-size: clamp(1.7rem,3vw,2.4rem); }
         .hero-subtitle, .panel-subtitle { margin: 0; color: #2f5fb4; font-size: 1.05rem; line-height: 1.55; }
         .hero-highlights { display: grid; gap: 10px; margin-top: 16px; }
-        .hero-highlight, .info-card, .review-box, .step-card { border-radius: 22px; border: 1px solid #d7e3fb; background: #fff; box-shadow: 0 8px 24px rgba(17,85,204,0.08); }
+        .hero-highlight, .review-box, .step-card { border-radius: 22px; border: 1px solid #d7e3fb; background: #fff; box-shadow: 0 8px 24px rgba(17,85,204,0.08); }
         .hero-highlight { padding: 12px 14px; color: #2f5fb4; font-size: 0.95rem; font-weight: 700; }
         .hero-highlight strong { display: block; color: var(--cor-principal); font-size: 1.15rem; margin-bottom: 4px; }
         .benefits-slider { display: grid; gap: 12px; margin-top: 8px; }
@@ -373,11 +337,9 @@ TEMPLATE_WIZARD = r"""
         .wizard-panel[data-step="escolher"] .step-grid.step-grid--stacked { max-width: 470px; }
         .wizard-panel[data-step="escolher"] .form-group, .wizard-panel[data-step="escolher"] .form-group.full { width: 100%; max-width: 100%; }
         .wizard-panel[data-step="escolher"] .input-with-action { width: 100%; max-width: 100%; }
-        .wizard-panel[data-step="escolher"] #local_display, .wizard-panel[data-step="escolher"] #dias_aula, .wizard-panel[data-step="escolher"] #horario, .wizard-panel[data-step="escolher"] #data_inicio, .wizard-panel[data-step="escolher"] #encerramento, .wizard-panel[data-step="escolher"] #endereco_curso { width: 100% !important; min-width: 0 !important; max-width: 100% !important; margin: 0 !important; }
-        select:disabled { background-color: #e8f0e8; cursor: not-allowed; opacity: 0.7; }
         .form-group { display: flex; flex-direction: column; gap: 4px; width: 100%; align-self: start; align-items: center; text-align: center; }
         .form-group.full { grid-column: 1/-1; }
-        .form-group label, .review-title, .mini-title { color: var(--cor-principal); font-size: 1rem; font-weight: 800; }
+        .form-group label, .review-title { color: var(--cor-principal); font-size: 1rem; font-weight: 800; }
         .form-group input, .form-group select, .form-group textarea { display: block; width: 100% !important; max-width: 100% !important; min-width: 0 !important; margin: 0 !important; box-sizing: border-box; min-height: 38px; height: 38px; padding: 7px 10px; border: 1.2px solid var(--cor-borda); border-radius: 10px; background: #f5f9ff; color: var(--cor-texto); font: inherit; line-height: 1.2; text-align: left; outline: none; transition: border-color 0.2s ease, box-shadow 0.2s ease, background 0.2s ease; }
         .form-group select { appearance: none; -webkit-appearance: none; -moz-appearance: none; background-image: url('data:image/svg+xml;utf8,<svg fill="%231155cc" height="20" viewBox="0 0 24 24" width="20" xmlns="http://www.w3.org/2000/svg"><path d="M7 10l5 5 5-5z"/></svg>'); background-repeat: no-repeat; background-position: right 14px center; background-size: 20px 20px; padding-right: 44px; }
         .form-group textarea { min-height: 60px; height: auto; resize: vertical; }
@@ -456,23 +418,22 @@ TEMPLATE_WIZARD = r"""
                         <div class="hero-highlights">
                             <div class="hero-highlight" style="text-align:center;">
                                 <strong>CURSOS DISPON&#205;VEIS:</strong>
-                                &#x1F916; INTELIG&#202;NCIA ARTIFICIAL<br>
-                                &#x1F4F1; SOCIAL MEDIA<br>
-                                &#x1F4E3; MARKETING DIGITAL<br>
-                                &#x1F4CA; GERENCIAMENTO DE TR&#193;FEGO PAGO<br>
-                                &#x1F3E8; AGENTE DE TURISMO CORPORATIVO<br>
-                                &#x267B;&#xFE0F; OPERADOR DE SISTEMA DE COMPOSTAGEM E RES&#205;DUOS ORG&#194;NICOS<br>
                                 &#x1F4E6; ASSISTENTE DE LOG&#205;STICA<br>
                                 &#x1F3E2; AUXILIAR ADMINISTRATIVO<br>
                                 &#x1F373; AUXILIAR DE COZINHA<br>
-                                &#x2702;&#xFE0F; BARBEIRO<br>
-                                &#x1F474; CUIDADOR DE IDOSO<br>
-                                &#x26A1; ELETRICISTA PREDIAL<br>
+                                &#x1F916; INTELIG&#202;NCIA ARTIFICIAL<br>
+                                &#x1F4E3; MARKETING DIGITAL<br>
                                 &#x1F388; MONITOR DE LAZER E RECREA&#199;&#195;O<br>
+                                &#x267B;&#xFE0F; OPERADOR DE SISTEMA DE COMPOSTAGEM E RES&#205;DUOS ORG&#194;NICOS<br>
                                 &#x1F6AA; PORTEIRO<br>
                                 &#x1F4CB; RECEPCIONISTA<br>
                                 &#x1F6CD;&#xFE0F; VENDEDOR<br>
-                                &#x1F37D;&#xFE0F; GAR&#199;OM
+                                &#x1F4F1; SOCIAL MEDIA<br>
+                                &#x2702;&#xFE0F; BARBEIRO<br>
+                                &#x1F37D;&#xFE0F; GAR&#199;OM<br>
+                                &#x1F3E8; AGENTE DE TURISMO CORPORATIVO<br>
+                                &#x1F4CA; GERENCIAMENTO DE TR&#193;FEGO PAGO<br>
+                                &#x26A1; ELETRICISTA PREDIAL
                             </div>
                             <div class="hero-highlight">
                                 <strong>BENEF&#205;CIOS</strong>
@@ -483,9 +444,9 @@ TEMPLATE_WIZARD = r"""
                                         <div class="benefit-slide">Material Did&#225;tico Incluso</div>
                                     </div>
                                     <div class="benefits-controls">
-                                        <button type="button" class="benefits-nav" data-benefits-prev aria-label="Benef&#237;cio anterior">&#8249;</button>
+                                        <button type="button" class="benefits-nav" data-benefits-prev aria-label="Anterior">&#8249;</button>
                                         <div class="benefits-dots" data-benefits-dots></div>
-                                        <button type="button" class="benefits-nav" data-benefits-next aria-label="Pr&#243;ximo benef&#237;cio">&#8250;</button>
+                                        <button type="button" class="benefits-nav" data-benefits-next aria-label="Pr&#243;ximo">&#8250;</button>
                                     </div>
                                 </div>
                             </div>
@@ -536,7 +497,7 @@ TEMPLATE_WIZARD = r"""
                             <div class="form-group"><label for="horario">HOR&#193;RIO</label><input type="text" id="horario" name="horario" class="readonly-field" readonly value="{{ form_data.get('horario', '') }}"></div>
                             <div class="form-group"><label for="data_inicio">DATA DE IN&#205;CIO</label><input type="text" id="data_inicio" name="data_inicio" class="readonly-field" readonly value="{{ form_data.get('data_inicio', '') }}"></div>
                             <div class="form-group"><label for="encerramento">ENCERRAMENTO</label><input type="text" id="encerramento" name="encerramento" class="readonly-field" readonly value="{{ form_data.get('encerramento', '') }}"></div>
-                            <div class="form-group full"><label for="endereco_curso">ENDERE&#199;O</label><div class="input-with-action"><input type="text" id="endereco_curso" name="endereco_curso" class="readonly-field" readonly value="{{ form_data.get('endereco_curso', '') }}"><button type="button" class="icon-button" id="btn-copiar-endereco" title="Copiar endere&#231;o">COPIAR &#128203;</button></div></div>
+                            <div class="form-group full"><label for="endereco_curso">ENDERE&#199;O</label><div class="input-with-action"><input type="text" id="endereco_curso" name="endereco_curso" class="readonly-field" readonly value="{{ form_data.get('endereco_curso', '') }}"><button type="button" class="icon-button" id="btn-copiar-endereco" title="Copiar">COPIAR &#128203;</button></div></div>
                         </div>
                         <div class="panel-actions">
                             <button type="button" class="secondary-button" data-prev="dados">Voltar</button>
@@ -571,12 +532,12 @@ TEMPLATE_WIZARD = r"""
                             </div></div>
                             <div class="review-box full"><div class="form-group"><label for="como_conheceu">Como conheceu (opcional)</label><input type="text" id="como_conheceu" name="como_conheceu" maxlength="120" placeholder="Digite como conheceu o projeto" value="{{ form_data.get('como_conheceu', '') }}"><div class="balao-erro" id="como_conheceu-error" {% if not errors.get('como_conheceu') %}hidden{% endif %}>{{ errors.get('como_conheceu', '') }}</div></div></div>
                             <div class="review-box full">
-                                <div class="review-info-text" style="margin-bottom:10px; color:#2f5fb4; font-size:0.98rem; text-align:left;"><strong>Elegibilidade:</strong> Este curso &#233; destinado a pessoas com 16 anos ou mais interessadas em qualifica&#231;&#227;o profissional.</div>
+                                <div style="margin-bottom:10px; color:#2f5fb4; font-size:0.98rem; text-align:left;"><strong>Elegibilidade:</strong> Este curso &#233; destinado a pessoas com 16 anos ou mais.</div>
                                 <label class="review-check" for="confirma_dados">
                                     <input type="checkbox" id="confirma_dados" name="confirma_dados" value="sim" {% if form_data.get('confirma_dados') %}checked{% endif %}>
-                                    <span>Confirmo que tenho 16 anos ou mais e interesse em participar do curso selecionado.<br>Todas as informa&#231;&#245;es fornecidas s&#227;o verdadeiras e estou de acordo com os termos de participa&#231;&#227;o.<br>Autorizo o uso dos meus dados para fins de inscri&#231;&#227;o e contato relacionado ao curso.<br>Tamb&#233;m autorizo o uso da minha imagem para divulga&#231;&#227;o nos canais de comunica&#231;&#227;o e redes sociais do projeto e da Prefeitura do Rio de Janeiro.</span>
+                                    <span>Confirmo que tenho 16 anos ou mais e interesse em participar do curso selecionado.<br>Todas as informa&#231;&#245;es s&#227;o verdadeiras e estou de acordo com os termos de participa&#231;&#227;o.<br>Autorizo o uso dos meus dados para inscri&#231;&#227;o e contato relacionado ao curso.<br>Tamb&#233;m autorizo o uso da minha imagem para divulga&#231;&#227;o nos canais do projeto e da Prefeitura do Rio.</span>
                                 </label>
-                                <div class="review-info-text" style="margin-top:10px;"><strong>Ao confirmar voc&#234; declara a ci&#234;ncia de que:</strong><ul><li>O curso &#233; totalmente gratuito</li><li>Os dados ser&#227;o usados apenas para inscri&#231;&#227;o</li></ul></div>
+                                <div style="margin-top:10px;"><strong>Ao confirmar voc&#234; declara que:</strong><ul><li>O curso &#233; totalmente gratuito</li><li>Os dados ser&#227;o usados apenas para inscri&#231;&#227;o</li></ul></div>
                                 <div class="balao-erro" id="confirma_dados-error" {% if not errors.get('confirma_dados') %}hidden{% endif %}>{{ errors.get('confirma_dados', '') }}</div>
                             </div>
                         </div>
@@ -599,7 +560,6 @@ TEMPLATE_WIZARD = r"""
             var labels=Array.from(document.querySelectorAll('[data-step-label]'));
             var reviewTargets=Array.from(document.querySelectorAll('[data-review]'));
             var benefitsSliders=Array.from(document.querySelectorAll('[data-benefits-slider]'));
-            var courseCatalog={{ course_catalog|tojson }};
             var courseOptions={{ course_options|tojson }};
             var courseOptionsById=Object.fromEntries(courseOptions.map(function(o){return[String(o.id),o];}));
             var nomeInput=document.getElementById('nome'),generoInput=document.getElementById('genero'),cpfInput=document.getElementById('cpf'),nascimentoInput=document.getElementById('nascimento'),whatsappInput=document.getElementById('whatsapp'),cepInput=document.getElementById('cep'),bairroInput=document.getElementById('bairro'),emailInput=document.getElementById('email'),confirmaDadosInput=document.getElementById('confirma_dados');
@@ -621,7 +581,7 @@ TEMPLATE_WIZARD = r"""
             function mascNasc(){var v=somenteDigitos(nascimentoInput.value).slice(0,8);if(v.length>4)v=v.replace(/(\d{2})(\d{2})(\d{1,4})/,'$1/$2/$3');else if(v.length>2)v=v.replace(/(\d{2})(\d{1,2})/,'$1/$2');nascimentoInput.value=v;}
             function mascWpp(){var v=somenteDigitos(whatsappInput.value).slice(0,11);if(v.length>6)v=v.replace(/(\d{2})(\d{5})(\d{0,4})/,'($1) $2-$3');else if(v.length>2)v=v.replace(/(\d{2})(\d{1,5})/,'($1) $2');whatsappInput.value=v;}
             function mascCep(){var v=somenteDigitos(cepInput.value).slice(0,8);if(v.length>5)v=v.replace(/(\d{5})(\d{1,3})/,'$1-$2');cepInput.value=v;}
-            function vNome(){var v=nomeInput.value.trim();if(!v){setError('nome','Digite seu nome completo.');return false;}if(v.length>50){setError('nome','M\u00e1ximo 50 caracteres.');return false;}if(!/^[A-Za-z\u00C0-\u00FF '\u00b4`^~.-]+$/.test(v)){setError('nome','Use apenas letras e sinais permitidos.');return false;}setError('nome','');return true;}
+            function vNome(){var v=nomeInput.value.trim();if(!v){setError('nome','Digite seu nome completo.');return false;}if(v.length>50){setError('nome','M\u00e1ximo 50 caracteres.');return false;}setError('nome','');return true;}
             function vGenero(){if(!generoInput.value){setError('genero','Selecione o g\u00eanero.');return false;}setError('genero','');return true;}
             function vCPF(){if(!validarCPF(cpfInput.value)){setError('cpf','CPF inv\u00e1lido.');return false;}setError('cpf','');return true;}
             function vNasc(){if(!idadePermitida(nascimentoInput.value)){setError('nascimento','Idade permitida: 16 a 90 anos.');return false;}setError('nascimento','');return true;}
@@ -667,18 +627,6 @@ TEMPLATE_CONFIRMACAO = r"""
     <link rel="stylesheet" href="/static/style.css">
     <link rel="stylesheet" href="/static/assistant.css">
     <link href="https://fonts.googleapis.com/css2?family=Wise:wght@400;700;900&display=swap" rel="stylesheet">
-    <script>
-        !function(f,b,e,v,n,t,s)
-        {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
-        n.callMethod.apply(n,arguments):n.queue.push(arguments)};
-        if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
-        n.queue=[];t=b.createElement(e);t.async=!0;
-        t.src=v;s=b.getElementsByTagName(e)[0];
-        s.parentNode.insertBefore(t,s)}(window, document,'script',
-        'https://connect.facebook.net/en_US/fbevents.js');
-        fbq('init', '2008632536670997');
-        fbq('track', 'PageView');
-    </script>
     <style>
         :root { --cor-principal: #1155cc; --cor-clara: #eef4ff; --cor-texto: #17386d; --sombra-card: 0 18px 55px rgba(17,85,204,0.18); }
         body { min-height:100vh; margin:0; background: radial-gradient(circle at top left,rgba(17,85,204,0.15),transparent 32%), linear-gradient(140deg,#f5f9ff 0%,#fff 55%,#dfeaff 100%); font-family:'Wise',Arial,sans-serif; }
@@ -689,7 +637,7 @@ TEMPLATE_CONFIRMACAO = r"""
         .wizard-fill { width:100%; height:100%; background:linear-gradient(90deg,#1155cc 0%,#4f86ea 100%); border-radius:999px; }
         .wizard-labels { display:grid; grid-template-columns:repeat(4,1fr); gap:8px; margin-top:12px; }
         .wizard-label { padding:10px 8px; border:1px solid #c9daf8; border-radius:16px; background:#fff; color:#2f5fb4; font-size:0.84rem; font-weight:700; text-align:center; }
-        .wizard-label.ativo { border-color:var(--cor-principal); background:var(--cor-clara); color:var(--cor-principal); }
+        .wizard-label.ativo { border-color:#1155cc; background:#eef4ff; color:#1155cc; }
         .confirm-shell { background:rgba(255,255,255,0.88); border:1px solid rgba(255,255,255,0.9); border-radius:30px; box-shadow:var(--sombra-card); overflow:hidden; text-align:center; }
         .confirm-card { padding:20px 16px 18px; background:transparent; text-align:center; max-width:620px; margin:0 auto; }
         .checkmark { width:120px; height:120px; margin:0 auto 12px; }
@@ -714,14 +662,12 @@ TEMPLATE_CONFIRMACAO = r"""
             .wizard-progress{width:100%!important;max-width:100%!important;padding:10px;border-radius:18px;}
             .wizard-labels{grid-template-columns:1fr;gap:6px;}
             .confirm-shell{width:100%!important;max-width:100%!important;border-radius:18px;}
-            .protocol-box span{font-size:1.3rem;}
             .next-steps,.actions,.action-button,.protocol-box,.wizard-label,.wizard-track{width:100%!important;max-width:100%!important;}
             img,svg{max-width:100%!important;height:auto!important;}
         }
     </style>
 </head>
 <body>
-    <noscript><img height="1" width="1" style="display:none" src="https://www.facebook.com/tr?id=2008632536670997&ev=PageView&noscript=1"/></noscript>
     <script src="/static/assistant.js"></script>
     <header class="main-header">
         <div class="header-logos">
@@ -738,23 +684,21 @@ TEMPLATE_CONFIRMACAO = r"""
                 <div class="wizard-label ativo">4. Confirma&#231;&#227;o</div>
             </div>
         </div>
-        <div class="confirm-shell">
-            <div class="confirm-card">
-                <div class="checkmark"><svg viewBox="0 0 200 200"><circle cx="100" cy="100" r="90" stroke-width="16"></circle><polyline points="60,110 95,145 145,75" stroke-width="16" stroke-linecap="round" stroke-linejoin="round"></polyline></svg></div>
-                <h1>Inscri&#231;&#227;o realizada com sucesso</h1>
-                <div class="protocol-box"><strong>N&#250;mero de protocolo</strong><span>{{ protocolo }}</span></div>
-                <div class="actions">
-                    <a class="action-button primary" href="{{ whatsapp_share_url }}" target="_blank" rel="noopener noreferrer">Compartilhar no WhatsApp</a>
-                    <a class="action-button secondary" href="{{ url_for('home') }}">Voltar ao in&#237;cio</a>
-                </div>
-                <div class="next-steps"><h2>Pr&#243;ximos passos</h2><ol>
-                    <li>Aguarde nosso contato via WhatsApp.</li>
-                    <li>Prepare RG, CPF e comprovante de resid&#234;ncia.</li>
-                    <li>Fique atento ao contato com os detalhes do curso.</li>
-                    <li>Compare&#231;a ao local informado no dia marcado.</li>
-                </ol></div>
+        <div class="confirm-shell"><div class="confirm-card">
+            <div class="checkmark"><svg viewBox="0 0 200 200"><circle cx="100" cy="100" r="90" stroke-width="16"></circle><polyline points="60,110 95,145 145,75" stroke-width="16" stroke-linecap="round" stroke-linejoin="round"></polyline></svg></div>
+            <h1>Inscri&#231;&#227;o realizada com sucesso</h1>
+            <div class="protocol-box"><strong>N&#250;mero de protocolo</strong><span>{{ protocolo }}</span></div>
+            <div class="actions">
+                <a class="action-button primary" href="{{ whatsapp_share_url }}" target="_blank" rel="noopener noreferrer">Compartilhar no WhatsApp</a>
+                <a class="action-button secondary" href="{{ url_for('home') }}">Voltar ao in&#237;cio</a>
             </div>
-        </div>
+            <div class="next-steps"><h2>Pr&#243;ximos passos</h2><ol>
+                <li>Aguarde nosso contato via WhatsApp.</li>
+                <li>Prepare RG, CPF e comprovante de resid&#234;ncia.</li>
+                <li>Fique atento ao contato com os detalhes do curso.</li>
+                <li>Compare&#231;a ao local informado no dia marcado.</li>
+            </ol></div>
+        </div></div>
     </div>
 </body>
 </html>
@@ -858,14 +802,14 @@ def render_wizard(form_data=None, errors=None, current_step="index"):
     selected_option = get_course_option(current_form_data.get("opcao_id")) or COURSE_INFO
     return render_template_string(
         TEMPLATE_WIZARD,
-        course_info=selected_option,
-        local_options=LOCAL_OPTIONS,
-        course_catalog=COURSE_CATALOG,
-        course_options=COURSE_OPTIONS,
-        current_step=current_step,
-        errors=errors or {},
-        form_data=current_form_data,
-        generos=["Feminino", "Masculino", "Outro", "Prefiro n\u00e3o dizer"],
+        course_info    = selected_option,
+        local_options  = LOCAL_OPTIONS,
+        course_catalog = COURSE_CATALOG,
+        course_options = COURSE_OPTIONS,
+        current_step   = current_step,
+        errors         = errors or {},
+        form_data      = current_form_data,
+        generos        = ["Feminino", "Masculino", "Outro", "Prefiro n\u00e3o dizer"],
     )
 
 @app.route("/", methods=["GET"])
@@ -877,7 +821,7 @@ def inscricao_unica():
     if request.method == "GET":
         return redirect(url_for("home"))
     form_data = get_default_form_data(request.form)
-    errors = validate_form_data(form_data)
+    errors    = validate_form_data(form_data)
     if errors:
         return render_wizard(form_data=form_data, errors=errors, current_step=error_step(errors))
     protocolo = str(uuid.uuid4())[:8].upper()
@@ -903,9 +847,9 @@ def inscricao_unica():
         print("Erro ao enviar para Supabase:", exc)
     return redirect(url_for("confirmacao"))
 
-@app.route("/curso", methods=["GET", "POST"])
+@app.route("/curso",   methods=["GET", "POST"])
 @app.route("/revisao", methods=["GET", "POST"])
-@app.route("/wizard", methods=["GET"])
+@app.route("/wizard",  methods=["GET"])
 def legacy_routes():
     return redirect(url_for("home"))
 
@@ -917,8 +861,8 @@ def confirmacao():
     home_url = "https://movimenta-rio-mare.onrender.com"
     return render_template_string(
         TEMPLATE_CONFIRMACAO,
-        protocolo=protocolo,
-        whatsapp_share_url=build_whatsapp_share_url(home_url),
+        protocolo          = protocolo,
+        whatsapp_share_url = build_whatsapp_share_url(home_url),
     )
 
 # =============================================================================
