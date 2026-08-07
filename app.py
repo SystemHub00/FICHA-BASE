@@ -208,6 +208,12 @@ def build_course_options():
             "endereco_curso": t["endereco_curso"],
         })
     return options
+COURSE_OPTIONS       = build_course_options()
+COURSE_OPTIONS_BY_ID = {o["id"]: o for o in COURSE_OPTIONS}
+COURSE_CATALOG_BY_ID = {o["id"]: o for o in COURSE_CATALOG}
+LOCAL_OPTIONS_BY_ID  = {o["id"]: o for o in LOCAL_OPTIONS}
+COURSE_INFO          = COURSE_OPTIONS[0] if COURSE_OPTIONS else None
+
 def build_whatsapp_share_url(home_url):
     message = ("Acabei de me inscrever em uma oportunidade de qualificacao profissional. Confira aqui: " + home_url)
     return f"https://wa.me/?text={quote(message)}"
