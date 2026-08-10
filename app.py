@@ -58,6 +58,12 @@ LOCAL_OPTIONS = [
     {"id": "30", "nome": "Tia Lu \u2014 Realengo"},
     {"id": "31", "nome": "Cozinha Comunit\u00e1ria \u2014 Realengo"},
     {"id": "32", "nome": "Casa Costa Matos \u2014 Rio de Janeiro"},
+    # NOVOS LOCAIS — Investidor do Sucesso
+    {"id": "33", "nome": "Estrada do Mendanha \u2014 Campo Grande"},
+    {"id": "34", "nome": "Rua Caminho Foz do Jord\u00e3o \u2014 Campo Grande"},
+    {"id": "35", "nome": "Atr\u00e1s do Col\u00e9gio Estadual Luiz Carlos Vila \u2014 Benfica"},
+    {"id": "36", "nome": "Realengo \u2014 Rua General Raposo"},
+    {"id": "37", "nome": "Igreja Assembl\u00e9ia de Deus ADAV \u2014 Senador Augusto Vasconcelos"},
 ]
 
 COURSE_CATALOG = [
@@ -76,6 +82,7 @@ COURSE_CATALOG = [
     {"id": "13", "nome": "BARBEIRO"},
     {"id": "14", "nome": "GAR\u00c7OM"},
     {"id": "15", "nome": "ELETRICISTA PREDIAL"},
+    {"id": "16", "nome": "INVESTIDOR DO SUCESSO"},
 ]
 
 TURMA_OPTIONS = [
@@ -176,18 +183,26 @@ TURMA_OPTIONS = [
     {"id": "94", "curso_id": "3",  "local_id": "7",  "turma_codigo": "FGM-AC-02",   "turma_label": "S\u00e1bado \u2014 09h\u201312h (in\u00edcio 25/07/2026) \u2014 Igreja Batista S\u00e3o Bento \u2014 Bangu",              "dias_aula": "S\u00e1bado",           "horario": "09h\u201312h",      "data_inicio": "25/07/2026", "encerramento": "15/08/2026", "endereco_curso": "\U0001f4cdRua Batu\u00edra, 121 \u2013 Bangu"},
     # NOVA TURMA 95 — Recepcionista — Amubua (Santa Cruz) — 13/08/2026
     {"id": "95", "curso_id": "9",  "local_id": "14", "turma_codigo": "26/RECP 15",  "turma_label": "Ter\u00e7a e Quinta \u2014 08h\u201312h (in\u00edcio 13/08/2026) \u2014 Amubua (Associa\u00e7\u00e3o) \u2014 Santa Cruz",         "dias_aula": "Ter\u00e7a e Quinta",  "horario": "08h\u201312h",      "data_inicio": "13/08/2026", "encerramento": "03/09/2026", "endereco_curso": "\U0001f4cdRua Jos\u00e9 Silton Pinheiro, 51 \u2013 CEP: 23.573-340 \u2013 Santa Cruz"},
-    # NOVA TURMA 96 — Agente de Turismo Corporativo — Min. Ap. Mover Prof\u00e9tico (Senador Camar\u00e1) — 15/08/2026
+    # NOVA TURMA 96 — Agente de Turismo Corporativo — Min. Ap. Mover Profético (Senador Camará) — 15/08/2026
     {"id": "96", "curso_id": "10", "local_id": "5",  "turma_codigo": "26/AGTU 05",  "turma_label": "S\u00e1bado \u2014 08h\u201312h (in\u00edcio 15/08/2026) \u2014 Min. Ap. Mover Prof\u00e9tico \u2014 Senador Camar\u00e1", "dias_aula": "S\u00e1bado",           "horario": "08h\u201312h",      "data_inicio": "15/08/2026", "encerramento": "05/09/2026", "endereco_curso": "\U0001f4cdR: Bom Guilherme Francisco Moraes, 3 \u2013 Senador Camar\u00e1 \u2013 CEP: 21833-190"},
-    {"id": "97",  "curso_id": "16", "local_id": "25", "turma_codigo": "26/INSU 01", "turma_label": "Sábado — 08h–12h (início 22/08/2026) — Ig. Batista Maanaim Mendanha — Campo Grande",       "dias_aula": "Sábado", "horario": "08h–12h", "data_inicio": "22/08/2026", "encerramento": "26/09/2026", "endereco_curso": "📍Estrada do Mendanha, 4240 – Campo Grande"},
-    {"id": "98",  "curso_id": "16", "local_id": "2",  "turma_codigo": "26/INSU 02", "turma_label": "Sábado — 08h–12h (início 22/08/2026) — Igreja Batista Rio da Prata — Bangu",              "dias_aula": "Sábado", "horario": "08h–12h", "data_inicio": "22/08/2026", "encerramento": "26/08/2026", "endereco_curso": "📍Rua dos Limadores, 866 – Bangu – CEP 21830-005"},
-    {"id": "99",  "curso_id": "16", "local_id": "33", "turma_codigo": "26/INSU 03", "turma_label": "Sábado — 08h–12h (início 22/08/2026) — Rua Caminho Foz do Jordão — Campo Grande",         "dias_aula": "Sábado", "horario": "08h–12h", "data_inicio": "22/08/2026", "encerramento": "22/08/2026", "endereco_curso": "📍Rua Caminho Foz do Jordão, 28 – Campo Grande"},
-    {"id": "100", "curso_id": "16", "local_id": "33", "turma_codigo": "26/INSU 04", "turma_label": "Sábado — 08h–12h (início 22/08/2026) — Rua Caminho Foz do Jordão — Campo Grande",         "dias_aula": "Sábado", "horario": "08h–12h", "data_inicio": "22/08/2026", "encerramento": "26/09/2026", "endereco_curso": "📍Rua Caminho Foz do Jordão, 28 – Campo Grande"},
-    {"id": "101", "curso_id": "16", "local_id": "34", "turma_codigo": "26/INSU 05", "turma_label": "Sábado — 08h–12h (início 22/08/2026) — Atrás do Colégio Estadual Luiz Carlos Vila — Benfica", "dias_aula": "Sábado", "horario": "08h–12h", "data_inicio": "22/08/2026", "encerramento": "26/09/2026", "endereco_curso": "📍Av. Dom Helder Câmara, 1.184 – Benfica"},
-    {"id": "102", "curso_id": "16", "local_id": "31", "turma_codigo": "26/INSU 06", "turma_label": "Sábado — 08h–12h (início 22/08/2026) — Realengo",                                          "dias_aula": "Sábado", "horario": "08h–12h", "data_inicio": "22/08/2026", "encerramento": "26/09/2026", "endereco_curso": "📍Rua General Raposo, 41 – Realengo"},
-    {"id": "103", "curso_id": "16", "local_id": "35", "turma_codigo": "26/INSU 07", "turma_label": "Sábado — 08h–12h (início 22/08/2026) — Igreja Assembleia de Deus ADAV — Senador Augusto Vasconcelos", "dias_aula": "Sábado", "horario": "08h–12h", "data_inicio": "22/08/2026", "encerramento": "26/09/2026", "endereco_curso": "📍Rua Arthur Rios, 805 – Senador Augusto Vasconcelos"},
-    {"id": "104", "curso_id": "16", "local_id": "10", "turma_codigo": "26/INSU 08", "turma_label": "Sábado — 08h–12h (início 01/08/2026) — Vila do Pinheiro 1 — Maré",                          "dias_aula": "Sábado", "horario": "08h–12h", "data_inicio": "01/08/2026", "encerramento": "22/08/2026", "endereco_curso": "📍Vila do Pinheiro 1 – Maré"},
-    {"id": "105", "curso_id": "6",  "local_id": "4",  "turma_codigo": "26/MLRE 20", "turma_label": "Sábado — 14h–18h (início 22/08/2026) — IMMEC Church — Campo Grande",                        "dias_aula": "Sábado", "horario": "14h–18h", "data_inicio": "22/08/2026", "encerramento": "12/09/2026", "endereco_curso": "📍Estrada do Cabuçu, 2692 – Vila Jardim, Campo Grande"},
-]
+    # NOVA TURMA 97 — Investidor do Sucesso — Estrada do Mendanha — 22/08/2026
+    {"id": "97", "curso_id": "16", "local_id": "33", "turma_codigo": "26/INVS 01",  "turma_label": "S\u00e1bado \u2014 08h\u201312h (in\u00edcio 22/08/2026) \u2014 Estrada do Mendanha \u2014 Campo Grande",              "dias_aula": "S\u00e1bado",           "horario": "08h\u201312h",      "data_inicio": "22/08/2026", "encerramento": "26/09/2026", "endereco_curso": "\U0001f4cdEstrada do Mendanha, 4240 \u2013 Campo Grande"},
+    # NOVA TURMA 98 — Investidor do Sucesso — Igreja Batista Rio da Prata (Bangu) — 22/08/2026
+    {"id": "98", "curso_id": "16", "local_id": "2",  "turma_codigo": "26/INVS 02",  "turma_label": "S\u00e1bado \u2014 08h\u201312h (in\u00edcio 22/08/2026) \u2014 Igreja Batista Rio da Prata \u2014 Bangu",              "dias_aula": "S\u00e1bado",           "horario": "08h\u201312h",      "data_inicio": "22/08/2026", "encerramento": "26/08/2026", "endereco_curso": "\U0001f4cdRua dos Limadores, 866 \u2013 Bangu \u2013 RJ \u2013 CEP: 21830-005"},
+    # NOVA TURMA 99 — Investidor do Sucesso — Campo Grande (Foz do Jordão) — 22/08/2026 (encerra no mesmo dia)
+    {"id": "99", "curso_id": "16", "local_id": "34", "turma_codigo": "26/INVS 03",  "turma_label": "S\u00e1bado \u2014 08h\u201312h (in\u00edcio 22/08/2026) \u2014 Rua Caminho Foz do Jord\u00e3o \u2014 Campo Grande",   "dias_aula": "S\u00e1bado",           "horario": "08h\u201312h",      "data_inicio": "22/08/2026", "encerramento": "22/08/2026", "endereco_curso": "\U0001f4cdRua Caminho Foz do Jord\u00e3o, 28 \u2013 Campo Grande"},
+    # NOVA TURMA 100 — Investidor do Sucesso — Campo Grande (Foz do Jordão) — 22/08/2026
+    {"id": "100", "curso_id": "16", "local_id": "34", "turma_codigo": "26/INVS 04", "turma_label": "S\u00e1bado \u2014 08h\u201312h (in\u00edcio 22/08/2026) \u2014 Rua Caminho Foz do Jord\u00e3o \u2014 Campo Grande",   "dias_aula": "S\u00e1bado",           "horario": "08h\u201312h",      "data_inicio": "22/08/2026", "encerramento": "26/09/2026", "endereco_curso": "\U0001f4cdRua Caminho Foz do Jord\u00e3o, 28 \u2013 Campo Grande"},
+    # NOVA TURMA 101 — Investidor do Sucesso — Atrás do Colégio Estadual Luiz Carlos Vila (Benfica) — 22/08/2026
+    {"id": "101", "curso_id": "16", "local_id": "35", "turma_codigo": "26/INVS 05", "turma_label": "S\u00e1bado \u2014 08h\u201312h (in\u00edcio 22/08/2026) \u2014 Atr\u00e1s do Col\u00e9gio Estadual Luiz Carlos Vila \u2014 Benfica", "dias_aula": "S\u00e1bado", "horario": "08h\u201312h", "data_inicio": "22/08/2026", "encerramento": "26/09/2026", "endereco_curso": "\U0001f4cdAv. Dom Helder Camara, 1.184 \u2013 Benfica"},
+    # NOVA TURMA 102 — Investidor do Sucesso — Realengo (Rua General Raposo) — 22/08/2026
+    {"id": "102", "curso_id": "16", "local_id": "36", "turma_codigo": "26/INVS 06", "turma_label": "S\u00e1bado \u2014 08h\u201312h (in\u00edcio 22/08/2026) \u2014 Realengo \u2014 Rua General Raposo",                   "dias_aula": "S\u00e1bado",           "horario": "08h\u201312h",      "data_inicio": "22/08/2026", "encerramento": "26/09/2026", "endereco_curso": "\U0001f4cdRua General Raposo, 41 \u2013 Realengo"},
+    # NOVA TURMA 103 — Investidor do Sucesso — Igreja Assembléia de Deus ADAV (Senador Augusto Vasconcelos) — 22/08/2026
+    {"id": "103", "curso_id": "16", "local_id": "37", "turma_codigo": "26/INVS 07", "turma_label": "S\u00e1bado \u2014 08h\u201312h (in\u00edcio 22/08/2026) \u2014 Igreja Assembl\u00e9ia de Deus ADAV \u2014 Senador Augusto Vasconcelos", "dias_aula": "S\u00e1bado", "horario": "08h\u201312h", "data_inicio": "22/08/2026", "encerramento": "26/09/2026", "endereco_curso": "\U0001f4cdRua Arthur Rios, 805 \u2013 Senador Augusto Vasconcelos"},
+    # NOVA TURMA 104 — Investidor do Sucesso — Vila do Pinheiro 1 (Maré) — 01/08/2026
+    {"id": "104", "curso_id": "16", "local_id": "10", "turma_codigo": "26/INVS 08", "turma_label": "S\u00e1bado \u2014 08h\u201312h (in\u00edcio 01/08/2026) \u2014 Vila do Pinheiro \u2014 Mar\u00e9",                       "dias_aula": "S\u00e1bado",           "horario": "08h\u201312h",      "data_inicio": "01/08/2026", "encerramento": "22/08/2026", "endereco_curso": "\U0001f4cdVila do Pinheiro 1 \u2013 Mar\u00e9"},
+    # NOVA TURMA 105 — Monitor de Lazer e Recreação — IMMEC Church (Campo Grande) — 22/08/2026
+    {"id": "105", "curso_id": "6",  "local_id": "4",  "turma_codigo": "26/MLRE 19", "turma_label": "S\u00e1bado \u2014 14h\u201318h (in\u00edcio 22/08/2026) \u2014 IMMEC Church \u2014 Campo Grande",                       "dias_aula": "S\u00e1bado",           "horario": "14h\u201318h",      "data_inicio": "22/08/2026", "encerramento": "12/09/2026", "endereco_curso": "\U0001f4cdEstrada do Cabu\u00e7u, 2692 \u2013 Vila Jardim, Campo Grande"},
 ]
 
 def build_course_options():
@@ -427,7 +442,8 @@ TEMPLATE_WIZARD = r"""
                                 &#x2702;&#xFE0F; BARBEIRO<br>
                                 &#x1F37D;&#xFE0F; GAR&#199;OM<br>
                                 &#x1F3E8; AGENTE DE TURISMO CORPORATIVO<br>
-                                &#x26A1; ELETRICISTA PREDIAL
+                                &#x26A1; ELETRICISTA PREDIAL<br>
+                                &#x1F4B0; INVESTIDOR DO SUCESSO
                             </div>
                             <div class="hero-highlight">
                                 <strong>BENEF&#205;CIOS</strong>
