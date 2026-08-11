@@ -203,6 +203,8 @@ TURMA_OPTIONS = [
     {"id": "104", "curso_id": "16", "local_id": "10", "turma_codigo": "26/INVS 08", "turma_label": "S\u00e1bado \u2014 08h\u201312h (in\u00edcio 01/08/2026) \u2014 Vila do Pinheiro \u2014 Mar\u00e9",                       "dias_aula": "S\u00e1bado",           "horario": "08h\u201312h",      "data_inicio": "01/08/2026", "encerramento": "22/08/2026", "endereco_curso": "\U0001f4cdVila do Pinheiro 1 \u2013 Mar\u00e9"},
     # NOVA TURMA 105 — Monitor de Lazer e Recreação — IMMEC Church (Campo Grande) — 22/08/2026
     {"id": "105", "curso_id": "6",  "local_id": "4",  "turma_codigo": "26/MLRE 19", "turma_label": "S\u00e1bado \u2014 14h\u201318h (in\u00edcio 22/08/2026) \u2014 IMMEC Church \u2014 Campo Grande",                       "dias_aula": "S\u00e1bado",           "horario": "14h\u201318h",      "data_inicio": "22/08/2026", "encerramento": "12/09/2026", "endereco_curso": "\U0001f4cdEstrada do Cabu\u00e7u, 2692 \u2013 Vila Jardim, Campo Grande"},
+# NOVA TURMA 106 — Auxiliar de Cozinha — Centro Social Estrela da Manhã (Guaratiba) — 21/07/2026
+    {"id": "106", "curso_id": "3",  "local_id": "18", "turma_codigo": "26/AXCZ 27", "turma_label": "Ter\u00e7a \u2014 17h\u201321h (in\u00edcio 21/07/2026) \u2014 Centro Social Estrela da Manh\u00e3 \u2014 Guaratiba", "dias_aula": "Ter\u00e7a", "horario": "17h\u201321h", "data_inicio": "21/07/2026", "encerramento": "11/08/2026", "endereco_curso": "\U0001f4cdRua Alcides Franco, 175 \u2013 CEP 23032-010"},
 ]
 
 def build_course_options():
