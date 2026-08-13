@@ -4,9 +4,12 @@ import traceback
 import uuid
 from datetime import datetime
 from urllib.parse import quote
+
 import requests
 from flask import Flask, redirect, render_template_string, request, session, url_for
+
 from gsheet_utils import append_to_sheet
+
 
 ALLOWED_EMAIL_PATTERN = re.compile(
     r"^[a-zA-Z0-9_.+-]+@((gmail|hotmail|outlook|yahoo)\.(com|com\.br))$",
@@ -14,198 +17,185 @@ ALLOWED_EMAIL_PATTERN = re.compile(
 )
 NAME_PATTERN = re.compile(r"[A-Za-z\u00C0-\u00FF '\u00b4`^~.-]+")
 VALID_DDDS = {
-    "11", "12", "13", "14", "15", "16", "17", "18", "19",
-    "21", "22", "24", "27", "28",
-    "31", "32", "33", "34", "35", "37", "38",
-    "41", "42", "43", "44", "45", "46", "47", "48", "49",
-    "51", "53", "54", "55",
-    "61", "62", "63", "64", "65", "66", "67", "68", "69",
-    "71", "73", "74", "75", "77", "79",
-    "81", "82", "83", "84", "85", "86", "87", "88", "89",
-    "91", "92", "93", "94", "95", "96", "97", "98", "99",
+    "11","12","13","14","15","16","17","18","19",
+    "21","22","24","27","28",
+    "31","32","33","34","35","37","38",
+    "41","42","43","44","45","46","47","48","49",
+    "51","53","54","55",
+    "61","62","63","64","65","66","67","68","69",
+    "71","73","74","75","77","79",
+    "81","82","83","84","85","86","87","88","89",
+    "91","92","93","94","95","96","97","98","99",
 }
 
-LOCAL_OPTIONS = [
-    {"id": "1", "nome": "Residencial Rio Samba \u2014 Campo Grande"},
-    {"id": "2", "nome": "Igreja Batista Rio da Prata \u2014 Bangu"},
-    {"id": "3", "nome": "Associa\u00e7\u00e3o dos Artes\u00e3os \u2014 Ana Gonzaga"},
-    {"id": "4", "nome": "IMMEC Church \u2014 Campo Grande"},
-    {"id": "5", "nome": "Min. Ap. Mover Prof\u00e9tico \u2014 Senador Camar\u00e1"},
-    {"id": "6", "nome": "Assoc. Moradores Conj. Liberdade \u2014 Santa Cruz"},
-    {"id": "7", "nome": "Igreja Batista S\u00e3o Bento \u2014 Bangu"},
-    {"id": "8", "nome": "Ig. Metodista Embarcados C/Cristo \u2014 Campo Grande"},
-    {"id": "9", "nome": "Refor\u00e7o Escolar Tia Dani \u2014 Mar\u00e9"},
-    {"id": "10", "nome": "Vila do Pinheiro \u2014 Mar\u00e9"},
-    {"id": "11", "nome": "Min. Ap. Tenda do Encontro \u2014 Cosmos"},
-    {"id": "12", "nome": "Prefeitura \u2014 Centro"},
-    {"id": "13", "nome": "Sal\u00e3o de Festas (77) \u2014 Padre Miguel"},
-    {"id": "14", "nome": "Amubua (Associa\u00e7\u00e3o) \u2014 Santa Cruz"},
-    {"id": "15", "nome": "Assoc. Amigos do Barata \u2014 Realengo"},
-    {"id": "16", "nome": "AD ADTS Mandela \u2014 Benfica"},
-    {"id": "17", "nome": "AD ADTS de Col\u00e9gio \u2014 Col\u00e9gio"},
-    {"id": "18", "nome": "Centro Social Estrela da Manh\u00e3 \u2014 Guaratiba"},
-    {"id": "19", "nome": "Campo Socyte de Manguinhos \u2014 Manguinhos"},
-    {"id": "20", "nome": "Quadra Unidos de Manguinhos \u2014 Manguinhos"},
-    {"id": "21", "nome": "Igreja Batista Ebenezer \u2014 Inhoa\u00edba"},
-    {"id": "22", "nome": "Assoc. de Moradores S\u00e3o Jorge \u2014 Inhoa\u00edba"},
-    {"id": "23", "nome": "Ig. Evang\u00e9lica P\u00e3o da Vida \u2014 Curicica"},
-    {"id": "24", "nome": "AD na Pavuna \u2014 Cosmos"},
-    {"id": "25", "nome": "Ig. Batista Maanaim Mendanha \u2014 Campo Grande"},
-    {"id": "26", "nome": "Sal\u00e3o de Festas \u2014 Santa Cruz"},
-    {"id": "27", "nome": "Centro Cultural Lottus \u2014 M\u00e9ier"},
-    {"id": "28", "nome": "Vila Cruzeiro \u2014 Penha"},
-    {"id": "29", "nome": "Ig. Uni\u00e3o Evang\u00e9lica Pentecostal \u2014 Cosmos"},
-    {"id": "30", "nome": "Tia Lu \u2014 Realengo"},
-    {"id": "31", "nome": "Cozinha Comunit\u00e1ria \u2014 Realengo"},
-    {"id": "32", "nome": "Casa Costa Matos \u2014 Rio de Janeiro"},
-    # NOVOS LOCAIS — Investidor do Sucesso
-    {"id": "33", "nome": "Estrada do Mendanha \u2014 Campo Grande"},
-    {"id": "34", "nome": "Rua Caminho Foz do Jord\u00e3o \u2014 Campo Grande"},
-    {"id": "35", "nome": "Atr\u00e1s do Col\u00e9gio Estadual Luiz Carlos Vila \u2014 Benfica"},
-    {"id": "36", "nome": "Realengo \u2014 Rua General Raposo"},
-    {"id": "37", "nome": "Igreja Assembl\u00e9ia de Deus ADAV \u2014 Senador Augusto Vasconcelos"},
-]
 
+LOCAL_OPTIONS = [
+    {"id": "1",  "nome": "Residencial Rio Samba — Campo Grande"},
+    {"id": "2",  "nome": "Igreja Batista Rio da Prata — Bangu"},
+    {"id": "3",  "nome": "Associação dos Artesãos — Ana Gonzaga"},
+    {"id": "4",  "nome": "IMMEC Church — Campo Grande"},
+    {"id": "5",  "nome": "Min. Ap. Mover Profético — Senador Camará"},
+    {"id": "6",  "nome": "Assoc. Moradores Conj. Liberdade — Santa Cruz"},
+    {"id": "7",  "nome": "Igreja Batista São Bento — Bangu"},
+    {"id": "8",  "nome": "Ig. Metodista Embarcados C/Cristo — Campo Grande"},
+    {"id": "9",  "nome": "Reforço Escolar Tia Dani — Maré"},
+    {"id": "10", "nome": "Vila do Pinheiro — Maré"},
+    {"id": "11", "nome": "Min. Ap. Tenda do Encontro — Cosmos"},
+    {"id": "12", "nome": "Prefeitura — Centro"},
+    {"id": "13", "nome": "Salão de Festas (77) — Padre Miguel"},
+    {"id": "14", "nome": "Amubua (Associação) — Santa Cruz"},
+    {"id": "15", "nome": "Assoc. Amigos do Barata — Realengo"},
+    {"id": "16", "nome": "AD ADTS Mandela — Benfica"},
+    {"id": "17", "nome": "AD ADTS de Colégio — Colégio"},
+    {"id": "18", "nome": "Centro Social Estrela da Manhã — Guaratiba"},
+    {"id": "19", "nome": "Campo Socyte de Manguinhos — Manguinhos"},
+    {"id": "20", "nome": "Quadra Unidos de Manguinhos — Manguinhos"},
+    {"id": "21", "nome": "Igreja Batista Ebenezer — Inhoaíba"},
+    {"id": "22", "nome": "Assoc. de Moradores São Jorge — Inhoaíba"},
+    {"id": "23", "nome": "Ig. Evangélica Pão da Vida — Curicica"},
+    {"id": "24", "nome": "AD na Pavuna — Cosmos"},
+    {"id": "25", "nome": "Ig. Batista Maanaim Mendanha — Campo Grande"},
+    {"id": "26", "nome": "Salão de Festas — Santa Cruz"},
+    {"id": "27", "nome": "Centro Cultural Lottus — Méier"},
+    {"id": "28", "nome": "Vila Cruzeiro — Penha"},
+    {"id": "29", "nome": "Ig. União Evangélica Pentecostal — Cosmos"},
+    {"id": "30", "nome": "Tia Lu — Realengo"},
+    {"id": "31", "nome": "Cozinha Comunitária — Realengo"},
+    {"id": "32", "nome": "Casa Costa Matos — Rio de Janeiro"},
+    {"id": "33", "nome": "Estrada do Mendanha — Campo Grande"},
+    {"id": "34", "nome": "Rua Caminho Foz do Jordão — Campo Grande"},
+    {"id": "35", "nome": "Atrás do Colégio Estadual Luiz Carlos Vila — Benfica"},
+    {"id": "36", "nome": "Realengo — Rua General Raposo"},
+    {"id": "37", "nome": "Igreja Assembléia de Deus ADAV — Senador Augusto Vasconcelos"},
+]
 COURSE_CATALOG = [
-    {"id": "1",  "nome": "ASSISTENTE DE LOG\u00cdSTICA"},
+    {"id": "1",  "nome": "ASSISTENTE DE LOGÍSTICA"},
     {"id": "2",  "nome": "AUXILIAR ADMINISTRATIVO"},
     {"id": "3",  "nome": "AUXILIAR DE COZINHA"},
-    {"id": "4",  "nome": "INTELIG\u00caNCIA ARTIFICIAL"},
+    {"id": "4",  "nome": "INTELIGÊNCIA ARTIFICIAL"},
     {"id": "5",  "nome": "MARKETING DIGITAL"},
-    {"id": "6",  "nome": "MONITOR DE LAZER E RECREA\u00c7\u00c3O"},
-    {"id": "7",  "nome": "OPERADOR DE SISTEMA DE COMPOSTAGEM E RES\u00cdDUOS ORG\u00c2NICOS"},
+    {"id": "6",  "nome": "MONITOR DE LAZER E RECREAÇÃO"},
+    {"id": "7",  "nome": "OPERADOR DE SISTEMA DE COMPOSTAGEM E RESÍDUOS ORGÂNICOS"},
     {"id": "8",  "nome": "PORTEIRO"},
     {"id": "9",  "nome": "RECEPCIONISTA"},
     {"id": "10", "nome": "AGENTE DE TURISMO CORPORATIVO"},
     {"id": "11", "nome": "VENDEDOR"},
     {"id": "12", "nome": "SOCIAL MEDIA"},
     {"id": "13", "nome": "BARBEIRO"},
-    {"id": "14", "nome": "GAR\u00c7OM"},
+    {"id": "14", "nome": "GARÇOM"},
     {"id": "15", "nome": "ELETRICISTA PREDIAL"},
     {"id": "16", "nome": "INVESTIDOR DO SUCESSO"},
 ]
 
+# Turmas 1-88, 90-106 (sem 89)
 TURMA_OPTIONS = [
-    {"id": "1",  "curso_id": "1",  "local_id": "1",  "turma_codigo": "26/ASLO 25",  "turma_label": "S\u00e1bado \u2014 08h\u201312h (in\u00edcio 30/05/2026) \u2014 Residencial Rio Samba \u2014 Campo Grande",           "dias_aula": "S\u00e1bado",           "horario": "08h\u201312h",      "data_inicio": "30/05/2026", "encerramento": "20/06/2026", "endereco_curso": "\U0001f4cdRua Antonio Carlos Belchior, 200 \u2013 Mendanha \u2013 Campo Grande"},
-    {"id": "2",  "curso_id": "1",  "local_id": "2",  "turma_codigo": "26/ASLO 26",  "turma_label": "Segunda e Ter\u00e7a \u2014 19h\u201321h30 (in\u00edcio 01/06/2026) \u2014 Igreja Batista Rio da Prata \u2014 Bangu",    "dias_aula": "Segunda e Ter\u00e7a", "horario": "19h\u201321h30",   "data_inicio": "01/06/2026", "encerramento": "23/06/2026", "endereco_curso": "\U0001f4cdRua dos Limadores, 866 \u2013 Bangu"},
-    {"id": "3",  "curso_id": "1",  "local_id": "3",  "turma_codigo": "26/ASLO 27",  "turma_label": "Ter\u00e7a \u2014 08h\u201312h (in\u00edcio 02/06/2026) \u2014 Associa\u00e7\u00e3o dos Artes\u00e3os \u2014 Ana Gonzaga",     "dias_aula": "Ter\u00e7a",            "horario": "08h\u201312h",      "data_inicio": "02/06/2026", "encerramento": "23/06/2026", "endereco_curso": "\U0001f4cdRua Esmeralda Ana Gonzaga QD 11 \u2013 Ana Gonzaga"},
-    {"id": "4",  "curso_id": "1",  "local_id": "4",  "turma_codigo": "FGM-AL-01",   "turma_label": "S\u00e1bado \u2014 08h\u201312h (in\u00edcio 30/05/2026) \u2014 IMMEC Church \u2014 Campo Grande",                     "dias_aula": "S\u00e1bado",           "horario": "08h\u201312h",      "data_inicio": "30/05/2026", "encerramento": "20/06/2026", "endereco_curso": "\U0001f4cdEstrada do Cabu\u00e7u, 2692 \u2013 Campo Grande"},
-    {"id": "5",  "curso_id": "2",  "local_id": "5",  "turma_codigo": "26/ADMN 41",  "turma_label": "S\u00e1bado \u2014 08h\u201312h (in\u00edcio 06/06/2026) \u2014 Min. Ap. Mover Prof\u00e9tico \u2014 Senador Camar\u00e1",   "dias_aula": "S\u00e1bado",           "horario": "08h\u201312h",      "data_inicio": "06/06/2026", "encerramento": "27/06/2026", "endereco_curso": "\U0001f4cdRua Bom Guilherme Francisco Moraes, 03 \u2013 Senador Camar\u00e1"},
-    {"id": "6",  "curso_id": "2",  "local_id": "6",  "turma_codigo": "26/ADMN 36",  "turma_label": "S\u00e1bado \u2014 09h\u201313h (in\u00edcio 13/06/2026) \u2014 Assoc. Moradores Conj. Liberdade \u2014 Santa Cruz",    "dias_aula": "S\u00e1bado",           "horario": "09h\u201313h",      "data_inicio": "13/06/2026", "encerramento": "04/07/2026", "endereco_curso": "\U0001f4cdAv. Canal Margem Direita, 54 \u2013 Santa Cruz"},
-    {"id": "7",  "curso_id": "3",  "local_id": "5",  "turma_codigo": "26/AXCZ 19",  "turma_label": "Quarta e Sexta \u2014 16h\u201318h (in\u00edcio 10/06/2026) \u2014 Min. Ap. Mover Prof\u00e9tico \u2014 Senador Camar\u00e1","dias_aula": "Quarta e Sexta",    "horario": "16h\u201318h",      "data_inicio": "10/06/2026", "encerramento": "03/07/2026", "endereco_curso": "\U0001f4cdRua Bom Guilherme Francisco Moraes, 03 \u2013 Senador Camar\u00e1"},
-    {"id": "8",  "curso_id": "3",  "local_id": "3",  "turma_codigo": "26/AXCZ 20",  "turma_label": "S\u00e1bado \u2014 14h\u201318h (in\u00edcio 06/06/2026) \u2014 Associa\u00e7\u00e3o dos Artes\u00e3os \u2014 Ana Gonzaga",    "dias_aula": "S\u00e1bado",           "horario": "14h\u201318h",      "data_inicio": "06/06/2026", "encerramento": "27/06/2026", "endereco_curso": "\U0001f4cdRua Esmeralda Ana Gonzaga QD 11 \u2013 Ana Gonzaga"},
-    {"id": "9",  "curso_id": "3",  "local_id": "4",  "turma_codigo": "FGM-AC-01",   "turma_label": "S\u00e1bado \u2014 09h\u201313h (in\u00edcio 30/05/2026) \u2014 IMMEC Church \u2014 Campo Grande",                     "dias_aula": "S\u00e1bado",           "horario": "09h\u201313h",      "data_inicio": "30/05/2026", "encerramento": "20/06/2026", "endereco_curso": "\U0001f4cdEstrada do Cabu\u00e7u, 2692 \u2013 Campo Grande"},
-    {"id": "10", "curso_id": "4",  "local_id": "7",  "turma_codigo": "26/INAT 18",  "turma_label": "S\u00e1bado \u2014 08h\u201312h (in\u00edcio 06/06/2026) \u2014 Igreja Batista S\u00e3o Bento \u2014 Bangu",              "dias_aula": "S\u00e1bado",           "horario": "08h\u201312h",      "data_inicio": "06/06/2026", "encerramento": "27/06/2026", "endereco_curso": "\U0001f4cdRua Batu\u00edra, 121 \u2013 Bangu"},
-    {"id": "11", "curso_id": "4",  "local_id": "8",  "turma_codigo": "26/INAT 21",  "turma_label": "S\u00e1bado \u2014 08h\u201312h (in\u00edcio 30/05/2026) \u2014 Ig. Metodista Embarcados C/Cristo \u2014 Campo Grande", "dias_aula": "S\u00e1bado",           "horario": "08h\u201312h",      "data_inicio": "30/05/2026", "encerramento": "20/06/2026", "endereco_curso": "\U0001f4cdEst. do Cabu\u00e7u, 2692 \u2013 Campo Grande"},
-    {"id": "12", "curso_id": "4",  "local_id": "9",  "turma_codigo": "26/INAT 19",  "turma_label": "S\u00e1bado \u2014 10h\u201314h (in\u00edcio 06/06/2026) \u2014 Refor\u00e7o Escolar Tia Dani \u2014 Mar\u00e9",           "dias_aula": "S\u00e1bado",           "horario": "10h\u201314h",      "data_inicio": "06/06/2026", "encerramento": "27/06/2026", "endereco_curso": "\U0001f4cdRua Darcy Vargas, 136 \u2013 Mar\u00e9"},
-    {"id": "13", "curso_id": "4",  "local_id": "3",  "turma_codigo": "26/INAT 20",  "turma_label": "Quarta \u2014 08h\u201312h (in\u00edcio 03/06/2026) \u2014 Associa\u00e7\u00e3o dos Artes\u00e3os \u2014 Ana Gonzaga",     "dias_aula": "Quarta",             "horario": "08h\u201312h",      "data_inicio": "03/06/2026", "encerramento": "24/06/2026", "endereco_curso": "\U0001f4cdRua Esmeralda Ana Gonzaga QD 11 \u2013 Ana Gonzaga"},
-    {"id": "14", "curso_id": "5",  "local_id": "10", "turma_codigo": "26/MARK 26",  "turma_label": "Ter\u00e7a e Quinta \u2014 19h\u201321h (in\u00edcio 02/06/2026) \u2014 Vila do Pinheiro \u2014 Mar\u00e9",               "dias_aula": "Ter\u00e7a e Quinta",  "horario": "19h\u201321h",      "data_inicio": "02/06/2026", "encerramento": "30/06/2026", "endereco_curso": "\U0001f4cdVia B9, 379, Bloco 14 \u2013 Mar\u00e9"},
-    {"id": "15", "curso_id": "5",  "local_id": "11", "turma_codigo": "26/MARK 29",  "turma_label": "Ter\u00e7a \u2014 18h\u201322h (in\u00edcio 02/06/2026) \u2014 Min. Ap. Tenda do Encontro \u2014 Cosmos",              "dias_aula": "Ter\u00e7a",            "horario": "18h\u201322h",      "data_inicio": "02/06/2026", "encerramento": "23/06/2026", "endereco_curso": "\U0001f4cdRua Framboesa, 21 \u2013 Cosmos"},
-    {"id": "16", "curso_id": "5",  "local_id": "12", "turma_codigo": "26/MARK 28",  "turma_label": "Quarta \u2014 10h\u201316h (in\u00edcio 03/06/2026) \u2014 Prefeitura \u2014 Centro",                                   "dias_aula": "Quarta",             "horario": "10h\u201316h",      "data_inicio": "03/06/2026", "encerramento": "24/06/2026", "endereco_curso": "\U0001f4cdRua Alfonso Cavalcanti, 455 \u2013 Centro"},
-    {"id": "17", "curso_id": "6",  "local_id": "13", "turma_codigo": "26/MLRE 16",  "turma_label": "Segunda e Quarta \u2014 19h\u201322h (in\u00edcio 08/06/2026) \u2014 Sal\u00e3o de Festas (77) \u2014 Padre Miguel",     "dias_aula": "Segunda e Quarta",   "horario": "19h\u201322h",      "data_inicio": "08/06/2026", "encerramento": "01/07/2026", "endereco_curso": "\U0001f4cdRua Juazeiro do Norte, 639 \u2013 Padre Miguel"},
-    {"id": "18", "curso_id": "6",  "local_id": "14", "turma_codigo": "26/MLRE 18",  "turma_label": "Ter\u00e7a e Quinta \u2014 08h\u201312h (in\u00edcio 02/06/2026) \u2014 Amubua (Associa\u00e7\u00e3o) \u2014 Santa Cruz",  "dias_aula": "Ter\u00e7a e Quinta",  "horario": "08h\u201312h",      "data_inicio": "02/06/2026", "encerramento": "25/06/2026", "endereco_curso": "\U0001f4cdRua Jos\u00e9 Silton Pinheiro, 51 \u2013 Santa Cruz"},
-    {"id": "19", "curso_id": "7",  "local_id": "15", "turma_codigo": "26/OSCO 02",  "turma_label": "Segunda e Quarta \u2014 14h\u201317h (in\u00edcio 08/06/2026) \u2014 Assoc. Amigos do Barata \u2014 Realengo",          "dias_aula": "Segunda e Quarta",   "horario": "14h\u201317h",      "data_inicio": "08/06/2026", "encerramento": "29/07/2026", "endereco_curso": "\U0001f4cdRua Correia Teixeira, 79 (Fundos) \u2013 Realengo"},
-    {"id": "20", "curso_id": "8",  "local_id": "16", "turma_codigo": "26/PORT 01",  "turma_label": "Ter\u00e7a e Quinta \u2014 19h\u201321h (in\u00edcio 26/05/2026) \u2014 AD ADTS Mandela \u2014 Benfica",                  "dias_aula": "Ter\u00e7a e Quinta",  "horario": "19h\u201321h",      "data_inicio": "26/05/2026", "encerramento": "29/06/2026", "endereco_curso": "\U0001f4cdRua Leopoldo Bulh\u00f5es, 800 \u2013 Benfica"},
-    {"id": "21", "curso_id": "1",  "local_id": "17", "turma_codigo": "26/ASLO 29",  "turma_label": "S\u00e1bado \u2014 08h\u201312h (in\u00edcio 13/06/2026) \u2014 AD ADTS de Col\u00e9gio \u2014 Col\u00e9gio",               "dias_aula": "S\u00e1bado",           "horario": "08h\u201312h",      "data_inicio": "13/06/2026", "encerramento": "04/07/2026", "endereco_curso": "\U0001f4cdEstrada de Col\u00e9gio, 121 \u2013 CEP 21235-280"},
-    {"id": "22", "curso_id": "4",  "local_id": "10", "turma_codigo": "26/INAT 22",  "turma_label": "S\u00e1bado \u2014 09h\u201313h (in\u00edcio 04/07/2026) \u2014 Vila do Pinheiro \u2014 Mar\u00e9",                       "dias_aula": "S\u00e1bado",           "horario": "09h\u201313h",      "data_inicio": "04/07/2026", "encerramento": "25/07/2026", "endereco_curso": "\U0001f4cdVia B9, 379, BL 14 \u2013 CEP 21046-090"},
-    {"id": "23", "curso_id": "2",  "local_id": "10", "turma_codigo": "26/ADMN 43",  "turma_label": "Ter\u00e7a e Quinta \u2014 08h\u201311h (in\u00edcio 29/06/2026) \u2014 Vila do Pinheiro \u2014 Mar\u00e9",                "dias_aula": "Ter\u00e7a e Quinta",  "horario": "08h\u201311h",      "data_inicio": "29/06/2026", "encerramento": "16/07/2026", "endereco_curso": "\U0001f4cdVia B9, 379, BL 14 \u2013 CEP 21046-090"},
-    {"id": "24", "curso_id": "7",  "local_id": "15", "turma_codigo": "26/OSCO 03",  "turma_label": "Ter\u00e7a e Quinta \u2014 18h\u201321h (in\u00edcio 25/06/2026) \u2014 Assoc. Amigos do Barata \u2014 Realengo",         "dias_aula": "Ter\u00e7a e Quinta",  "horario": "18h\u201321h",      "data_inicio": "25/06/2026", "encerramento": "14/07/2026", "endereco_curso": "\U0001f4cdRua Correia Texeira, 79 \u2013 Fundos \u2013 Realengo"},
-    {"id": "25", "curso_id": "1",  "local_id": "18", "turma_codigo": "26/ASLO 30",  "turma_label": "Ter\u00e7a \u2014 08h\u201312h (in\u00edcio 16/06/2026) \u2014 Centro Social Estrela da Manh\u00e3 \u2014 Guaratiba",     "dias_aula": "Ter\u00e7a",            "horario": "08h\u201312h",      "data_inicio": "16/06/2026", "encerramento": "13/07/2026", "endereco_curso": "\U0001f4cdRua Alcides Franco, 175 \u2013 CEP 23032-010"},
-    {"id": "26", "curso_id": "9",  "local_id": "18", "turma_codigo": "26/RECP 06",  "turma_label": "Ter\u00e7a \u2014 17h\u201320h30 (in\u00edcio 17/06/2026) \u2014 Centro Social Estrela da Manh\u00e3 \u2014 Guaratiba",  "dias_aula": "Ter\u00e7a",            "horario": "17h\u201320h30",    "data_inicio": "17/06/2026", "encerramento": "13/07/2026", "endereco_curso": "\U0001f4cdRua Alcides Franco, 175 \u2013 CEP 23032-010"},
-    {"id": "27", "curso_id": "9",  "local_id": "19", "turma_codigo": "26/RECP 07",  "turma_label": "Segunda e Quarta \u2014 09h\u201311h (in\u00edcio 17/06/2026) \u2014 Campo Socyte de Manguinhos \u2014 Manguinhos",      "dias_aula": "Segunda e Quarta",   "horario": "09h\u201311h",      "data_inicio": "17/06/2026", "encerramento": "13/07/2026", "endereco_curso": "\U0001f4cdRua N. Sra. dos Navegantes, 3 \u2013 CEP 21.050-000"},
-    {"id": "28", "curso_id": "9",  "local_id": "20", "turma_codigo": "26/RECP 08",  "turma_label": "Ter\u00e7a e Quinta \u2014 19h\u201321h (in\u00edcio 18/06/2026) \u2014 Quadra Unidos de Manguinhos \u2014 Manguinhos",   "dias_aula": "Ter\u00e7a e Quinta",  "horario": "19h\u201321h",      "data_inicio": "18/06/2026", "encerramento": "14/07/2026", "endereco_curso": "\U0001f4cdAv. dos Democr\u00e1ticos, 32 \u2013 CEP 21050-000"},
-    {"id": "29", "curso_id": "9",  "local_id": "20", "turma_codigo": "26/RECP 09",  "turma_label": "Ter\u00e7a e Quinta \u2014 19h\u201321h (in\u00edcio 18/06/2026) \u2014 Quadra Unidos de Manguinhos \u2014 Manguinhos",   "dias_aula": "Ter\u00e7a e Quinta",  "horario": "19h\u201321h",      "data_inicio": "18/06/2026", "encerramento": "14/07/2026", "endereco_curso": "\U0001f4cdAv. dos Democr\u00e1ticos, 32 \u2013 CEP 21050-000"},
-    {"id": "30", "curso_id": "9",  "local_id": "19", "turma_codigo": "26/RECP 10",  "turma_label": "Segunda e Quarta \u2014 09h\u201311h (in\u00edcio 17/06/2026) \u2014 Campo Socyte de Manguinhos \u2014 Manguinhos",      "dias_aula": "Segunda e Quarta",   "horario": "09h\u201311h",      "data_inicio": "17/06/2026", "encerramento": "13/07/2026", "endereco_curso": "\U0001f4cdRua N. Sra. dos Navegantes, 3 \u2013 CEP 21.050-000"},
-    {"id": "31", "curso_id": "10", "local_id": "5",  "turma_codigo": "26/AGTU 04",  "turma_label": "Quarta e Sexta \u2014 16h\u201318h (in\u00edcio 17/07/2026) \u2014 Min. Ap. Mover Prof\u00e9tico \u2014 Senador Camar\u00e1","dias_aula": "Quarta e Sexta",    "horario": "16h\u201318h",      "data_inicio": "17/07/2026", "encerramento": "07/08/2026", "endereco_curso": "\U0001f4cdRua Guilherme Francisco de Moraes, Lote 3 \u2013 Senador Camar\u00e1"},
-    {"id": "32", "curso_id": "1",  "local_id": "5",  "turma_codigo": "26/ASLO 31",  "turma_label": "S\u00e1bado \u2014 08h\u201312h (in\u00edcio 11/07/2026) \u2014 Min. Ap. Mover Prof\u00e9tico \u2014 Senador Camar\u00e1",  "dias_aula": "S\u00e1bado",           "horario": "08h\u201312h",      "data_inicio": "11/07/2026", "encerramento": "01/08/2026", "endereco_curso": "\U0001f4cdRua Guilherme Francisco de Moraes, Lote 3 \u2013 Senador Camar\u00e1"},
-    {"id": "33", "curso_id": "5",  "local_id": "21", "turma_codigo": "26/MARK 31",  "turma_label": "Segunda \u2014 18h\u201321h (in\u00edcio 15/06/2026) \u2014 Igreja Batista Ebenezer \u2014 Inhoa\u00edba",                "dias_aula": "Segunda",            "horario": "18h\u201321h",      "data_inicio": "15/06/2026", "encerramento": "06/07/2026", "endereco_curso": "\U0001f4cdAvenida A, 2756 \u2013 CEP 23.062-000"},
-    {"id": "34", "curso_id": "11", "local_id": "22", "turma_codigo": "26/VEND 01",  "turma_label": "S\u00e1bado \u2014 08h\u201312h (in\u00edcio 20/06/2026) \u2014 Assoc. de Moradores S\u00e3o Jorge \u2014 Inhoa\u00edba",  "dias_aula": "S\u00e1bado",           "horario": "08h\u201312h",      "data_inicio": "20/06/2026", "encerramento": "18/07/2026", "endereco_curso": "\U0001f4cdRua Moranga, 125 \u2013 Campo Grande, Inhoa\u00edba"},
-    {"id": "35", "curso_id": "2",  "local_id": "23", "turma_codigo": "26/ADMN 44",  "turma_label": "Segunda e Quarta \u2014 19h\u201321h (in\u00edcio 22/06/2026) \u2014 Ig. Evang\u00e9lica P\u00e3o da Vida \u2014 Curicica",  "dias_aula": "Segunda e Quarta",   "horario": "19h\u201321h",      "data_inicio": "22/06/2026", "encerramento": "13/07/2026", "endereco_curso": "\U0001f4cdRua Mandina, 2 \u2013 CEP 22780-530 \u2013 Curicica"},
-    {"id": "36", "curso_id": "2",  "local_id": "7",  "turma_codigo": "26/ADMN 45",  "turma_label": "Segunda e Quarta \u2014 14h\u201317h (in\u00edcio 17/06/2026) \u2014 Igreja Batista S\u00e3o Bento \u2014 Bangu",          "dias_aula": "Segunda e Quarta",   "horario": "14h\u201317h",      "data_inicio": "17/06/2026", "encerramento": "13/07/2026", "endereco_curso": "\U0001f4cdRua Batu\u00edra, 121 \u2013 CEP 21860-160"},
-    {"id": "37", "curso_id": "12", "local_id": "2",  "turma_codigo": "26/SOMD 16",  "turma_label": "Segunda \u2014 17h30\u201319h30 (in\u00edcio 06/07/2026) \u2014 Igreja Batista Rio da Prata \u2014 Bangu",                "dias_aula": "Segunda",            "horario": "17h30\u201319h30",  "data_inicio": "06/07/2026", "encerramento": "27/07/2026", "endereco_curso": "\U0001f4cdRua dos Limadores, 866 \u2013 CEP 21.830-005"},
-    {"id": "38", "curso_id": "12", "local_id": "9",  "turma_codigo": "26/SOMD 17",  "turma_label": "S\u00e1bado \u2014 10h\u201314h (in\u00edcio 06/06/2026) \u2014 Refor\u00e7o Escolar Tia Dani \u2014 Mar\u00e9",           "dias_aula": "S\u00e1bado",           "horario": "10h\u201314h",      "data_inicio": "06/06/2026", "encerramento": "27/07/2026", "endereco_curso": "\U0001f4cdRua Darcy Vargas, 136 \u2013 Mar\u00e9"},
-    {"id": "39", "curso_id": "12", "local_id": "20", "turma_codigo": "26/SOMD 18",  "turma_label": "Segunda e Quarta \u2014 19h\u201321h (in\u00edcio 17/06/2026) \u2014 Quadra Unidos de Manguinhos \u2014 Manguinhos",     "dias_aula": "Segunda e Quarta",   "horario": "19h\u201321h",      "data_inicio": "17/06/2026", "encerramento": "13/07/2026", "endereco_curso": "\U0001f4cdAv. dos Democr\u00e1ticos, 32 \u2013 CEP 21050-000"},
-    {"id": "40", "curso_id": "4",  "local_id": "11", "turma_codigo": "26/INAT 23",  "turma_label": "Ter\u00e7a \u2014 18h\u201322h (in\u00edcio 07/07/2026) \u2014 Min. Ap. Tenda do Encontro \u2014 Cosmos",              "dias_aula": "Ter\u00e7a",            "horario": "18h\u201322h",      "data_inicio": "07/07/2026", "encerramento": "28/07/2026", "endereco_curso": "\U0001f4cdRua Framboesa, 21 \u2013 CEP 23.061-522"},
-    {"id": "41", "curso_id": "4",  "local_id": "18", "turma_codigo": "26/INAT 24",  "turma_label": "Segunda \u2014 17h\u201321h (in\u00edcio 15/06/2026) \u2014 Centro Social Estrela da Manh\u00e3 \u2014 Guaratiba",       "dias_aula": "Segunda",            "horario": "17h\u201321h",      "data_inicio": "15/06/2026", "encerramento": "06/07/2026", "endereco_curso": "\U0001f4cdRua Alcides Franco, 175 \u2013 CEP 23032-010"},
-    {"id": "42", "curso_id": "4",  "local_id": "19", "turma_codigo": "26/INAT 25",  "turma_label": "Segunda e Quarta \u2014 09h\u201311h (in\u00edcio 18/06/2026) \u2014 Campo Socyte de Manguinhos \u2014 Manguinhos",      "dias_aula": "Segunda e Quarta",   "horario": "09h\u201311h",      "data_inicio": "18/06/2026", "encerramento": "14/07/2026", "endereco_curso": "\U0001f4cdRua N. Sra. dos Navegantes, 3 \u2013 CEP 21.050-000"},
-    {"id": "43", "curso_id": "4",  "local_id": "20", "turma_codigo": "26/INAT 26",  "turma_label": "Ter\u00e7a e Quinta \u2014 19h\u201321h (in\u00edcio 18/06/2026) \u2014 Quadra Unidos de Manguinhos \u2014 Manguinhos",   "dias_aula": "Ter\u00e7a e Quinta",  "horario": "19h\u201321h",      "data_inicio": "18/06/2026", "encerramento": "14/07/2026", "endereco_curso": "\U0001f4cdAv. dos Democr\u00e1ticos, 32 \u2013 CEP 21050-000"},
-    {"id": "44", "curso_id": "4",  "local_id": "20", "turma_codigo": "26/INAT 27",  "turma_label": "Ter\u00e7a e Quinta \u2014 19h\u201321h (in\u00edcio 18/06/2026) \u2014 Quadra Unidos de Manguinhos \u2014 Manguinhos",   "dias_aula": "Ter\u00e7a e Quinta",  "horario": "19h\u201321h",      "data_inicio": "18/06/2026", "encerramento": "14/07/2026", "endereco_curso": "\U0001f4cdAv. dos Democr\u00e1ticos, 32 \u2013 CEP 21050-000"},
-    {"id": "45", "curso_id": "4",  "local_id": "19", "turma_codigo": "26/INAT 28",  "turma_label": "Segunda e Quarta \u2014 09h\u201311h (in\u00edcio 18/06/2026) \u2014 Campo Socyte de Manguinhos \u2014 Manguinhos",      "dias_aula": "Segunda e Quarta",   "horario": "09h\u201311h",      "data_inicio": "18/06/2026", "encerramento": "14/07/2026", "endereco_curso": "\U0001f4cdRua N. Sra. dos Navegantes, 3 \u2013 CEP 21.050-000"},
-    {"id": "46", "curso_id": "13", "local_id": "24", "turma_codigo": "26/BARB 02",  "turma_label": "S\u00e1bado \u2014 08h\u201312h (in\u00edcio 15/06/2026) \u2014 AD na Pavuna \u2014 Cosmos",                              "dias_aula": "S\u00e1bado",           "horario": "08h\u201312h",      "data_inicio": "15/06/2026", "encerramento": "06/07/2026", "endereco_curso": "\U0001f4cdRua 9, Lote 19, Casa 2 \u2013 Cj Urucania \u2013 CEP 23059-340"},
-    {"id": "47", "curso_id": "1",  "local_id": "1",  "turma_codigo": "26/ASLO 32",  "turma_label": "Ter\u00e7a e Quinta \u2014 18h\u201322h (in\u00edcio 16/06/2026) \u2014 Residencial Rio Samba \u2014 Campo Grande",       "dias_aula": "Ter\u00e7a e Quinta",  "horario": "18h\u201322h",      "data_inicio": "16/06/2026", "encerramento": "25/06/2026", "endereco_curso": "\U0001f4cdRua Antonio Carlos Belchior, 200 \u2013 Campo Grande"},
-    {"id": "48", "curso_id": "1",  "local_id": "6",  "turma_codigo": "26/ASLO 33",  "turma_label": "S\u00e1bado \u2014 09h\u201313h (in\u00edcio 11/07/2026) \u2014 Assoc. Moradores Conj. Liberdade \u2014 Santa Cruz",     "dias_aula": "S\u00e1bado",           "horario": "09h\u201313h",      "data_inicio": "11/07/2026", "encerramento": "11/08/2026", "endereco_curso": "\U0001f4cdAv. Canal Margem Direita, 54 \u2013 CEP 23560-366"},
-    {"id": "49", "curso_id": "1",  "local_id": "17", "turma_codigo": "26/ASLO 34",  "turma_label": "S\u00e1bado \u2014 09h\u201311h (in\u00edcio 27/06/2026) \u2014 AD ADTS de Col\u00e9gio \u2014 Col\u00e9gio",             "dias_aula": "S\u00e1bado",           "horario": "09h\u201311h",      "data_inicio": "27/06/2026", "encerramento": "25/07/2026", "endereco_curso": "\U0001f4cdEstrada de Col\u00e9gio, 121 \u2013 CEP 21235-280"},
-    {"id": "50", "curso_id": "9",  "local_id": "16", "turma_codigo": "26/RECP 11",  "turma_label": "Seg, Ter e Qui \u2014 19h\u201321h (in\u00edcio 18/06/2026) \u2014 AD ADTS Mandela \u2014 Benfica",                        "dias_aula": "Seg, Ter e Qui",     "horario": "19h\u201321h",      "data_inicio": "18/06/2026", "encerramento": "30/06/2026", "endereco_curso": "\U0001f4cdRua Leopoldo Bulh\u00f5es, 800 \u2013 CEP 20911-300"},
-    {"id": "51", "curso_id": "4",  "local_id": "7",  "turma_codigo": "26/INAT 29",  "turma_label": "S\u00e1bado \u2014 08h\u201312h (in\u00edcio 04/07/2026) \u2014 Igreja Batista S\u00e3o Bento \u2014 Bangu",              "dias_aula": "S\u00e1bado",           "horario": "08h\u201312h",      "data_inicio": "04/07/2026", "encerramento": "25/07/2026", "endereco_curso": "\U0001f4cdRua Batu\u00edra, 121 \u2013 CEP 21.860-290"},
-    {"id": "52", "curso_id": "12", "local_id": "25", "turma_codigo": "26/SOMD 19",  "turma_label": "S\u00e1bado \u2014 08h\u201312h (in\u00edcio 27/06/2026) \u2014 Ig. Batista Maanaim Mendanha \u2014 Campo Grande",       "dias_aula": "S\u00e1bado",           "horario": "08h\u201312h",      "data_inicio": "27/06/2026", "encerramento": "18/07/2026", "endereco_curso": "\U0001f4cdEstrada do Mendanha, 4240"},
-    {"id": "53", "curso_id": "3",  "local_id": "26", "turma_codigo": "26/AXCZ 21",  "turma_label": "S\u00e1bado \u2014 08h\u201312h (in\u00edcio 20/06/2026) \u2014 Sal\u00e3o de Festas \u2014 Santa Cruz",                  "dias_aula": "S\u00e1bado",           "horario": "08h\u201312h",      "data_inicio": "20/06/2026", "encerramento": "11/07/2026", "endereco_curso": "\U0001f4cdAv. Marginal, 107 \u2013 CEP 23595-020 \u2013 Santa Cruz"},
-    {"id": "54", "curso_id": "5",  "local_id": "27", "turma_codigo": "26/MARK 32",  "turma_label": "Segunda e Quinta \u2014 18h\u201322h (in\u00edcio 04/07/2026) \u2014 Centro Cultural Lottus \u2014 M\u00e9ier",           "dias_aula": "Segunda e Quinta",   "horario": "18h\u201322h",      "data_inicio": "04/07/2026", "encerramento": "25/07/2026", "endereco_curso": "\U0001f4cdRua Dias da Cruz, 638 \u2013 Sala 204 \u2013 CEP 20.720-013"},
-    {"id": "55", "curso_id": "13", "local_id": "28", "turma_codigo": "26/BARB 03",  "turma_label": "S\u00e1bado \u2014 08h\u201312h (in\u00edcio 27/06/2026) \u2014 Vila Cruzeiro \u2014 Penha",                             "dias_aula": "S\u00e1bado",           "horario": "08h\u201312h",      "data_inicio": "27/06/2026", "encerramento": "27/07/2026", "endereco_curso": "\U0001f4cdRua Sargento Ricardo Filho, 26 \u2013 CEP 21070-170"},
-    {"id": "56", "curso_id": "2",  "local_id": "3",  "turma_codigo": "26/ADMN 46",  "turma_label": "Ter\u00e7a \u2014 14h\u201318h (in\u00edcio 07/07/2026) \u2014 Associa\u00e7\u00e3o dos Artes\u00e3os \u2014 Ana Gonzaga",   "dias_aula": "Ter\u00e7a",            "horario": "14h\u201318h",      "data_inicio": "07/07/2026", "encerramento": "28/07/2026", "endereco_curso": "\U0001f4cdRua Esmeralda Ana Gonzaga QD 11 \u2013 CEP 23050-489"},
-    {"id": "57", "curso_id": "5",  "local_id": "3",  "turma_codigo": "26/MARK 33",  "turma_label": "Quarta \u2014 08h\u201312h (in\u00edcio 08/07/2026) \u2014 Associa\u00e7\u00e3o dos Artes\u00e3os \u2014 Ana Gonzaga",     "dias_aula": "Quarta",             "horario": "08h\u201312h",      "data_inicio": "08/07/2026", "encerramento": "29/07/2026", "endereco_curso": "\U0001f4cdRua Esmeralda Ana Gonzaga QD 11 \u2013 CEP 23050-489"},
-    {"id": "58", "curso_id": "3",  "local_id": "3",  "turma_codigo": "26/AXCZ 22",  "turma_label": "S\u00e1bado \u2014 14h\u201318h (in\u00edcio 04/07/2026) \u2014 Associa\u00e7\u00e3o dos Artes\u00e3os \u2014 Ana Gonzaga",  "dias_aula": "S\u00e1bado",           "horario": "14h\u201318h",      "data_inicio": "04/07/2026", "encerramento": "25/07/2026", "endereco_curso": "\U0001f4cdRua Esmeralda Ana Gonzaga QD 11 \u2013 CEP 23050-489"},
-    {"id": "59", "curso_id": "9",  "local_id": "29", "turma_codigo": "26/RECP 12",  "turma_label": "S\u00e1bado \u2014 14h\u201318h (in\u00edcio 11/07/2026) \u2014 Ig. Uni\u00e3o Evang\u00e9lica Pentecostal \u2014 Cosmos","dias_aula": "S\u00e1bado",           "horario": "14h\u201318h",      "data_inicio": "11/07/2026", "encerramento": "01/08/2026", "endereco_curso": "\U0001f4cdRua Herval Rossano LT 26 QD 16 \u2013 Cosmos"},
-    {"id": "60", "curso_id": "5",  "local_id": "13", "turma_codigo": "26/MARK 34",  "turma_label": "Segunda e Quarta \u2014 19h\u201321h (in\u00edcio 06/07/2026) \u2014 Sal\u00e3o de Festas (77) \u2014 Padre Miguel",     "dias_aula": "Segunda e Quarta",   "horario": "19h\u201321h",      "data_inicio": "06/07/2026", "encerramento": "29/07/2026", "endereco_curso": "\U0001f4cdRua Juazeiro do Norte, 639 \u2013 Padre Miguel"},
-    {"id": "61", "curso_id": "4",  "local_id": "30", "turma_codigo": "26/INAT 30",  "turma_label": "Qua, Qui e Sex \u2014 13h30\u201316h (in\u00edcio 30/06/2026) \u2014 Tia Lu \u2014 Realengo",                             "dias_aula": "Qua, Qui e Sex",     "horario": "13h30\u201316h",    "data_inicio": "30/06/2026", "encerramento": "09/07/2026", "endereco_curso": "\U0001f4cdRua Pedro Gomes, 2 \u2013 CEP 21715-040 \u2013 Realengo"},
-    {"id": "62", "curso_id": "4",  "local_id": "8",  "turma_codigo": "26/INAT 31",  "turma_label": "S\u00e1bado \u2014 08h\u201312h (in\u00edcio 04/07/2026) \u2014 Ig. Metodista Embarcados C/Cristo \u2014 Campo Grande", "dias_aula": "S\u00e1bado",           "horario": "08h\u201312h",      "data_inicio": "04/07/2026", "encerramento": "25/07/2026", "endereco_curso": "\U0001f4cdEstrada do Cabu\u00e7u, 2692 \u2013 Campo Grande"},
-    {"id": "63", "curso_id": "9",  "local_id": "3",  "turma_codigo": "26/RECP 13",  "turma_label": "S\u00e1bado \u2014 08h\u201312h (in\u00edcio 05/07/2026) \u2014 Associa\u00e7\u00e3o dos Artes\u00e3os \u2014 Ana Gonzaga",  "dias_aula": "S\u00e1bado",           "horario": "08h\u201312h",      "data_inicio": "05/07/2026", "encerramento": "26/07/2026", "endereco_curso": "\U0001f4cdRua Esmeralda Ana Gonzaga QD 11 \u2013 CEP 23050-489"},
-    {"id": "64", "curso_id": "5",  "local_id": "12", "turma_codigo": "26/MARK 35",  "turma_label": "Quarta \u2014 10h\u201316h (in\u00edcio 02/07/2026) \u2014 Prefeitura \u2014 Centro",                                   "dias_aula": "Quarta",             "horario": "10h\u201316h",      "data_inicio": "02/07/2026", "encerramento": "23/07/2026", "endereco_curso": "\U0001f4cdRua Afonso Cavalcanti, 455 \u2013 CEP 20211-110 \u2013 Centro"},
-    {"id": "65", "curso_id": "3",  "local_id": "29", "turma_codigo": "26/AXCZ 23",  "turma_label": "S\u00e1bado \u2014 08h\u201312h (in\u00edcio 11/07/2026) \u2014 Ig. Uni\u00e3o Evang\u00e9lica Pentecostal \u2014 Cosmos","dias_aula": "S\u00e1bado",           "horario": "08h\u201312h",      "data_inicio": "11/07/2026", "encerramento": "01/08/2026", "endereco_curso": "\U0001f4cdRua Herval Rossano, 26 \u2013 Cosmos"},
-    {"id": "66", "curso_id": "3",  "local_id": "4",  "turma_codigo": "26/AXCZ 24",  "turma_label": "S\u00e1bado \u2014 08h\u201312h (in\u00edcio 11/07/2026) \u2014 IMMEC Church \u2014 Campo Grande",                       "dias_aula": "S\u00e1bado",           "horario": "08h\u201312h",      "data_inicio": "11/07/2026", "encerramento": "01/08/2026", "endereco_curso": "\U0001f4cdEstrada do Cabu\u00e7u, 2692 \u2013 Campo Grande"},
-    {"id": "67", "curso_id": "14", "local_id": "31", "turma_codigo": "26/GRCM 01",  "turma_label": "Segunda e Quarta \u2014 14h\u201317h (in\u00edcio 29/06/2026) \u2014 Cozinha Comunit\u00e1ria \u2014 Realengo",          "dias_aula": "Segunda e Quarta",   "horario": "14h\u201317h",      "data_inicio": "29/06/2026", "encerramento": "15/07/2026", "endereco_curso": "\U0001f4cdRua General Raposo, 41 \u2013 CEP 21730-000 \u2013 Realengo"},
-    {"id": "68", "curso_id": "2",  "local_id": "9",  "turma_codigo": "26/ADMN 47",  "turma_label": "S\u00e1bado \u2014 10h\u201314h (in\u00edcio 11/07/2026) \u2014 Refor\u00e7o Escolar Tia Dani \u2014 Mar\u00e9",          "dias_aula": "S\u00e1bado",           "horario": "10h\u201314h",      "data_inicio": "11/07/2026", "encerramento": "01/08/2026", "endereco_curso": "\U0001f4cdRua Darcy Vargas, 136 \u2013 Mar\u00e9"},
-    {"id": "69", "curso_id": "2",  "local_id": "21", "turma_codigo": "26/ADMN 48",  "turma_label": "Segunda \u2014 18h\u201322h (in\u00edcio 13/07/2026) \u2014 Igreja Batista Ebenezer \u2014 Inhoa\u00edba",                "dias_aula": "Segunda",            "horario": "18h\u201322h",      "data_inicio": "13/07/2026", "encerramento": "03/08/2026", "endereco_curso": "\U0001f4cdAv. A, 2756 \u2013 CEP 23.062-000 \u2013 Inhoa\u00edba"},
-    {"id": "70", "curso_id": "7",  "local_id": "32", "turma_codigo": "26/OSCO 04",  "turma_label": "Ter\u00e7a e Quinta \u2014 9h\u201312h (in\u00edcio 28/07/2026) \u2014 Casa Costa Matos \u2014 Rio de Janeiro",          "dias_aula": "Ter\u00e7a e Quinta",  "horario": "9h\u201312h",       "data_inicio": "28/07/2026", "encerramento": "13/08/2026", "endereco_curso": "\U0001f4cdRua Capit\u00e3o Teixeira, 583 \u2013 CEP 21.755-000"},
-    {"id": "71", "curso_id": "10", "local_id": "20", "turma_codigo": "26/AGTU 01",  "turma_label": "Segunda e Quarta \u2014 19h\u201321h (in\u00edcio 20/07/2026) \u2014 Quadra Unidos de Manguinhos \u2014 Manguinhos",     "dias_aula": "Segunda e Quarta",   "horario": "19h\u201321h",      "data_inicio": "20/07/2026", "encerramento": "12/08/2026", "endereco_curso": "\U0001f4cdAv. dos Democr\u00e1ticos, 32 \u2013 CEP 21050-000"},
-    {"id": "72", "curso_id": "10", "local_id": "19", "turma_codigo": "26/AGTU 02",  "turma_label": "Ter\u00e7a e Quinta \u2014 9h\u201311h (in\u00edcio 20/07/2026) \u2014 Campo Socyte de Manguinhos \u2014 Manguinhos",    "dias_aula": "Ter\u00e7a e Quinta",  "horario": "9h\u201311h",       "data_inicio": "20/07/2026", "encerramento": "12/08/2026", "endereco_curso": "\U0001f4cdRua N. Sra. dos Navegantes, 3 \u2013 CEP 21.050-000"},
-    {"id": "73", "curso_id": "10", "local_id": "20", "turma_codigo": "26/AGTU 03",  "turma_label": "Ter\u00e7a e Quinta \u2014 19h\u201321h (in\u00edcio 21/07/2026) \u2014 Quadra Unidos de Manguinhos \u2014 Manguinhos",   "dias_aula": "Ter\u00e7a e Quinta",  "horario": "19h\u201321h",      "data_inicio": "21/07/2026", "encerramento": "13/08/2026", "endereco_curso": "\U0001f4cdAv. dos Democr\u00e1ticos, 32 \u2013 CEP 21050-000"},
-    {"id": "74", "curso_id": "10", "local_id": "19", "turma_codigo": "26/AGTU 04",  "turma_label": "Ter\u00e7a e Quinta \u2014 9h\u201311h (in\u00edcio 20/07/2026) \u2014 Campo Socyte de Manguinhos \u2014 Manguinhos",    "dias_aula": "Ter\u00e7a e Quinta",  "horario": "9h\u201311h",       "data_inicio": "20/07/2026", "encerramento": "12/08/2026", "endereco_curso": "\U0001f4cdRua N. Sra. dos Navegantes, 3 \u2013 CEP 21.050-000"},
-    {"id": "75", "curso_id": "9",  "local_id": "24", "turma_codigo": "26/RECP 14",  "turma_label": "Ter\u00e7a \u2014 18h\u201322h (in\u00edcio 13/07/2026) \u2014 AD na Pavuna \u2014 Cosmos",                              "dias_aula": "Ter\u00e7a",            "horario": "18h\u201322h",      "data_inicio": "13/07/2026", "encerramento": "03/08/2026", "endereco_curso": "\U0001f4cdRua 9, Lote 19 \u2013 Cj Urucania \u2013 CEP 23.059-340"},
-    {"id": "76", "curso_id": "5",  "local_id": "30", "turma_codigo": "26/MARK 38",  "turma_label": "Seg, Qua e Qui \u2014 14h\u201316h (in\u00edcio 03/08/2026) \u2014 Tia Lu \u2014 Realengo",                               "dias_aula": "Seg, Qua e Qui",     "horario": "14h\u201316h",      "data_inicio": "03/08/2026", "encerramento": "14/08/2026", "endereco_curso": "\U0001f4cdRua Pedro Gomes, 2 \u2013 Realengo \u2013 CEP 21715-040"},
-    {"id": "77", "curso_id": "3",  "local_id": "26", "turma_codigo": "26/AXCZ 25",  "turma_label": "S\u00e1bado \u2014 08h\u201312h (in\u00edcio 18/07/2026) \u2014 Sal\u00e3o de Festas \u2014 Santa Cruz",                  "dias_aula": "S\u00e1bado",           "horario": "08h\u201312h",      "data_inicio": "18/07/2026", "encerramento": "08/08/2026", "endereco_curso": "\U0001f4cdAv. Marginal, 107 \u2013 CEP 23595-020 \u2013 Santa Cruz"},
-    {"id": "78", "curso_id": "13", "local_id": "28", "turma_codigo": "26/BARB 04",  "turma_label": "S\u00e1bado \u2014 08h\u201312h (in\u00edcio 01/08/2026) \u2014 Vila Cruzeiro \u2014 Penha",                             "dias_aula": "S\u00e1bado",           "horario": "08h\u201312h",      "data_inicio": "01/08/2026", "encerramento": "22/08/2026", "endereco_curso": "\U0001f4cdRua Sargento Ricardo Filho, 26 \u2013 CEP 21070-170 \u2013 Olaria"},
-    {"id": "79", "curso_id": "1",  "local_id": "3",  "turma_codigo": "26/ASLO 35",  "turma_label": "Ter\u00e7a \u2014 08h\u201312h (in\u00edcio 04/08/2026) \u2014 Associa\u00e7\u00e3o dos Artes\u00e3os \u2014 Ana Gonzaga",  "dias_aula": "Ter\u00e7a",            "horario": "08h\u201312h",      "data_inicio": "04/08/2026", "encerramento": "25/08/2026", "endereco_curso": "\U0001f4cdRua Esmeralda de Ana Gonzaga \u2013 Inhoa\u00edba \u2013 QD 11 LT 24 \u2013 CEP 23050-489"},
-    {"id": "80", "curso_id": "4",  "local_id": "3",  "turma_codigo": "26/INAT 33",  "turma_label": "Quarta \u2014 8h\u201312h (in\u00edcio 05/08/2026) \u2014 Associa\u00e7\u00e3o dos Artes\u00e3os \u2014 Ana Gonzaga",      "dias_aula": "Quarta",             "horario": "8h\u201312h",       "data_inicio": "05/08/2026", "encerramento": "26/08/2026", "endereco_curso": "\U0001f4cdRua Esmeralda de Ana Gonzaga \u2013 Inhoa\u00edba \u2013 QD 11 LT 24 \u2013 CEP 23050-489"},
-    {"id": "81", "curso_id": "3",  "local_id": "3",  "turma_codigo": "26/AXCZ 26",  "turma_label": "S\u00e1bado \u2014 08h\u201312h (in\u00edcio 05/08/2026) \u2014 Associa\u00e7\u00e3o dos Artes\u00e3os \u2014 Ana Gonzaga",  "dias_aula": "S\u00e1bado",           "horario": "08h\u201312h",      "data_inicio": "05/08/2026", "encerramento": "26/08/2026", "endereco_curso": "\U0001f4cdRua Esmeralda de Ana Gonzaga \u2013 Inhoa\u00edba \u2013 QD 11 LT 24 \u2013 CEP 23050-489"},
-    {"id": "82", "curso_id": "11", "local_id": "23", "turma_codigo": "26/VEND 02",  "turma_label": "Segunda e Quarta \u2014 19h30\u201321h30 (in\u00edcio 29/07/2026) \u2014 Ig. Evang\u00e9lica P\u00e3o da Vida \u2014 Curicica","dias_aula": "Segunda e Quarta",  "horario": "19h30\u201321h30",  "data_inicio": "29/07/2026", "encerramento": "13/08/2026", "endereco_curso": "\U0001f4cdRua Mandina 2 \u2013 Curicica \u2013 CEP 22780-530"},
-    {"id": "83", "curso_id": "15", "local_id": "6",  "turma_codigo": "26/ELET 01",  "turma_label": "S\u00e1bado \u2014 9h\u201313h (in\u00edcio 15/08/2026) \u2014 Assoc. Moradores Conj. Liberdade \u2014 Santa Cruz",      "dias_aula": "S\u00e1bado",           "horario": "9h\u201313h",       "data_inicio": "15/08/2026", "encerramento": "05/09/2026", "endereco_curso": "\U0001f4cdAv. Canal Margem Direita, 54 \u2013 CEP 23560-366 \u2013 Santa Cruz"},
-    {"id": "84", "curso_id": "2",  "local_id": "2",  "turma_codigo": "26/ADMN 50",  "turma_label": "Segunda \u2014 17h30\u201321h30 (in\u00edcio 03/08/2026) \u2014 Igreja Batista Rio da Prata \u2014 Bangu",                "dias_aula": "Segunda",            "horario": "17h30\u201321h30",  "data_inicio": "03/08/2026", "encerramento": "24/08/2026", "endereco_curso": "\U0001f4cdRua dos Limadores, 866 \u2013 CEP 21830-005 \u2013 Bangu"},
-    {"id": "85", "curso_id": "12", "local_id": "22", "turma_codigo": "26/SOMD 21",  "turma_label": "S\u00e1bado \u2014 8h\u201312h (in\u00edcio 01/08/2026) \u2014 Assoc. de Moradores S\u00e3o Jorge \u2014 Inhoa\u00edba",  "dias_aula": "S\u00e1bado",           "horario": "8h\u201312h",       "data_inicio": "01/08/2026", "encerramento": "22/08/2026", "endereco_curso": "\U0001f4cdRua Pedro Autran, 71 \u2013 CEP 23059-105 \u2013 Cosmos"},
-    {"id": "86", "curso_id": "4",  "local_id": "18", "turma_codigo": "26/INAT 34",  "turma_label": "Segunda \u2014 17h\u201321h (in\u00edcio 27/07/2026) \u2014 Centro Social Estrela da Manh\u00e3 \u2014 Guaratiba",         "dias_aula": "Segunda",            "horario": "17h\u201321h",      "data_inicio": "27/07/2026", "encerramento": "17/08/2026", "endereco_curso": "\U0001f4cdRua Alcides Franco, 175 \u2013 CEP 23032-010 \u2013 Guaratiba"},
-    {"id": "87", "curso_id": "15", "local_id": "31", "turma_codigo": "26/ELET 02",  "turma_label": "Ter\u00e7a e Quinta \u2014 18h\u201321h (in\u00edcio 28/07/2026) \u2014 Cozinha Comunit\u00e1ria \u2014 Realengo",         "dias_aula": "Ter\u00e7a e Quinta",  "horario": "18h\u201321h",      "data_inicio": "28/07/2026", "encerramento": "20/08/2026", "endereco_curso": "\U0001f4cdRua General Raposo, 41 \u2013 CEP 21730-000 \u2013 Realengo"},
-    {"id": "88", "curso_id": "15", "local_id": "17", "turma_codigo": "26/ELET 03",  "turma_label": "S\u00e1bado \u2014 9h\u201312h (in\u00edcio 01/08/2026) \u2014 AD ADTS de Col\u00e9gio \u2014 Col\u00e9gio",               "dias_aula": "S\u00e1bado",           "horario": "9h\u201312h",       "data_inicio": "01/08/2026", "encerramento": "29/08/2026", "endereco_curso": "\U0001f4cdEstrada de Col\u00e9gio, 121 \u2013 Col\u00e9gio \u2013 CEP 21235-280"},
-    {"id": "89", "curso_id": "5",  "local_id": "12", "turma_codigo": "26/MARK 42",  "turma_label": "Quarta \u2014 10h\u201316h (in\u00edcio 05/08/2026) \u2014 Prefeitura \u2014 Centro",                                   "dias_aula": "Quarta",             "horario": "10h\u201316h",      "data_inicio": "05/08/2026", "encerramento": "26/08/2026", "endereco_curso": "\U0001f4cdRua Afonso Cavalcanti, 455 \u2013 Cidade Nova \u2013 CEP 20211-110"},
-    {"id": "90", "curso_id": "2",  "local_id": "13", "turma_codigo": "26/ADMN 52",  "turma_label": "Segunda e Quarta \u2014 19h\u201321h (in\u00edcio 03/08/2026) \u2014 Sal\u00e3o de Festas (77) \u2014 Padre Miguel",     "dias_aula": "Segunda e Quarta",   "horario": "19h\u201321h",      "data_inicio": "03/08/2026", "encerramento": "28/08/2026", "endereco_curso": "\U0001f4cdRua Juazeiro do Norte, 639 \u2013 Padre Miguel"},
-    {"id": "91", "curso_id": "2",  "local_id": "10", "turma_codigo": "26/ADMN 53",  "turma_label": "Ter\u00e7a e Quinta \u2014 A confirmar (in\u00edcio 28/07/2026) \u2014 Vila do Pinheiro \u2014 Mar\u00e9",                 "dias_aula": "Ter\u00e7a e Quinta",  "horario": "A confirmar",      "data_inicio": "28/07/2026", "encerramento": "13/08/2026", "endereco_curso": "\U0001f4cdVia B9, 379, BL 14 \u2013 CEP 21046-090"},
-    {"id": "92", "curso_id": "14", "local_id": "18", "turma_codigo": "26/GRCM 02",  "turma_label": "A confirmar \u2014 A confirmar (in\u00edcio 21/07/2026) \u2014 Centro Social Estrela da Manh\u00e3 \u2014 Guaratiba",    "dias_aula": "A confirmar",        "horario": "A confirmar",      "data_inicio": "21/07/2026", "encerramento": "11/08/2026", "endereco_curso": "\U0001f4cdRua Alcides Franco, 175 \u2013 CEP 23032-010 \u2013 Guaratiba"},
-    {"id": "93", "curso_id": "8",  "local_id": "22", "turma_codigo": "26/PORT 02",  "turma_label": "Sexta \u2014 17h\u201321h (in\u00edcio 31/07/2026) \u2014 Assoc. de Moradores S\u00e3o Jorge \u2014 Inhoa\u00edba",       "dias_aula": "Sexta",              "horario": "17h\u201321h",      "data_inicio": "31/07/2026", "encerramento": "21/08/2026", "endereco_curso": "\U0001f4cdRua Moranga, 125, CS 102 \u2013 Inhoa\u00edba \u2013 CG"},
-    # NOVA TURMA 94 — Auxiliar de Cozinha — Igreja Batista São Bento — 25/07/2026
-    {"id": "94", "curso_id": "3",  "local_id": "7",  "turma_codigo": "FGM-AC-02",   "turma_label": "S\u00e1bado \u2014 09h\u201312h (in\u00edcio 25/07/2026) \u2014 Igreja Batista S\u00e3o Bento \u2014 Bangu",              "dias_aula": "S\u00e1bado",           "horario": "09h\u201312h",      "data_inicio": "25/07/2026", "encerramento": "15/08/2026", "endereco_curso": "\U0001f4cdRua Batu\u00edra, 121 \u2013 Bangu"},
-    # NOVA TURMA 95 — Recepcionista — Amubua (Santa Cruz) — 13/08/2026
-    {"id": "95", "curso_id": "9",  "local_id": "14", "turma_codigo": "26/RECP 15",  "turma_label": "Ter\u00e7a e Quinta \u2014 08h\u201312h (in\u00edcio 13/08/2026) \u2014 Amubua (Associa\u00e7\u00e3o) \u2014 Santa Cruz",         "dias_aula": "Ter\u00e7a e Quinta",  "horario": "08h\u201312h",      "data_inicio": "13/08/2026", "encerramento": "03/09/2026", "endereco_curso": "\U0001f4cdRua Jos\u00e9 Silton Pinheiro, 51 \u2013 CEP: 23.573-340 \u2013 Santa Cruz"},
-    # NOVA TURMA 96 — Agente de Turismo Corporativo — Min. Ap. Mover Profético (Senador Camará) — 15/08/2026
-    {"id": "96", "curso_id": "10", "local_id": "5",  "turma_codigo": "26/AGTU 05",  "turma_label": "S\u00e1bado \u2014 08h\u201312h (in\u00edcio 15/08/2026) \u2014 Min. Ap. Mover Prof\u00e9tico \u2014 Senador Camar\u00e1", "dias_aula": "S\u00e1bado",           "horario": "08h\u201312h",      "data_inicio": "15/08/2026", "encerramento": "05/09/2026", "endereco_curso": "\U0001f4cdR: Bom Guilherme Francisco Moraes, 3 \u2013 Senador Camar\u00e1 \u2013 CEP: 21833-190"},
-    # NOVA TURMA 97 — Investidor do Sucesso — Estrada do Mendanha — 22/08/2026
-    {"id": "97", "curso_id": "16", "local_id": "33", "turma_codigo": "26/INVS 01",  "turma_label": "S\u00e1bado \u2014 08h\u201312h (in\u00edcio 22/08/2026) \u2014 Estrada do Mendanha \u2014 Campo Grande",              "dias_aula": "S\u00e1bado",           "horario": "08h\u201312h",      "data_inicio": "22/08/2026", "encerramento": "26/09/2026", "endereco_curso": "\U0001f4cdEstrada do Mendanha, 4240 \u2013 Campo Grande"},
-    # NOVA TURMA 98 — Investidor do Sucesso — Igreja Batista Rio da Prata (Bangu) — 22/08/2026
-    {"id": "98", "curso_id": "16", "local_id": "2",  "turma_codigo": "26/INVS 02",  "turma_label": "S\u00e1bado \u2014 08h\u201312h (in\u00edcio 22/08/2026) \u2014 Igreja Batista Rio da Prata \u2014 Bangu",              "dias_aula": "S\u00e1bado",           "horario": "08h\u201312h",      "data_inicio": "22/08/2026", "encerramento": "26/08/2026", "endereco_curso": "\U0001f4cdRua dos Limadores, 866 \u2013 Bangu \u2013 RJ \u2013 CEP: 21830-005"},
-    # NOVA TURMA 99 — Investidor do Sucesso — Campo Grande (Foz do Jordão) — 22/08/2026 (encerra no mesmo dia)
-    {"id": "99", "curso_id": "16", "local_id": "34", "turma_codigo": "26/INVS 03",  "turma_label": "S\u00e1bado \u2014 08h\u201312h (in\u00edcio 22/08/2026) \u2014 Rua Caminho Foz do Jord\u00e3o \u2014 Campo Grande",   "dias_aula": "S\u00e1bado",           "horario": "08h\u201312h",      "data_inicio": "22/08/2026", "encerramento": "22/08/2026", "endereco_curso": "\U0001f4cdRua Caminho Foz do Jord\u00e3o, 28 \u2013 Campo Grande"},
-    # NOVA TURMA 100 — Investidor do Sucesso — Campo Grande (Foz do Jordão) — 22/08/2026
-    {"id": "100", "curso_id": "16", "local_id": "34", "turma_codigo": "26/INVS 04", "turma_label": "S\u00e1bado \u2014 08h\u201312h (in\u00edcio 22/08/2026) \u2014 Rua Caminho Foz do Jord\u00e3o \u2014 Campo Grande",   "dias_aula": "S\u00e1bado",           "horario": "08h\u201312h",      "data_inicio": "22/08/2026", "encerramento": "26/09/2026", "endereco_curso": "\U0001f4cdRua Caminho Foz do Jord\u00e3o, 28 \u2013 Campo Grande"},
-    # NOVA TURMA 101 — Investidor do Sucesso — Atrás do Colégio Estadual Luiz Carlos Vila (Benfica) — 22/08/2026
-    {"id": "101", "curso_id": "16", "local_id": "35", "turma_codigo": "26/INVS 05", "turma_label": "S\u00e1bado \u2014 08h\u201312h (in\u00edcio 22/08/2026) \u2014 Atr\u00e1s do Col\u00e9gio Estadual Luiz Carlos Vila \u2014 Benfica", "dias_aula": "S\u00e1bado", "horario": "08h\u201312h", "data_inicio": "22/08/2026", "encerramento": "26/09/2026", "endereco_curso": "\U0001f4cdAv. Dom Helder Camara, 1.184 \u2013 Benfica"},
-    # NOVA TURMA 102 — Investidor do Sucesso — Realengo (Rua General Raposo) — 22/08/2026
-    {"id": "102", "curso_id": "16", "local_id": "36", "turma_codigo": "26/INVS 06", "turma_label": "S\u00e1bado \u2014 08h\u201312h (in\u00edcio 22/08/2026) \u2014 Realengo \u2014 Rua General Raposo",                   "dias_aula": "S\u00e1bado",           "horario": "08h\u201312h",      "data_inicio": "22/08/2026", "encerramento": "26/09/2026", "endereco_curso": "\U0001f4cdRua General Raposo, 41 \u2013 Realengo"},
-    # NOVA TURMA 103 — Investidor do Sucesso — Igreja Assembléia de Deus ADAV (Senador Augusto Vasconcelos) — 22/08/2026
-    {"id": "103", "curso_id": "16", "local_id": "37", "turma_codigo": "26/INVS 07", "turma_label": "S\u00e1bado \u2014 08h\u201312h (in\u00edcio 22/08/2026) \u2014 Igreja Assembl\u00e9ia de Deus ADAV \u2014 Senador Augusto Vasconcelos", "dias_aula": "S\u00e1bado", "horario": "08h\u201312h", "data_inicio": "22/08/2026", "encerramento": "26/09/2026", "endereco_curso": "\U0001f4cdRua Arthur Rios, 805 \u2013 Senador Augusto Vasconcelos"},
-    # NOVA TURMA 104 — Investidor do Sucesso — Vila do Pinheiro 1 (Maré) — 01/08/2026
-    {"id": "104", "curso_id": "16", "local_id": "10", "turma_codigo": "26/INVS 08", "turma_label": "S\u00e1bado \u2014 08h\u201312h (in\u00edcio 01/08/2026) \u2014 Vila do Pinheiro \u2014 Mar\u00e9",                       "dias_aula": "S\u00e1bado",           "horario": "08h\u201312h",      "data_inicio": "01/08/2026", "encerramento": "22/08/2026", "endereco_curso": "\U0001f4cdVila do Pinheiro 1 \u2013 Mar\u00e9"},
-    # NOVA TURMA 105 — Monitor de Lazer e Recreação — IMMEC Church (Campo Grande) — 22/08/2026
-    {"id": "105", "curso_id": "6",  "local_id": "4",  "turma_codigo": "26/MLRE 19", "turma_label": "S\u00e1bado \u2014 14h\u201318h (in\u00edcio 22/08/2026) \u2014 IMMEC Church \u2014 Campo Grande",                       "dias_aula": "S\u00e1bado",           "horario": "14h\u201318h",      "data_inicio": "22/08/2026", "encerramento": "12/09/2026", "endereco_curso": "\U0001f4cdEstrada do Cabu\u00e7u, 2692 \u2013 Vila Jardim, Campo Grande"},
-# NOVA TURMA 106 — Auxiliar de Cozinha — Centro Social Estrela da Manhã (Guaratiba) — 21/07/2026
-    {"id": "106", "curso_id": "3",  "local_id": "18", "turma_codigo": "26/AXCZ 27", "turma_label": "Ter\u00e7a \u2014 17h\u201321h (in\u00edcio 21/07/2026) \u2014 Centro Social Estrela da Manh\u00e3 \u2014 Guaratiba", "dias_aula": "Ter\u00e7a", "horario": "17h\u201321h", "data_inicio": "21/07/2026", "encerramento": "11/08/2026", "endereco_curso": "\U0001f4cdRua Alcides Franco, 175 \u2013 CEP 23032-010"},
+    {"id": "1",   "curso_id": "1",  "local_id": "1",  "turma_codigo": "26/ASLO 25",  "turma_label": "S\u00e1bado \u2014 08h\u201312h (in\u00edcio 30/05/2026) \u2014 Residencial Rio Samba \u2014 Campo Grande",           "dias_aula": "S\u00e1bado",           "horario": "08h\u201312h",    "data_inicio": "30/05/2026", "encerramento": "20/06/2026", "endereco_curso": "\U0001f4cdRua Antonio Carlos Belchior, 200 \u2013 Mendanha \u2013 Campo Grande"},
+    {"id": "2",   "curso_id": "1",  "local_id": "2",  "turma_codigo": "26/ASLO 26",  "turma_label": "Segunda e Ter\u00e7a \u2014 19h\u201321h30 (in\u00edcio 01/06/2026) \u2014 Igreja Batista Rio da Prata \u2014 Bangu",  "dias_aula": "Segunda e Ter\u00e7a", "horario": "19h\u201321h30", "data_inicio": "01/06/2026", "encerramento": "23/06/2026", "endereco_curso": "\U0001f4cdRua dos Limadores, 866 \u2013 Bangu"},
+    {"id": "3",   "curso_id": "1",  "local_id": "3",  "turma_codigo": "26/ASLO 27",  "turma_label": "Ter\u00e7a \u2014 08h\u201312h (in\u00edcio 02/06/2026) \u2014 Associa\u00e7\u00e3o dos Artes\u00e3os \u2014 Ana Gonzaga", "dias_aula": "Ter\u00e7a",           "horario": "08h\u201312h",    "data_inicio": "02/06/2026", "encerramento": "23/06/2026", "endereco_curso": "\U0001f4cdRua Esmeralda Ana Gonzaga QD 11 \u2013 Ana Gonzaga"},
+    {"id": "4",   "curso_id": "1",  "local_id": "4",  "turma_codigo": "FGM-AL-01",   "turma_label": "S\u00e1bado \u2014 08h\u201312h (in\u00edcio 30/05/2026) \u2014 IMMEC Church \u2014 Campo Grande",                   "dias_aula": "S\u00e1bado",           "horario": "08h\u201312h",    "data_inicio": "30/05/2026", "encerramento": "20/06/2026", "endereco_curso": "\U0001f4cdEstrada do Cabu\u00e7u, 2692 \u2013 Campo Grande"},
+    {"id": "5",   "curso_id": "2",  "local_id": "5",  "turma_codigo": "26/ADMN 41",  "turma_label": "S\u00e1bado \u2014 08h\u201312h (in\u00edcio 06/06/2026) \u2014 Min. Ap. Mover Prof\u00e9tico \u2014 Senador Camar\u00e1", "dias_aula": "S\u00e1bado",           "horario": "08h\u201312h",    "data_inicio": "06/06/2026", "encerramento": "27/06/2026", "endereco_curso": "\U0001f4cdRua Bom Guilherme Francisco Moraes, 03 \u2013 Senador Camar\u00e1"},
+    {"id": "6",   "curso_id": "2",  "local_id": "6",  "turma_codigo": "26/ADMN 36",  "turma_label": "S\u00e1bado \u2014 09h\u201313h (in\u00edcio 13/06/2026) \u2014 Assoc. Moradores Conj. Liberdade \u2014 Santa Cruz",  "dias_aula": "S\u00e1bado",           "horario": "09h\u201313h",    "data_inicio": "13/06/2026", "encerramento": "04/07/2026", "endereco_curso": "\U0001f4cdAv. Canal Margem Direita, 54 \u2013 Santa Cruz"},
+    {"id": "7",   "curso_id": "3",  "local_id": "5",  "turma_codigo": "26/AXCZ 19",  "turma_label": "Quarta e Sexta \u2014 16h\u201318h (in\u00edcio 10/06/2026) \u2014 Min. Ap. Mover Prof\u00e9tico \u2014 Senador Camar\u00e1", "dias_aula": "Quarta e Sexta", "horario": "16h\u201318h", "data_inicio": "10/06/2026", "encerramento": "03/07/2026", "endereco_curso": "\U0001f4cdRua Bom Guilherme Francisco Moraes, 03 \u2013 Senador Camar\u00e1"},
+    {"id": "8",   "curso_id": "3",  "local_id": "3",  "turma_codigo": "26/AXCZ 20",  "turma_label": "S\u00e1bado \u2014 14h\u201318h (in\u00edcio 06/06/2026) \u2014 Associa\u00e7\u00e3o dos Artes\u00e3os \u2014 Ana Gonzaga", "dias_aula": "S\u00e1bado",           "horario": "14h\u201318h",    "data_inicio": "06/06/2026", "encerramento": "27/06/2026", "endereco_curso": "\U0001f4cdRua Esmeralda Ana Gonzaga QD 11 \u2013 Ana Gonzaga"},
+    {"id": "9",   "curso_id": "3",  "local_id": "4",  "turma_codigo": "FGM-AC-01",   "turma_label": "S\u00e1bado \u2014 09h\u201313h (in\u00edcio 30/05/2026) \u2014 IMMEC Church \u2014 Campo Grande",                   "dias_aula": "S\u00e1bado",           "horario": "09h\u201313h",    "data_inicio": "30/05/2026", "encerramento": "20/06/2026", "endereco_curso": "\U0001f4cdEstrada do Cabu\u00e7u, 2692 \u2013 Campo Grande"},
+    {"id": "10",  "curso_id": "4",  "local_id": "7",  "turma_codigo": "26/INAT 18",  "turma_label": "S\u00e1bado \u2014 08h\u201312h (in\u00edcio 06/06/2026) \u2014 Igreja Batista S\u00e3o Bento \u2014 Bangu",            "dias_aula": "S\u00e1bado",           "horario": "08h\u201312h",    "data_inicio": "06/06/2026", "encerramento": "27/06/2026", "endereco_curso": "\U0001f4cdRua Batu\u00edra, 121 \u2013 Bangu"},
+    {"id": "11",  "curso_id": "4",  "local_id": "8",  "turma_codigo": "26/INAT 21",  "turma_label": "S\u00e1bado \u2014 08h\u201312h (in\u00edcio 30/05/2026) \u2014 Ig. Metodista Embarcados C/Cristo \u2014 Campo Grande", "dias_aula": "S\u00e1bado",           "horario": "08h\u201312h",    "data_inicio": "30/05/2026", "encerramento": "20/06/2026", "endereco_curso": "\U0001f4cdEst. do Cabu\u00e7u, 2692 \u2013 Campo Grande"},
+    {"id": "12",  "curso_id": "4",  "local_id": "9",  "turma_codigo": "26/INAT 19",  "turma_label": "S\u00e1bado \u2014 10h\u201314h (in\u00edcio 06/06/2026) \u2014 Refor\u00e7o Escolar Tia Dani \u2014 Mar\u00e9",         "dias_aula": "S\u00e1bado",           "horario": "10h\u201314h",    "data_inicio": "06/06/2026", "encerramento": "27/06/2026", "endereco_curso": "\U0001f4cdRua Darcy Vargas, 136 \u2013 Mar\u00e9"},
+    {"id": "13",  "curso_id": "4",  "local_id": "3",  "turma_codigo": "26/INAT 20",  "turma_label": "Quarta \u2014 08h\u201312h (in\u00edcio 03/06/2026) \u2014 Associa\u00e7\u00e3o dos Artes\u00e3os \u2014 Ana Gonzaga",   "dias_aula": "Quarta",           "horario": "08h\u201312h",    "data_inicio": "03/06/2026", "encerramento": "24/06/2026", "endereco_curso": "\U0001f4cdRua Esmeralda Ana Gonzaga QD 11 \u2013 Ana Gonzaga"},
+    {"id": "14",  "curso_id": "5",  "local_id": "10", "turma_codigo": "26/MARK 26",  "turma_label": "Ter\u00e7a e Quinta \u2014 19h\u201321h (in\u00edcio 02/06/2026) \u2014 Vila do Pinheiro \u2014 Mar\u00e9",             "dias_aula": "Ter\u00e7a e Quinta", "horario": "19h\u201321h",    "data_inicio": "02/06/2026", "encerramento": "30/06/2026", "endereco_curso": "\U0001f4cdVia B9, 379, Bloco 14 \u2013 Mar\u00e9"},
+    {"id": "15",  "curso_id": "5",  "local_id": "11", "turma_codigo": "26/MARK 29",  "turma_label": "Ter\u00e7a \u2014 18h\u201322h (in\u00edcio 02/06/2026) \u2014 Min. Ap. Tenda do Encontro \u2014 Cosmos",            "dias_aula": "Ter\u00e7a",           "horario": "18h\u201322h",    "data_inicio": "02/06/2026", "encerramento": "23/06/2026", "endereco_curso": "\U0001f4cdRua Framboesa, 21 \u2013 Cosmos"},
+    {"id": "16",  "curso_id": "5",  "local_id": "12", "turma_codigo": "26/MARK 28",  "turma_label": "Quarta \u2014 10h\u201316h (in\u00edcio 03/06/2026) \u2014 Prefeitura \u2014 Centro",                                 "dias_aula": "Quarta",           "horario": "10h\u201316h",    "data_inicio": "03/06/2026", "encerramento": "24/06/2026", "endereco_curso": "\U0001f4cdRua Alfonso Cavalcanti, 455 \u2013 Centro"},
+    {"id": "17",  "curso_id": "6",  "local_id": "13", "turma_codigo": "26/MLRE 16",  "turma_label": "Segunda e Quarta \u2014 19h\u201322h (in\u00edcio 08/06/2026) \u2014 Sal\u00e3o de Festas (77) \u2014 Padre Miguel",   "dias_aula": "Segunda e Quarta", "horario": "19h\u201322h",    "data_inicio": "08/06/2026", "encerramento": "01/07/2026", "endereco_curso": "\U0001f4cdRua Juazeiro do Norte, 639 \u2013 Padre Miguel"},
+    {"id": "18",  "curso_id": "6",  "local_id": "14", "turma_codigo": "26/MLRE 18",  "turma_label": "Ter\u00e7a e Quinta \u2014 08h\u201312h (in\u00edcio 02/06/2026) \u2014 Amubua (Associa\u00e7\u00e3o) \u2014 Santa Cruz", "dias_aula": "Ter\u00e7a e Quinta", "horario": "08h\u201312h",    "data_inicio": "02/06/2026", "encerramento": "25/06/2026", "endereco_curso": "\U0001f4cdRua Jos\u00e9 Silton Pinheiro, 51 \u2013 Santa Cruz"},
+    {"id": "19",  "curso_id": "7",  "local_id": "15", "turma_codigo": "26/OSCO 02",  "turma_label": "Segunda e Quarta \u2014 14h\u201317h (in\u00edcio 08/06/2026) \u2014 Assoc. Amigos do Barata \u2014 Realengo",        "dias_aula": "Segunda e Quarta", "horario": "14h\u201317h",    "data_inicio": "08/06/2026", "encerramento": "29/07/2026", "endereco_curso": "\U0001f4cdRua Correia Teixeira, 79 (Fundos) \u2013 Realengo"},
+    {"id": "20",  "curso_id": "8",  "local_id": "16", "turma_codigo": "26/PORT 01",  "turma_label": "Ter\u00e7a e Quinta \u2014 19h\u201321h (in\u00edcio 26/05/2026) \u2014 AD ADTS Mandela \u2014 Benfica",                "dias_aula": "Ter\u00e7a e Quinta", "horario": "19h\u201321h",    "data_inicio": "26/05/2026", "encerramento": "29/06/2026", "endereco_curso": "\U0001f4cdRua Leopoldo Bulh\u00f5es, 800 \u2013 Benfica"},
+    {"id": "21",  "curso_id": "1",  "local_id": "17", "turma_codigo": "26/ASLO 29",  "turma_label": "S\u00e1bado \u2014 08h\u201312h (in\u00edcio 13/06/2026) \u2014 AD ADTS de Col\u00e9gio \u2014 Col\u00e9gio",             "dias_aula": "S\u00e1bado",           "horario": "08h\u201312h",    "data_inicio": "13/06/2026", "encerramento": "04/07/2026", "endereco_curso": "\U0001f4cdEstrada de Col\u00e9gio, 121 \u2013 CEP 21235-280"},
+    {"id": "22",  "curso_id": "4",  "local_id": "10", "turma_codigo": "26/INAT 22",  "turma_label": "S\u00e1bado \u2014 09h\u201313h (in\u00edcio 04/07/2026) \u2014 Vila do Pinheiro \u2014 Mar\u00e9",                     "dias_aula": "S\u00e1bado",           "horario": "09h\u201313h",    "data_inicio": "04/07/2026", "encerramento": "25/07/2026", "endereco_curso": "\U0001f4cdVia B9, 379, BL 14 \u2013 CEP 21046-090"},
+    {"id": "23",  "curso_id": "2",  "local_id": "10", "turma_codigo": "26/ADMN 43",  "turma_label": "Ter\u00e7a e Quinta \u2014 08h\u201311h (in\u00edcio 29/06/2026) \u2014 Vila do Pinheiro \u2014 Mar\u00e9",              "dias_aula": "Ter\u00e7a e Quinta", "horario": "08h\u201311h",    "data_inicio": "29/06/2026", "encerramento": "16/07/2026", "endereco_curso": "\U0001f4cdVia B9, 379, BL 14 \u2013 CEP 21046-090"},
+    {"id": "24",  "curso_id": "7",  "local_id": "15", "turma_codigo": "26/OSCO 03",  "turma_label": "Ter\u00e7a e Quinta \u2014 18h\u201321h (in\u00edcio 25/06/2026) \u2014 Assoc. Amigos do Barata \u2014 Realengo",       "dias_aula": "Ter\u00e7a e Quinta", "horario": "18h\u201321h",    "data_inicio": "25/06/2026", "encerramento": "14/07/2026", "endereco_curso": "\U0001f4cdRua Correia Texeira, 79 \u2013 Fundos \u2013 Realengo"},
+    {"id": "25",  "curso_id": "1",  "local_id": "18", "turma_codigo": "26/ASLO 30",  "turma_label": "Ter\u00e7a \u2014 08h\u201312h (in\u00edcio 16/06/2026) \u2014 Centro Social Estrela da Manh\u00e3 \u2014 Guaratiba",   "dias_aula": "Ter\u00e7a",           "horario": "08h\u201312h",    "data_inicio": "16/06/2026", "encerramento": "13/07/2026", "endereco_curso": "\U0001f4cdRua Alcides Franco, 175 \u2013 CEP 23032-010"},
+    {"id": "26",  "curso_id": "9",  "local_id": "18", "turma_codigo": "26/RECP 06",  "turma_label": "Ter\u00e7a \u2014 17h\u201320h30 (in\u00edcio 17/06/2026) \u2014 Centro Social Estrela da Manh\u00e3 \u2014 Guaratiba", "dias_aula": "Ter\u00e7a",           "horario": "17h\u201320h30", "data_inicio": "17/06/2026", "encerramento": "13/07/2026", "endereco_curso": "\U0001f4cdRua Alcides Franco, 175 \u2013 CEP 23032-010"},
+    {"id": "27",  "curso_id": "9",  "local_id": "19", "turma_codigo": "26/RECP 07",  "turma_label": "Segunda e Quarta \u2014 09h\u201311h (in\u00edcio 17/06/2026) \u2014 Campo Socyte de Manguinhos \u2014 Manguinhos",    "dias_aula": "Segunda e Quarta", "horario": "09h\u201311h",    "data_inicio": "17/06/2026", "encerramento": "13/07/2026", "endereco_curso": "\U0001f4cdRua N. Sra. dos Navegantes, 3 \u2013 CEP 21.050-000"},
+    {"id": "28",  "curso_id": "9",  "local_id": "20", "turma_codigo": "26/RECP 08",  "turma_label": "Ter\u00e7a e Quinta \u2014 19h\u201321h (in\u00edcio 18/06/2026) \u2014 Quadra Unidos de Manguinhos \u2014 Manguinhos", "dias_aula": "Ter\u00e7a e Quinta", "horario": "19h\u201321h",    "data_inicio": "18/06/2026", "encerramento": "14/07/2026", "endereco_curso": "\U0001f4cdAv. dos Democr\u00e1ticos, 32 \u2013 CEP 21050-000"},
+    {"id": "29",  "curso_id": "9",  "local_id": "20", "turma_codigo": "26/RECP 09",  "turma_label": "Ter\u00e7a e Quinta \u2014 19h\u201321h (in\u00edcio 18/06/2026) \u2014 Quadra Unidos de Manguinhos \u2014 Manguinhos", "dias_aula": "Ter\u00e7a e Quinta", "horario": "19h\u201321h",    "data_inicio": "18/06/2026", "encerramento": "14/07/2026", "endereco_curso": "\U0001f4cdAv. dos Democr\u00e1ticos, 32 \u2013 CEP 21050-000"},
+    {"id": "30",  "curso_id": "9",  "local_id": "19", "turma_codigo": "26/RECP 10",  "turma_label": "Segunda e Quarta \u2014 09h\u201311h (in\u00edcio 17/06/2026) \u2014 Campo Socyte de Manguinhos \u2014 Manguinhos",    "dias_aula": "Segunda e Quarta", "horario": "09h\u201311h",    "data_inicio": "17/06/2026", "encerramento": "13/07/2026", "endereco_curso": "\U0001f4cdRua N. Sra. dos Navegantes, 3 \u2013 CEP 21.050-000"},
+    {"id": "31",  "curso_id": "10", "local_id": "5",  "turma_codigo": "26/AGTU 04",  "turma_label": "Quarta e Sexta \u2014 16h\u201318h (in\u00edcio 17/07/2026) \u2014 Min. Ap. Mover Prof\u00e9tico \u2014 Senador Camar\u00e1", "dias_aula": "Quarta e Sexta", "horario": "16h\u201318h", "data_inicio": "17/07/2026", "encerramento": "07/08/2026", "endereco_curso": "\U0001f4cdRua Guilherme Francisco de Moraes, Lote 3 \u2013 Senador Camar\u00e1"},
+    {"id": "32",  "curso_id": "1",  "local_id": "5",  "turma_codigo": "26/ASLO 31",  "turma_label": "S\u00e1bado \u2014 08h\u201312h (in\u00edcio 11/07/2026) \u2014 Min. Ap. Mover Prof\u00e9tico \u2014 Senador Camar\u00e1", "dias_aula": "S\u00e1bado",           "horario": "08h\u201312h",    "data_inicio": "11/07/2026", "encerramento": "01/08/2026", "endereco_curso": "\U0001f4cdRua Guilherme Francisco de Moraes, Lote 3 \u2013 Senador Camar\u00e1"},
+    {"id": "33",  "curso_id": "5",  "local_id": "21", "turma_codigo": "26/MARK 31",  "turma_label": "Segunda \u2014 18h\u201321h (in\u00edcio 15/06/2026) \u2014 Igreja Batista Ebenezer \u2014 Inhoa\u00edba",              "dias_aula": "Segunda",          "horario": "18h\u201321h",    "data_inicio": "15/06/2026", "encerramento": "06/07/2026", "endereco_curso": "\U0001f4cdAvenida A, 2756 \u2013 CEP 23.062-000"},
+    {"id": "34",  "curso_id": "11", "local_id": "22", "turma_codigo": "26/VEND 01",  "turma_label": "S\u00e1bado \u2014 08h\u201312h (in\u00edcio 20/06/2026) \u2014 Assoc. de Moradores S\u00e3o Jorge \u2014 Inhoa\u00edba", "dias_aula": "S\u00e1bado",           "horario": "08h\u201312h",    "data_inicio": "20/06/2026", "encerramento": "18/07/2026", "endereco_curso": "\U0001f4cdRua Moranga, 125 \u2013 Campo Grande, Inhoa\u00edba"},
+    {"id": "35",  "curso_id": "2",  "local_id": "23", "turma_codigo": "26/ADMN 44",  "turma_label": "Segunda e Quarta \u2014 19h\u201321h (in\u00edcio 22/06/2026) \u2014 Ig. Evang\u00e9lica P\u00e3o da Vida \u2014 Curicica", "dias_aula": "Segunda e Quarta", "horario": "19h\u201321h",    "data_inicio": "22/06/2026", "encerramento": "13/07/2026", "endereco_curso": "\U0001f4cdRua Mandina, 2 \u2013 CEP 22780-530 \u2013 Curicica"},
+    {"id": "36",  "curso_id": "2",  "local_id": "7",  "turma_codigo": "26/ADMN 45",  "turma_label": "Segunda e Quarta \u2014 14h\u201317h (in\u00edcio 17/06/2026) \u2014 Igreja Batista S\u00e3o Bento \u2014 Bangu",        "dias_aula": "Segunda e Quarta", "horario": "14h\u201317h",    "data_inicio": "17/06/2026", "encerramento": "13/07/2026", "endereco_curso": "\U0001f4cdRua Batu\u00edra, 121 \u2013 CEP 21860-160"},
+    {"id": "37",  "curso_id": "12", "local_id": "2",  "turma_codigo": "26/SOMD 16",  "turma_label": "Segunda \u2014 17h30\u201319h30 (in\u00edcio 06/07/2026) \u2014 Igreja Batista Rio da Prata \u2014 Bangu",              "dias_aula": "Segunda",          "horario": "17h30\u201319h30","data_inicio": "06/07/2026", "encerramento": "27/07/2026", "endereco_curso": "\U0001f4cdRua dos Limadores, 866 \u2013 CEP 21.830-005"},
+    {"id": "38",  "curso_id": "12", "local_id": "9",  "turma_codigo": "26/SOMD 17",  "turma_label": "S\u00e1bado \u2014 10h\u201314h (in\u00edcio 06/06/2026) \u2014 Refor\u00e7o Escolar Tia Dani \u2014 Mar\u00e9",         "dias_aula": "S\u00e1bado",           "horario": "10h\u201314h",    "data_inicio": "06/06/2026", "encerramento": "27/07/2026", "endereco_curso": "\U0001f4cdRua Darcy Vargas, 136 \u2013 Mar\u00e9"},
+    {"id": "39",  "curso_id": "12", "local_id": "20", "turma_codigo": "26/SOMD 18",  "turma_label": "Segunda e Quarta \u2014 19h\u201321h (in\u00edcio 17/06/2026) \u2014 Quadra Unidos de Manguinhos \u2014 Manguinhos",   "dias_aula": "Segunda e Quarta", "horario": "19h\u201321h",    "data_inicio": "17/06/2026", "encerramento": "13/07/2026", "endereco_curso": "\U0001f4cdAv. dos Democr\u00e1ticos, 32 \u2013 CEP 21050-000"},
+    {"id": "40",  "curso_id": "4",  "local_id": "11", "turma_codigo": "26/INAT 23",  "turma_label": "Ter\u00e7a \u2014 18h\u201322h (in\u00edcio 07/07/2026) \u2014 Min. Ap. Tenda do Encontro \u2014 Cosmos",            "dias_aula": "Ter\u00e7a",           "horario": "18h\u201322h",    "data_inicio": "07/07/2026", "encerramento": "28/07/2026", "endereco_curso": "\U0001f4cdRua Framboesa, 21 \u2013 CEP 23.061-522"},
+    {"id": "41",  "curso_id": "4",  "local_id": "18", "turma_codigo": "26/INAT 24",  "turma_label": "Segunda \u2014 17h\u201321h (in\u00edcio 15/06/2026) \u2014 Centro Social Estrela da Manh\u00e3 \u2014 Guaratiba",     "dias_aula": "Segunda",          "horario": "17h\u201321h",    "data_inicio": "15/06/2026", "encerramento": "06/07/2026", "endereco_curso": "\U0001f4cdRua Alcides Franco, 175 \u2013 CEP 23032-010"},
+    {"id": "42",  "curso_id": "4",  "local_id": "19", "turma_codigo": "26/INAT 25",  "turma_label": "Segunda e Quarta \u2014 09h\u201311h (in\u00edcio 18/06/2026) \u2014 Campo Socyte de Manguinhos \u2014 Manguinhos",    "dias_aula": "Segunda e Quarta", "horario": "09h\u201311h",    "data_inicio": "18/06/2026", "encerramento": "14/07/2026", "endereco_curso": "\U0001f4cdRua N. Sra. dos Navegantes, 3 \u2013 CEP 21.050-000"},
+    {"id": "43",  "curso_id": "4",  "local_id": "20", "turma_codigo": "26/INAT 26",  "turma_label": "Ter\u00e7a e Quinta \u2014 19h\u201321h (in\u00edcio 18/06/2026) \u2014 Quadra Unidos de Manguinhos \u2014 Manguinhos", "dias_aula": "Ter\u00e7a e Quinta", "horario": "19h\u201321h",    "data_inicio": "18/06/2026", "encerramento": "14/07/2026", "endereco_curso": "\U0001f4cdAv. dos Democr\u00e1ticos, 32 \u2013 CEP 21050-000"},
+    {"id": "44",  "curso_id": "4",  "local_id": "20", "turma_codigo": "26/INAT 27",  "turma_label": "Ter\u00e7a e Quinta \u2014 19h\u201321h (in\u00edcio 18/06/2026) \u2014 Quadra Unidos de Manguinhos \u2014 Manguinhos", "dias_aula": "Ter\u00e7a e Quinta", "horario": "19h\u201321h",    "data_inicio": "18/06/2026", "encerramento": "14/07/2026", "endereco_curso": "\U0001f4cdAv. dos Democr\u00e1ticos, 32 \u2013 CEP 21050-000"},
+    {"id": "45",  "curso_id": "4",  "local_id": "19", "turma_codigo": "26/INAT 28",  "turma_label": "Segunda e Quarta \u2014 09h\u201311h (in\u00edcio 18/06/2026) \u2014 Campo Socyte de Manguinhos \u2014 Manguinhos",    "dias_aula": "Segunda e Quarta", "horario": "09h\u201311h",    "data_inicio": "18/06/2026", "encerramento": "14/07/2026", "endereco_curso": "\U0001f4cdRua N. Sra. dos Navegantes, 3 \u2013 CEP 21.050-000"},
+    {"id": "46",  "curso_id": "13", "local_id": "24", "turma_codigo": "26/BARB 02",  "turma_label": "S\u00e1bado \u2014 08h\u201312h (in\u00edcio 15/06/2026) \u2014 AD na Pavuna \u2014 Cosmos",                            "dias_aula": "S\u00e1bado",           "horario": "08h\u201312h",    "data_inicio": "15/06/2026", "encerramento": "06/07/2026", "endereco_curso": "\U0001f4cdRua 9, Lote 19, Casa 2 \u2013 Cj Urucania \u2013 CEP 23059-340"},
+    {"id": "47",  "curso_id": "1",  "local_id": "1",  "turma_codigo": "26/ASLO 32",  "turma_label": "Ter\u00e7a e Quinta \u2014 18h\u201322h (in\u00edcio 16/06/2026) \u2014 Residencial Rio Samba \u2014 Campo Grande",     "dias_aula": "Ter\u00e7a e Quinta", "horario": "18h\u201322h",    "data_inicio": "16/06/2026", "encerramento": "25/06/2026", "endereco_curso": "\U0001f4cdRua Antonio Carlos Belchior, 200 \u2013 Campo Grande"},
+    {"id": "48",  "curso_id": "1",  "local_id": "6",  "turma_codigo": "26/ASLO 33",  "turma_label": "S\u00e1bado \u2014 09h\u201313h (in\u00edcio 11/07/2026) \u2014 Assoc. Moradores Conj. Liberdade \u2014 Santa Cruz",   "dias_aula": "S\u00e1bado",           "horario": "09h\u201313h",    "data_inicio": "11/07/2026", "encerramento": "11/08/2026", "endereco_curso": "\U0001f4cdAv. Canal Margem Direita, 54 \u2013 CEP 23560-366"},
+    {"id": "49",  "curso_id": "1",  "local_id": "17", "turma_codigo": "26/ASLO 34",  "turma_label": "S\u00e1bado \u2014 09h\u201311h (in\u00edcio 27/06/2026) \u2014 AD ADTS de Col\u00e9gio \u2014 Col\u00e9gio",           "dias_aula": "S\u00e1bado",           "horario": "09h\u201311h",    "data_inicio": "27/06/2026", "encerramento": "25/07/2026", "endereco_curso": "\U0001f4cdEstrada de Col\u00e9gio, 121 \u2013 CEP 21235-280"},
+    {"id": "50",  "curso_id": "9",  "local_id": "16", "turma_codigo": "26/RECP 11",  "turma_label": "Seg, Ter e Qui \u2014 19h\u201321h (in\u00edcio 18/06/2026) \u2014 AD ADTS Mandela \u2014 Benfica",                      "dias_aula": "Seg, Ter e Qui",   "horario": "19h\u201321h",    "data_inicio": "18/06/2026", "encerramento": "30/06/2026", "endereco_curso": "\U0001f4cdRua Leopoldo Bulh\u00f5es, 800 \u2013 CEP 20911-300"},
+    {"id": "51",  "curso_id": "4",  "local_id": "7",  "turma_codigo": "26/INAT 29",  "turma_label": "S\u00e1bado \u2014 08h\u201312h (in\u00edcio 04/07/2026) \u2014 Igreja Batista S\u00e3o Bento \u2014 Bangu",            "dias_aula": "S\u00e1bado",           "horario": "08h\u201312h",    "data_inicio": "04/07/2026", "encerramento": "25/07/2026", "endereco_curso": "\U0001f4cdRua Batu\u00edra, 121 \u2013 CEP 21.860-290"},
+    {"id": "52",  "curso_id": "12", "local_id": "25", "turma_codigo": "26/SOMD 19",  "turma_label": "S\u00e1bado \u2014 08h\u201312h (in\u00edcio 27/06/2026) \u2014 Ig. Batista Maanaim Mendanha \u2014 Campo Grande",     "dias_aula": "S\u00e1bado",           "horario": "08h\u201312h",    "data_inicio": "27/06/2026", "encerramento": "18/07/2026", "endereco_curso": "\U0001f4cdEstrada do Mendanha, 4240"},
+    {"id": "53",  "curso_id": "3",  "local_id": "26", "turma_codigo": "26/AXCZ 21",  "turma_label": "S\u00e1bado \u2014 08h\u201312h (in\u00edcio 20/06/2026) \u2014 Sal\u00e3o de Festas \u2014 Santa Cruz",                "dias_aula": "S\u00e1bado",           "horario": "08h\u201312h",    "data_inicio": "20/06/2026", "encerramento": "11/07/2026", "endereco_curso": "\U0001f4cdAv. Marginal, 107 \u2013 CEP 23595-020 \u2013 Santa Cruz"},
+    {"id": "54",  "curso_id": "5",  "local_id": "27", "turma_codigo": "26/MARK 32",  "turma_label": "Segunda e Quinta \u2014 18h\u201322h (in\u00edcio 04/07/2026) \u2014 Centro Cultural Lottus \u2014 M\u00e9ier",         "dias_aula": "Segunda e Quinta", "horario": "18h\u201322h",    "data_inicio": "04/07/2026", "encerramento": "25/07/2026", "endereco_curso": "\U0001f4cdRua Dias da Cruz, 638 \u2013 Sala 204 \u2013 CEP 20.720-013"},
+    {"id": "55",  "curso_id": "13", "local_id": "28", "turma_codigo": "26/BARB 03",  "turma_label": "S\u00e1bado \u2014 08h\u201312h (in\u00edcio 27/06/2026) \u2014 Vila Cruzeiro \u2014 Penha",                           "dias_aula": "S\u00e1bado",           "horario": "08h\u201312h",    "data_inicio": "27/06/2026", "encerramento": "27/07/2026", "endereco_curso": "\U0001f4cdRua Sargento Ricardo Filho, 26 \u2013 CEP 21070-170"},
+    {"id": "56",  "curso_id": "2",  "local_id": "3",  "turma_codigo": "26/ADMN 46",  "turma_label": "Ter\u00e7a \u2014 14h\u201318h (in\u00edcio 07/07/2026) \u2014 Associa\u00e7\u00e3o dos Artes\u00e3os \u2014 Ana Gonzaga", "dias_aula": "Ter\u00e7a",           "horario": "14h\u201318h",    "data_inicio": "07/07/2026", "encerramento": "28/07/2026", "endereco_curso": "\U0001f4cdRua Esmeralda Ana Gonzaga QD 11 \u2013 CEP 23050-489"},
+    {"id": "57",  "curso_id": "5",  "local_id": "3",  "turma_codigo": "26/MARK 33",  "turma_label": "Quarta \u2014 08h\u201312h (in\u00edcio 08/07/2026) \u2014 Associa\u00e7\u00e3o dos Artes\u00e3os \u2014 Ana Gonzaga",   "dias_aula": "Quarta",           "horario": "08h\u201312h",    "data_inicio": "08/07/2026", "encerramento": "29/07/2026", "endereco_curso": "\U0001f4cdRua Esmeralda Ana Gonzaga QD 11 \u2013 CEP 23050-489"},
+    {"id": "58",  "curso_id": "3",  "local_id": "3",  "turma_codigo": "26/AXCZ 22",  "turma_label": "S\u00e1bado \u2014 14h\u201318h (in\u00edcio 04/07/2026) \u2014 Associa\u00e7\u00e3o dos Artes\u00e3os \u2014 Ana Gonzaga", "dias_aula": "S\u00e1bado",           "horario": "14h\u201318h",    "data_inicio": "04/07/2026", "encerramento": "25/07/2026", "endereco_curso": "\U0001f4cdRua Esmeralda Ana Gonzaga QD 11 \u2013 CEP 23050-489"},
+    {"id": "59",  "curso_id": "9",  "local_id": "29", "turma_codigo": "26/RECP 12",  "turma_label": "S\u00e1bado \u2014 14h\u201318h (in\u00edcio 11/07/2026) \u2014 Ig. Uni\u00e3o Evang\u00e9lica Pentecostal \u2014 Cosmos", "dias_aula": "S\u00e1bado",           "horario": "14h\u201318h",    "data_inicio": "11/07/2026", "encerramento": "01/08/2026", "endereco_curso": "\U0001f4cdRua Herval Rossano LT 26 QD 16 \u2013 Cosmos"},
+    {"id": "60",  "curso_id": "5",  "local_id": "13", "turma_codigo": "26/MARK 34",  "turma_label": "Segunda e Quarta \u2014 19h\u201321h (in\u00edcio 06/07/2026) \u2014 Sal\u00e3o de Festas (77) \u2014 Padre Miguel",   "dias_aula": "Segunda e Quarta", "horario": "19h\u201321h",    "data_inicio": "06/07/2026", "encerramento": "29/07/2026", "endereco_curso": "\U0001f4cdRua Juazeiro do Norte, 639 \u2013 Padre Miguel"},
+    {"id": "61",  "curso_id": "4",  "local_id": "30", "turma_codigo": "26/INAT 30",  "turma_label": "Qua, Qui e Sex \u2014 13h30\u201316h (in\u00edcio 30/06/2026) \u2014 Tia Lu \u2014 Realengo",                           "dias_aula": "Qua, Qui e Sex",   "horario": "13h30\u201316h",  "data_inicio": "30/06/2026", "encerramento": "09/07/2026", "endereco_curso": "\U0001f4cdRua Pedro Gomes, 2 \u2013 CEP 21715-040 \u2013 Realengo"},
+    {"id": "62",  "curso_id": "4",  "local_id": "8",  "turma_codigo": "26/INAT 31",  "turma_label": "S\u00e1bado \u2014 08h\u201312h (in\u00edcio 04/07/2026) \u2014 Ig. Metodista Embarcados C/Cristo \u2014 Campo Grande", "dias_aula": "S\u00e1bado",           "horario": "08h\u201312h",    "data_inicio": "04/07/2026", "encerramento": "25/07/2026", "endereco_curso": "\U0001f4cdEstrada do Cabu\u00e7u, 2692 \u2013 Campo Grande"},
+    {"id": "63",  "curso_id": "9",  "local_id": "3",  "turma_codigo": "26/RECP 13",  "turma_label": "S\u00e1bado \u2014 08h\u201312h (in\u00edcio 05/07/2026) \u2014 Associa\u00e7\u00e3o dos Artes\u00e3os \u2014 Ana Gonzaga", "dias_aula": "S\u00e1bado",           "horario": "08h\u201312h",    "data_inicio": "05/07/2026", "encerramento": "26/07/2026", "endereco_curso": "\U0001f4cdRua Esmeralda Ana Gonzaga QD 11 \u2013 CEP 23050-489"},
+    {"id": "64",  "curso_id": "5",  "local_id": "12", "turma_codigo": "26/MARK 35",  "turma_label": "Quarta \u2014 10h\u201316h (in\u00edcio 02/07/2026) \u2014 Prefeitura \u2014 Centro",                                 "dias_aula": "Quarta",           "horario": "10h\u201316h",    "data_inicio": "02/07/2026", "encerramento": "23/07/2026", "endereco_curso": "\U0001f4cdRua Afonso Cavalcanti, 455 \u2013 CEP 20211-110 \u2013 Centro"},
+    {"id": "65",  "curso_id": "3",  "local_id": "29", "turma_codigo": "26/AXCZ 23",  "turma_label": "S\u00e1bado \u2014 08h\u201312h (in\u00edcio 11/07/2026) \u2014 Ig. Uni\u00e3o Evang\u00e9lica Pentecostal \u2014 Cosmos", "dias_aula": "S\u00e1bado",           "horario": "08h\u201312h",    "data_inicio": "11/07/2026", "encerramento": "01/08/2026", "endereco_curso": "\U0001f4cdRua Herval Rossano, 26 \u2013 Cosmos"},
+    {"id": "66",  "curso_id": "3",  "local_id": "4",  "turma_codigo": "26/AXCZ 24",  "turma_label": "S\u00e1bado \u2014 08h\u201312h (in\u00edcio 11/07/2026) \u2014 IMMEC Church \u2014 Campo Grande",                     "dias_aula": "S\u00e1bado",           "horario": "08h\u201312h",    "data_inicio": "11/07/2026", "encerramento": "01/08/2026", "endereco_curso": "\U0001f4cdEstrada do Cabu\u00e7u, 2692 \u2013 Campo Grande"},
+    {"id": "67",  "curso_id": "14", "local_id": "31", "turma_codigo": "26/GRCM 01",  "turma_label": "Segunda e Quarta \u2014 14h\u201317h (in\u00edcio 29/06/2026) \u2014 Cozinha Comunit\u00e1ria \u2014 Realengo",        "dias_aula": "Segunda e Quarta", "horario": "14h\u201317h",    "data_inicio": "29/06/2026", "encerramento": "15/07/2026", "endereco_curso": "\U0001f4cdRua General Raposo, 41 \u2013 CEP 21730-000 \u2013 Realengo"},
+    {"id": "68",  "curso_id": "2",  "local_id": "9",  "turma_codigo": "26/ADMN 47",  "turma_label": "S\u00e1bado \u2014 10h\u201314h (in\u00edcio 11/07/2026) \u2014 Refor\u00e7o Escolar Tia Dani \u2014 Mar\u00e9",         "dias_aula": "S\u00e1bado",           "horario": "10h\u201314h",    "data_inicio": "11/07/2026", "encerramento": "01/08/2026", "endereco_curso": "\U0001f4cdRua Darcy Vargas, 136 \u2013 Mar\u00e9"},
+    {"id": "69",  "curso_id": "2",  "local_id": "21", "turma_codigo": "26/ADMN 48",  "turma_label": "Segunda \u2014 18h\u201322h (in\u00edcio 13/07/2026) \u2014 Igreja Batista Ebenezer \u2014 Inhoa\u00edba",              "dias_aula": "Segunda",          "horario": "18h\u201322h",    "data_inicio": "13/07/2026", "encerramento": "03/08/2026", "endereco_curso": "\U0001f4cdAv. A, 2756 \u2013 CEP 23.062-000 \u2013 Inhoa\u00edba"},
+    {"id": "70",  "curso_id": "7",  "local_id": "32", "turma_codigo": "26/OSCO 04",  "turma_label": "Ter\u00e7a e Quinta \u2014 9h\u201312h (in\u00edcio 28/07/2026) \u2014 Casa Costa Matos \u2014 Rio de Janeiro",        "dias_aula": "Ter\u00e7a e Quinta", "horario": "9h\u201312h",     "data_inicio": "28/07/2026", "encerramento": "13/08/2026", "endereco_curso": "\U0001f4cdRua Capit\u00e3o Teixeira, 583 \u2013 CEP 21.755-000"},
+    {"id": "71",  "curso_id": "10", "local_id": "20", "turma_codigo": "26/AGTU 01",  "turma_label": "Segunda e Quarta \u2014 19h\u201321h (in\u00edcio 20/07/2026) \u2014 Quadra Unidos de Manguinhos \u2014 Manguinhos",   "dias_aula": "Segunda e Quarta", "horario": "19h\u201321h",    "data_inicio": "20/07/2026", "encerramento": "12/08/2026", "endereco_curso": "\U0001f4cdAv. dos Democr\u00e1ticos, 32 \u2013 CEP 21050-000"},
+    {"id": "72",  "curso_id": "10", "local_id": "19", "turma_codigo": "26/AGTU 02",  "turma_label": "Ter\u00e7a e Quinta \u2014 9h\u201311h (in\u00edcio 20/07/2026) \u2014 Campo Socyte de Manguinhos \u2014 Manguinhos",  "dias_aula": "Ter\u00e7a e Quinta", "horario": "9h\u201311h",     "data_inicio": "20/07/2026", "encerramento": "12/08/2026", "endereco_curso": "\U0001f4cdRua N. Sra. dos Navegantes, 3 \u2013 CEP 21.050-000"},
+    {"id": "73",  "curso_id": "10", "local_id": "20", "turma_codigo": "26/AGTU 03",  "turma_label": "Ter\u00e7a e Quinta \u2014 19h\u201321h (in\u00edcio 21/07/2026) \u2014 Quadra Unidos de Manguinhos \u2014 Manguinhos", "dias_aula": "Ter\u00e7a e Quinta", "horario": "19h\u201321h",    "data_inicio": "21/07/2026", "encerramento": "13/08/2026", "endereco_curso": "\U0001f4cdAv. dos Democr\u00e1ticos, 32 \u2013 CEP 21050-000"},
+    {"id": "74",  "curso_id": "10", "local_id": "19", "turma_codigo": "26/AGTU 04",  "turma_label": "Ter\u00e7a e Quinta \u2014 9h\u201311h (in\u00edcio 20/07/2026) \u2014 Campo Socyte de Manguinhos \u2014 Manguinhos",  "dias_aula": "Ter\u00e7a e Quinta", "horario": "9h\u201311h",     "data_inicio": "20/07/2026", "encerramento": "12/08/2026", "endereco_curso": "\U0001f4cdRua N. Sra. dos Navegantes, 3 \u2013 CEP 21.050-000"},
+    {"id": "75",  "curso_id": "9",  "local_id": "24", "turma_codigo": "26/RECP 14",  "turma_label": "Ter\u00e7a \u2014 18h\u201322h (in\u00edcio 13/07/2026) \u2014 AD na Pavuna \u2014 Cosmos",                            "dias_aula": "Ter\u00e7a",           "horario": "18h\u201322h",    "data_inicio": "13/07/2026", "encerramento": "03/08/2026", "endereco_curso": "\U0001f4cdRua 9, Lote 19 \u2013 Cj Urucania \u2013 CEP 23.059-340"},
+    {"id": "76",  "curso_id": "5",  "local_id": "30", "turma_codigo": "26/MARK 38",  "turma_label": "Seg, Qua e Qui \u2014 14h\u201316h (in\u00edcio 03/08/2026) \u2014 Tia Lu \u2014 Realengo",                             "dias_aula": "Seg, Qua e Qui",   "horario": "14h\u201316h",    "data_inicio": "03/08/2026", "encerramento": "14/08/2026", "endereco_curso": "\U0001f4cdRua Pedro Gomes, 2 \u2013 Realengo \u2013 CEP 21715-040"},
+    {"id": "77",  "curso_id": "3",  "local_id": "26", "turma_codigo": "26/AXCZ 25",  "turma_label": "S\u00e1bado \u2014 08h\u201312h (in\u00edcio 18/07/2026) \u2014 Sal\u00e3o de Festas \u2014 Santa Cruz",                "dias_aula": "S\u00e1bado",           "horario": "08h\u201312h",    "data_inicio": "18/07/2026", "encerramento": "08/08/2026", "endereco_curso": "\U0001f4cdAv. Marginal, 107 \u2013 CEP 23595-020 \u2013 Santa Cruz"},
+    {"id": "78",  "curso_id": "13", "local_id": "28", "turma_codigo": "26/BARB 04",  "turma_label": "S\u00e1bado \u2014 08h\u201312h (in\u00edcio 01/08/2026) \u2014 Vila Cruzeiro \u2014 Penha",                           "dias_aula": "S\u00e1bado",           "horario": "08h\u201312h",    "data_inicio": "01/08/2026", "encerramento": "22/08/2026", "endereco_curso": "\U0001f4cdRua Sargento Ricardo Filho, 26 \u2013 CEP 21070-170 \u2013 Olaria"},
+    {"id": "79",  "curso_id": "1",  "local_id": "3",  "turma_codigo": "26/ASLO 35",  "turma_label": "Ter\u00e7a \u2014 08h\u201312h (in\u00edcio 04/08/2026) \u2014 Associa\u00e7\u00e3o dos Artes\u00e3os \u2014 Ana Gonzaga", "dias_aula": "Ter\u00e7a",           "horario": "08h\u201312h",    "data_inicio": "04/08/2026", "encerramento": "25/08/2026", "endereco_curso": "\U0001f4cdRua Esmeralda de Ana Gonzaga \u2013 Inhoa\u00edba \u2013 QD 11 LT 24 \u2013 CEP 23050-489"},
+    {"id": "80",  "curso_id": "4",  "local_id": "3",  "turma_codigo": "26/INAT 33",  "turma_label": "Quarta \u2014 8h\u201312h (in\u00edcio 05/08/2026) \u2014 Associa\u00e7\u00e3o dos Artes\u00e3os \u2014 Ana Gonzaga",    "dias_aula": "Quarta",           "horario": "8h\u201312h",     "data_inicio": "05/08/2026", "encerramento": "26/08/2026", "endereco_curso": "\U0001f4cdRua Esmeralda de Ana Gonzaga \u2013 Inhoa\u00edba \u2013 QD 11 LT 24 \u2013 CEP 23050-489"},
+    {"id": "81",  "curso_id": "3",  "local_id": "3",  "turma_codigo": "26/AXCZ 26",  "turma_label": "S\u00e1bado \u2014 08h\u201312h (in\u00edcio 05/08/2026) \u2014 Associa\u00e7\u00e3o dos Artes\u00e3os \u2014 Ana Gonzaga", "dias_aula": "S\u00e1bado",           "horario": "08h\u201312h",    "data_inicio": "05/08/2026", "encerramento": "26/08/2026", "endereco_curso": "\U0001f4cdRua Esmeralda de Ana Gonzaga \u2013 Inhoa\u00edba \u2013 QD 11 LT 24 \u2013 CEP 23050-489"},
+    {"id": "82",  "curso_id": "11", "local_id": "23", "turma_codigo": "26/VEND 02",  "turma_label": "Segunda e Quarta \u2014 19h30\u201321h30 (in\u00edcio 29/07/2026) \u2014 Ig. Evang\u00e9lica P\u00e3o da Vida \u2014 Curicica", "dias_aula": "Segunda e Quarta", "horario": "19h30\u201321h30","data_inicio": "29/07/2026", "encerramento": "13/08/2026", "endereco_curso": "\U0001f4cdRua Mandina 2 \u2013 Curicica \u2013 CEP 22780-530"},
+    {"id": "83",  "curso_id": "15", "local_id": "6",  "turma_codigo": "26/ELET 01",  "turma_label": "S\u00e1bado \u2014 9h\u201313h (in\u00edcio 15/08/2026) \u2014 Assoc. Moradores Conj. Liberdade \u2014 Santa Cruz",    "dias_aula": "S\u00e1bado",           "horario": "9h\u201313h",     "data_inicio": "15/08/2026", "encerramento": "05/09/2026", "endereco_curso": "\U0001f4cdAv. Canal Margem Direita, 54 \u2013 CEP 23560-366 \u2013 Santa Cruz"},
+    {"id": "84",  "curso_id": "2",  "local_id": "2",  "turma_codigo": "26/ADMN 50",  "turma_label": "Segunda \u2014 17h30\u201321h30 (in\u00edcio 03/08/2026) \u2014 Igreja Batista Rio da Prata \u2014 Bangu",              "dias_aula": "Segunda",          "horario": "17h30\u201321h30","data_inicio": "03/08/2026", "encerramento": "24/08/2026", "endereco_curso": "\U0001f4cdRua dos Limadores, 866 \u2013 CEP 21830-005 \u2013 Bangu"},
+    {"id": "85",  "curso_id": "12", "local_id": "22", "turma_codigo": "26/SOMD 21",  "turma_label": "S\u00e1bado \u2014 8h\u201312h (in\u00edcio 01/08/2026) \u2014 Assoc. de Moradores S\u00e3o Jorge \u2014 Inhoa\u00edba", "dias_aula": "S\u00e1bado",           "horario": "8h\u201312h",     "data_inicio": "01/08/2026", "encerramento": "22/08/2026", "endereco_curso": "\U0001f4cdRua Pedro Autran, 71 \u2013 CEP 23059-105 \u2013 Cosmos"},
+    {"id": "86",  "curso_id": "4",  "local_id": "18", "turma_codigo": "26/INAT 34",  "turma_label": "Segunda \u2014 17h\u201321h (in\u00edcio 27/07/2026) \u2014 Centro Social Estrela da Manh\u00e3 \u2014 Guaratiba",       "dias_aula": "Segunda",          "horario": "17h\u201321h",    "data_inicio": "27/07/2026", "encerramento": "17/08/2026", "endereco_curso": "\U0001f4cdRua Alcides Franco, 175 \u2013 CEP 23032-010 \u2013 Guaratiba"},
+    {"id": "87",  "curso_id": "15", "local_id": "31", "turma_codigo": "26/ELET 02",  "turma_label": "Ter\u00e7a e Quinta \u2014 18h\u201321h (in\u00edcio 28/07/2026) \u2014 Cozinha Comunit\u00e1ria \u2014 Realengo",       "dias_aula": "Ter\u00e7a e Quinta", "horario": "18h\u201321h",    "data_inicio": "28/07/2026", "encerramento": "20/08/2026", "endereco_curso": "\U0001f4cdRua General Raposo, 41 \u2013 CEP 21730-000 \u2013 Realengo"},
+    {"id": "88",  "curso_id": "15", "local_id": "17", "turma_codigo": "26/ELET 03",  "turma_label": "S\u00e1bado \u2014 9h\u201312h (in\u00edcio 01/08/2026) \u2014 AD ADTS de Col\u00e9gio \u2014 Col\u00e9gio",             "dias_aula": "S\u00e1bado",           "horario": "9h\u201312h",     "data_inicio": "01/08/2026", "encerramento": "29/08/2026", "endereco_curso": "\U0001f4cdEstrada de Col\u00e9gio, 121 \u2013 Col\u00e9gio \u2013 CEP 21235-280"},
+    {"id": "90",  "curso_id": "2",  "local_id": "13", "turma_codigo": "26/ADMN 52",  "turma_label": "Segunda e Quarta \u2014 19h\u201321h (in\u00edcio 03/08/2026) \u2014 Sal\u00e3o de Festas (77) \u2014 Padre Miguel",   "dias_aula": "Segunda e Quarta", "horario": "19h\u201321h",    "data_inicio": "03/08/2026", "encerramento": "28/08/2026", "endereco_curso": "\U0001f4cdRua Juazeiro do Norte, 639 \u2013 Padre Miguel"},
+    {"id": "91",  "curso_id": "2",  "local_id": "10", "turma_codigo": "26/ADMN 53",  "turma_label": "Ter\u00e7a e Quinta \u2014 A confirmar (in\u00edcio 28/07/2026) \u2014 Vila do Pinheiro \u2014 Mar\u00e9",               "dias_aula": "Ter\u00e7a e Quinta", "horario": "A confirmar",    "data_inicio": "28/07/2026", "encerramento": "13/08/2026", "endereco_curso": "\U0001f4cdVia B9, 379, BL 14 \u2013 CEP 21046-090"},
+    {"id": "92",  "curso_id": "14", "local_id": "18", "turma_codigo": "26/GRCM 02",  "turma_label": "A confirmar \u2014 A confirmar (in\u00edcio 21/07/2026) \u2014 Centro Social Estrela da Manh\u00e3 \u2014 Guaratiba",  "dias_aula": "A confirmar",      "horario": "A confirmar",    "data_inicio": "21/07/2026", "encerramento": "11/08/2026", "endereco_curso": "\U0001f4cdRua Alcides Franco, 175 \u2013 CEP 23032-010 \u2013 Guaratiba"},
+    {"id": "93",  "curso_id": "8",  "local_id": "22", "turma_codigo": "26/PORT 02",  "turma_label": "Sexta \u2014 17h\u201321h (in\u00edcio 31/07/2026) \u2014 Assoc. de Moradores S\u00e3o Jorge \u2014 Inhoa\u00edba",     "dias_aula": "Sexta",            "horario": "17h\u201321h",    "data_inicio": "31/07/2026", "encerramento": "21/08/2026", "endereco_curso": "\U0001f4cdRua Moranga, 125, CS 102 \u2013 Inhoa\u00edba \u2013 CG"},
+    {"id": "94",  "curso_id": "3",  "local_id": "7",  "turma_codigo": "FGM-AC-02",   "turma_label": "S\u00e1bado \u2014 09h\u201312h (in\u00edcio 25/07/2026) \u2014 Igreja Batista S\u00e3o Bento \u2014 Bangu",            "dias_aula": "S\u00e1bado",           "horario": "09h\u201312h",    "data_inicio": "25/07/2026", "encerramento": "15/08/2026", "endereco_curso": "\U0001f4cdRua Batu\u00edra, 121 \u2013 Bangu"},
+    {"id": "95",  "curso_id": "9",  "local_id": "14", "turma_codigo": "26/RECP 15",  "turma_label": "Ter\u00e7a e Quinta \u2014 08h\u201312h (in\u00edcio 13/08/2026) \u2014 Amubua (Associa\u00e7\u00e3o) \u2014 Santa Cruz", "dias_aula": "Ter\u00e7a e Quinta", "horario": "08h\u201312h",    "data_inicio": "13/08/2026", "encerramento": "03/09/2026", "endereco_curso": "\U0001f4cdRua Jos\u00e9 Silton Pinheiro, 51 \u2013 CEP: 23.573-340 \u2013 Santa Cruz"},
+    {"id": "96",  "curso_id": "10", "local_id": "5",  "turma_codigo": "26/AGTU 05",  "turma_label": "S\u00e1bado \u2014 08h\u201312h (in\u00edcio 15/08/2026) \u2014 Min. Ap. Mover Prof\u00e9tico \u2014 Senador Camar\u00e1", "dias_aula": "S\u00e1bado",           "horario": "08h\u201312h",    "data_inicio": "15/08/2026", "encerramento": "05/09/2026", "endereco_curso": "\U0001f4cdR: Bom Guilherme Francisco Moraes, 3 \u2013 Senador Camar\u00e1 \u2013 CEP: 21833-190"},
+    {"id": "97",  "curso_id": "16", "local_id": "33", "turma_codigo": "26/INVS 01",  "turma_label": "S\u00e1bado \u2014 08h\u201312h (in\u00edcio 22/08/2026) \u2014 Estrada do Mendanha \u2014 Campo Grande",            "dias_aula": "S\u00e1bado",           "horario": "08h\u201312h",    "data_inicio": "22/08/2026", "encerramento": "26/09/2026", "endereco_curso": "\U0001f4cdEstrada do Mendanha, 4240 \u2013 Campo Grande"},
+    {"id": "98",  "curso_id": "16", "local_id": "2",  "turma_codigo": "26/INVS 02",  "turma_label": "S\u00e1bado \u2014 08h\u201312h (in\u00edcio 22/08/2026) \u2014 Igreja Batista Rio da Prata \u2014 Bangu",            "dias_aula": "S\u00e1bado",           "horario": "08h\u201312h",    "data_inicio": "22/08/2026", "encerramento": "26/08/2026", "endereco_curso": "\U0001f4cdRua dos Limadores, 866 \u2013 Bangu \u2013 RJ \u2013 CEP: 21830-005"},
+    {"id": "99",  "curso_id": "16", "local_id": "34", "turma_codigo": "26/INVS 03",  "turma_label": "S\u00e1bado \u2014 08h\u201312h (in\u00edcio 22/08/2026) \u2014 Rua Caminho Foz do Jord\u00e3o \u2014 Campo Grande", "dias_aula": "S\u00e1bado",           "horario": "08h\u201312h",    "data_inicio": "22/08/2026", "encerramento": "22/08/2026", "endereco_curso": "\U0001f4cdRua Caminho Foz do Jord\u00e3o, 28 \u2013 Campo Grande"},
+    {"id": "100", "curso_id": "16", "local_id": "34", "turma_codigo": "26/INVS 04",  "turma_label": "S\u00e1bado \u2014 08h\u201312h (in\u00edcio 22/08/2026) \u2014 Rua Caminho Foz do Jord\u00e3o \u2014 Campo Grande", "dias_aula": "S\u00e1bado",           "horario": "08h\u201312h",    "data_inicio": "22/08/2026", "encerramento": "26/09/2026", "endereco_curso": "\U0001f4cdRua Caminho Foz do Jord\u00e3o, 28 \u2013 Campo Grande"},
+    {"id": "101", "curso_id": "16", "local_id": "35", "turma_codigo": "26/INVS 05",  "turma_label": "S\u00e1bado \u2014 08h\u201312h (in\u00edcio 22/08/2026) \u2014 Atr\u00e1s do Col\u00e9gio Estadual Luiz Carlos Vila \u2014 Benfica", "dias_aula": "S\u00e1bado", "horario": "08h\u201312h", "data_inicio": "22/08/2026", "encerramento": "26/09/2026", "endereco_curso": "\U0001f4cdAv. Dom Helder Camara, 1.184 \u2013 Benfica"},
+    {"id": "102", "curso_id": "16", "local_id": "36", "turma_codigo": "26/INVS 06",  "turma_label": "S\u00e1bado \u2014 08h\u201312h (in\u00edcio 22/08/2026) \u2014 Realengo \u2014 Rua General Raposo",                 "dias_aula": "S\u00e1bado",           "horario": "08h\u201312h",    "data_inicio": "22/08/2026", "encerramento": "26/09/2026", "endereco_curso": "\U0001f4cdRua General Raposo, 41 \u2013 Realengo"},
+    {"id": "103", "curso_id": "16", "local_id": "37", "turma_codigo": "26/INVS 07",  "turma_label": "S\u00e1bado \u2014 08h\u201312h (in\u00edcio 22/08/2026) \u2014 Igreja Assembl\u00e9ia de Deus ADAV \u2014 Senador Augusto Vasconcelos", "dias_aula": "S\u00e1bado", "horario": "08h\u201312h", "data_inicio": "22/08/2026", "encerramento": "26/09/2026", "endereco_curso": "\U0001f4cdRua Arthur Rios, 805 \u2013 Senador Augusto Vasconcelos"},
+    {"id": "104", "curso_id": "16", "local_id": "10", "turma_codigo": "26/INVS 08",  "turma_label": "S\u00e1bado \u2014 08h\u201312h (in\u00edcio 01/08/2026) \u2014 Vila do Pinheiro \u2014 Mar\u00e9",                     "dias_aula": "S\u00e1bado",           "horario": "08h\u201312h",    "data_inicio": "01/08/2026", "encerramento": "22/08/2026", "endereco_curso": "\U0001f4cdVila do Pinheiro 1 \u2013 Mar\u00e9"},
+    {"id": "105", "curso_id": "6",  "local_id": "4",  "turma_codigo": "26/MLRE 19",  "turma_label": "S\u00e1bado \u2014 14h\u201318h (in\u00edcio 22/08/2026) \u2014 IMMEC Church \u2014 Campo Grande",                     "dias_aula": "S\u00e1bado",           "horario": "14h\u201318h",    "data_inicio": "22/08/2026", "encerramento": "12/09/2026", "endereco_curso": "\U0001f4cdEstrada do Cabu\u00e7u, 2692 \u2013 Vila Jardim, Campo Grande"},
+    {"id": "106", "curso_id": "3",  "local_id": "18", "turma_codigo": "26/AXCZ 27",  "turma_label": "Ter\u00e7a \u2014 17h\u201321h (in\u00edcio 21/07/2026) \u2014 Centro Social Estrela da Manh\u00e3 \u2014 Guaratiba",  "dias_aula": "Ter\u00e7a",           "horario": "17h\u201321h",    "data_inicio": "21/07/2026", "encerramento": "11/08/2026", "endereco_curso": "\U0001f4cdRua Alcides Franco, 175 \u2013 CEP 23032-010"},
 ]
+
 
 def build_course_options():
     local_by_id  = {o["id"]: o for o in LOCAL_OPTIONS}
@@ -230,7 +220,6 @@ def build_course_options():
             "endereco_curso": t["endereco_curso"],
         })
     return options
-
 COURSE_OPTIONS       = build_course_options()
 COURSE_OPTIONS_BY_ID = {o["id"]: o for o in COURSE_OPTIONS}
 COURSE_CATALOG_BY_ID = {o["id"]: o for o in COURSE_CATALOG}
@@ -238,10 +227,7 @@ LOCAL_OPTIONS_BY_ID  = {o["id"]: o for o in LOCAL_OPTIONS}
 COURSE_INFO          = COURSE_OPTIONS[0] if COURSE_OPTIONS else None
 
 def build_whatsapp_share_url(home_url):
-    message = (
-        "Acabei de me inscrever em uma oportunidade de qualificacao profissional. "
-        "Confira aqui: " + home_url
-    )
+    message = ("Acabei de me inscrever em uma oportunidade de qualificacao profissional. Confira aqui: " + home_url)
     return f"https://wa.me/?text={quote(message)}"
 
 def get_course_option(option_id):
@@ -270,28 +256,20 @@ def fill_form_data_from_selection(form_data):
             fill_form_data_from_option(form_data, matched)
             return
     if local_id and curso_id:
-        matched = next(
-            (o for o in COURSE_OPTIONS
-             if o["local_id"] == str(local_id) and o["curso_id"] == str(curso_id)),
-            None,
-        )
+        matched = next((o for o in COURSE_OPTIONS if o["local_id"]==str(local_id) and o["curso_id"]==str(curso_id)),None)
         if matched:
             fill_form_data_from_option(form_data, matched)
             return
-    for key in ("local", "curso", "turma", "dias_aula", "horario",
-                "data_inicio", "encerramento", "endereco_curso", "opcao_id"):
+    for key in ("local","curso","turma","dias_aula","horario","data_inicio","encerramento","endereco_curso","opcao_id"):
         form_data.setdefault(key, "")
 
-# =============================================================================
-# 5. TEMPLATES
-# =============================================================================
-TEMPLATE_WIZARD = r"""
-<!DOCTYPE html>
+
+TEMPLATE_WIZARD = r"""<!DOCTYPE html>
 <html lang="pt-br">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-    <title>MOVIMENTA RIO</title>
+    <title>MOVIMENTA RIO — MAR&#201; I E II</title>
     <link rel="stylesheet" href="/static/style.css">
     <link rel="stylesheet" href="/static/assistant.css">
     <link href="https://fonts.googleapis.com/css2?family=Wise:wght@400;700;900&display=swap" rel="stylesheet">
@@ -308,97 +286,110 @@ TEMPLATE_WIZARD = r"""
         fbq('track', 'PageView');
     </script>
     <style>
-        :root { --cor-principal: #1155cc; --cor-principal-escura: #0d47a1; --cor-clara: #eef4ff; --cor-texto: #17386d; --cor-borda: #a8c0f4; --sombra-card: 0 18px 55px rgba(17, 85, 204, 0.18); }
-        * { box-sizing: border-box; } html, body { min-height: 100%; margin: 0; padding: 0; }
-        body { min-height: 100vh; background: radial-gradient(circle at top left, rgba(17,85,204,0.14), transparent 34%), radial-gradient(circle at top right, rgba(211,226,255,0.82), transparent 32%), linear-gradient(135deg, #f5f9ff 0%, #fff 42%, #dfeaff 100%); color: var(--cor-texto); font-family: 'Wise', Arial, sans-serif; }
-        .main-header { border-bottom: 4px solid var(--cor-principal); background: rgba(255,255,255,0.92); backdrop-filter: blur(8px); }
-        .wizard-page { width: min(900px, 98vw); margin: 0 auto; padding: 8px 0 18px; text-align: center; }
-        .wizard-progress { margin: 18px auto 22px; padding: 18px 18px 20px; border-radius: 28px; background: rgba(255,255,255,0.9); box-shadow: 0 12px 30px rgba(17,85,204,0.12); }
-        .wizard-track { width: 100%; height: 14px; background: #dbe6fb; border-radius: 999px; overflow: hidden; }
-        .wizard-fill { height: 100%; width: 25%; background: linear-gradient(90deg,#1155cc 0%,#4f86ea 100%); border-radius: 999px; transition: width 0.3s ease; }
-        .wizard-labels { display: grid; grid-template-columns: repeat(4,1fr); gap: 10px; margin-top: 14px; }
-        .wizard-label { padding: 12px 10px; border: 1px solid #c9daf8; border-radius: 18px; background: #fff; color: #2f5fb4; font-size: 0.92rem; font-weight: 700; text-align: center; transition: all 0.25s ease; }
-        .wizard-label.ativo { border-color: var(--cor-principal); background: var(--cor-clara); color: var(--cor-principal); }
-        .wizard-shell { background: rgba(255,255,255,0.88); border: 1px solid rgba(255,255,255,0.9); border-radius: 34px; box-shadow: var(--sombra-card); overflow: hidden; }
-        .wizard-panel { display: none; padding: 18px 8px; animation: surgir 0.28s ease; }
-        .wizard-panel.ativo { display: block; }
-        @keyframes surgir { from { opacity:0; transform:translateY(12px); } to { opacity:1; transform:translateY(0); } }
-        .hero-grid { display: grid; grid-template-columns: minmax(0,1fr); gap: 14px; align-items: center; justify-items: center; }
-        .hero-card { padding: 32px; border-radius: 30px; background: linear-gradient(135deg,#fff 0%,#f5f9ff 58%,#dfeaff 100%); border: 1px solid #c9daf8; width: 100%; text-align: center; }
-        .hero-pill { display: inline-flex; align-items: center; gap: 8px; padding: 10px 18px; border-radius: 999px; background: var(--cor-principal); color: #fff; font-size: 0.95rem; font-weight: 800; letter-spacing: 0.05em; text-transform: uppercase; }
-        .hero-title, .panel-title { margin: 18px 0 10px; color: var(--cor-principal); font-size: clamp(2rem,3.8vw,3.2rem); line-height: 1; letter-spacing: -0.04em; }
-        .panel-title { font-size: clamp(1.7rem,3vw,2.4rem); }
-        .hero-subtitle, .panel-subtitle { margin: 0; color: #2f5fb4; font-size: 1.05rem; line-height: 1.55; }
-        .hero-highlights { display: grid; gap: 10px; margin-top: 16px; }
-        .hero-highlight, .review-box, .step-card { border-radius: 22px; border: 1px solid #d7e3fb; background: #fff; box-shadow: 0 8px 24px rgba(17,85,204,0.08); }
-        .hero-highlight { padding: 12px 14px; color: #2f5fb4; font-size: 0.95rem; font-weight: 700; }
-        .hero-highlight strong { display: block; color: var(--cor-principal); font-size: 1.15rem; margin-bottom: 4px; }
-        .benefits-slider { display: grid; gap: 12px; margin-top: 8px; }
-        .benefits-viewport { position: relative; min-height: 76px; overflow: hidden; }
-        .benefit-slide { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; padding: 10px 12px; border-radius: 16px; background: var(--cor-clara); color: var(--cor-principal); font-size: 0.98rem; font-weight: 800; line-height: 1.45; text-align: center; opacity: 0; transform: translateX(18px); transition: opacity 0.28s ease, transform 0.28s ease; pointer-events: none; }
-        .benefit-slide.ativo { opacity: 1; transform: translateX(0); pointer-events: auto; }
-        .benefits-controls { display: flex; align-items: center; justify-content: center; gap: 10px; }
-        .benefits-nav { min-width: 44px; min-height: 44px; border: none; border-radius: 999px; background: #fff; color: var(--cor-principal); box-shadow: 0 6px 16px rgba(17,85,204,0.14); font: inherit; font-size: 1.1rem; font-weight: 900; cursor: pointer; }
-        .benefits-dots { display: flex; gap: 6px; align-items: center; justify-content: center; }
-        .benefits-dot { width: 9px; height: 9px; border-radius: 999px; background: #b7cbf4; transition: transform 0.2s ease, background 0.2s ease; }
-        .benefits-dot.ativo { background: var(--cor-principal); transform: scale(1.2); }
-        .step-card { padding: 18px 16px; width: 100%; margin: 0 auto; text-align: center; }
-        .step-grid { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: 10px 12px; margin-top: 10px; align-items: start; }
-        .step-grid.step-grid--stacked { grid-template-columns: minmax(0,1fr); max-width: 540px; margin-left: auto; margin-right: auto; }
-        .wizard-panel[data-step="dados"] .form-group, .wizard-panel[data-step="escolher"] .form-group { align-items: stretch; text-align: left; }
-        .wizard-panel[data-step="dados"] .form-group label, .wizard-panel[data-step="escolher"] .form-group label { width: 100%; text-align: left; }
-        .wizard-panel[data-step="escolher"] .step-grid.step-grid--stacked { max-width: 470px; }
-        .wizard-panel[data-step="escolher"] .form-group, .wizard-panel[data-step="escolher"] .form-group.full { width: 100%; max-width: 100%; }
-        .wizard-panel[data-step="escolher"] .input-with-action { width: 100%; max-width: 100%; }
-        .form-group { display: flex; flex-direction: column; gap: 4px; width: 100%; align-self: start; align-items: center; text-align: center; }
-        .form-group.full { grid-column: 1/-1; }
-        .form-group label, .review-title { color: var(--cor-principal); font-size: 1rem; font-weight: 800; }
-        .form-group input, .form-group select, .form-group textarea { display: block; width: 100% !important; max-width: 100% !important; min-width: 0 !important; margin: 0 !important; box-sizing: border-box; min-height: 38px; height: 38px; padding: 7px 10px; border: 1.2px solid var(--cor-borda); border-radius: 10px; background: #f5f9ff; color: var(--cor-texto); font: inherit; line-height: 1.2; text-align: left; outline: none; transition: border-color 0.2s ease, box-shadow 0.2s ease, background 0.2s ease; }
-        .form-group select { appearance: none; -webkit-appearance: none; -moz-appearance: none; background-image: url('data:image/svg+xml;utf8,<svg fill="%231155cc" height="20" viewBox="0 0 24 24" width="20" xmlns="http://www.w3.org/2000/svg"><path d="M7 10l5 5 5-5z"/></svg>'); background-repeat: no-repeat; background-position: right 14px center; background-size: 20px 20px; padding-right: 44px; }
-        .form-group textarea { min-height: 60px; height: auto; resize: vertical; }
-        .form-group input:focus, .form-group select:focus, .form-group textarea:focus { border-color: var(--cor-principal); background: #fff; box-shadow: 0 0 0 4px rgba(17,85,204,0.12); }
-        .readonly-field { background: #eef4ff !important; color: #2f5fb4 !important; font-weight: 700; }
-        .input-with-action { display: grid; grid-template-columns: minmax(0,1fr); gap: 10px; align-items: stretch; }
-        .input-with-action input { width: 100% !important; }
-        .icon-button, .cta-button, .secondary-button, .submit-button { border: none; border-radius: 18px; font: inherit; font-weight: 800; cursor: pointer; transition: transform 0.16s ease, box-shadow 0.16s ease, background 0.16s ease, color 0.16s ease; }
-        .icon-button { min-width: 56px; min-height: 52px; background: var(--cor-principal); color: #fff; box-shadow: 0 8px 16px rgba(17,85,204,0.22); }
-        .wizard-panel[data-step="escolher"] .icon-button { width: 100% !important; min-width: 0 !important; max-width: 100% !important; height: 38px !important; min-height: 38px !important; padding: 0; border-radius: 10px; box-shadow: none; }
-        .panel-actions .cta-button, .panel-actions .secondary-button, .panel-actions .submit-button { width: 100% !important; max-width: 100% !important; min-width: 0 !important; margin: 0 !important; height: 38px; font-size: 1rem; }
-        .cta-button, .submit-button { background: linear-gradient(90deg,#1155cc 0%,#4f86ea 100%); color: #fff; box-shadow: 0 10px 24px rgba(17,85,204,0.24); }
-        .secondary-button { background: #fff; color: var(--cor-principal); border: 2px solid var(--cor-principal); }
-        .cta-button, .secondary-button, .submit-button { min-height: 54px; padding: 14px 22px; text-transform: uppercase; letter-spacing: 0.04em; }
-        .cta-button:hover, .secondary-button:hover, .submit-button:hover, .icon-button:hover { transform: translateY(-1px); }
-        .panel-actions { display: flex; flex-direction: column-reverse; align-items: center; gap: 12px; justify-content: space-between; margin-top: 28px; max-width: 420px; margin-left: auto; margin-right: auto; }
-        .panel-actions > * { flex: 1; }
-        .balao-erro { margin-top: 4px; padding: 10px 14px; border-radius: 14px; border: 1px solid #0d47a1; background: #1155cc; color: #fff; font-size: 0.92rem; font-weight: 700; line-height: 1.35; }
-        .balao-erro[hidden] { display: none; }
-        .erro-campo { border-color: #1155cc !important; box-shadow: 0 0 0 4px rgba(17,85,204,0.12) !important; }
-        .review-layout { display: grid; grid-template-columns: 1fr; gap: 8px; margin-top: 10px; max-width: 540px; margin-left: auto; margin-right: auto; }
-        .review-box { padding: 10px; text-align: center; }
-        .review-box.full { grid-column: 1/-1; }
-        .review-list { display: grid; gap: 6px; margin-top: 8px; text-align: left; }
-        .review-item { display: grid; grid-template-columns: auto 1fr; align-items: center; column-gap: 8px; padding: 7px 9px; border-radius: 10px; background: var(--cor-clara); text-align: left; }
-        .review-item strong { color: var(--cor-principal); font-size: 0.88rem; white-space: nowrap; }
-        .review-item strong::after { content: ':'; }
-        .review-item span { color: var(--cor-texto); font-size: 0.94rem; word-break: break-word; text-align: left; }
-        .review-check { display: flex; gap: 12px; align-items: flex-start; padding: 10px 12px; border-radius: 14px; background: var(--cor-clara); color: #17386d; line-height: 1.45; text-align: left; }
-        .review-check input { margin-top: 3px; width: 20px; min-width: 20px; height: 20px; flex: 0 0 20px; accent-color: var(--cor-principal); }
-        .review-check span { flex: 1 1 auto; min-width: 0; }
-        .review-check ul { margin: 8px 0 0 18px; padding: 0; list-style-position: outside; text-align: left; }
-        .review-box .form-group { align-items: stretch; text-align: left; }
-        .review-box .form-group label { width: 100%; text-align: left; }
-        @media (max-width: 860px) { .hero-grid, .review-layout { grid-template-columns: 1fr; } .step-grid { grid-template-columns: repeat(2,minmax(0,1fr)); gap: 8px; } .step-grid.step-grid--stacked { grid-template-columns: minmax(0,1fr); max-width: 540px; } }
-        @media (max-width: 640px) {
-            html,body { width:100%!important; max-width:100%!important; overflow-x:hidden!important; } body * { min-width: 0; } body { overflow-x: hidden; }
-            .main-header { padding: 10px 12px; } .header-logos { display:flex; flex-direction:column; align-items:center; gap:10px; } .header-logos img { max-width: min(88vw,280px); height:auto; }
-            .wizard-page { width:calc(100% - 8px)!important; max-width:100%!important; padding:4px 0 10px; } .wizard-progress, .wizard-panel { width:100%!important; max-width:100%!important; padding:8px; } .wizard-labels { grid-template-columns: 1fr; gap: 6px; }
-            .hero-card, .step-card, .review-box { width:100%!important; max-width:100%!important; padding:8px; } .input-with-action { grid-template-columns: minmax(0,1fr); width:100%!important; max-width:100%!important; } .panel-actions > * { width: 100%; }
-            .step-grid { grid-template-columns: repeat(2,minmax(0,1fr)); gap: 6px; } .step-grid.step-grid--stacked { grid-template-columns: minmax(0,1fr); max-width: 100%; } .review-layout { grid-template-columns: 1fr; max-width: 100%; gap: 10px; }
-            .review-item, .form-group, .form-group input, .form-group select, .form-group textarea, .wizard-shell, .panel-actions, .review-check, .balao-erro { width:100%!important; max-width:100%!important; }
-            .form-group label, .review-title, .review-item span, .review-check { word-break: break-word; } img, svg { max-width:100%!important; height:auto!important; }
-            .form-group input, .form-group select, .form-group textarea, .icon-button { min-height:32px; height:32px; font-size:0.98em; } .form-group textarea { min-height:60px; height:auto; }
-            .review-check { flex-direction:row; align-items:flex-start; padding:8px; } .review-check input { width:22px; min-width:22px; height:22px; flex-basis:22px; } .review-check ul { padding-left: 2px; }
-            .hero-title, .panel-title { font-size: 1.3rem; } .hero-subtitle, .panel-subtitle { font-size: 0.92rem; } .wizard-shell { border-radius: 16px; } .form-group.full { grid-column: auto; }
+        :root{--cor-principal:#1155cc;--cor-principal-escura:#1155cc;--cor-clara:#eff6ff;--cor-texto:#1e3a5f;--cor-borda:#93c5fd;--sombra-card:0 18px 55px rgba(37,99,235,0.18);}
+        *{box-sizing:border-box;}html,body{min-height:100%;margin:0;padding:0;}
+        body{min-height:100vh;background:radial-gradient(circle at top left,rgba(37,99,235,0.14),transparent 34%),radial-gradient(circle at top right,rgba(147,197,253,0.82),transparent 32%),linear-gradient(135deg,#eff6ff 0%,#fff 42%,#eef4ff 100%);color:var(--cor-texto);font-family:'Wise',Arial,sans-serif;}
+        .main-header{border-bottom:4px solid var(--cor-principal);background:rgba(255,255,255,0.92);backdrop-filter:blur(8px);}
+        .wizard-page{width:min(900px,98vw);margin:0 auto;padding:8px 0 18px;text-align:center;}
+        .wizard-progress{margin:18px auto 22px;padding:18px 18px 20px;border-radius:28px;background:rgba(255,255,255,0.9);box-shadow:0 12px 30px rgba(37,99,235,0.12);}
+        .wizard-track{width:100%;height:14px;background:#eef4ff;border-radius:999px;overflow:hidden;}
+        .wizard-fill{height:100%;width:25%;background:linear-gradient(90deg,#1155cc 0%,#60a5fa 100%);border-radius:999px;transition:width 0.3s ease;}
+        .wizard-labels{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-top:14px;}
+        .wizard-label{padding:12px 10px;border:1px solid #93c5fd;border-radius:18px;background:#fff;color:#1155cc;font-size:0.92rem;font-weight:700;text-align:center;transition:all 0.25s ease;}
+        .wizard-label.ativo{border-color:var(--cor-principal);background:var(--cor-clara);color:var(--cor-principal);}
+        .wizard-shell{background:rgba(255,255,255,0.88);border:1px solid rgba(255,255,255,0.9);border-radius:34px;box-shadow:var(--sombra-card);overflow:hidden;}
+        .wizard-panel{display:none;padding:18px 8px;animation:surgir 0.28s ease;}
+        .wizard-panel.ativo{display:block;}
+        @keyframes surgir{from{opacity:0;transform:translateY(12px);}to{opacity:1;transform:translateY(0);}}
+        .hero-grid{display:grid;grid-template-columns:minmax(0,1fr);gap:14px;align-items:center;justify-items:center;}
+        .hero-card{padding:32px;border-radius:30px;background:linear-gradient(135deg,#fff 0%,#eff6ff 58%,#eef4ff 100%);border:1px solid #93c5fd;width:100%;text-align:center;}
+        .hero-pill{display:inline-flex;align-items:center;gap:8px;padding:10px 18px;border-radius:999px;background:var(--cor-principal);color:#fff;font-size:0.95rem;font-weight:800;letter-spacing:0.05em;text-transform:uppercase;}
+        .hero-title,.panel-title{margin:18px 0 10px;color:var(--cor-principal);font-size:clamp(2rem,3.8vw,3.2rem);line-height:1;letter-spacing:-0.04em;}
+        .panel-title{font-size:clamp(1.7rem,3vw,2.4rem);}
+        .hero-subtitle,.panel-subtitle{margin:0;color:#1155cc;font-size:1.05rem;line-height:1.55;}
+        .hero-highlights{display:grid;gap:10px;margin-top:16px;}
+        .hero-highlight,.info-card,.review-box,.step-card{border-radius:22px;border:1px solid #bfdbfe;background:#fff;box-shadow:0 8px 24px rgba(37,99,235,0.08);}
+        .hero-highlight{padding:12px 14px;color:#1155cc;font-size:0.95rem;font-weight:700;}
+        .hero-highlight strong{display:block;color:var(--cor-principal);font-size:1.15rem;margin-bottom:4px;}
+        .benefits-slider{display:grid;gap:12px;margin-top:8px;}
+        .benefits-viewport{position:relative;min-height:76px;overflow:hidden;}
+        .benefit-slide{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;padding:10px 12px;border-radius:16px;background:var(--cor-clara);color:var(--cor-principal);font-size:0.98rem;font-weight:800;line-height:1.45;text-align:center;opacity:0;transform:translateX(18px);transition:opacity 0.28s ease,transform 0.28s ease;pointer-events:none;}
+        .benefit-slide.ativo{opacity:1;transform:translateX(0);pointer-events:auto;}
+        .benefits-controls{display:flex;align-items:center;justify-content:center;gap:10px;}
+        .benefits-nav{min-width:44px;min-height:44px;border:none;border-radius:999px;background:#fff;color:var(--cor-principal);box-shadow:0 6px 16px rgba(37,99,235,0.14);font:inherit;font-size:1.1rem;font-weight:900;cursor:pointer;}
+        .benefits-dots{display:flex;gap:6px;align-items:center;justify-content:center;}
+        .benefits-dot{width:9px;height:9px;border-radius:999px;background:#93c5fd;transition:transform 0.2s ease,background 0.2s ease;}
+        .benefits-dot.ativo{background:var(--cor-principal);transform:scale(1.2);}
+        .step-card{padding:18px 16px;width:100%;margin:0 auto;text-align:center;}
+        .step-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px 12px;margin-top:10px;align-items:start;}
+        .step-grid.step-grid--stacked{grid-template-columns:minmax(0,1fr);max-width:540px;margin-left:auto;margin-right:auto;}
+        .wizard-panel[data-step="dados"] .form-group,.wizard-panel[data-step="escolher"] .form-group{align-items:stretch;text-align:left;}
+        .wizard-panel[data-step="dados"] .form-group label,.wizard-panel[data-step="escolher"] .form-group label{width:100%;text-align:left;}
+        .wizard-panel[data-step="escolher"] .step-grid.step-grid--stacked{max-width:470px;}
+        .wizard-panel[data-step="escolher"] .form-group,.wizard-panel[data-step="escolher"] .form-group.full{width:100%;max-width:100%;}
+        .wizard-panel[data-step="escolher"] .input-with-action{width:100%;max-width:100%;}
+        .form-group{display:flex;flex-direction:column;gap:4px;width:100%;align-self:start;align-items:center;text-align:center;}
+        .form-group.full{grid-column:1/-1;}
+        .form-group label,.review-title,.mini-title{color:var(--cor-principal);font-size:1rem;font-weight:800;}
+        .form-group input,.form-group select,.form-group textarea{display:block;width:100%!important;max-width:100%!important;min-width:0!important;margin:0!important;box-sizing:border-box;min-height:38px;height:38px;padding:7px 10px;border:1.2px solid var(--cor-borda);border-radius:10px;background:#eff6ff;color:var(--cor-texto);font:inherit;line-height:1.2;text-align:left;outline:none;transition:border-color 0.2s ease,box-shadow 0.2s ease,background 0.2s ease;}
+        .form-group select{appearance:none;-webkit-appearance:none;-moz-appearance:none;background-image:url('data:image/svg+xml;utf8,<svg fill="%232563eb" height="20" viewBox="0 0 24 24" width="20" xmlns="http://www.w3.org/2000/svg"><path d="M7 10l5 5 5-5z"/></svg>');background-repeat:no-repeat;background-position:right 14px center;background-size:20px 20px;padding-right:44px;}
+        .form-group textarea{min-height:60px;height:auto;resize:vertical;}
+        .form-group input:focus,.form-group select:focus,.form-group textarea:focus{border-color:var(--cor-principal);background:#fff;box-shadow:0 0 0 4px rgba(37,99,235,0.12);}
+        .readonly-field{background:#eff6ff!important;color:#1155cc!important;font-weight:700;}
+        .input-with-action{display:grid;grid-template-columns:minmax(0,1fr);gap:10px;align-items:stretch;}
+        .input-with-action input{width:100%!important;}
+        .icon-button,.cta-button,.secondary-button,.submit-button{border:none;border-radius:18px;font:inherit;font-weight:800;cursor:pointer;transition:transform 0.16s ease,box-shadow 0.16s ease,background 0.16s ease,color 0.16s ease;}
+        .icon-button{min-width:56px;min-height:52px;background:var(--cor-principal);color:#fff;box-shadow:0 8px 16px rgba(37,99,235,0.22);}
+        .wizard-panel[data-step="escolher"] .icon-button{width:100%!important;min-width:0!important;max-width:100%!important;height:38px!important;min-height:38px!important;padding:0;border-radius:10px;box-shadow:none;}
+        .panel-actions .cta-button,.panel-actions .secondary-button,.panel-actions .submit-button{width:100%!important;max-width:100%!important;min-width:0!important;margin:0!important;height:38px;font-size:1rem;}
+        .cta-button,.submit-button{background:linear-gradient(90deg,#1155cc 0%,#60a5fa 100%);color:#fff;box-shadow:0 10px 24px rgba(37,99,235,0.24);}
+        .secondary-button{background:#fff;color:var(--cor-principal);border:2px solid var(--cor-principal);}
+        .cta-button,.secondary-button,.submit-button{min-height:54px;padding:14px 22px;text-transform:uppercase;letter-spacing:0.04em;}
+        .cta-button:hover,.secondary-button:hover,.submit-button:hover,.icon-button:hover{transform:translateY(-1px);}
+        .panel-actions{display:flex;flex-direction:column-reverse;align-items:center;gap:12px;justify-content:space-between;margin-top:28px;max-width:420px;margin-left:auto;margin-right:auto;}
+        .panel-actions>*{flex:1;}
+        .balao-erro{margin-top:4px;padding:10px 14px;border-radius:14px;border:1px solid #1155cc;background:#1155cc;color:#fff;font-size:0.92rem;font-weight:700;line-height:1.35;}
+        .balao-erro[hidden]{display:none;}
+        .erro-campo{border-color:#1155cc!important;box-shadow:0 0 0 4px rgba(37,99,235,0.12)!important;}
+        .review-layout{display:grid;grid-template-columns:1fr;gap:8px;margin-top:10px;max-width:540px;margin-left:auto;margin-right:auto;}
+        .review-box{padding:10px;text-align:center;}
+        .review-box.full{grid-column:1/-1;}
+        .review-list{display:grid;gap:6px;margin-top:8px;text-align:left;}
+        .review-item{display:grid;grid-template-columns:auto 1fr;align-items:center;column-gap:8px;padding:7px 9px;border-radius:10px;background:var(--cor-clara);text-align:left;}
+        .review-item strong{color:var(--cor-principal);font-size:0.88rem;white-space:nowrap;}
+        .review-item strong::after{content:':';}
+        .review-item span{color:var(--cor-texto);font-size:0.94rem;word-break:break-word;text-align:left;}
+        .review-check{display:flex;gap:12px;align-items:flex-start;justify-content:flex-start;padding:10px 12px;border-radius:14px;background:var(--cor-clara);color:#1e3a5f;line-height:1.45;text-align:left;}
+        .review-check input{margin-top:3px;width:20px;min-width:20px;height:20px;flex:0 0 20px;accent-color:var(--cor-principal);}
+        .review-check span{flex:1 1 auto;min-width:0;}
+        .review-check ul{margin:8px 0 0 18px;padding:0;list-style-position:outside;text-align:left;}
+        .review-box .form-group{align-items:stretch;text-align:left;}
+        .review-box .form-group label{width:100%;text-align:left;}
+        @media(max-width:860px){.hero-grid,.review-layout{grid-template-columns:1fr;}.step-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;}.step-grid.step-grid--stacked{grid-template-columns:minmax(0,1fr);max-width:540px;}}
+        @media(max-width:640px){
+            html,body{width:100%!important;max-width:100%!important;overflow-x:hidden!important;}body*{min-width:0;}body{overflow-x:hidden;}
+            .main-header{padding:10px 12px;}.header-logos{display:flex;flex-direction:column;align-items:center;gap:10px;}.header-logos img{max-width:min(88vw,280px);height:auto;}
+            .wizard-page{width:calc(100% - 8px)!important;max-width:100%!important;padding:4px 0 10px;}
+            .wizard-progress,.wizard-panel{width:100%!important;max-width:100%!important;padding:8px;}
+            .wizard-labels{grid-template-columns:1fr;gap:6px;}
+            .hero-card,.step-card,.review-box{width:100%!important;max-width:100%!important;padding:8px;}
+            .input-with-action{grid-template-columns:minmax(0,1fr);width:100%!important;max-width:100%!important;}
+            .panel-actions>*{width:100%;}
+            .step-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:6px;}
+            .step-grid.step-grid--stacked{grid-template-columns:minmax(0,1fr);max-width:100%;}
+            .review-layout{grid-template-columns:1fr;max-width:100%;gap:10px;}
+            .review-item,.form-group,.form-group input,.form-group select,.form-group textarea,.wizard-shell,.panel-actions,.review-check,.balao-erro{width:100%!important;max-width:100%!important;}
+            .form-group label,.review-title,.review-item span,.review-check{word-break:break-word;}
+            img,svg{max-width:100%!important;height:auto!important;}
+            .form-group input,.form-group select,.form-group textarea,.icon-button{min-height:32px;height:32px;font-size:0.98em;}
+            .form-group textarea{min-height:60px;height:auto;}
+            .review-check{flex-direction:row;align-items:flex-start;padding:8px;}
+            .review-check input{width:22px;min-width:22px;height:22px;flex-basis:22px;}
+            .review-check ul{padding-left:2px;}
+            .hero-title,.panel-title{font-size:1.3rem;}
+            .hero-subtitle,.panel-subtitle{font-size:0.92rem;}
+            .wizard-shell{border-radius:16px;}
+            .form-group.full{grid-column:auto;}
         }
     </style>
 </head>
@@ -422,43 +413,34 @@ TEMPLATE_WIZARD = r"""
         </div>
         <div class="wizard-shell">
             <form id="wizard-form" method="POST" action="{{ url_for('inscricao_unica') }}" autocomplete="off" novalidate>
+
+                <!-- PASSO 1 -->
                 <section class="wizard-panel" data-step="index">
                     <div class="hero-grid"><div class="hero-card">
                         <span class="hero-pill">PROJETO: MOVIMENTA RIO</span>
-                        <h1 class="hero-title">CURSOS GRATUITOS NO RIO DE JANEIRO</h1>
-                        <p class="hero-subtitle">Programa Movimenta Rio &bull; Prefeitura do Rio de Janeiro</p>
+                        <h1 class="hero-title">CURSOS GRATUITOS EM MAR&#201; I E II</h1>
+                        <p class="hero-subtitle">Programa Movimenta Rio &bull; Prefeitura do Rio de Janeiro. Garanta sua vaga e transforme sua carreira!</p>
                         <div class="hero-highlights">
-                            <div class="hero-highlight" style="text-align:center;">
-                                <strong>CURSOS DISPON&#205;VEIS:</strong>
-                                &#x1F4E6; ASSISTENTE DE LOG&#205;STICA<br>
-                                &#x1F3E2; AUXILIAR ADMINISTRATIVO<br>
-                                &#x1F373; AUXILIAR DE COZINHA<br>
-                                &#x1F916; INTELIG&#202;NCIA ARTIFICIAL<br>
-                                &#x1F4E3; MARKETING DIGITAL<br>
-                                &#x1F388; MONITOR DE LAZER E RECREA&#199;&#195;O<br>
-                                &#x267B;&#xFE0F; OPERADOR DE SISTEMA DE COMPOSTAGEM<br>
-                                &#x1F6AA; PORTEIRO<br>
-                                &#x1F4CB; RECEPCIONISTA<br>
-                                &#x1F6CD;&#xFE0F; VENDEDOR<br>
-                                &#x1F4F1; SOCIAL MEDIA<br>
-                                &#x2702;&#xFE0F; BARBEIRO<br>
-                                &#x1F37D;&#xFE0F; GAR&#199;OM<br>
-                                &#x1F3E8; AGENTE DE TURISMO CORPORATIVO<br>
-                                &#x26A1; ELETRICISTA PREDIAL<br>
-                                &#x1F4B0; INVESTIDOR DO SUCESSO
+                            <div class="hero-highlight" style="text-align:left;">
+                                <strong style="display:block;text-align:center;">CURSOS DISPON&#205;VEIS:</strong>
+                                &#129302; INTELIG&#202;NCIA ARTIFICIAL<br>
+                                &#128218; GERENCIAMENTO DE TR&#193;FEGO PAGO<br>
+                                &#128241; MARKETING DIGITAL<br>
+                                &#128218; SOCIAL MEDIA<br>
+                                &#128194; AUXILIAR ADMINISTRATIVO
                             </div>
                             <div class="hero-highlight">
                                 <strong>BENEF&#205;CIOS</strong>
                                 <div class="benefits-slider" data-benefits-slider>
                                     <div class="benefits-viewport">
                                         <div class="benefit-slide ativo">100% Gratuito</div>
-                                        <div class="benefit-slide">Certificado de Conclus&#227;o</div>
-                                        <div class="benefit-slide">Material Did&#225;tico Incluso</div>
+                                        <div class="benefit-slide">&#127891; Certificado de Conclus&#227;o</div>
+                                        <div class="benefit-slide">&#128218; Material Did&#225;tico Incluso</div>
                                     </div>
                                     <div class="benefits-controls">
-                                        <button type="button" class="benefits-nav" data-benefits-prev aria-label="Anterior">&#8249;</button>
+                                        <button type="button" class="benefits-nav" data-benefits-prev aria-label="Benef&#237;cio anterior">&#8249;</button>
                                         <div class="benefits-dots" data-benefits-dots></div>
-                                        <button type="button" class="benefits-nav" data-benefits-next aria-label="Pr&#243;ximo">&#8250;</button>
+                                        <button type="button" class="benefits-nav" data-benefits-next aria-label="Pr&#243;ximo benef&#237;cio">&#8250;</button>
                                     </div>
                                 </div>
                             </div>
@@ -472,18 +454,20 @@ TEMPLATE_WIZARD = r"""
                         </div>
                     </div></div>
                 </section>
+
+                <!-- PASSO 2 -->
                 <section class="wizard-panel" data-step="dados">
                     <div class="step-card">
                         <h2 class="panel-title">Dados pessoais</h2>
                         <div class="step-grid step-grid--stacked">
-                            <div class="form-group full"><label for="nome">Nome completo *</label><input type="text" id="nome" name="nome" maxlength="50" placeholder="Digite seu nome completo" value="{{ form_data.get('nome', '') }}"><div class="balao-erro" id="nome-error" {% if not errors.get('nome') %}hidden{% endif %}>{{ errors.get('nome', '') }}</div></div>
-                            <div class="form-group"><label for="genero">G&#234;nero *</label><select id="genero" name="genero"><option value="">Selecione</option>{% for genero in generos %}<option value="{{ genero }}" {% if form_data.get('genero') == genero %}selected{% endif %}>{{ genero }}</option>{% endfor %}</select><div class="balao-erro" id="genero-error" {% if not errors.get('genero') %}hidden{% endif %}>{{ errors.get('genero', '') }}</div></div>
-                            <div class="form-group"><label for="cpf">CPF *</label><input type="text" id="cpf" name="cpf" maxlength="14" placeholder="000.000.000-00" value="{{ form_data.get('cpf', '') }}"><div class="balao-erro" id="cpf-error" {% if not errors.get('cpf') %}hidden{% endif %}>{{ errors.get('cpf', '') }}</div></div>
-                            <div class="form-group"><label for="nascimento">Data de nascimento *</label><input type="text" id="nascimento" name="nascimento" maxlength="10" placeholder="dd/mm/aaaa" value="{{ form_data.get('nascimento', '') }}"><div class="balao-erro" id="nascimento-error" {% if not errors.get('nascimento') %}hidden{% endif %}>{{ errors.get('nascimento', '') }}</div></div>
-                            <div class="form-group"><label for="whatsapp">WhatsApp *</label><input type="text" id="whatsapp" name="whatsapp" maxlength="16" placeholder="(00) 00000-0000" value="{{ form_data.get('whatsapp', '') }}"><div class="balao-erro" id="whatsapp-error" {% if not errors.get('whatsapp') %}hidden{% endif %}>{{ errors.get('whatsapp', '') }}</div></div>
-                            <div class="form-group"><label for="cep">CEP *</label><input type="text" id="cep" name="cep" maxlength="9" placeholder="00000-000" value="{{ form_data.get('cep', '') }}"><div class="balao-erro" id="cep-error" {% if not errors.get('cep') %}hidden{% endif %}>{{ errors.get('cep', '') }}</div></div>
-                            <div class="form-group"><label for="bairro">Bairro *</label><input type="text" id="bairro" name="bairro" maxlength="40" placeholder="Nome do bairro" value="{{ form_data.get('bairro', '') }}"><div class="balao-erro" id="bairro-error" {% if not errors.get('bairro') %}hidden{% endif %}>{{ errors.get('bairro', '') }}</div></div>
-                            <div class="form-group full"><label for="email">E-mail *</label><input type="email" id="email" name="email" maxlength="60" placeholder="seuemail@gmail.com" value="{{ form_data.get('email', '') }}"><div class="balao-erro" id="email-error" {% if not errors.get('email') %}hidden{% endif %}>{{ errors.get('email', '') }}</div></div>
+                            <div class="form-group full"><label for="nome">Nome completo *</label><input type="text" id="nome" name="nome" maxlength="50" placeholder="Digite seu nome completo" value="{{ form_data.get('nome','') }}"><div class="balao-erro" id="nome-error" {% if not errors.get('nome') %}hidden{% endif %}>{{ errors.get('nome','') }}</div></div>
+                            <div class="form-group"><label for="genero">G&#234;nero *</label><select id="genero" name="genero"><option value="">Selecione</option>{% for genero in generos %}<option value="{{ genero }}" {% if form_data.get('genero')==genero %}selected{% endif %}>{{ genero }}</option>{% endfor %}</select><div class="balao-erro" id="genero-error" {% if not errors.get('genero') %}hidden{% endif %}>{{ errors.get('genero','') }}</div></div>
+                            <div class="form-group"><label for="cpf">CPF *</label><input type="text" id="cpf" name="cpf" maxlength="14" placeholder="000.000.000-00" value="{{ form_data.get('cpf','') }}"><div class="balao-erro" id="cpf-error" {% if not errors.get('cpf') %}hidden{% endif %}>{{ errors.get('cpf','') }}</div></div>
+                            <div class="form-group"><label for="nascimento">Data de nascimento *</label><input type="text" id="nascimento" name="nascimento" maxlength="10" placeholder="dd/mm/aaaa" value="{{ form_data.get('nascimento','') }}"><div class="balao-erro" id="nascimento-error" {% if not errors.get('nascimento') %}hidden{% endif %}>{{ errors.get('nascimento','') }}</div></div>
+                            <div class="form-group"><label for="whatsapp">WhatsApp *</label><input type="text" id="whatsapp" name="whatsapp" maxlength="16" placeholder="(00) 00000-0000" value="{{ form_data.get('whatsapp','') }}"><div class="balao-erro" id="whatsapp-error" {% if not errors.get('whatsapp') %}hidden{% endif %}>{{ errors.get('whatsapp','') }}</div></div>
+                            <div class="form-group"><label for="cep">CEP *</label><input type="text" id="cep" name="cep" maxlength="9" placeholder="00000-000" value="{{ form_data.get('cep','') }}"><div class="balao-erro" id="cep-error" {% if not errors.get('cep') %}hidden{% endif %}>{{ errors.get('cep','') }}</div></div>
+                            <div class="form-group"><label for="bairro">Bairro *</label><input type="text" id="bairro" name="bairro" maxlength="40" placeholder="Nome do bairro" value="{{ form_data.get('bairro','') }}"><div class="balao-erro" id="bairro-error" {% if not errors.get('bairro') %}hidden{% endif %}>{{ errors.get('bairro','') }}</div></div>
+                            <div class="form-group full"><label for="email">E-mail *</label><input type="email" id="email" name="email" maxlength="60" placeholder="seuemail@gmail.com" value="{{ form_data.get('email','') }}"><div class="balao-erro" id="email-error" {% if not errors.get('email') %}hidden{% endif %}>{{ errors.get('email','') }}</div></div>
                         </div>
                         <div class="panel-actions">
                             <button type="button" class="secondary-button" data-prev="index">Voltar</button>
@@ -491,23 +475,26 @@ TEMPLATE_WIZARD = r"""
                         </div>
                     </div>
                 </section>
+
+                <!-- PASSO 3 -->
                 <section class="wizard-panel" data-step="escolher">
                     <div class="step-card">
                         <h2 class="panel-title">Escolha seu curso</h2>
                         <div class="step-grid step-grid--stacked">
-                            <div class="form-group full"><label for="curso_id">Curso *</label><select id="curso_id" name="curso_id"><option value="">Selecione um curso</option>{% for curso in course_catalog %}<option value="{{ curso.id }}" {% if form_data.get('curso_id') == curso.id %}selected{% endif %}>{{ curso.nome }}</option>{% endfor %}</select><div class="balao-erro" id="curso_id-error" {% if not errors.get('curso_id') %}hidden{% endif %}>{{ errors.get('curso_id', '') }}</div></div>
-                            <div class="form-group full" id="turma-group" style="display:none;"><label for="opcao_id_select">Local / Turma / Hor&#225;rio *</label><select id="opcao_id_select"><option value="">Selecione uma turma</option></select><div class="balao-erro" id="opcao_id-error" hidden></div></div>
-                            <input type="hidden" id="opcao_id" name="opcao_id" value="{{ form_data.get('opcao_id', '') }}">
-                            <input type="hidden" id="local_id" name="local_id" value="{{ form_data.get('local_id', '') }}">
-                            <input type="hidden" id="local"    name="local"    value="{{ form_data.get('local', '') }}">
-                            <input type="hidden" id="curso"    name="curso"    value="{{ form_data.get('curso', '') }}">
-                            <input type="hidden" id="turma"    name="turma"    value="{{ form_data.get('turma', '') }}">
-                            <div class="form-group full"><label for="local_display">LOCAL SELECIONADO</label><input type="text" id="local_display" class="readonly-field" readonly value="{{ form_data.get('local', '') }}"></div>
-                            <div class="form-group"><label for="dias_aula">DIA DE AULA</label><input type="text" id="dias_aula" name="dias_aula" class="readonly-field" readonly value="{{ form_data.get('dias_aula', '') }}"></div>
-                            <div class="form-group"><label for="horario">HOR&#193;RIO</label><input type="text" id="horario" name="horario" class="readonly-field" readonly value="{{ form_data.get('horario', '') }}"></div>
-                            <div class="form-group"><label for="data_inicio">DATA DE IN&#205;CIO</label><input type="text" id="data_inicio" name="data_inicio" class="readonly-field" readonly value="{{ form_data.get('data_inicio', '') }}"></div>
-                            <div class="form-group"><label for="encerramento">ENCERRAMENTO</label><input type="text" id="encerramento" name="encerramento" class="readonly-field" readonly value="{{ form_data.get('encerramento', '') }}"></div>
-                            <div class="form-group full"><label for="endereco_curso">ENDERE&#199;O</label><div class="input-with-action"><input type="text" id="endereco_curso" name="endereco_curso" class="readonly-field" readonly value="{{ form_data.get('endereco_curso', '') }}"><button type="button" class="icon-button" id="btn-copiar-endereco" title="Copiar">COPIAR &#128203;</button></div></div>
+                            <div class="form-group full"><label for="curso_id">Curso *</label><select id="curso_id" name="curso_id"><option value="">Selecione um curso</option>{% for curso in course_catalog %}<option value="{{ curso.id }}" {% if form_data.get('curso_id')==curso.id %}selected{% endif %}>{{ curso.nome }}</option>{% endfor %}</select><div class="balao-erro" id="curso_id-error" {% if not errors.get('curso_id') %}hidden{% endif %}>{{ errors.get('curso_id','') }}</div></div>
+                            <div class="form-group full" id="local-group" style="display:none;"><label for="local_id_select">Local *</label><select id="local_id_select"><option value="">Selecione um local</option></select><div class="balao-erro" id="local_id-error" hidden></div></div>
+                            <div class="form-group full" id="turma-group" style="display:none;"><label for="opcao_id_select">Hor&#225;rio *</label><select id="opcao_id_select"><option value="">Selecione um hor&#225;rio</option></select><div class="balao-erro" id="opcao_id-error" hidden></div></div>
+                            <input type="hidden" id="opcao_id" name="opcao_id" value="{{ form_data.get('opcao_id','') }}">
+                            <input type="hidden" id="local_id" name="local_id" value="{{ form_data.get('local_id','') }}">
+                            <input type="hidden" id="local"    name="local"    value="{{ form_data.get('local','') }}">
+                            <input type="hidden" id="curso"    name="curso"    value="{{ form_data.get('curso','') }}">
+                            <input type="hidden" id="turma"    name="turma"    value="{{ form_data.get('turma','') }}">
+                            <div class="form-group full" id="info-local-group" style="display:none;"><label for="local_display">LOCAL SELECIONADO</label><input type="text" id="local_display" class="readonly-field" readonly value="{{ form_data.get('local','') }}"></div>
+                            <div class="form-group" id="info-dias-group" style="display:none;"><label for="dias_aula">DIA DE AULA</label><input type="text" id="dias_aula" name="dias_aula" class="readonly-field" readonly value="{{ form_data.get('dias_aula','') }}"></div>
+                            <div class="form-group" id="info-horario-group" style="display:none;"><label for="horario">HOR&#193;RIO</label><input type="text" id="horario" name="horario" class="readonly-field" readonly value="{{ form_data.get('horario','') }}"></div>
+                            <div class="form-group" id="info-inicio-group" style="display:none;"><label for="data_inicio">DATA DE IN&#205;CIO</label><input type="text" id="data_inicio" name="data_inicio" class="readonly-field" readonly value="{{ form_data.get('data_inicio','') }}"></div>
+                            <div class="form-group" id="info-enc-group" style="display:none;"><label for="encerramento">ENCERRAMENTO</label><input type="text" id="encerramento" name="encerramento" class="readonly-field" readonly value="{{ form_data.get('encerramento','') }}"></div>
+                            <div class="form-group full" id="info-endereco-group" style="display:none;"><label for="endereco_curso">ENDERE&#199;O</label><div class="input-with-action"><input type="text" id="endereco_curso" name="endereco_curso" class="readonly-field" readonly value="{{ form_data.get('endereco_curso','') }}"><button type="button" class="icon-button" id="btn-copiar-endereco" title="Copiar endere&#231;o">COPIAR &#128203;</button></div></div>
                         </div>
                         <div class="panel-actions">
                             <button type="button" class="secondary-button" data-prev="dados">Voltar</button>
@@ -515,6 +502,8 @@ TEMPLATE_WIZARD = r"""
                         </div>
                     </div>
                 </section>
+
+                <!-- PASSO 4 -->
                 <section class="wizard-panel" data-step="revisao">
                     <div class="step-card">
                         <h2 class="panel-title">Revise antes de finalizar</h2>
@@ -539,15 +528,15 @@ TEMPLATE_WIZARD = r"""
                                 <div class="review-item"><strong>Encerramento</strong><span data-review="encerramento"></span></div>
                                 <div class="review-item"><strong>Endere&#231;o</strong><span data-review="endereco_curso"></span></div>
                             </div></div>
-                            <div class="review-box full"><div class="form-group"><label for="como_conheceu">Como conheceu (opcional)</label><input type="text" id="como_conheceu" name="como_conheceu" maxlength="120" placeholder="Digite como conheceu o projeto" value="{{ form_data.get('como_conheceu', '') }}"><div class="balao-erro" id="como_conheceu-error" {% if not errors.get('como_conheceu') %}hidden{% endif %}>{{ errors.get('como_conheceu', '') }}</div></div></div>
+                            <div class="review-box full"><div class="form-group"><label for="como_conheceu">Como conheceu (opcional)</label><input type="text" id="como_conheceu" name="como_conheceu" maxlength="120" placeholder="Digite como conheceu o projeto" value="{{ form_data.get('como_conheceu','') }}"></div></div>
                             <div class="review-box full">
-                                <div style="margin-bottom:10px; color:#2f5fb4; font-size:0.98rem; text-align:left;"><strong>Elegibilidade:</strong> Este curso &#233; destinado a pessoas com 16 anos ou mais.</div>
+                                <div style="margin-bottom:10px;color:#1155cc;font-size:0.98rem;text-align:left;"><strong>Elegibilidade:</strong> Este curso &#233; destinado a pessoas com 16 anos ou mais.</div>
                                 <label class="review-check" for="confirma_dados">
                                     <input type="checkbox" id="confirma_dados" name="confirma_dados" value="sim" {% if form_data.get('confirma_dados') %}checked{% endif %}>
-                                    <span>Confirmo que tenho 16 anos ou mais e interesse em participar do curso selecionado.<br>Todas as informa&#231;&#245;es s&#227;o verdadeiras e estou de acordo com os termos de participa&#231;&#227;o.<br>Autorizo o uso dos meus dados para inscri&#231;&#227;o e contato relacionado ao curso.<br>Tamb&#233;m autorizo o uso da minha imagem para divulga&#231;&#227;o nos canais do projeto e da Prefeitura do Rio.</span>
+                                    <span>Confirmo que tenho 16 anos ou mais e interesse em participar do curso selecionado.<br>Todas as informa&#231;&#245;es fornecidas s&#227;o verdadeiras e estou de acordo com os termos de participa&#231;&#227;o.<br>Autorizo o uso dos meus dados para fins de inscri&#231;&#227;o e contato relacionado ao curso.<br>Tamb&#233;m autorizo o uso da minha imagem para divulga&#231;&#227;o nos canais do projeto e da Prefeitura do Rio de Janeiro.</span>
                                 </label>
-                                <div style="margin-top:10px;"><strong>Ao confirmar voc&#234; declara que:</strong><ul><li>O curso &#233; totalmente gratuito</li><li>Os dados ser&#227;o usados apenas para inscri&#231;&#227;o</li></ul></div>
-                                <div class="balao-erro" id="confirma_dados-error" {% if not errors.get('confirma_dados') %}hidden{% endif %}>{{ errors.get('confirma_dados', '') }}</div>
+                                <div style="margin-top:10px;color:#1155cc;font-size:0.95rem;text-align:left;"><strong>Ao confirmar voc&#234; declara ci&#234;ncia de que:</strong><ul><li>O curso &#233; totalmente gratuito</li><li>Os dados ser&#227;o usados apenas para inscri&#231;&#227;o</li></ul></div>
+                                <div class="balao-erro" id="confirma_dados-error" {% if not errors.get('confirma_dados') %}hidden{% endif %}>{{ errors.get('confirma_dados','') }}</div>
                             </div>
                         </div>
                         <div class="panel-actions">
@@ -570,36 +559,41 @@ TEMPLATE_WIZARD = r"""
             var reviewTargets=Array.from(document.querySelectorAll('[data-review]'));
             var benefitsSliders=Array.from(document.querySelectorAll('[data-benefits-slider]'));
             var courseOptions={{ course_options|tojson }};
+            var localOptions={{ local_options|tojson }};
             var courseOptionsById=Object.fromEntries(courseOptions.map(function(o){return[String(o.id),o];}));
             var nomeInput=document.getElementById('nome'),generoInput=document.getElementById('genero'),cpfInput=document.getElementById('cpf'),nascimentoInput=document.getElementById('nascimento'),whatsappInput=document.getElementById('whatsapp'),cepInput=document.getElementById('cep'),bairroInput=document.getElementById('bairro'),emailInput=document.getElementById('email'),confirmaDadosInput=document.getElementById('confirma_dados');
-            var courseSelect=document.getElementById('curso_id'),opcaoSelectEl=document.getElementById('opcao_id_select'),turmaGroup=document.getElementById('turma-group'),opcaoIdInput=document.getElementById('opcao_id'),localIdInput=document.getElementById('local_id'),localInput=document.getElementById('local'),localDisplay=document.getElementById('local_display'),cursoInput=document.getElementById('curso'),turmaInput=document.getElementById('turma'),diasAulaInput=document.getElementById('dias_aula'),horarioInput=document.getElementById('horario'),dataInicioInput=document.getElementById('data_inicio'),encerramentoInput=document.getElementById('encerramento'),enderecoInput=document.getElementById('endereco_curso'),btnCopiarEndereco=document.getElementById('btn-copiar-endereco');
+            var courseSelect=document.getElementById('curso_id'),localSelectEl=document.getElementById('local_id_select'),opcaoSelectEl=document.getElementById('opcao_id_select'),localGroup=document.getElementById('local-group'),turmaGroup=document.getElementById('turma-group'),opcaoIdInput=document.getElementById('opcao_id'),localIdInput=document.getElementById('local_id'),localInput=document.getElementById('local'),localDisplay=document.getElementById('local_display'),cursoInput=document.getElementById('curso'),turmaInput=document.getElementById('turma'),diasAulaInput=document.getElementById('dias_aula'),horarioInput=document.getElementById('horario'),dataInicioInput=document.getElementById('data_inicio'),encerramentoInput=document.getElementById('encerramento'),enderecoInput=document.getElementById('endereco_curso'),btnCopiarEndereco=document.getElementById('btn-copiar-endereco');
+            var infoLocalGroup=document.getElementById('info-local-group'),infoDiasGroup=document.getElementById('info-dias-group'),infoHorarioGroup=document.getElementById('info-horario-group'),infoInicioGroup=document.getElementById('info-inicio-group'),infoEncGroup=document.getElementById('info-enc-group'),infoEndGroup=document.getElementById('info-endereco-group');
             function somenteDigitos(v){return(v||'').replace(/\D/g,'');}
             function setError(id,msg){var f=document.getElementById(id),e=document.getElementById(id+'-error');if(f)f.classList.toggle('erro-campo',Boolean(msg));if(e){e.textContent=msg||'';e.hidden=!msg;}}
-            function aplicarOpcao(opcaoId){var op=courseOptionsById[String(opcaoId||'')];if(!op){opcaoIdInput.value='';localIdInput.value='';localInput.value='';if(localDisplay)localDisplay.value='';cursoInput.value='';turmaInput.value='';diasAulaInput.value='';horarioInput.value='';dataInicioInput.value='';encerramentoInput.value='';enderecoInput.value='';return;}opcaoIdInput.value=op.id;localIdInput.value=op.local_id;localInput.value=op.local;if(localDisplay)localDisplay.value=op.local;cursoInput.value=op.curso;turmaInput.value=op.turma;diasAulaInput.value=op.dias_aula;horarioInput.value=op.horario;dataInicioInput.value=op.data_inicio;encerramentoInput.value=op.encerramento;enderecoInput.value=op.endereco_curso;setError('curso_id','');setError('opcao_id','');syncReview();}
-            function atualizarTurmasPorCurso(cursoId,selectedOpcaoId){var t=courseOptions.filter(function(o){return String(o.curso_id)===String(cursoId||'');});opcaoSelectEl.innerHTML='';if(!t.length){turmaGroup.style.display='none';aplicarOpcao('');return;}if(t.length===1){turmaGroup.style.display='none';aplicarOpcao(t[0].id);return;}turmaGroup.style.display='';var ph=document.createElement('option');ph.value='';ph.textContent='Selecione local e hor\u00e1rio';opcaoSelectEl.appendChild(ph);t.forEach(function(op){var opt=document.createElement('option');opt.value=op.id;opt.textContent=op.turma_label;if(String(op.id)===String(selectedOpcaoId||''))opt.selected=true;opcaoSelectEl.appendChild(opt);});if(selectedOpcaoId&&t.some(function(o){return String(o.id)===String(selectedOpcaoId);})){aplicarOpcao(selectedOpcaoId);}else{aplicarOpcao('');}}
-            courseSelect.addEventListener('change',function(){setError('curso_id','');var c=courseSelect.value;if(c){atualizarTurmasPorCurso(c,'');}else{turmaGroup.style.display='none';aplicarOpcao('');}syncReview();});
+            function mostrarInfoCurso(show){[infoLocalGroup,infoDiasGroup,infoHorarioGroup,infoInicioGroup,infoEncGroup,infoEndGroup].forEach(function(el){if(el)el.style.display=show?'':'none';});}
+            function aplicarOpcao(opcaoId){var op=courseOptionsById[String(opcaoId||'')];if(!op){opcaoIdInput.value='';localIdInput.value='';localInput.value='';if(localDisplay)localDisplay.value='';cursoInput.value='';turmaInput.value='';diasAulaInput.value='';horarioInput.value='';dataInicioInput.value='';encerramentoInput.value='';enderecoInput.value='';mostrarInfoCurso(false);return;}opcaoIdInput.value=op.id;localIdInput.value=op.local_id;localInput.value=op.local;if(localDisplay)localDisplay.value=op.local;cursoInput.value=op.curso;turmaInput.value=op.turma;diasAulaInput.value=op.dias_aula;horarioInput.value=op.horario;dataInicioInput.value=op.data_inicio;encerramentoInput.value=op.encerramento;enderecoInput.value=op.endereco_curso;mostrarInfoCurso(true);setError('curso_id','');setError('opcao_id','');syncReview();}
+            function atualizarLocaisPorCurso(cursoId,selectedLocalId,selectedOpcaoId){var turmasDoCurso=courseOptions.filter(function(o){return String(o.curso_id)===String(cursoId||'');});var localIdsUsados=[],locaisUnicos=[];turmasDoCurso.forEach(function(o){if(localIdsUsados.indexOf(o.local_id)===-1){localIdsUsados.push(o.local_id);var l=localOptions.find(function(x){return String(x.id)===String(o.local_id);});if(l)locaisUnicos.push(l);}});localSelectEl.innerHTML='';opcaoSelectEl.innerHTML='';turmaGroup.style.display='none';aplicarOpcao('');if(locaisUnicos.length===0){localGroup.style.display='none';return;}localGroup.style.display='';var ph=document.createElement('option');ph.value='';ph.textContent='Selecione um local';localSelectEl.appendChild(ph);locaisUnicos.forEach(function(loc){var opt=document.createElement('option');opt.value=loc.id;opt.textContent=loc.nome;if(String(loc.id)===String(selectedLocalId||''))opt.selected=true;localSelectEl.appendChild(opt);});if(locaisUnicos.length===1&&!selectedLocalId){localSelectEl.value=locaisUnicos[0].id;atualizarHorariosPorLocal(cursoId,locaisUnicos[0].id,selectedOpcaoId);return;}if(selectedLocalId&&localIdsUsados.indexOf(String(selectedLocalId))!==-1){atualizarHorariosPorLocal(cursoId,selectedLocalId,selectedOpcaoId);}}
+            function atualizarHorariosPorLocal(cursoId,localId,selectedOpcaoId){var turmas=courseOptions.filter(function(o){return String(o.curso_id)===String(cursoId||'')&&String(o.local_id)===String(localId||'');});opcaoSelectEl.innerHTML='';if(turmas.length===0){turmaGroup.style.display='none';aplicarOpcao('');return;}turmaGroup.style.display='';var ph=document.createElement('option');ph.value='';ph.textContent='Selecione um hor\u00e1rio';opcaoSelectEl.appendChild(ph);turmas.forEach(function(op){var opt=document.createElement('option');opt.value=op.id;opt.textContent=op.dias_aula+' | '+op.horario;if(String(op.id)===String(selectedOpcaoId||''))opt.selected=true;opcaoSelectEl.appendChild(opt);});if(selectedOpcaoId&&turmas.some(function(o){return String(o.id)===String(selectedOpcaoId);})){aplicarOpcao(selectedOpcaoId);}else if(turmas.length===1){opcaoSelectEl.value=turmas[0].id;aplicarOpcao(turmas[0].id);}else{aplicarOpcao('');}}
+            courseSelect.addEventListener('change',function(){setError('curso_id','');var c=courseSelect.value;if(c){atualizarLocaisPorCurso(c,'','');}else{localGroup.style.display='none';turmaGroup.style.display='none';aplicarOpcao('');}syncReview();});
+            localSelectEl.addEventListener('change',function(){setError('local_id','');var l=localSelectEl.value;if(l&&courseSelect.value){atualizarHorariosPorLocal(courseSelect.value,l,'');}else{turmaGroup.style.display='none';aplicarOpcao('');}syncReview();});
             opcaoSelectEl.addEventListener('change',function(){setError('opcao_id','');aplicarOpcao(opcaoSelectEl.value);});
-            if(btnCopiarEndereco&&enderecoInput){btnCopiarEndereco.addEventListener('click',function(){navigator.clipboard.writeText(enderecoInput.value).then(function(){btnCopiarEndereco.textContent='COPIADO \u2705';}).catch(function(){enderecoInput.select();document.execCommand('copy');btnCopiarEndereco.textContent='COPIADO \u2705';});setTimeout(function(){btnCopiarEndereco.textContent='COPIAR &#128203;';},1200);});}
+            if(btnCopiarEndereco&&enderecoInput){btnCopiarEndereco.addEventListener('click',function(){navigator.clipboard.writeText(enderecoInput.value).then(function(){btnCopiarEndereco.textContent='COPIADO \u2705';}).catch(function(){enderecoInput.select();document.execCommand('copy');btnCopiarEndereco.textContent='COPIADO \u2705';});setTimeout(function(){btnCopiarEndereco.textContent='COPIAR 📋';},1200);});}
             function mostrarPasso(step){panels.forEach(function(p){p.classList.toggle('ativo',p.dataset.step===step);});labels.forEach(function(l){l.classList.toggle('ativo',l.dataset.stepLabel===step);});fill.style.width=(progressByStep[step]||25)+'%';window.scrollTo({top:0,behavior:'smooth'});}
             function syncReview(){reviewTargets.forEach(function(t){var key=t.dataset.review;if(key==='curso_nome'){t.textContent=cursoInput?cursoInput.value.trim():'';return;}if(key==='local_nome'){t.textContent=localInput?localInput.value.trim():'';return;}var f=document.getElementById(key);if(!f){t.textContent='';return;}if(f.tagName==='SELECT'){var s=f.options[f.selectedIndex];t.textContent=s?s.text.trim():'';}else{t.textContent=f.value.trim();}});}
             function validarCPF(cpf){var d=somenteDigitos(cpf);if(d.length!==11||/^(\d)\1+$/.test(d))return false;var s=0,g;for(var i=0;i<9;i++)s+=Number(d[i])*(10-i);g=(s*10)%11;if(g===10)g=0;if(g!==Number(d[9]))return false;s=0;for(var i=0;i<10;i++)s+=Number(d[i])*(11-i);g=(s*10)%11;if(g===10)g=0;return g===Number(d[10]);}
-            function validarEmail(e){return /^[a-zA-Z0-9_.+-]+@((gmail|hotmail|outlook|yahoo)\.(com|com\.br))$/i.test((e||'').trim());}
-            function idadePermitida(v){var p=(v||'').split('/');if(p.length!==3)return false;var dia=Number(p[0]),mes=Number(p[1])-1,ano=Number(p[2]);var d=new Date(ano,mes,dia);if(isNaN(d.getTime())||d.getDate()!==dia||d.getMonth()!==mes||d.getFullYear()!==ano)return false;var hoje=new Date();var i=hoje.getFullYear()-d.getFullYear();if(hoje.getMonth()-d.getMonth()<0||(hoje.getMonth()===d.getMonth()&&hoje.getDate()<d.getDate()))i--;return i>=16&&i<=90;}
-            function validarDDD(w){var d=somenteDigitos(w);if(d.length<11)return false;return ['11','12','13','14','15','16','17','18','19','21','22','24','27','28','31','32','33','34','35','37','38','41','42','43','44','45','46','47','48','49','51','53','54','55','61','62','63','64','65','66','67','68','69','71','73','74','75','77','79','81','82','83','84','85','86','87','88','89','91','92','93','94','95','96','97','98','99'].includes(d.slice(0,2));}
+            function validarEmail(e){return/^[a-zA-Z0-9_.+-]+@((gmail|hotmail|outlook|yahoo)\.(com|com\.br))$/i.test((e||'').trim());}
+            function idadePermitida(v){var p=(v||'').split('/');if(p.length!==3)return false;var d=new Date(Number(p[2]),Number(p[1])-1,Number(p[0]));if(isNaN(d.getTime())||d.getDate()!==Number(p[0])||d.getMonth()!==Number(p[1])-1)return false;var h=new Date();var i=h.getFullYear()-d.getFullYear();if(h.getMonth()-d.getMonth()<0||(h.getMonth()===d.getMonth()&&h.getDate()<d.getDate()))i--;return i>=16&&i<=90;}
+            function validarDDD(w){var d=somenteDigitos(w);if(d.length<11)return false;return['11','12','13','14','15','16','17','18','19','21','22','24','27','28','31','32','33','34','35','37','38','41','42','43','44','45','46','47','48','49','51','53','54','55','61','62','63','64','65','66','67','68','69','71','73','74','75','77','79','81','82','83','84','85','86','87','88','89','91','92','93','94','95','96','97','98','99'].includes(d.slice(0,2));}
             function mascCPF(){var v=somenteDigitos(cpfInput.value).slice(0,11);if(v.length>9)v=v.replace(/(\d{3})(\d{3})(\d{3})(\d{1,2})/,'$1.$2.$3-$4');else if(v.length>6)v=v.replace(/(\d{3})(\d{3})(\d{1,3})/,'$1.$2.$3');else if(v.length>3)v=v.replace(/(\d{3})(\d{1,3})/,'$1.$2');cpfInput.value=v;}
             function mascNasc(){var v=somenteDigitos(nascimentoInput.value).slice(0,8);if(v.length>4)v=v.replace(/(\d{2})(\d{2})(\d{1,4})/,'$1/$2/$3');else if(v.length>2)v=v.replace(/(\d{2})(\d{1,2})/,'$1/$2');nascimentoInput.value=v;}
             function mascWpp(){var v=somenteDigitos(whatsappInput.value).slice(0,11);if(v.length>6)v=v.replace(/(\d{2})(\d{5})(\d{0,4})/,'($1) $2-$3');else if(v.length>2)v=v.replace(/(\d{2})(\d{1,5})/,'($1) $2');whatsappInput.value=v;}
             function mascCep(){var v=somenteDigitos(cepInput.value).slice(0,8);if(v.length>5)v=v.replace(/(\d{5})(\d{1,3})/,'$1-$2');cepInput.value=v;}
-            function vNome(){var v=nomeInput.value.trim();if(!v){setError('nome','Digite seu nome completo.');return false;}if(v.length>50){setError('nome','M\u00e1ximo 50 caracteres.');return false;}setError('nome','');return true;}
+            function vNome(){var v=nomeInput.value.trim();if(!v){setError('nome','Digite seu nome completo.');return false;}if(v.length>50){setError('nome','M\u00e1ximo 50 caracteres.');return false;}if(!/^[A-Za-z\u00C0-\u00FF '\u00b4`^~.-]+$/.test(v)){setError('nome','Use apenas letras e sinais permitidos.');return false;}setError('nome','');return true;}
             function vGenero(){if(!generoInput.value){setError('genero','Selecione o g\u00eanero.');return false;}setError('genero','');return true;}
             function vCPF(){if(!validarCPF(cpfInput.value)){setError('cpf','CPF inv\u00e1lido.');return false;}setError('cpf','');return true;}
             function vNasc(){if(!idadePermitida(nascimentoInput.value)){setError('nascimento','Idade permitida: 16 a 90 anos.');return false;}setError('nascimento','');return true;}
             function vWpp(){var d=somenteDigitos(whatsappInput.value);if(d.length!==11||!/^\(\d{2}\) \d{5}-\d{4}$/.test(whatsappInput.value)||!validarDDD(whatsappInput.value)){setError('whatsapp','Informe um WhatsApp com DDD v\u00e1lido do Brasil.');return false;}setError('whatsapp','');return true;}
             function vCep(){if(!/^\d{5}-\d{3}$/.test(cepInput.value.trim())){setError('cep','CEP inv\u00e1lido. Formato: 00000-000.');return false;}setError('cep','');return true;}
             function vBairro(){var v=bairroInput.value.trim();if(!v){setError('bairro','Informe o bairro.');return false;}if(v.length>40){setError('bairro','M\u00e1ximo 40 caracteres.');return false;}setError('bairro','');return true;}
-            function vEmail(){if(!validarEmail(emailInput.value)){setError('email','Digite um e-mail v\u00e1lido (Gmail, Hotmail, Outlook ou Yahoo).');return false;}setError('email','');return true;}
-            function validarPassoDados(){var checks=[{ok:vNome(),f:nomeInput},{ok:vGenero(),f:generoInput},{ok:vCPF(),f:cpfInput},{ok:vNasc(),f:nascimentoInput},{ok:vWpp(),f:whatsappInput},{ok:vCep(),f:cepInput},{ok:vBairro(),f:bairroInput},{ok:vEmail(),f:emailInput}];var first=checks.find(function(c){return !c.ok;});if(first){first.f.focus();return false;}return true;}
-            function validarPassoEscolher(){if(!courseSelect.value){setError('curso_id','Selecione um curso.');courseSelect.focus();return false;}if(turmaGroup.style.display!=='none'&&!opcaoSelectEl.value){setError('opcao_id','Selecione um local e hor\u00e1rio.');opcaoSelectEl.focus();return false;}if(!opcaoIdInput.value){setError('curso_id','N\u00e3o foi poss\u00edvel determinar a turma. Tente novamente.');return false;}return true;}
+            function vEmail(){if(!validarEmail(emailInput.value)){setError('email','E-mail inv\u00e1lido. Use Gmail, Hotmail, Outlook ou Yahoo.');return false;}setError('email','');return true;}
+            function validarPassoDados(){var checks=[{ok:vNome(),f:nomeInput},{ok:vGenero(),f:generoInput},{ok:vCPF(),f:cpfInput},{ok:vNasc(),f:nascimentoInput},{ok:vWpp(),f:whatsappInput},{ok:vCep(),f:cepInput},{ok:vBairro(),f:bairroInput},{ok:vEmail(),f:emailInput}];var first=checks.find(function(c){return!c.ok;});if(first){first.f.focus();return false;}return true;}
+            function validarPassoEscolher(){if(!courseSelect.value){setError('curso_id','Selecione um curso.');courseSelect.focus();return false;}if(localGroup.style.display!=='none'&&!localSelectEl.value){setError('local_id','Selecione um local.');localSelectEl.focus();return false;}if(turmaGroup.style.display!=='none'&&!opcaoSelectEl.value){setError('opcao_id','Selecione um hor\u00e1rio.');opcaoSelectEl.focus();return false;}if(!opcaoIdInput.value){setError('curso_id','N\u00e3o foi poss\u00edvel determinar a turma. Tente novamente.');return false;}return true;}
             function validarPassoRevisao(){if(!confirmaDadosInput.checked){setError('confirma_dados','Confirme os dados para finalizar.');confirmaDadosInput.focus();return false;}setError('confirma_dados','');return true;}
             async function buscarBairro(){var limpo=somenteDigitos(cepInput.value);if(limpo.length!==8)return;try{var r=await fetch('https://viacep.com.br/ws/'+limpo+'/json/');var d=await r.json();if(!d.erro&&d.bairro){bairroInput.value=d.bairro;vBairro();syncReview();}}catch(e){console.error(e);}}
             document.querySelectorAll('[data-next]').forEach(function(btn){btn.addEventListener('click',function(){var t=btn.dataset.next;if(t==='escolher'&&!validarPassoDados())return;if(t==='revisao'&&!validarPassoEscolher())return;syncReview();mostrarPasso(t);});});
@@ -615,8 +609,9 @@ TEMPLATE_WIZARD = r"""
             confirmaDadosInput.addEventListener('change',function(){if(confirmaDadosInput.checked)setError('confirma_dados','');});
             ['nome','genero','whatsapp','cep','bairro','email','curso_id','como_conheceu'].forEach(function(id){var f=document.getElementById(id);if(f){f.addEventListener('input',syncReview);f.addEventListener('change',syncReview);}});
             function initBenefitsSlider(slider){var slides=Array.from(slider.querySelectorAll('.benefit-slide')),dotsHost=slider.querySelector('[data-benefits-dots]'),prevBtn=slider.querySelector('[data-benefits-prev]'),nextBtn=slider.querySelector('[data-benefits-next]');if(!slides.length||!dotsHost||!prevBtn||!nextBtn)return;var cur=Math.max(slides.findIndex(function(s){return s.classList.contains('ativo');}),0),timer;var dots=slides.map(function(_,i){var dot=document.createElement('button');dot.type='button';dot.className='benefits-dot';dot.setAttribute('aria-label','Benef\u00edcio '+(i+1));dot.addEventListener('click',function(){show(i);restart();});dotsHost.appendChild(dot);return dot;});function show(i){cur=(i+slides.length)%slides.length;slides.forEach(function(s,j){s.classList.toggle('ativo',j===cur);});dots.forEach(function(d,j){d.classList.toggle('ativo',j===cur);});}function restart(){clearInterval(timer);timer=setInterval(function(){show(cur+1);},3200);}prevBtn.addEventListener('click',function(){show(cur-1);restart();});nextBtn.addEventListener('click',function(){show(cur+1);restart();});slider.addEventListener('mouseenter',function(){clearInterval(timer);});slider.addEventListener('mouseleave',restart);show(cur);restart();}
-            var initCursoId='{{ form_data.get("curso_id", "") }}',initOpcaoId='{{ form_data.get("opcao_id", "") }}';
-            if(initCursoId){courseSelect.value=initCursoId;atualizarTurmasPorCurso(initCursoId,initOpcaoId);}else{turmaGroup.style.display='none';}
+            var initCursoId='{{ form_data.get("curso_id","") }}',initLocalId='{{ form_data.get("local_id","") }}',initOpcaoId='{{ form_data.get("opcao_id","") }}';
+            if(initCursoId){courseSelect.value=initCursoId;atualizarLocaisPorCurso(initCursoId,initLocalId,initOpcaoId);}else{localGroup.style.display='none';turmaGroup.style.display='none';}
+            if(initOpcaoId&&courseOptionsById[initOpcaoId])mostrarInfoCurso(true);
             benefitsSliders.forEach(initBenefitsSlider);
             syncReview();
             mostrarPasso(stepOrder.includes(startStep)?startStep:'index');
@@ -626,8 +621,8 @@ TEMPLATE_WIZARD = r"""
 </html>
 """
 
-TEMPLATE_CONFIRMACAO = r"""
-<!DOCTYPE html>
+
+TEMPLATE_CONFIRMACAO = r"""<!DOCTYPE html>
 <html lang="pt-br">
 <head>
     <meta charset="UTF-8">
@@ -636,47 +631,50 @@ TEMPLATE_CONFIRMACAO = r"""
     <link rel="stylesheet" href="/static/style.css">
     <link rel="stylesheet" href="/static/assistant.css">
     <link href="https://fonts.googleapis.com/css2?family=Wise:wght@400;700;900&display=swap" rel="stylesheet">
+    <script>
+        !function(f,b,e,v,n,t,s)
+        {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+        n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+        if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+        n.queue=[];t=b.createElement(e);t.async=!0;
+        t.src=v;s=b.getElementsByTagName(e)[0];
+        s.parentNode.insertBefore(t,s)}(window, document,'script',
+        'https://connect.facebook.net/en_US/fbevents.js');
+        fbq('init', '2008632536670997');
+        fbq('track', 'PageView');
+    </script>
     <style>
-        :root { --cor-principal: #1155cc; --cor-clara: #eef4ff; --cor-texto: #17386d; --sombra-card: 0 18px 55px rgba(17,85,204,0.18); }
-        body { min-height:100vh; margin:0; background: radial-gradient(circle at top left,rgba(17,85,204,0.15),transparent 32%), linear-gradient(140deg,#f5f9ff 0%,#fff 55%,#dfeaff 100%); font-family:'Wise',Arial,sans-serif; }
-        .main-header { border-bottom:4px solid #1155cc; background:rgba(255,255,255,0.92); }
-        .confirm-page { width:min(680px,calc(100% - 16px)); margin:0 auto; padding:10px 0 20px; text-align:center; }
-        .wizard-progress { margin:12px auto 16px; padding:14px 14px 16px; border-radius:28px; background:rgba(255,255,255,0.9); box-shadow:0 12px 30px rgba(17,85,204,0.12); }
-        .wizard-track { width:100%; height:14px; border-radius:999px; background:#dbe6fb; overflow:hidden; }
-        .wizard-fill { width:100%; height:100%; background:linear-gradient(90deg,#1155cc 0%,#4f86ea 100%); border-radius:999px; }
-        .wizard-labels { display:grid; grid-template-columns:repeat(4,1fr); gap:8px; margin-top:12px; }
-        .wizard-label { padding:10px 8px; border:1px solid #c9daf8; border-radius:16px; background:#fff; color:#2f5fb4; font-size:0.84rem; font-weight:700; text-align:center; }
-        .wizard-label.ativo { border-color:#1155cc; background:#eef4ff; color:#1155cc; }
-        .confirm-shell { background:rgba(255,255,255,0.88); border:1px solid rgba(255,255,255,0.9); border-radius:30px; box-shadow:var(--sombra-card); overflow:hidden; text-align:center; }
-        .confirm-card { padding:20px 16px 18px; background:transparent; text-align:center; max-width:620px; margin:0 auto; }
-        .checkmark { width:120px; height:120px; margin:0 auto 12px; }
-        .checkmark svg { width:100%; height:100%; stroke:#1155cc; fill:none; }
-        .confirm-card h1 { margin:0 0 10px; color:#1155cc; font-size:clamp(1.8rem,4vw,2.6rem); letter-spacing:-0.04em; }
-        .protocol-box { margin:16px auto 12px; padding:14px; max-width:320px; border-radius:16px; background:#eef4ff; border:2px solid #1155cc; }
-        .protocol-box strong { display:block; color:#1155cc; font-size:0.98rem; margin-bottom:8px; text-transform:uppercase; letter-spacing:0.04em; }
-        .protocol-box span { display:block; color:#1155cc; font-size:1.35rem; font-weight:900; letter-spacing:0.08em; word-break:break-all; }
-        .next-steps { margin:16px auto 0; max-width:460px; padding:14px; border-radius:18px; background:#fff; border:1px solid #d7e3fb; }
-        .next-steps h2 { margin:0 0 12px; color:#1155cc; font-size:1.2rem; }
-        .next-steps ol { margin:0; padding-left:22px; color:#2f5fb4; line-height:1.55; list-style-position:inside; }
-        .actions { display:grid; gap:10px; margin-top:16px; max-width:380px; margin-left:auto; margin-right:auto; }
-        .action-button { display:flex; align-items:center; justify-content:center; min-height:42px; padding:10px 14px; border-radius:12px; text-decoration:none; text-transform:uppercase; font-weight:800; letter-spacing:0.03em; transition:transform 0.16s ease; }
-        .action-button.primary { background:linear-gradient(90deg,#1155cc 0%,#4f86ea 100%); color:#fff; box-shadow:0 10px 24px rgba(17,85,204,0.24); }
-        .action-button.secondary { background:#fff; color:#1155cc; border:2px solid #1155cc; }
-        .action-button:hover { transform:translateY(-1px); }
-        @media (max-width:640px) {
-            html,body{width:100%!important;max-width:100%!important;overflow-x:hidden!important;}body*{min-width:0;}
-            .main-header{padding:10px 12px;}.header-logos{display:flex;flex-direction:column;align-items:center;gap:10px;}.header-logos img{max-width:min(88vw,280px);height:auto;}
-            .confirm-page{width:calc(100% - 8px)!important;max-width:100%!important;padding:6px 0 12px;}
-            .confirm-card{width:100%!important;max-width:100%!important;padding:14px 10px 12px;}
-            .wizard-progress{width:100%!important;max-width:100%!important;padding:10px;border-radius:18px;}
-            .wizard-labels{grid-template-columns:1fr;gap:6px;}
-            .confirm-shell{width:100%!important;max-width:100%!important;border-radius:18px;}
-            .next-steps,.actions,.action-button,.protocol-box,.wizard-label,.wizard-track{width:100%!important;max-width:100%!important;}
-            img,svg{max-width:100%!important;height:auto!important;}
-        }
+        :root{--cor-principal:#1155cc;--cor-clara:#eff6ff;--cor-texto:#1e3a5f;--sombra-card:0 18px 55px rgba(37,99,235,0.18);}
+        body{min-height:100vh;margin:0;background:radial-gradient(circle at top left,rgba(37,99,235,0.15),transparent 32%),linear-gradient(140deg,#eff6ff 0%,#fff 55%,#eef4ff 100%);font-family:'Wise',Arial,sans-serif;}
+        .main-header{border-bottom:4px solid #1155cc;background:rgba(255,255,255,0.92);}.header-logos{display:flex;align-items:center;justify-content:center;padding:10px 20px;}.logo-prefeitura-topo{height:52px;width:auto;object-fit:contain;}
+        .confirm-page{width:min(680px,calc(100% - 16px));margin:0 auto;padding:10px 0 20px;text-align:center;}
+        .wizard-progress{margin:12px auto 16px;padding:14px 14px 16px;border-radius:28px;background:rgba(255,255,255,0.9);box-shadow:0 12px 30px rgba(37,99,235,0.12);}
+        .wizard-track{width:100%;height:14px;border-radius:999px;background:#eef4ff;overflow:hidden;}
+        .wizard-fill{width:100%;height:100%;background:linear-gradient(90deg,#1155cc 0%,#60a5fa 100%);border-radius:999px;}
+        .wizard-labels{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-top:12px;}
+        .wizard-label{padding:10px 8px;border:1px solid #93c5fd;border-radius:16px;background:#fff;color:#1155cc;font-size:0.84rem;font-weight:700;text-align:center;}
+        .wizard-label.ativo{border-color:#1155cc;background:#eff6ff;color:#1155cc;}
+        .confirm-shell{background:rgba(255,255,255,0.88);border:1px solid rgba(255,255,255,0.9);border-radius:30px;box-shadow:var(--sombra-card);overflow:hidden;text-align:center;}
+        .confirm-card{padding:20px 16px 18px;max-width:620px;margin:0 auto;text-align:center;}
+        .checkmark{width:120px;height:120px;margin:0 auto 12px;}
+        .checkmark svg{width:100%;height:100%;stroke:#1155cc;fill:none;}
+        .confirm-card h1{margin:0 0 10px;color:#1155cc;font-size:clamp(1.8rem,4vw,2.6rem);letter-spacing:-0.04em;}
+        .protocol-box{margin:16px auto 12px;padding:14px;max-width:320px;border-radius:16px;background:#eff6ff;border:2px solid #1155cc;}
+        .protocol-box strong{display:block;color:#1155cc;font-size:0.98rem;margin-bottom:8px;text-transform:uppercase;letter-spacing:0.04em;}
+        .protocol-box span{display:block;color:#1155cc;font-size:1.35rem;font-weight:900;letter-spacing:0.08em;word-break:break-all;}
+        .next-steps{margin:16px auto 0;max-width:460px;padding:14px;border-radius:18px;background:#fff;border:1px solid #bfdbfe;}
+        .next-steps h2{margin:0 0 12px;color:#1155cc;font-size:1.2rem;}
+        .next-steps ol{margin:0;padding-left:22px;color:#1155cc;line-height:1.55;list-style-position:inside;}
+        .actions{display:grid;gap:10px;margin-top:16px;max-width:380px;margin-left:auto;margin-right:auto;}
+        .action-button{display:flex;align-items:center;justify-content:center;min-height:42px;padding:10px 14px;border-radius:12px;text-decoration:none;text-transform:uppercase;font-weight:800;letter-spacing:0.03em;transition:transform 0.16s ease;}
+        .action-button.primary{background:linear-gradient(90deg,#1155cc 0%,#60a5fa 100%);color:#fff;box-shadow:0 10px 24px rgba(37,99,235,0.24);}
+        .action-button.secondary{background:#fff;color:#1155cc;border:2px solid #1155cc;}
+        .action-button:hover{transform:translateY(-1px);}
+        @media(max-width:640px){html,body{width:100%!important;max-width:100%!important;overflow-x:hidden!important;}body*{min-width:0;}.main-header{padding:10px 12px;}.header-logos{display:flex;flex-direction:column;align-items:center;gap:10px;}.header-logos img{max-width:min(88vw,280px);height:auto;}.confirm-page{width:calc(100% - 8px)!important;max-width:100%!important;padding:6px 0 12px;}.confirm-card{width:100%!important;max-width:100%!important;padding:14px 10px 12px;}.wizard-progress{width:100%!important;max-width:100%!important;padding:10px;border-radius:18px;}.wizard-labels{grid-template-columns:1fr;gap:6px;}.confirm-shell{width:100%!important;max-width:100%!important;border-radius:18px;}.protocol-box span{font-size:1.3rem;}.next-steps,.actions,.action-button,.protocol-box,.wizard-label,.wizard-track{width:100%!important;max-width:100%!important;}img,svg{max-width:100%!important;height:auto!important;}}
     </style>
 </head>
 <body>
+    <noscript><img height="1" width="1" style="display:none" src="https://www.facebook.com/tr?id=2008632536670997&ev=PageView&noscript=1"/></noscript>
     <script src="/static/assistant.js"></script>
     <header class="main-header">
         <div class="header-logos">
@@ -714,20 +712,20 @@ TEMPLATE_CONFIRMACAO = r"""
 """
 
 # =============================================================================
-# 6. APLICAÇÃO FLASK
+# FLASK APP
 # =============================================================================
 app = Flask(__name__)
 app.secret_key = os.environ.get("FLASK_SECRET_KEY", "chave-secreta-para-sessao")
 
 def get_default_form_data(source=None):
     form_data = {
-        "nome": "", "genero": "", "cpf": "", "nascimento": "",
-        "whatsapp": "", "cep": "", "bairro": "", "email": "",
-        "local_id": "", "curso_id": "", "opcao_id": "",
-        "local": "", "curso": "", "turma": "",
-        "dias_aula": "", "horario": "", "data_inicio": "",
-        "encerramento": "", "endereco_curso": "",
-        "como_conheceu": "", "confirma_dados": "",
+        "nome":"","genero":"","cpf":"","nascimento":"",
+        "whatsapp":"","cep":"","bairro":"","email":"",
+        "local_id":"","curso_id":"","opcao_id":"",
+        "local":"","curso":"","turma":"",
+        "dias_aula":"","horario":"","data_inicio":"",
+        "encerramento":"","endereco_curso":"",
+        "como_conheceu":"","confirma_dados":"",
     }
     if source:
         for key in form_data:
@@ -765,9 +763,8 @@ def whatsapp_valido(whatsapp):
 def validate_form_data(form_data):
     errors = {}
     selected_curso  = form_data.get("curso_id")
-    selected_option = get_course_option(form_data.get("opcao_id", ""))
-    if not selected_curso:
-        errors["curso_id"] = "Selecione um curso."
+    selected_option = get_course_option(form_data.get("opcao_id",""))
+    if not selected_curso: errors["curso_id"] = "Selecione um curso."
     if not selected_option:
         errors["curso_id"] = errors.get("curso_id", "Selecione um local e hor\u00e1rio para o curso.")
     elif selected_option and selected_curso and selected_option["curso_id"] != selected_curso:
@@ -776,9 +773,9 @@ def validate_form_data(form_data):
     if not nome: errors["nome"] = "Digite seu nome completo."
     elif len(nome) > 50: errors["nome"] = "O nome deve ter no m\u00e1ximo 50 caracteres."
     elif not NAME_PATTERN.fullmatch(nome): errors["nome"] = "Use apenas letras e sinais permitidos no nome."
-    if form_data["genero"] not in {"Feminino", "Masculino", "Outro", "Prefiro n\u00e3o dizer"}:
+    if form_data["genero"] not in {"Feminino","Masculino","Outro","Prefiro n\u00e3o dizer"}:
         errors["genero"] = "Selecione o g\u00eanero."
-    if not cpf_valido(form_data["cpf"]): errors["cpf"] = "CPF inv\u00e1lido. Verifique e digite novamente."
+    if not cpf_valido(form_data["cpf"]): errors["cpf"] = "CPF inv\u00e1lido."
     if not idade_aceita(form_data["nascimento"]): errors["nascimento"] = "Idade permitida: de 16 at\u00e9 90 anos."
     if not whatsapp_valido(form_data["whatsapp"]): errors["whatsapp"] = "Informe um WhatsApp com DDD v\u00e1lido do Brasil."
     if not re.fullmatch(r"\d{5}-\d{3}", form_data["cep"] or ""): errors["cep"] = "CEP inv\u00e1lido. Formato: 00000-000."
@@ -793,7 +790,7 @@ def validate_form_data(form_data):
 
 def error_step(errors):
     if "confirma_dados" in errors: return "revisao"
-    if "curso_id" in errors:       return "escolher"
+    if "curso_id" in errors: return "escolher"
     return "dados"
 
 def render_wizard(form_data=None, errors=None, current_step="index"):
@@ -808,54 +805,48 @@ def render_wizard(form_data=None, errors=None, current_step="index"):
         current_step   = current_step,
         errors         = errors or {},
         form_data      = current_form_data,
-        generos        = ["Feminino", "Masculino", "Outro", "Prefiro n\u00e3o dizer"],
+        generos        = ["Feminino","Masculino","Outro","Prefiro n\u00e3o dizer"],
     )
 
 @app.route("/", methods=["GET"])
-def home():
-    return render_wizard()
+def home(): return render_wizard()
 
-@app.route("/inscricao", methods=["GET", "POST"])
+@app.route("/inscricao", methods=["GET","POST"])
 def inscricao_unica():
-    if request.method == "GET":
-        return redirect(url_for("home"))
+    if request.method == "GET": return redirect(url_for("home"))
     form_data = get_default_form_data(request.form)
     errors    = validate_form_data(form_data)
-    if errors:
-        return render_wizard(form_data=form_data, errors=errors, current_step=error_step(errors))
+    if errors: return render_wizard(form_data=form_data, errors=errors, current_step=error_step(errors))
     protocolo = str(uuid.uuid4())[:8].upper()
     session["protocolo"] = protocolo
+    session.permanent = True
     dados = [
-        protocolo,
-        form_data["nome"], form_data["genero"], form_data["cpf"],
+        protocolo, form_data["nome"], form_data["genero"], form_data["cpf"],
         form_data["nascimento"], form_data["whatsapp"], form_data["email"],
         form_data["cep"], form_data["bairro"], form_data["local"],
         form_data["curso"], form_data["turma"], form_data["dias_aula"],
         form_data["horario"], form_data["data_inicio"], form_data["encerramento"],
         form_data["endereco_curso"], form_data["como_conheceu"],
     ]
-    try:
-        append_to_sheet(dados)
-    except Exception as exc:
-        print("Erro ao salvar na planilha:", exc); traceback.print_exc()
+    try: append_to_sheet(dados)
+    except Exception as exc: print("Erro ao salvar na planilha:", exc); traceback.print_exc()
     try:
         response = send_registration_to_supabase(form_data)
-        print("Envio para Supabase concluido:", response.status_code)
-    except Exception as exc:
-        print("Erro ao enviar para Supabase:", exc)
-    return redirect(url_for("confirmacao"))
+        print("Supabase:", response.status_code)
+    except Exception as exc: print("Erro Supabase:", exc)
+    return redirect(url_for("confirmacao", protocolo=protocolo))
 
-@app.route("/curso",   methods=["GET", "POST"])
-@app.route("/revisao", methods=["GET", "POST"])
+@app.route("/curso",   methods=["GET","POST"])
+@app.route("/revisao", methods=["GET","POST"])
 @app.route("/wizard",  methods=["GET"])
-def legacy_routes():
-    return redirect(url_for("home"))
+def legacy_routes(): return redirect(url_for("home"))
 
 @app.route("/confirmacao", methods=["GET"])
-def confirmacao():
-    protocolo = session.get("protocolo")
+@app.route("/confirmacao/<protocolo>", methods=["GET"])
+def confirmacao(protocolo=None):
     if not protocolo:
-        return redirect(url_for("home"))
+        protocolo = session.get("protocolo")
+    if not protocolo: return redirect(url_for("home"))
     home_url = "https://movimenta-rio-mare.onrender.com"
     return render_template_string(
         TEMPLATE_CONFIRMACAO,
@@ -864,38 +855,34 @@ def confirmacao():
     )
 
 # =============================================================================
-# 7. SUPABASE
+# SUPABASE
 # =============================================================================
 SUPABASE_FUNCTION_URL = os.environ.get(
     "SUPABASE_FUNCTION_URL",
     "https://egpyhfzatabyftwajoad.supabase.co/functions/v1/fgm-register",
 )
-SUPABASE_API_KEY = os.environ.get(
-    "SUPABASE_API_KEY",
-    "jyUskwXkc54ZcMPyADLFN6LvZO0I60e3",
-)
+SUPABASE_API_KEY = os.environ.get("SUPABASE_API_KEY", "jyUskwXkc54ZcMPyADLFN6LvZO0I60e3")
 
 def normalize_phone_number(phone):
     digits = re.sub(r"[^\d]", "", phone or "")
-    if len(digits) == 11:
-        return f"55{digits}"
-    return digits
+    return f"55{digits}" if len(digits) == 11 else digits
 
 def send_registration_to_supabase(form_data):
-    phone = normalize_phone_number(form_data.get("whatsapp", ""))
+    phone   = normalize_phone_number(form_data.get("whatsapp",""))
+    endereco = form_data.get("endereco_curso","").lstrip("\U0001f4cd\U0001f4cc ").strip()
     payload = {
-        "name":           form_data.get("nome", ""),
+        "name":           form_data.get("nome",""),
         "phone":          phone,
-        "curso":          form_data.get("curso", ""),
-        "local":          form_data.get("local", ""),
-        "dia_semana":     form_data.get("dias_aula", ""),
-        "dias_semana":    form_data.get("dias_aula", ""),
-        "data_inicio":    form_data.get("data_inicio", ""),
+        "curso":          form_data.get("curso",""),
+        "local":          form_data.get("local",""),
+        "dia_semana":     form_data.get("dias_aula",""),
+        "dias_semana":    form_data.get("dias_aula",""),
+        "data_inicio":    form_data.get("data_inicio",""),
         "data_inscricao": datetime.utcnow().isoformat() + "Z",
-        "horario":        form_data.get("horario", ""),
-        "endereco":       form_data.get("endereco_curso", ""),
-        "endereco_curso": form_data.get("endereco_curso", ""),
-        "turma":          form_data.get("turma", ""),
+        "horario":        form_data.get("horario",""),
+        "endere\u00e7o": endereco,
+        "endereco":       endereco,
+        "turma":          form_data.get("turma",""),
     }
     headers = {
         "Content-Type":  "application/json",
