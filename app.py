@@ -193,6 +193,8 @@ TURMA_OPTIONS = [
     {"id": "109", "curso_id": "5",  "local_id": "20", "turma_codigo": "26/MARK 39", "turma_label": "Segunda e Quarta — 19h–21h (início 24/08/2026) — Quadra Unidos de Manguinhos — Manguinhos", "dias_aula": "Segunda e Quarta", "horario": "19h–21h", "data_inicio": "24/08/2026", "encerramento": "16/08/2026", "endereco_curso": "📍Av. dos Democráticos, 32 – CEP: 21050-000 – Manguinhos"},
     {"id": "110", "curso_id": "2",  "local_id": "18", "turma_codigo": "26/ADMN 55", "turma_label": "Terça — 17h30 (início 25/08/2026) — Centro Social Estrela da Manhã — Guaratiba", "dias_aula": "Terça", "horario": "17h30", "data_inicio": "25/08/2026", "encerramento": "15/09/2026", "endereco_curso": "📍Rua Alcides Franco, 175 – CEP: 23032-010 – Guaratiba"},
     {"id": "111", "curso_id": "2",  "local_id": "16", "turma_codigo": "26/ADMN 56", "turma_label": "Terça e Quinta — 19h–21h (início 13/08/2026) — AD ADTS Mandela — Benfica", "dias_aula": "Terça e Quinta", "horario": "19h–21h", "data_inicio": "13/08/2026", "encerramento": "08/09/2026", "endereco_curso": "📍Rua Leopoldo Bulhões, 800 – Benfica"},
+    # NOVA TURMA — Investidor do Sucesso (Opção 1.1)
+    {"id": "112", "curso_id": "16", "local_id": "37", "turma_codigo": "26/INVS 09", "turma_label": "Sábado — 08h–12h (início 22/08/2026) — Igreja Assembléia de Deus ADAV — Senador Augusto Vasconcelos", "dias_aula": "Sábado", "horario": "08h–12h", "data_inicio": "22/08/2026", "encerramento": "26/09/2026", "endereco_curso": "📍Rua Arthur Rios, 805 – Sub bairro Senador Augusto Vasconcelos – Campo Grande"},
 ]
 def build_course_options():
     local_by_id  = {o["id"]: o for o in LOCAL_OPTIONS}
