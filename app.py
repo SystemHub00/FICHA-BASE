@@ -74,7 +74,7 @@ COURSE_CATALOG = [
     {"id": "8",  "nome": "PORTEIRO"},
     {"id": "9",  "nome": "RECEPCIONISTA"},
     {"id": "10", "nome": "AGENTE DE TURISMO CORPORATIVO"},
-    {"id": "11", "nome": "VENDEDOR"},
+    {"id": "11", "nome": "VENDAS"},
     {"id": "12", "nome": "SOCIAL MEDIA"},
     {"id": "13", "nome": "BARBEIRO"},
     {"id": "14", "nome": "GAR\u00c7OM"},
@@ -223,7 +223,7 @@ TURMA_OPTIONS = [
     {"id": "135", "curso_id": "2",  "local_id": "23", "turma_codigo": "26/ADMN 59", "turma_label": "Segunda e Quarta — 19h30–21h30 (início 28/08/2026) — Ig. Evangélica Pão da Vida — Curicica", "dias_aula": "Segunda e Quarta", "horario": "19h30–21h30", "data_inicio": "28/08/2026", "encerramento": "18/09/2026", "endereco_curso": "📍Rua Mandina, 2 – CEP: 22780-530 – Curicica"},
     # NOVAS TURMAS — Ago/Set 2026 (lote adicional)
     {"id": "136", "curso_id": "12", "local_id": "10", "turma_codigo": "26/SOMD 23", "turma_label": "Sábado — 09h–13h (início 01/08/2026) — Vila do Pinheiro — Maré", "dias_aula": "Sábado", "horario": "09h–13h", "data_inicio": "01/08/2026", "encerramento": "22/08/2026", "endereco_curso": "📍Vila do Pinheiro 1 – Maré"},
-    {"id": "137", "curso_id": "11", "local_id": "5", "turma_codigo": "26/VEND 04", "turma_label": "Quarta e Sexta — 16h–18h (início 19/08/2026) — Min. Ap. Mover Profético — Senador Camará", ...}
+    {"id": "137", "curso_id": "11", "local_id": "5",  "turma_codigo": "26/VEND 04", "turma_label": "Quarta e Sexta — 16h–18h (início 19/08/2026) — Min. Ap. Mover Profético — Senador Camará", "dias_aula": "Quarta e Sexta", "horario": "16h–18h", "data_inicio": "19/08/2026", "encerramento": "11/09/2026", "endereco_curso": "📍Rua Bom Guilherme Francisco Moraes, 3 – Senador Camará – CEP: 21833-190"},
     {"id": "138", "curso_id": "1",  "local_id": "29", "turma_codigo": "26/ASLO 38", "turma_label": "Sábado — 14h–18h (início 22/08/2026) — Ig. União Evangélica Pentecostal — Cosmos", "dias_aula": "Sábado", "horario": "14h–18h", "data_inicio": "22/08/2026", "encerramento": "12/09/2026", "endereco_curso": "📍Rua Herval Rossano LT 26 QD 16 – CEP: 23066-350"},
     {"id": "139", "curso_id": "9",  "local_id": "7",  "turma_codigo": "26/RECP 17", "turma_label": "Sábado — 18h–22h (início 22/08/2026) — Igreja Batista São Bento — Bangu", "dias_aula": "Sábado", "horario": "18h–22h", "data_inicio": "22/08/2026", "encerramento": "12/09/2026", "endereco_curso": "📍Rua Batuíra, nº 121 – CEP: 21860-160"},
     {"id": "140", "curso_id": "12", "local_id": "9",  "turma_codigo": "26/SOMD 24", "turma_label": "Sábado — 10h–14h (início 15/08/2026) — Reforço Escolar Tia Dani — Maré", "dias_aula": "Sábado", "horario": "10h–14h", "data_inicio": "15/08/2026", "encerramento": "05/09/2026", "endereco_curso": "📍Rua Darcy Vargas, nº 136 – CEP: 21.044-040 – Maré"},
@@ -231,6 +231,7 @@ TURMA_OPTIONS = [
     {"id": "142", "curso_id": "6",  "local_id": "27", "turma_codigo": "26/MLRE 21", "turma_label": "Segunda, Quarta e Sexta — 18h–22h (início 21/08/2026) — Centro Cultural Lottus — Méier", "dias_aula": "Segunda, Quarta e Sexta", "horario": "18h–22h", "data_inicio": "21/08/2026", "encerramento": "28/08/2026", "endereco_curso": "📍Rua Dias da Cruz, nº 638 – Sala 204 – CEP: 20.720-013"},
     {"id": "143", "curso_id": "9",  "local_id": "7",  "turma_codigo": "26/RECP 18", "turma_label": "Quinta — 18h–22h (início 20/08/2026) — Igreja Batista São Bento — Bangu", "dias_aula": "Quinta", "horario": "18h–22h", "data_inicio": "20/08/2026", "encerramento": "12/09/2026", "endereco_curso": "📍Rua Batuíra, nº 121 – CEP: 21860-160"},
     {"id": "144", "curso_id": "2",  "local_id": "22", "turma_codigo": "26/ADMN 60", "turma_label": "Sábado — 08h–12h (início 05/09/2026) — Assoc. de Moradores São Jorge — Inhoaíba", "dias_aula": "Sábado", "horario": "08h–12h", "data_inicio": "05/09/2026", "encerramento": "26/09/2026", "endereco_curso": "📍Rua Pedro Autran, nº 71"},
+    # NOVA TURMA — Marketing Digital
     {"id": "145", "curso_id": "5",  "local_id": "18", "turma_codigo": "26/MARK 48", "turma_label": "Segunda — 17h30–21h30 (início 31/08/2026) — Centro Social Estrela da Manhã — Guaratiba", "dias_aula": "Segunda", "horario": "17h30–21h30", "data_inicio": "31/08/2026", "encerramento": "21/09/2026", "endereco_curso": "📍Rua Alcides Franco, 175 – CEP: 23032-010"},
 ]
 def build_course_options():
@@ -459,7 +460,7 @@ TEMPLATE_WIZARD = r"""
                                 &#x267B;&#xFE0F; OPERADOR DE SISTEMA DE COMPOSTAGEM<br>
                                 &#x1F6AA; PORTEIRO<br>
                                 &#x1F4CB; RECEPCIONISTA<br>
-                                &#x1F6CD;&#xFE0F; VENDEDOR<br>
+                                &#x1F6CD;&#xFE0F; VENDAS<br>
                                 &#x1F4F1; SOCIAL MEDIA<br>
                                 &#x2702;&#xFE0F; BARBEIRO<br>
                                 &#x1F37D;&#xFE0F; GAR&#199;OM<br>
