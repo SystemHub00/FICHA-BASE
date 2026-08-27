@@ -231,6 +231,7 @@ TURMA_OPTIONS = [
     {"id": "142", "curso_id": "6",  "local_id": "27", "turma_codigo": "26/MLRE 21", "turma_label": "Segunda, Quarta e Sexta — 18h–22h (início 21/08/2026) — Centro Cultural Lottus — Méier", "dias_aula": "Segunda, Quarta e Sexta", "horario": "18h–22h", "data_inicio": "21/08/2026", "encerramento": "28/08/2026", "endereco_curso": "📍Rua Dias da Cruz, nº 638 – Sala 204 – CEP: 20.720-013"},
     {"id": "143", "curso_id": "9",  "local_id": "7",  "turma_codigo": "26/RECP 18", "turma_label": "Quinta — 18h–22h (início 20/08/2026) — Igreja Batista São Bento — Bangu", "dias_aula": "Quinta", "horario": "18h–22h", "data_inicio": "20/08/2026", "encerramento": "12/09/2026", "endereco_curso": "📍Rua Batuíra, nº 121 – CEP: 21860-160"},
     {"id": "144", "curso_id": "2",  "local_id": "22", "turma_codigo": "26/ADMN 60", "turma_label": "Sábado — 08h–12h (início 05/09/2026) — Assoc. de Moradores São Jorge — Inhoaíba", "dias_aula": "Sábado", "horario": "08h–12h", "data_inicio": "05/09/2026", "encerramento": "26/09/2026", "endereco_curso": "📍Rua Pedro Autran, nº 71"},
+    {"id": "145", "curso_id": "5",  "local_id": "18", "turma_codigo": "26/MARK 48", "turma_label": "Segunda — 17h30–21h30 (início 31/08/2026) — Centro Social Estrela da Manhã — Guaratiba", "dias_aula": "Segunda", "horario": "17h30–21h30", "data_inicio": "31/08/2026", "encerramento": "21/09/2026", "endereco_curso": "📍Rua Alcides Franco, 175 – CEP: 23032-010"},
 ]
 def build_course_options():
     local_by_id  = {o["id"]: o for o in LOCAL_OPTIONS}
