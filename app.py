@@ -226,6 +226,7 @@ TURMA_OPTIONS = [
     {"id": "148", "curso_id": "4",  "local_id": "8",  "turma_codigo": "26/INAT 37", "turma_label": "Sábado — 08h–12h (início 08/08/2026) — Ig. Metodista Embarcados C/Cristo — Campo Grande", "dias_aula": "Sábado", "horario": "08h–12h", "data_inicio": "08/08/2026", "encerramento": "29/08/2026", "endereco_curso": "📍Est. do Cabuçu, 2692 – CEP 23017-250 – Rio da Prata – CG"},
     {"id": "149", "curso_id": "11", "local_id": "25", "turma_codigo": "26/VEND 05", "turma_label": "Sábado — 08h–12h (início 08/08/2026) — Ig. Batista Maanaim Mendanha — Campo Grande", "dias_aula": "Sábado", "horario": "08h–12h", "data_inicio": "08/08/2026", "encerramento": "29/08/2026", "endereco_curso": "📍Estrada do Mendanha, 4240"},
     {"id": "150", "curso_id": "2",  "local_id": "3",  "turma_codigo": "26/ADMN 62", "turma_label": "Sábado — 09h–12h (início 25/07/2026) — Igreja Batista São Bento — Bangu", "dias_aula": "Sábado", "horario": "09h–12h", "data_inicio": "25/07/2026", "encerramento": "15/08/2026", "endereco_curso": "📍Rua Batuíra 121, Bangu – CEP: 21860-160"},
+    {"id": "151", "curso_id": "6",  "local_id": "29", "turma_codigo": "26/MLRE 22", "turma_label": "Sábado — 08h–12h (início 22/08/2026) — Ig. União Evangélica Pentecostal — Cosmos", "dias_aula": "Sábado", "horario": "08h–12h", "data_inicio": "22/08/2026", "encerramento": "12/09/2026", "endereco_curso": "📍Rua Herval Rossano LT 26 QD 16 – CEP 23066-350 – Cosmos"},
 ]
 def build_course_options():
     local_by_id  = {o["id"]: o for o in LOCAL_OPTIONS}
