@@ -405,10 +405,19 @@ TEMPLATE_WIZARD = r"""
         * { box-sizing: border-box; }
         html, body { min-height: 100%; margin: 0; padding: 0; width: 100%; max-width: 100%; overflow-x: hidden; }
         body { min-height: 100vh; background: hsl(var(--background)); color: hsl(var(--foreground)); font-family: 'Inter', Arial, sans-serif; }
-        .main-header { border-bottom: 1px solid hsl(var(--border)); background: hsl(var(--card) / 0.92); backdrop-filter: blur(8px); }
-        .wizard-page { width: min(900px, calc(100% - 16px)); margin: 0 auto; padding: 8px 0 18px; text-align: center; }
+        .main-header { position: fixed; top: 0; left: 0; right: 0; z-index: 50; border-bottom: 1px solid hsl(var(--border)); background: hsl(var(--card) / 0.95); backdrop-filter: blur(8px); box-shadow: var(--shadow-soft); }
+        .header-inner { display: flex; align-items: center; justify-content: center; gap: 16px; padding: 10px 16px; }
+        .header-inner img { height: 44px; object-fit: contain; }
+        .header-title { text-align: left; }
+        .header-title .brand { margin: 0; font-size: 0.85rem; font-weight: 800; color: hsl(var(--primary)); line-height: 1.2; }
+        .header-title .sub { margin: 0; font-size: 0.7rem; color: hsl(var(--muted-foreground)); }
+        .wizard-page { width: min(900px, calc(100% - 16px)); margin: 0 auto; padding: 76px 0 18px; text-align: center; }
         .wizard-progress { margin: 18px auto 22px; padding: 18px 18px 20px; border-radius: calc(var(--radius) * 1.75); background: hsl(var(--card)); box-shadow: var(--shadow-md); }
-        .wizard-track { width: 100%; height: 14px; background: hsl(var(--secondary)); border-radius: 999px; overflow: hidden; }
+        .progress-top-row { display: flex; align-items: center; justify-content: space-between; margin-bottom: 10px; }
+        .progress-step-label { font-size: 0.9rem; font-weight: 700; color: hsl(var(--foreground)); }
+        .progress-percent { font-size: 0.9rem; font-weight: 700; color: hsl(var(--primary)); }
+        .wizard-dot { position: absolute; top: 50%; transform: translateY(-50%); width: 12px; height: 12px; border-radius: 999px; background: hsl(var(--primary-light)); box-shadow: var(--shadow-md); transition: left 0.3s ease; }
+        .wizard-track { position: relative; width: 100%; height: 14px; background: hsl(var(--secondary)); border-radius: 999px; overflow: visible; }
         .wizard-fill { height: 100%; width: 25%; background: var(--gradient-primary); border-radius: 999px; transition: width 0.3s ease; }
         .wizard-labels { display: grid; grid-template-columns: repeat(4,1fr); gap: 10px; margin-top: 14px; }
         .wizard-label { padding: 12px 10px; border: 1px solid hsl(var(--border)); border-radius: var(--radius); background: hsl(var(--card)); color: hsl(var(--primary)); font-size: 0.92rem; font-weight: 700; text-align: center; transition: all 0.25s ease; }
@@ -419,7 +428,11 @@ TEMPLATE_WIZARD = r"""
         @keyframes surgir { from { opacity:0; transform:translateY(12px); } to { opacity:1; transform:translateY(0); } }
         .hero-grid { display: grid; grid-template-columns: minmax(0,1fr); gap: 14px; align-items: center; justify-items: center; }
         .hero-card { padding: 32px; border-radius: calc(var(--radius) * 1.75); background: var(--gradient-hero); border: none; width: 100%; text-align: center; color: hsl(var(--primary-foreground)); box-shadow: var(--shadow-hover); }
-        .hero-pill { display: inline-flex; align-items: center; gap: 8px; padding: 10px 18px; border-radius: 999px; background: hsl(0 0% 100% / 0.18); backdrop-filter: blur(4px); color: hsl(var(--primary-foreground)); font-size: 0.85rem; font-weight: 800; letter-spacing: 0.06em; text-transform: uppercase; }
+        .hero-pill { display: inline-flex; align-items: center; gap: 8px; padding: 10px 18px; border-radius: 999px; background: hsl(0 0% 100% / 0.18); backdrop-filter: blur(4px); color: hsl(var(--primary-foreground)); font-size: 0.85rem; font-weight: 800; letter-spacing: 0.06em; text-transform: uppercase; animation: pulse-soft 2.4s ease-in-out infinite; }
+        @keyframes pulse-soft { 0%,100% { opacity: 1; } 50% { opacity: 0.72; } }
+        .hero-title-accent { color: hsl(0 0% 100%); text-decoration: underline; text-decoration-color: hsl(var(--primary-light)); text-underline-offset: 6px; }
+        .trust-badges { display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: 8px; margin-top: 14px; }
+        .trust-badge { display: inline-flex; align-items: center; gap: 6px; padding: 7px 14px; border-radius: 999px; background: hsl(0 0% 100% / 0.16); color: hsl(var(--primary-foreground)); font-size: 0.8rem; font-weight: 700; }
         .hero-title { margin: 18px 0 10px; color: hsl(var(--primary-foreground)); font-weight: 900; letter-spacing: -0.04em; text-transform: uppercase; font-size: clamp(2rem,3.8vw,3.2rem); line-height: 1; }
         .panel-title { margin: 18px 0 10px; color: hsl(var(--primary)); font-weight: 900; letter-spacing: -0.03em; font-size: clamp(1.7rem,3vw,2.4rem); }
         .hero-subtitle { margin: 0; color: hsl(0 0% 100% / 0.92); font-size: 1.05rem; line-height: 1.55; }
@@ -470,16 +483,19 @@ TEMPLATE_WIZARD = r"""
         }
         .input-with-action { display: grid; grid-template-columns: minmax(0,1fr); gap: 10px; align-items: stretch; }
         .input-with-action input { width: 100% !important; }
-        .icon-button, .cta-button, .secondary-button, .submit-button { border: none; border-radius: var(--radius); font: inherit; font-weight: 800; cursor: pointer; transition: transform 0.16s ease, box-shadow 0.16s ease, background 0.16s ease, color 0.16s ease; }
+        .icon-button, .cta-button, .secondary-button, .submit-button { border: none; border-radius: 999px; font: inherit; font-weight: 700; cursor: pointer; transition: transform 0.16s ease, box-shadow 0.16s ease, background 0.16s ease, color 0.16s ease, filter 0.16s ease; }
+        .icon-button { border-radius: var(--radius); }
+        .panel-actions .cta-button, .panel-actions .secondary-button, .panel-actions .submit-button { width: 100% !important; max-width: 100% !important; min-width: 0 !important; margin: 0 !important; height: 38px; font-size: 1rem; }
+        .cta-button, .submit-button { background: var(--gradient-primary); color: hsl(var(--primary-foreground)); box-shadow: var(--shadow-soft); }
+        .cta-button:hover, .submit-button:hover { filter: brightness(1.1); }
+        .secondary-button { background: hsl(var(--card)); color: hsl(var(--foreground)); border: 1.5px solid hsl(var(--border)); }
+        .cta-button, .secondary-button, .submit-button { min-height: 48px; padding: 12px 22px; letter-spacing: 0.01em; }
+        .cta-button:hover, .secondary-button:hover, .submit-button:hover, .icon-button:hover { transform: scale(1.03); }
+        .cta-button:active, .secondary-button:active, .submit-button:active { transform: scale(0.97); }
+        .panel-actions { display: flex; flex-direction: row; align-items: center; gap: 16px; justify-content: space-between; margin-top: 28px; padding-top: 20px; border-top: 1px solid hsl(var(--border)); max-width: 420px; margin-left: auto; margin-right: auto; }
+        .panel-actions > * { flex: 1; }
         .icon-button { min-width: 56px; min-height: 52px; background: hsl(var(--primary)); color: hsl(var(--primary-foreground)); box-shadow: var(--shadow-md); }
         .wizard-panel[data-step="escolher"] .icon-button { width: 100% !important; min-width: 0 !important; max-width: 100% !important; height: 38px !important; min-height: 38px !important; padding: 0; border-radius: 0.65rem; box-shadow: none; }
-        .panel-actions .cta-button, .panel-actions .secondary-button, .panel-actions .submit-button { width: 100% !important; max-width: 100% !important; min-width: 0 !important; margin: 0 !important; height: 38px; font-size: 1rem; }
-        .cta-button, .submit-button { background: var(--gradient-primary); color: hsl(var(--primary-foreground)); box-shadow: var(--shadow-hover); }
-        .secondary-button { background: hsl(var(--card)); color: hsl(var(--primary)); border: 2px solid hsl(var(--primary)); }
-        .cta-button, .secondary-button, .submit-button { min-height: 54px; padding: 14px 22px; text-transform: uppercase; letter-spacing: 0.04em; }
-        .cta-button:hover, .secondary-button:hover, .submit-button:hover, .icon-button:hover { transform: translateY(-1px); box-shadow: var(--shadow-hover); }
-        .panel-actions { display: flex; flex-direction: column-reverse; align-items: center; gap: 12px; justify-content: space-between; margin-top: 28px; max-width: 420px; margin-left: auto; margin-right: auto; }
-        .panel-actions > * { flex: 1; }
         .balao-erro { margin-top: 4px; padding: 10px 14px; border-radius: var(--radius); border: 1px solid hsl(var(--primary)); background: hsl(var(--primary)); color: hsl(var(--primary-foreground)); font-size: 0.92rem; font-weight: 700; line-height: 1.35; }
         .balao-erro[hidden] { display: none; }
         .erro-campo { border-color: hsl(var(--destructive)) !important; box-shadow: 0 0 0 4px hsl(var(--destructive) / 0.14) !important; }
@@ -505,8 +521,8 @@ TEMPLATE_WIZARD = r"""
         @media (max-width: 640px) {
             :root { --field-height: 32px; }
             html,body { width:100%!important; max-width:100%!important; overflow-x:hidden!important; } body * { min-width: 0; } body { overflow-x: hidden; }
-            .main-header { padding: 10px 12px; } .header-logos { display:flex; flex-direction:column; align-items:center; gap:10px; } .header-logos img { max-width: min(88vw,280px); height:auto; }
-            .wizard-page { width:calc(100% - 8px)!important; max-width:100%!important; padding:4px 0 10px; } .wizard-progress, .wizard-panel { width:100%!important; max-width:100%!important; padding:8px; } .wizard-labels { grid-template-columns: 1fr; gap: 6px; }
+            .main-header { padding: 0; } .header-inner { padding: 8px 12px; gap: 10px; } .header-inner img { height: 36px; }
+            .wizard-page { width:calc(100% - 8px)!important; max-width:100%!important; padding:68px 0 10px !important; } .wizard-progress, .wizard-panel { width:100%!important; max-width:100%!important; padding:8px; } .wizard-labels { grid-template-columns: 1fr; gap: 6px; }
             .hero-card, .step-card, .review-box { width:100%!important; max-width:100%!important; padding:8px; } .input-with-action { grid-template-columns: minmax(0,1fr); width:100%!important; max-width:100%!important; } .panel-actions > * { width: 100%; }
             .step-grid { grid-template-columns: repeat(2,minmax(0,1fr)); gap: 6px; } .step-grid.step-grid--stacked { grid-template-columns: minmax(0,1fr); max-width: 100%; } .review-layout { grid-template-columns: 1fr; max-width: 100%; gap: 10px; }
             .review-item, .form-group, .form-group input, .form-group select, .form-group textarea, .wizard-shell, .panel-actions, .review-check, .balao-erro { width:100%!important; max-width:100%!important; }
@@ -525,28 +541,42 @@ TEMPLATE_WIZARD = r"""
     <noscript><img height="1" width="1" style="display:none" src="https://www.facebook.com/tr?id=2008632536670997&ev=PageView&noscript=1"/></noscript>
     <script src="/static/assistant.js"></script>
     <header class="main-header">
-        <div class="header-logos">
-            <img src="/static/logo-prefeitura.png" alt="Prefeitura do Rio de Janeiro - SMTE" class="logo-prefeitura-topo" loading="eager">
+        <div class="header-inner">
+            <img src="/static/logo-prefeitura.png" alt="Prefeitura do Rio de Janeiro - SMTE" loading="eager">
+            <div class="header-title">
+                <p class="brand">MOVIMENTA RIO</p>
+                <p class="sub">Prefeitura do Rio &bull; SMTE</p>
+            </div>
         </div>
     </header>
     <main>
     <div class="wizard-page">
         <div class="wizard-progress">
-            <div class="wizard-track"><div class="wizard-fill" id="wizard-fill"></div></div>
+            <div class="progress-top-row">
+                <span class="progress-step-label" id="progress-step-label">Passo 1 de 4</span>
+                <span class="progress-percent" id="progress-percent">0%</span>
+            </div>
+            <div class="wizard-track"><div class="wizard-fill" id="wizard-fill"></div><div class="wizard-dot" id="wizard-dot"></div></div>
             <div class="wizard-labels">
                 <div class="wizard-label" data-step-label="index">1. In&#237;cio</div>
                 <div class="wizard-label" data-step-label="dados">2. Dados pessoais</div>
                 <div class="wizard-label" data-step-label="escolher">3. Escolher</div>
                 <div class="wizard-label" data-step-label="revisao">4. Revis&#227;o</div>
+
             </div>
         </div>
         <div class="wizard-shell">
             <form id="wizard-form" method="POST" action="{{ url_for('inscricao_unica') }}" autocomplete="off" novalidate>
                 <section class="wizard-panel" data-step="index">
                     <div class="hero-grid"><div class="hero-card">
-                        <span class="hero-pill">&#9889; PROJETO: MOVIMENTA RIO</span>
-                        <h1 class="hero-title">CURSOS GRATUITOS NO RIO DE JANEIRO</h1>
+                        <span class="hero-pill">&#x1F525; INSCRI&#199;&#213;ES ABERTAS &mdash; INSCREVA-SE J&#193;</span>
+                        <h1 class="hero-title">CURSOS <span class="hero-title-accent">GRATUITOS</span> NO RIO DE JANEIRO</h1>
                         <p class="hero-subtitle">Programa Movimenta Rio &bull; Prefeitura do Rio de Janeiro</p>
+                        <div class="trust-badges">
+                            <span class="trust-badge">&#10024; 100% Gratuito</span>
+                            <span class="trust-badge">&#127942; Certificado</span>
+                            <span class="trust-badge">&#127891; 20h de Forma&#231;&#227;o</span>
+                        </div>
                         <div class="hero-highlights">
                             <div class="hero-highlight" style="text-align:center;">
                                 <strong>CURSOS DISPON&#205;VEIS:</strong>
@@ -606,8 +636,8 @@ TEMPLATE_WIZARD = r"""
                             <div class="form-group full"><label for="email">E-mail *</label><input type="email" id="email" name="email" maxlength="60" placeholder="seuemail@gmail.com" value="{{ form_data.get('email', '') }}"><div class="balao-erro" id="email-error" {% if not errors.get('email') %}hidden{% endif %}>{{ errors.get('email', '') }}</div></div>
                         </div>
                         <div class="panel-actions">
-                            <button type="button" class="secondary-button" data-prev="index">Voltar</button>
-                            <button type="button" class="cta-button" data-next="escolher">Pr&#243;ximo</button>
+                            <button type="button" class="secondary-button" data-prev="index">&#8249; Voltar</button>
+                            <button type="button" class="cta-button" data-next="escolher">Pr&#243;ximo &#8250;</button>
                         </div>
                     </div>
                 </section>
@@ -630,8 +660,8 @@ TEMPLATE_WIZARD = r"""
                             <div class="form-group full"><label for="endereco_curso">ENDERE&#199;O</label><div class="input-with-action"><input type="text" id="endereco_curso" name="endereco_curso" class="readonly-field" readonly style="display:block !important;width:100% !important;max-width:100% !important;box-sizing:border-box !important;height:var(--field-height) !important;min-height:var(--field-height) !important;max-height:var(--field-height) !important;padding:7px 10px !important;margin:0 !important;border:1.5px solid #a8c0f4 !important;border-radius:0.65rem !important;font-size:1rem !important;line-height:1.2 !important;" value="{{ form_data.get('endereco_curso', '') }}"><button type="button" class="icon-button" id="btn-copiar-endereco" title="Copiar">COPIAR &#128203;</button></div></div>
                         </div>
                         <div class="panel-actions">
-                            <button type="button" class="secondary-button" data-prev="dados">Voltar</button>
-                            <button type="button" class="cta-button" data-next="revisao">Ir para revis&#227;o</button>
+                            <button type="button" class="secondary-button" data-prev="dados">&#8249; Voltar</button>
+                            <button type="button" class="cta-button" data-next="revisao">Ir para revis&#227;o &#8250;</button>
                         </div>
                     </div>
                 </section>
@@ -671,8 +701,8 @@ TEMPLATE_WIZARD = r"""
                             </div>
                         </div>
                         <div class="panel-actions">
-                            <button type="button" class="secondary-button" data-prev="escolher">Voltar</button>
-                            <button type="submit" class="submit-button">Finalizar inscri&#231;&#227;o</button>
+                            <button type="button" class="secondary-button" data-prev="escolher">&#8249; Voltar</button>
+                            <button type="submit" class="submit-button">Finalizar inscri&#231;&#227;o &#10003;</button>
                         </div>
                     </div>
                 </section>
@@ -684,6 +714,8 @@ TEMPLATE_WIZARD = r"""
         document.addEventListener('DOMContentLoaded', function () {
             var stepOrder=['index','dados','escolher','revisao'];
             var progressByStep={index:25,dados:45,escolher:70,revisao:90};
+            var stepNumberByStep={index:1,dados:2,escolher:3,revisao:4};
+            var stepLabelEl=document.getElementById('progress-step-label'),percentEl=document.getElementById('progress-percent'),dot=document.getElementById('wizard-dot');
             var form=document.getElementById('wizard-form'),fill=document.getElementById('wizard-fill');
             var startStep=document.body.dataset.startStep||'index';
             var panels=Array.from(document.querySelectorAll('[data-step]'));
@@ -701,7 +733,7 @@ TEMPLATE_WIZARD = r"""
             courseSelect.addEventListener('change',function(){setError('curso_id','');var c=courseSelect.value;if(c){atualizarTurmasPorCurso(c,'');}else{turmaGroup.style.display='none';aplicarOpcao('');}syncReview();});
             opcaoSelectEl.addEventListener('change',function(){setError('opcao_id','');aplicarOpcao(opcaoSelectEl.value);});
             if(btnCopiarEndereco&&enderecoInput){btnCopiarEndereco.addEventListener('click',function(){navigator.clipboard.writeText(enderecoInput.value).then(function(){btnCopiarEndereco.textContent='COPIADO \u2705';}).catch(function(){enderecoInput.select();document.execCommand('copy');btnCopiarEndereco.textContent='COPIADO \u2705';});setTimeout(function(){btnCopiarEndereco.textContent='COPIAR &#128203;';},1200);});}
-            function mostrarPasso(step){panels.forEach(function(p){p.classList.toggle('ativo',p.dataset.step===step);});labels.forEach(function(l){l.classList.toggle('ativo',l.dataset.stepLabel===step);});fill.style.width=(progressByStep[step]||25)+'%';window.scrollTo({top:0,behavior:'smooth'});}
+            function mostrarPasso(step){panels.forEach(function(p){p.classList.toggle('ativo',p.dataset.step===step);});labels.forEach(function(l){l.classList.toggle('ativo',l.dataset.stepLabel===step);});var pct=progressByStep[step]||25;fill.style.width=pct+'%';if(dot)dot.style.left='calc('+pct+'% - 6px)';if(stepLabelEl)stepLabelEl.textContent='Passo '+(stepNumberByStep[step]||1)+' de 4';if(percentEl)percentEl.textContent=pct+'%';window.scrollTo({top:0,behavior:'smooth'});}
             function syncReview(){reviewTargets.forEach(function(t){var key=t.dataset.review;if(key==='curso_nome'){t.textContent=cursoInput?cursoInput.value.trim():'';return;}if(key==='local_nome'){t.textContent=localInput?localInput.value.trim():'';return;}var f=document.getElementById(key);if(!f){t.textContent='';return;}if(f.tagName==='SELECT'){var s=f.options[f.selectedIndex];t.textContent=s?s.text.trim():'';}else{t.textContent=f.value.trim();}});}
             function validarCPF(cpf){var d=somenteDigitos(cpf);if(d.length!==11||/^(\d)\1+$/.test(d))return false;var s=0,g;for(var i=0;i<9;i++)s+=Number(d[i])*(10-i);g=(s*10)%11;if(g===10)g=0;if(g!==Number(d[9]))return false;s=0;for(var i=0;i<10;i++)s+=Number(d[i])*(11-i);g=(s*10)%11;if(g===10)g=0;return g===Number(d[10]);}
             function validarEmail(e){return /^[a-zA-Z0-9_.+-]+@((gmail|hotmail|outlook|yahoo)\.(com|com\.br))$/i.test((e||'').trim());}
@@ -769,48 +801,48 @@ TEMPLATE_CONFIRMACAO = r"""
             --secondary: 210 40% 96%;
             --accent: 213 100% 96%;
             --muted-foreground: 215 16% 47%;
+            --success: 142 71% 45%;
             --border: 214 32% 91%;
             --radius: 1rem;
             --gradient-primary: linear-gradient(135deg, hsl(213 100% 40%) 0%, hsl(197 100% 50%) 100%);
+            --gradient-soft: linear-gradient(180deg, hsl(210 40% 98%) 0%, hsl(210 40% 96%) 100%);
             --shadow-soft: 0 4px 6px rgba(0,102,204,.05);
             --shadow-md: 0 8px 16px rgba(0,102,204,.10);
             --shadow-hover: 0 8px 24px rgba(0,102,204,.12);
         }
         html { overflow-x: hidden; }
-        body { min-height:100vh; margin:0; width:100%; max-width:100%; overflow-x:hidden; background: hsl(var(--background)); font-family:'Inter',Arial,sans-serif; color: hsl(var(--foreground)); }
-        .main-header { border-bottom:1px solid hsl(var(--border)); background:hsl(var(--card) / 0.92); }
-        .confirm-page { width:min(680px,calc(100% - 16px)); margin:0 auto; padding:10px 0 20px; text-align:center; }
-        .wizard-progress { margin:12px auto 16px; padding:14px 14px 16px; border-radius:calc(var(--radius) * 1.75); background:hsl(var(--card)); box-shadow: var(--shadow-md); }
-        .wizard-track { width:100%; height:14px; border-radius:999px; background:hsl(var(--secondary)); overflow:hidden; }
-        .wizard-fill { width:100%; height:100%; background: var(--gradient-primary); border-radius:999px; }
-        .wizard-labels { display:grid; grid-template-columns:repeat(4,1fr); gap:8px; margin-top:12px; }
-        .wizard-label { padding:10px 8px; border:1px solid hsl(var(--border)); border-radius:var(--radius); background:hsl(var(--card)); color:hsl(var(--primary)); font-size:0.84rem; font-weight:700; text-align:center; }
-        .wizard-label.ativo { border-color:hsl(var(--primary)); background:hsl(var(--accent)); color:hsl(var(--primary)); }
-        .confirm-shell { background:hsl(var(--card) / 0.96); border:1px solid hsl(var(--border)); border-radius:calc(var(--radius) * 2); box-shadow: var(--shadow-hover); overflow:hidden; text-align:center; }
-        .confirm-card { padding:20px 16px 18px; background:transparent; text-align:center; max-width:620px; margin:0 auto; }
-        .checkmark { width:120px; height:120px; margin:0 auto 12px; }
-        .checkmark svg { width:100%; height:100%; stroke:hsl(var(--primary)); fill:none; }
-        .confirm-card h1 { margin:0 0 10px; color:hsl(var(--primary)); font-weight:900; letter-spacing:-0.04em; font-size:clamp(1.8rem,4vw,2.6rem); }
-        .protocol-box { margin:16px auto 12px; padding:14px; max-width:320px; border-radius:var(--radius); background:hsl(var(--accent)); border:2px solid hsl(var(--primary)); }
-        .protocol-box strong { display:block; color:hsl(var(--primary)); font-size:0.98rem; margin-bottom:8px; text-transform:uppercase; letter-spacing:0.04em; }
-        .protocol-box span { display:block; color:hsl(var(--primary)); font-size:1.35rem; font-weight:900; letter-spacing:0.08em; word-break:break-all; }
-        .next-steps { margin:16px auto 0; max-width:460px; padding:14px; border-radius:calc(var(--radius) * 1.25); background:hsl(var(--card)); border:2px solid transparent; box-shadow: var(--shadow-soft); }
-        .next-steps h2 { margin:0 0 12px; color:hsl(var(--primary)); font-size:1.2rem; font-weight:900; }
-        .next-steps ol { margin:0; padding-left:22px; color:hsl(var(--muted-foreground)); line-height:1.55; list-style-position:inside; }
-        .actions { display:grid; gap:10px; margin-top:16px; max-width:380px; margin-left:auto; margin-right:auto; }
-        .action-button { display:flex; align-items:center; justify-content:center; min-height:42px; padding:10px 14px; border-radius:var(--radius); text-decoration:none; text-transform:uppercase; font-weight:800; letter-spacing:0.03em; transition:transform 0.16s ease, box-shadow 0.16s ease; }
-        .action-button.primary { background: var(--gradient-primary); color:hsl(var(--primary-foreground)); box-shadow: var(--shadow-hover); }
-        .action-button.secondary { background:hsl(var(--card)); color:hsl(var(--primary)); border:2px solid hsl(var(--primary)); }
-        .action-button:hover { transform:translateY(-1px); }
+        body { min-height:100vh; margin:0; width:100%; max-width:100%; overflow-x:hidden; background: var(--gradient-soft); font-family:'Inter',Arial,sans-serif; color: hsl(var(--foreground)); }
+        .main-header { position: fixed; top:0; left:0; right:0; z-index:50; border-bottom:1px solid hsl(var(--border)); background:hsl(var(--card) / 0.95); backdrop-filter: blur(8px); box-shadow: var(--shadow-soft); }
+        .header-inner { display:flex; align-items:center; justify-content:center; gap:16px; padding:10px 16px; }
+        .header-inner img { height:44px; object-fit:contain; }
+        .header-title { text-align:left; }
+        .header-title .brand { margin:0; font-size:0.85rem; font-weight:800; color:hsl(var(--primary)); line-height:1.2; }
+        .header-title .sub { margin:0; font-size:0.7rem; color:hsl(var(--muted-foreground)); }
+        .confirm-page { width:min(560px,calc(100% - 16px)); margin:0 auto; padding:92px 0 32px; text-align:center; }
+        .confirm-card { background:hsl(var(--card)); border-radius:calc(var(--radius) * 1.25); box-shadow: var(--shadow-hover); padding:28px 20px; text-align:center; }
+        .checkmark-circle { width:64px; height:64px; margin:0 auto 16px; border-radius:999px; background:hsl(var(--success) / 0.12); display:flex; align-items:center; justify-content:center; }
+        .checkmark-circle svg { width:36px; height:36px; stroke:hsl(var(--success)); fill:none; }
+        .confirm-card h1 { margin:0 0 6px; color:hsl(var(--foreground)); font-weight:800; font-size:clamp(1.5rem,4vw,1.9rem); }
+        .confirm-lead { margin:0; color:hsl(var(--muted-foreground)); font-size:0.92rem; }
+        .confirm-note { margin:14px auto 0; color:hsl(var(--muted-foreground)); font-size:0.88rem; max-width:420px; }
+        .protocol-badge { display:inline-flex; flex-direction:column; gap:2px; margin:16px auto 0; padding:10px 20px; border-radius:var(--radius); background:hsl(var(--accent)); }
+        .protocol-badge .label { font-size:0.72rem; font-weight:700; color:hsl(var(--primary)); text-transform:uppercase; letter-spacing:0.04em; }
+        .protocol-badge .value { font-size:1.1rem; font-weight:900; color:hsl(var(--primary)); letter-spacing:0.06em; }
+        .actions { display:flex; flex-direction:column; gap:10px; margin-top:20px; }
+        .action-button { display:flex; align-items:center; justify-content:center; gap:8px; min-height:46px; padding:10px 16px; border-radius:999px; text-decoration:none; font-weight:700; font-size:0.95rem; transition:transform 0.16s ease, filter 0.16s ease; }
+        .action-button.primary { background: var(--gradient-primary); color:hsl(var(--primary-foreground)); }
+        .action-button.primary:hover { filter:brightness(1.1); }
+        .action-button.secondary { background:hsl(var(--card)); color:hsl(var(--foreground)); border:1.5px solid hsl(var(--border)); }
+        .action-button:hover { transform:scale(1.02); }
+        .info-card { margin-top:16px; text-align:left; background:hsl(var(--card)); border-radius:calc(var(--radius) * 1.1); box-shadow: var(--shadow-soft); padding:16px 18px; }
+        .info-card h3 { margin:0 0 10px; color:hsl(var(--foreground)); font-size:0.95rem; font-weight:800; }
+        .info-card ol, .info-card ul { margin:0; padding-left:18px; color:hsl(var(--muted-foreground)); font-size:0.86rem; line-height:1.6; }
+        .info-card.muted { background:hsl(var(--secondary) / 0.6); box-shadow:none; }
         @media (max-width:640px) {
             html,body{width:100%!important;max-width:100%!important;overflow-x:hidden!important;}body*{min-width:0;}
-            .main-header{padding:10px 12px;}.header-logos{display:flex;flex-direction:column;align-items:center;gap:10px;}.header-logos img{max-width:min(88vw,280px);height:auto;}
-            .confirm-page{width:calc(100% - 8px)!important;max-width:100%!important;padding:6px 0 12px;}
-            .confirm-card{width:100%!important;max-width:100%!important;padding:14px 10px 12px;}
-            .wizard-progress{width:100%!important;max-width:100%!important;padding:10px;border-radius:1.1rem;}
-            .wizard-labels{grid-template-columns:1fr;gap:6px;}
-            .confirm-shell{width:100%!important;max-width:100%!important;border-radius:1.1rem;}
-            .next-steps,.actions,.action-button,.protocol-box,.wizard-label,.wizard-track{width:100%!important;max-width:100%!important;}
+            .header-inner{padding:8px 12px;gap:10px;} .header-inner img{height:36px;}
+            .confirm-page{width:calc(100% - 8px)!important;max-width:100%!important;padding:76px 0 20px;}
+            .confirm-card{width:100%!important;max-width:100%!important;padding:20px 14px;}
             img,svg{max-width:100%!important;height:auto!important;}
         }
     </style>
@@ -818,36 +850,39 @@ TEMPLATE_CONFIRMACAO = r"""
 <body>
     <script src="/static/assistant.js"></script>
     <header class="main-header">
-        <div class="header-logos">
-            <img src="/static/logo-prefeitura.png" alt="Prefeitura do Rio de Janeiro - SMTE" class="logo-prefeitura-topo" loading="eager">
+        <div class="header-inner">
+            <img src="/static/logo-prefeitura.png" alt="Prefeitura do Rio de Janeiro - SMTE" loading="eager">
+            <div class="header-title">
+                <p class="brand">MOVIMENTA RIO</p>
+                <p class="sub">Prefeitura do Rio &bull; SMTE</p>
+            </div>
         </div>
     </header>
     <main>
     <div class="confirm-page">
-        <div class="wizard-progress">
-            <div class="wizard-track"><div class="wizard-fill"></div></div>
-            <div class="wizard-labels">
-                <div class="wizard-label">1. In&#237;cio</div>
-                <div class="wizard-label">2. Dados pessoais</div>
-                <div class="wizard-label">3. Escolher</div>
-                <div class="wizard-label ativo">4. Confirma&#231;&#227;o</div>
+        <div class="confirm-card">
+            <div class="checkmark-circle"><svg viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5"/></svg></div>
+            <h1>Inscri&#231;&#227;o realizada! &#127881;</h1>
+            <p class="confirm-lead">Sua vaga foi garantida no programa Movimenta Rio!</p>
+            <p class="confirm-note">Em breve entraremos em contato via WhatsApp com mais informa&#231;&#245;es.</p>
+            <div class="protocol-badge">
+                <span class="label">N&#250;mero de protocolo</span>
+                <span class="value">{{ protocolo }}</span>
+            </div>
+            <div class="actions">
+                <a class="action-button secondary" href="{{ whatsapp_share_url }}" target="_blank" rel="noopener noreferrer">&#128172; Compartilhar no WhatsApp</a>
+                <a class="action-button primary" href="{{ url_for('home') }}">&#127968; Voltar ao In&#237;cio</a>
             </div>
         </div>
-        <div class="confirm-shell"><div class="confirm-card">
-            <div class="checkmark"><svg viewBox="0 0 200 200"><circle cx="100" cy="100" r="90" stroke-width="16"></circle><polyline points="60,110 95,145 145,75" stroke-width="16" stroke-linecap="round" stroke-linejoin="round"></polyline></svg></div>
-            <h1>Inscri&#231;&#227;o realizada com sucesso</h1>
-            <div class="protocol-box"><strong>N&#250;mero de protocolo</strong><span>{{ protocolo }}</span></div>
-            <div class="actions">
-                <a class="action-button primary" href="{{ whatsapp_share_url }}" target="_blank" rel="noopener noreferrer">Compartilhar no WhatsApp</a>
-                <a class="action-button secondary" href="{{ url_for('home') }}">Voltar ao in&#237;cio</a>
-            </div>
-            <div class="next-steps"><h2>Pr&#243;ximos passos</h2><ol>
-                <li>Aguarde nosso contato via WhatsApp.</li>
-                <li>Prepare RG, CPF e comprovante de resid&#234;ncia.</li>
-                <li>Fique atento ao contato com os detalhes do curso.</li>
-                <li>Compare&#231;a ao local informado no dia marcado.</li>
-            </ol></div>
-        </div></div>
+        <div class="info-card muted">
+            <h3>Pr&#243;ximos Passos:</h3>
+            <ol>
+                <li>Aguarde nosso contato via WhatsApp</li>
+                <li>Prepare RG, CPF e comprovante de resid&#234;ncia</li>
+                <li>Compare&#231;a no primeiro dia de aula no local indicado</li>
+                <li>N&#227;o se esque&#231;a de levar documento com foto!</li>
+            </ol>
+        </div>
     </div>
     </main>
 </body>
