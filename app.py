@@ -7,6 +7,7 @@ from urllib.parse import quote
 import requests
 from flask import Flask, redirect, render_template_string, request, session, url_for
 from gsheet_utils import append_to_sheet
+
 ALLOWED_EMAIL_PATTERN = re.compile(
     r"^[a-zA-Z0-9_.+-]+@((gmail|hotmail|outlook|yahoo)\.(com|com\.br))$",
     re.IGNORECASE,
@@ -23,6 +24,7 @@ VALID_DDDS = {
     "81", "82", "83", "84", "85", "86", "87", "88", "89",
     "91", "92", "93", "94", "95", "96", "97", "98", "99",
 }
+
 LOCAL_OPTIONS = [
     {"id": "1", "nome": "Residencial Rio Samba — Campo Grande"},
     {"id": "2", "nome": "Igreja Batista Rio da Prata — Bangu"},
@@ -63,6 +65,7 @@ LOCAL_OPTIONS = [
     {"id": "36", "nome": "Realengo — Rua General Raposo"},
     {"id": "37", "nome": "Igreja Assembléia de Deus ADAV — Senador Augusto Vasconcelos"},
 ]
+
 COURSE_CATALOG = [
     {"id": "1",  "nome": "ASSISTENTE DE LOGÍSTICA"},
     {"id": "2",  "nome": "AUXILIAR ADMINISTRATIVO"},
@@ -81,6 +84,7 @@ COURSE_CATALOG = [
     {"id": "15", "nome": "ELETRICISTA PREDIAL"},
     {"id": "16", "nome": "INVESTIDOR DO SUCESSO"},
 ]
+
 TURMA_OPTIONS = [
     {"id": "1",  "curso_id": "1",  "local_id": "1",  "turma_codigo": "26/ASLO 25",  "turma_label": "Sábado — 08h–12h (início 30/05/2026) — Residencial Rio Samba — Campo Grande",           "dias_aula": "Sábado",           "horario": "08h–12h",      "data_inicio": "30/05/2026", "encerramento": "20/06/2026", "endereco_curso": "📍Rua Antonio Carlos Belchior, 200 – Mendanha – Campo Grande"},
     {"id": "2",  "curso_id": "1",  "local_id": "2",  "turma_codigo": "26/ASLO 26",  "turma_label": "Segunda e Terça — 19h–21h30 (início 01/06/2026) — Igreja Batista Rio da Prata — Bangu",    "dias_aula": "Segunda e Terça", "horario": "19h–21h30",   "data_inicio": "01/06/2026", "encerramento": "23/06/2026", "endereco_curso": "📍Rua dos Limadores, 866 – Bangu"},
@@ -220,31 +224,28 @@ TURMA_OPTIONS = [
     {"id": "143", "curso_id": "9",  "local_id": "7",  "turma_codigo": "26/RECP 18", "turma_label": "Quinta — 18h–22h (início 20/08/2026) — Igreja Batista São Bento — Bangu", "dias_aula": "Quinta", "horario": "18h–22h", "data_inicio": "20/08/2026", "encerramento": "12/09/2026", "endereco_curso": "📍Rua Batuíra, nº 121 – CEP: 21860-160"},
     {"id": "144", "curso_id": "2",  "local_id": "22", "turma_codigo": "26/ADMN 60", "turma_label": "Sábado — 08h–12h (início 05/09/2026) — Assoc. de Moradores São Jorge — Inhoaíba", "dias_aula": "Sábado", "horario": "08h–12h", "data_inicio": "05/09/2026", "encerramento": "26/09/2026", "endereco_curso": "📍Rua Pedro Autran, nº 71"},
     {"id": "145", "curso_id": "5",  "local_id": "18", "turma_codigo": "26/MARK 48", "turma_label": "Segunda — 17h30–21h30 (início 31/08/2026) — Centro Social Estrela da Manhã — Guaratiba", "dias_aula": "Segunda", "horario": "17h30–21h30", "data_inicio": "31/08/2026", "encerramento": "21/09/2026", "endereco_curso": "📍Rua Alcides Franco, 175 – CEP: 23032-010"},
-    # NOVAS TURMAS ADICIONADAS
     {"id": "146", "curso_id": "2",  "local_id": "1",  "turma_codigo": "26/ADMN 61", "turma_label": "Terça e Quinta — 18h–22h (início 07/07/2026) — Residencial Rio Samba — Campo Grande", "dias_aula": "Terça e Quinta", "horario": "18h–22h", "data_inicio": "07/07/2026", "encerramento": "16/07/2026", "endereco_curso": "📍Rua Antonio Carlos Belchior, nº 200 – Mendanha – Campo Grande – CEP: 23092-093"},
     {"id": "147", "curso_id": "1",  "local_id": "16", "turma_codigo": "26/ASLO 39", "turma_label": "Terça e Quinta — 19h–21h (início 13/07/2026) — AD ADTS Mandela — Benfica", "dias_aula": "Terça e Quinta", "horario": "19h–21h", "data_inicio": "13/07/2026", "encerramento": "27/07/2026", "endereco_curso": "📍Rua Leopoldo Bulhões, nº 800 – CG"},
     {"id": "148", "curso_id": "4",  "local_id": "8",  "turma_codigo": "26/INAT 37", "turma_label": "Sábado — 08h–12h (início 08/08/2026) — Ig. Metodista Embarcados C/Cristo — Campo Grande", "dias_aula": "Sábado", "horario": "08h–12h", "data_inicio": "08/08/2026", "encerramento": "29/08/2026", "endereco_curso": "📍Est. do Cabuçu, 2692 – CEP 23017-250 – Rio da Prata – CG"},
     {"id": "149", "curso_id": "11", "local_id": "25", "turma_codigo": "26/VEND 05", "turma_label": "Sábado — 08h–12h (início 08/08/2026) — Ig. Batista Maanaim Mendanha — Campo Grande", "dias_aula": "Sábado", "horario": "08h–12h", "data_inicio": "08/08/2026", "encerramento": "29/08/2026", "endereco_curso": "📍Estrada do Mendanha, 4240"},
     {"id": "150", "curso_id": "2",  "local_id": "3",  "turma_codigo": "26/ADMN 62", "turma_label": "Sábado — 09h–12h (início 25/07/2026) — Igreja Batista São Bento — Bangu", "dias_aula": "Sábado", "horario": "09h–12h", "data_inicio": "25/07/2026", "encerramento": "15/08/2026", "endereco_curso": "📍Rua Batuíra 121, Bangu – CEP: 21860-160"},
     {"id": "151", "curso_id": "6",  "local_id": "29", "turma_codigo": "26/MLRE 22", "turma_label": "Sábado — 08h–12h (início 22/08/2026) — Ig. União Evangélica Pentecostal — Cosmos", "dias_aula": "Sábado", "horario": "08h–12h", "data_inicio": "22/08/2026", "encerramento": "12/09/2026", "endereco_curso": "📍Rua Herval Rossano LT 26 QD 16 – CEP 23066-350 – Cosmos"},
-    # NOVAS TURMAS - SETEMBRO 2026
     {"id": "152", "curso_id": "2",  "local_id": "6",  "turma_codigo": "26/ADMN 63", "turma_label": "Sábado — 9h–13h (início 12/09/2026) — Assoc. Moradores Conj. Liberdade — Santa Cruz", "dias_aula": "Sábado", "horario": "9h–13h", "data_inicio": "12/09/2026", "encerramento": "03/10/2026", "endereco_curso": "📍Av. Canal Margem Direita – CEP 23560-366 – Santa Cruz – Rio de Janeiro, RJ"},
     {"id": "153", "curso_id": "9",  "local_id": "7",  "turma_codigo": "26/RECP 19", "turma_label": "Terça e Quinta — 19h–22h (início 08/09/2026) — Igreja Batista São Bento — Bangu", "dias_aula": "Terça e Quinta", "horario": "19h–22h", "data_inicio": "08/09/2026", "encerramento": "30/09/2026", "endereco_curso": "📍Rua Batuíra, 121 – CEP 21860-290 – Bangu – Rio de Janeiro, RJ"},
     {"id": "154", "curso_id": "8",  "local_id": "5",  "turma_codigo": "26/PORT 03", "turma_label": "Sábado — 8h–12h (início 12/09/2026) — Min. Ap. Mover Profético — Senador Camará", "dias_aula": "Sábado", "horario": "8h–12h", "data_inicio": "12/09/2026", "encerramento": "03/10/2026", "endereco_curso": "📍Rua Bom Guilherme Francisco Moraes, 3 – CEP 21833-219 – Senador Camará – RJ"},
     {"id": "155", "curso_id": "2",  "local_id": "8",  "turma_codigo": "26/ADMN 64", "turma_label": "Sábado — 18h–22h (início 12/09/2026) — Ig. Metodista Embarcados C/Cristo — Campo Grande", "dias_aula": "Sábado", "horario": "18h–22h", "data_inicio": "12/09/2026", "encerramento": "03/10/2026", "endereco_curso": "📍Est. do Cabuçu, 2692 – CEP 23017-250 – Rio da Prata – Campo Grande – RJ"},
     {"id": "156", "curso_id": "2",  "local_id": "25", "turma_codigo": "26/ADMN 65", "turma_label": "Sábado — 8h–12h (início 12/09/2026) — Ig. Batista Maanaim Mendanha — Campo Grande", "dias_aula": "Sábado", "horario": "8h–12h", "data_inicio": "12/09/2026", "encerramento": "03/10/2026", "endereco_curso": "📍Estrada do Mendanha, 4240 – Campo Grande – Rio de Janeiro, RJ"},
-    # NOVAS TURMAS - AUXILIAR ADMINISTRATIVO (AMUBUA) E SOCIAL MEDIA (CENTRO CULTURAL LOTTUS)
     {"id": "157", "curso_id": "2",  "local_id": "14", "turma_codigo": "26/ADMN 67", "turma_label": "Terça e Quinta — 8h30–11h (início 10/09/2026) — Amubua (Associação) — Santa Cruz", "dias_aula": "Terça e Quinta", "horario": "8h30–11h", "data_inicio": "10/09/2026", "encerramento": "01/10/2026", "endereco_curso": "📍Rua José Silton Pinheiro, 51 – CEP: 23573-340 – Santa Cruz"},
     {"id": "158", "curso_id": "12", "local_id": "27", "turma_codigo": "26/SOMD 25", "turma_label": "Sexta — 18h–22h (início 11/09/2026) — Centro Cultural Lottus — Méier", "dias_aula": "Sexta", "horario": "18h–22h", "data_inicio": "11/09/2026", "encerramento": "30/09/2026", "endereco_curso": "📍Rua Dias da Cruz, 638 – Sala 204 – CEP: 20720-013 – Méier"},
-    # NOVAS TURMAS ADICIONADAS (SETEMBRO/OUTUBRO 2026)
     {"id": "159", "curso_id": "10", "local_id": "9",  "turma_codigo": "26/AGTU 08", "turma_label": "Sábado — 10h–14h (início 12/09/2026) — Reforço Escolar Tia Dani — Maré", "dias_aula": "Sábado", "horario": "10h–14h", "data_inicio": "12/09/2026", "encerramento": "03/10/2026", "endereco_curso": "📍Rua Darcy Vargas, 136 – CEP: 21044-040 – Maré"},
     {"id": "160", "curso_id": "5",  "local_id": "17", "turma_codigo": "26/MARK 49", "turma_label": "Sábado — 9h–12h (início 05/09/2026) — AD ADTS de Colégio — Colégio", "dias_aula": "Sábado", "horario": "9h–12h", "data_inicio": "05/09/2026", "encerramento": "26/09/2026", "endereco_curso": "📍Estrada de Colégio, 121 – CEP: 21235-280 – Colégio"},
     {"id": "161", "curso_id": "9",  "local_id": "13", "turma_codigo": "26/RECP 20", "turma_label": "Segunda e Quarta — 19h–21h (início 09/09/2026) — Salão de Festas (77) — Padre Miguel", "dias_aula": "Segunda e Quarta", "horario": "19h–21h", "data_inicio": "09/09/2026", "encerramento": "14/10/2026", "endereco_curso": "📍Rua Juazeiro do Norte, 639 – Padre Miguel"},
     {"id": "162", "curso_id": "6",  "local_id": "5",  "turma_codigo": "26/MLRE 23", "turma_label": "Quarta e Sexta — 16h–18h (início 10/09/2026) — Min. Ap. Mover Profético — Senador Camará", "dias_aula": "Quarta e Sexta", "horario": "16h–18h", "data_inicio": "10/09/2026", "encerramento": "14/10/2026", "endereco_curso": "📍R: Bom Guilherme Francisco Moraes, 3 – CEP: 21833-219 – Senador Camará"},
-    # NOVAS TURMAS ADICIONADAS (SETEMBRO 2026) — solicitação atual
     {"id": "163", "curso_id": "1",  "local_id": "3",  "turma_codigo": "26/ASLO 40", "turma_label": "Terça — 08h–12h (início 08/09/2026) — Associação dos Artesãos — Ana Gonzaga", "dias_aula": "Terça", "horario": "08h–12h", "data_inicio": "08/09/2026", "encerramento": "29/09/2026", "endereco_curso": "📍Rua Esmeralda de Ana Gonzaga – Inhoaíba – QD 11 LT 24 – CEP: 23050-489"},
     {"id": "164", "curso_id": "2",  "local_id": "22", "turma_codigo": "26/ADMN 68", "turma_label": "Quinta — 18h–22h (início 27/08/2026) — Assoc. de Moradores São Jorge — Inhoaíba", "dias_aula": "Quinta", "horario": "18h–22h", "data_inicio": "27/08/2026", "encerramento": "17/09/2026", "endereco_curso": "📍Rua Moranga, 125, Casa 102 – Inhoaíba – CG"},
 ]
+
+
 def build_course_options():
     local_by_id  = {o["id"]: o for o in LOCAL_OPTIONS}
     course_by_id = {o["id"]: o for o in COURSE_CATALOG}
@@ -268,19 +269,47 @@ def build_course_options():
             "endereco_curso": t["endereco_curso"],
         })
     return options
+
+
 COURSE_OPTIONS       = build_course_options()
 COURSE_OPTIONS_BY_ID = {o["id"]: o for o in COURSE_OPTIONS}
 COURSE_CATALOG_BY_ID = {o["id"]: o for o in COURSE_CATALOG}
 LOCAL_OPTIONS_BY_ID  = {o["id"]: o for o in LOCAL_OPTIONS}
 COURSE_INFO          = COURSE_OPTIONS[0] if COURSE_OPTIONS else None
+
+# Emojis por curso — assinatura visual do DESIGN.md (seção 3)
+COURSE_EMOJIS = {
+    "ASSISTENTE DE LOGÍSTICA": "📦",
+    "AUXILIAR ADMINISTRATIVO": "🗂️",
+    "AUXILIAR DE COZINHA": "🍳",
+    "INTELIGÊNCIA ARTIFICIAL": "🤖",
+    "MARKETING DIGITAL": "💻",
+    "MONITOR DE LAZER E RECREAÇÃO": "🎯",
+    "OPERADOR DE SISTEMA DE COMPOSTAGEM E RESÍDUOS ORGÂNICOS": "♻️",
+    "PORTEIRO": "🚪",
+    "RECEPCIONISTA": "🛎️",
+    "AGENTE DE TURISMO CORPORATIVO": "✈️",
+    "VENDAS": "🛍️",
+    "SOCIAL MEDIA": "📲",
+    "BARBEIRO": "💈",
+    "GARÇOM": "🍽️",
+    "ELETRICISTA PREDIAL": "⚡",
+    "INVESTIDOR DO SUCESSO": "💰",
+}
+
+
 def build_whatsapp_share_url(home_url):
     message = (
         "Acabei de me inscrever em uma oportunidade de qualificacao profissional. "
         "Confira aqui: " + home_url
     )
     return f"https://wa.me/?text={quote(message)}"
+
+
 def get_course_option(option_id):
     return COURSE_OPTIONS_BY_ID.get(str(option_id or ""))
+
+
 def fill_form_data_from_option(form_data, option):
     form_data["local_id"]       = option["local_id"]
     form_data["curso_id"]       = option["curso_id"]
@@ -293,6 +322,8 @@ def fill_form_data_from_option(form_data, option):
     form_data["data_inicio"]    = option["data_inicio"]
     form_data["encerramento"]   = option["encerramento"]
     form_data["endereco_curso"] = option["endereco_curso"]
+
+
 def fill_form_data_from_selection(form_data):
     opcao_id = form_data.get("opcao_id")
     local_id = form_data.get("local_id")
@@ -314,19 +345,25 @@ def fill_form_data_from_selection(form_data):
     for key in ("local", "curso", "turma", "dias_aula", "horario",
                 "data_inicio", "encerramento", "endereco_curso", "opcao_id"):
         form_data.setdefault(key, "")
+
+
 # =============================================================================
-# 5. TEMPLATES
+# 5. TEMPLATES  (design system aplicado conforme DESIGN.md — tokens HSL,
+#    radius 1rem, gradient-primary/hero, shadow-soft/md/hover, pills,
+#    emoji por curso, gatilhos de urgência quando aplicável)
 # =============================================================================
 TEMPLATE_WIZARD = r"""
 <!DOCTYPE html>
-<html lang="pt-br">
+<html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-    <title>MOVIMENTA RIO</title>
+    <title>Cursos Gratuitos no RJ | Movimenta Rio</title>
+    <meta name="description" content="Cursos gratuitos com certificado no Rio de Janeiro. Inscri&#231;&#227;o em 2 minutos. Vagas limitadas.">
+    <meta name="robots" content="index, follow">
     <link rel="stylesheet" href="/static/style.css">
     <link rel="stylesheet" href="/static/assistant.css">
-    <link href="https://fonts.googleapis.com/css2?family=Wise:wght@400;700;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&display=swap" rel="stylesheet">
     <script>
         !function(f,b,e,v,n,t,s)
         {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
@@ -340,40 +377,65 @@ TEMPLATE_WIZARD = r"""
         fbq('track', 'PageView');
     </script>
     <style>
-        :root { --cor-principal: #1155cc; --cor-principal-escura: #0d47a1; --cor-clara: #eef4ff; --cor-texto: #17386d; --cor-borda: #a8c0f4; --sombra-card: 0 18px 55px rgba(17, 85, 204, 0.18); }
-        * { box-sizing: border-box; } html, body { min-height: 100%; margin: 0; padding: 0; }
-        body { min-height: 100vh; background: radial-gradient(circle at top left, rgba(17,85,204,0.14), transparent 34%), radial-gradient(circle at top right, rgba(211,226,255,0.82), transparent 32%), linear-gradient(135deg, #f5f9ff 0%, #fff 42%, #dfeaff 100%); color: var(--cor-texto); font-family: 'Wise', Arial, sans-serif; }
-        .main-header { border-bottom: 4px solid var(--cor-principal); background: rgba(255,255,255,0.92); backdrop-filter: blur(8px); }
+        :root {
+            --background: 210 40% 98%;
+            --foreground: 215 25% 15%;
+            --card: 0 0% 100%;
+            --primary: 213 100% 40%;
+            --primary-light: 197 100% 50%;
+            --primary-foreground: 0 0% 100%;
+            --secondary: 210 40% 96%;
+            --accent: 213 100% 96%;
+            --muted: 210 40% 96%;
+            --muted-foreground: 215 16% 47%;
+            --destructive: 0 84% 60%;
+            --success: 142 71% 45%;
+            --warning: 38 92% 50%;
+            --border: 214 32% 91%;
+            --input: 214 32% 91%;
+            --ring: 213 100% 40%;
+            --radius: 1rem;
+            --gradient-primary: linear-gradient(135deg, hsl(213 100% 40%) 0%, hsl(197 100% 50%) 100%);
+            --gradient-hero: linear-gradient(135deg, hsl(213 100% 40%) 0%, hsl(197 100% 50%) 50%, hsl(213 100% 40%) 100%);
+            --shadow-soft: 0 4px 6px rgba(0,102,204,.05);
+            --shadow-md: 0 8px 16px rgba(0,102,204,.10);
+            --shadow-hover: 0 8px 24px rgba(0,102,204,.12);
+        }
+        * { box-sizing: border-box; }
+        html, body { min-height: 100%; margin: 0; padding: 0; }
+        body { min-height: 100vh; background: hsl(var(--background)); color: hsl(var(--foreground)); font-family: 'Inter', Arial, sans-serif; }
+        .main-header { border-bottom: 1px solid hsl(var(--border)); background: hsl(var(--card) / 0.92); backdrop-filter: blur(8px); }
         .wizard-page { width: min(900px, 98vw); margin: 0 auto; padding: 8px 0 18px; text-align: center; }
-        .wizard-progress { margin: 18px auto 22px; padding: 18px 18px 20px; border-radius: 28px; background: rgba(255,255,255,0.9); box-shadow: 0 12px 30px rgba(17,85,204,0.12); }
-        .wizard-track { width: 100%; height: 14px; background: #dbe6fb; border-radius: 999px; overflow: hidden; }
-        .wizard-fill { height: 100%; width: 25%; background: linear-gradient(90deg,#1155cc 0%,#4f86ea 100%); border-radius: 999px; transition: width 0.3s ease; }
+        .wizard-progress { margin: 18px auto 22px; padding: 18px 18px 20px; border-radius: calc(var(--radius) * 1.75); background: hsl(var(--card)); box-shadow: var(--shadow-md); }
+        .wizard-track { width: 100%; height: 14px; background: hsl(var(--secondary)); border-radius: 999px; overflow: hidden; }
+        .wizard-fill { height: 100%; width: 25%; background: var(--gradient-primary); border-radius: 999px; transition: width 0.3s ease; }
         .wizard-labels { display: grid; grid-template-columns: repeat(4,1fr); gap: 10px; margin-top: 14px; }
-        .wizard-label { padding: 12px 10px; border: 1px solid #c9daf8; border-radius: 18px; background: #fff; color: #2f5fb4; font-size: 0.92rem; font-weight: 700; text-align: center; transition: all 0.25s ease; }
-        .wizard-label.ativo { border-color: var(--cor-principal); background: var(--cor-clara); color: var(--cor-principal); }
-        .wizard-shell { background: rgba(255,255,255,0.88); border: 1px solid rgba(255,255,255,0.9); border-radius: 34px; box-shadow: var(--sombra-card); overflow: hidden; }
+        .wizard-label { padding: 12px 10px; border: 1px solid hsl(var(--border)); border-radius: var(--radius); background: hsl(var(--card)); color: hsl(var(--primary)); font-size: 0.92rem; font-weight: 700; text-align: center; transition: all 0.25s ease; }
+        .wizard-label.ativo { border-color: hsl(var(--primary)); background: hsl(var(--accent)); color: hsl(var(--primary)); }
+        .wizard-shell { background: hsl(var(--card) / 0.96); border: 1px solid hsl(var(--border)); border-radius: calc(var(--radius) * 2); box-shadow: var(--shadow-hover); overflow: hidden; }
         .wizard-panel { display: none; padding: 18px 8px; animation: surgir 0.28s ease; }
         .wizard-panel.ativo { display: block; }
         @keyframes surgir { from { opacity:0; transform:translateY(12px); } to { opacity:1; transform:translateY(0); } }
         .hero-grid { display: grid; grid-template-columns: minmax(0,1fr); gap: 14px; align-items: center; justify-items: center; }
-        .hero-card { padding: 32px; border-radius: 30px; background: linear-gradient(135deg,#fff 0%,#f5f9ff 58%,#dfeaff 100%); border: 1px solid #c9daf8; width: 100%; text-align: center; }
-        .hero-pill { display: inline-flex; align-items: center; gap: 8px; padding: 10px 18px; border-radius: 999px; background: var(--cor-principal); color: #fff; font-size: 0.95rem; font-weight: 800; letter-spacing: 0.05em; text-transform: uppercase; }
-        .hero-title, .panel-title { margin: 18px 0 10px; color: var(--cor-principal); font-size: clamp(2rem,3.8vw,3.2rem); line-height: 1; letter-spacing: -0.04em; }
-        .panel-title { font-size: clamp(1.7rem,3vw,2.4rem); }
-        .hero-subtitle, .panel-subtitle { margin: 0; color: #2f5fb4; font-size: 1.05rem; line-height: 1.55; }
+        .hero-card { padding: 32px; border-radius: calc(var(--radius) * 1.75); background: var(--gradient-hero); border: none; width: 100%; text-align: center; color: hsl(var(--primary-foreground)); box-shadow: var(--shadow-hover); }
+        .hero-pill { display: inline-flex; align-items: center; gap: 8px; padding: 10px 18px; border-radius: 999px; background: hsl(0 0% 100% / 0.18); backdrop-filter: blur(4px); color: hsl(var(--primary-foreground)); font-size: 0.85rem; font-weight: 800; letter-spacing: 0.06em; text-transform: uppercase; }
+        .hero-title { margin: 18px 0 10px; color: hsl(var(--primary-foreground)); font-weight: 900; letter-spacing: -0.04em; text-transform: uppercase; font-size: clamp(2rem,3.8vw,3.2rem); line-height: 1; }
+        .panel-title { margin: 18px 0 10px; color: hsl(var(--primary)); font-weight: 900; letter-spacing: -0.03em; font-size: clamp(1.7rem,3vw,2.4rem); }
+        .hero-subtitle { margin: 0; color: hsl(0 0% 100% / 0.92); font-size: 1.05rem; line-height: 1.55; }
+        .panel-subtitle { margin: 0; color: hsl(var(--muted-foreground)); font-size: 1.05rem; line-height: 1.55; }
         .hero-highlights { display: grid; gap: 10px; margin-top: 16px; }
-        .hero-highlight, .review-box, .step-card { border-radius: 22px; border: 1px solid #d7e3fb; background: #fff; box-shadow: 0 8px 24px rgba(17,85,204,0.08); }
-        .hero-highlight { padding: 12px 14px; color: #2f5fb4; font-size: 0.95rem; font-weight: 700; }
-        .hero-highlight strong { display: block; color: var(--cor-principal); font-size: 1.15rem; margin-bottom: 4px; }
+        .hero-highlight { padding: 14px 14px; color: hsl(var(--foreground)); font-size: 0.95rem; font-weight: 700; border-radius: var(--radius); border: 2px solid transparent; background: hsl(var(--card)); box-shadow: var(--shadow-soft); }
+        .hero-highlight strong { display: block; color: hsl(var(--primary)); font-size: 1.15rem; margin-bottom: 4px; }
+        .review-box, .step-card { border-radius: calc(var(--radius) * 1.25); border: 2px solid transparent; background: hsl(var(--card)); box-shadow: var(--shadow-soft); }
         .benefits-slider { display: grid; gap: 12px; margin-top: 8px; }
         .benefits-viewport { position: relative; min-height: 76px; overflow: hidden; }
-        .benefit-slide { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; padding: 10px 12px; border-radius: 16px; background: var(--cor-clara); color: var(--cor-principal); font-size: 0.98rem; font-weight: 800; line-height: 1.45; text-align: center; opacity: 0; transform: translateX(18px); transition: opacity 0.28s ease, transform 0.28s ease; pointer-events: none; }
+        .benefit-slide { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; padding: 10px 12px; border-radius: var(--radius); background: hsl(var(--accent)); color: hsl(var(--primary)); font-size: 0.98rem; font-weight: 800; line-height: 1.45; text-align: center; opacity: 0; transform: translateX(18px); transition: opacity 0.28s ease, transform 0.28s ease; pointer-events: none; }
         .benefit-slide.ativo { opacity: 1; transform: translateX(0); pointer-events: auto; }
         .benefits-controls { display: flex; align-items: center; justify-content: center; gap: 10px; }
-        .benefits-nav { min-width: 44px; min-height: 44px; border: none; border-radius: 999px; background: #fff; color: var(--cor-principal); box-shadow: 0 6px 16px rgba(17,85,204,0.14); font: inherit; font-size: 1.1rem; font-weight: 900; cursor: pointer; }
+        .benefits-nav { min-width: 44px; min-height: 44px; border: none; border-radius: 999px; background: hsl(var(--card)); color: hsl(var(--primary)); box-shadow: var(--shadow-soft); font: inherit; font-size: 1.1rem; font-weight: 900; cursor: pointer; }
         .benefits-dots { display: flex; gap: 6px; align-items: center; justify-content: center; }
-        .benefits-dot { width: 9px; height: 9px; border-radius: 999px; background: #b7cbf4; transition: transform 0.2s ease, background 0.2s ease; }
-        .benefits-dot.ativo { background: var(--cor-principal); transform: scale(1.2); }
+        .benefits-dot { width: 9px; height: 9px; border-radius: 999px; background: hsl(var(--border)); transition: transform 0.2s ease, background 0.2s ease; }
+        .benefits-dot.ativo { background: hsl(var(--primary)); transform: scale(1.2); }
         .step-card { padding: 18px 16px; width: 100%; margin: 0 auto; text-align: center; }
         .step-grid { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: 10px 12px; margin-top: 10px; align-items: start; }
         .step-grid.step-grid--stacked { grid-template-columns: minmax(0,1fr); max-width: 540px; margin-left: auto; margin-right: auto; }
@@ -384,41 +446,45 @@ TEMPLATE_WIZARD = r"""
         .wizard-panel[data-step="escolher"] .input-with-action { width: 100%; max-width: 100%; }
         .form-group { display: flex; flex-direction: column; gap: 4px; width: 100%; align-self: start; align-items: center; text-align: center; }
         .form-group.full { grid-column: 1/-1; }
-        .form-group label, .review-title { color: var(--cor-principal); font-size: 1rem; font-weight: 800; }
-        .form-group input, .form-group select, .form-group textarea { display: block; width: 100% !important; max-width: 100% !important; min-width: 0 !important; margin: 0 !important; box-sizing: border-box; min-height: 38px; height: 38px; padding: 7px 10px; border: 1.2px solid var(--cor-borda); border-radius: 10px; background: #f5f9ff; color: var(--cor-texto); font: inherit; line-height: 1.2; text-align: left; outline: none; transition: border-color 0.2s ease, box-shadow 0.2s ease, background 0.2s ease; }
+        .form-group label, .review-title { color: hsl(var(--primary)); font-size: 1rem; font-weight: 800; }
+        .form-group input, .form-group select, .form-group textarea { display: block; width: 100% !important; max-width: 100% !important; min-width: 0 !important; margin: 0 !important; box-sizing: border-box; min-height: 38px; height: 38px; padding: 7px 10px; border: 1.5px solid hsl(var(--input)); border-radius: 0.65rem; background: hsl(var(--secondary)); color: hsl(var(--foreground)); font: inherit; line-height: 1.2; text-align: left; outline: none; transition: border-color 0.2s ease, box-shadow 0.2s ease, background 0.2s ease; }
         .form-group select { appearance: none; -webkit-appearance: none; -moz-appearance: none; background-image: url('data:image/svg+xml;utf8,<svg fill="%231155cc" height="20" viewBox="0 0 24 24" width="20" xmlns="http://www.w3.org/2000/svg"><path d="M7 10l5 5 5-5z"/></svg>'); background-repeat: no-repeat; background-position: right 14px center; background-size: 20px 20px; padding-right: 44px; }
         .form-group textarea { min-height: 60px; height: auto; resize: vertical; }
-        .form-group input:focus, .form-group select:focus, .form-group textarea:focus { border-color: var(--cor-principal); background: #fff; box-shadow: 0 0 0 4px rgba(17,85,204,0.12); }
-        .readonly-field { background: #eef4ff !important; color: #2f5fb4 !important; font-weight: 700; }
+        .form-group input:focus, .form-group select:focus, .form-group textarea:focus { border-color: hsl(var(--ring)); background: hsl(var(--card)); box-shadow: 0 0 0 4px hsl(var(--ring) / 0.14); }
+        .readonly-field { background: hsl(var(--accent)) !important; color: hsl(var(--primary)) !important; font-weight: 700; }
         .input-with-action { display: grid; grid-template-columns: minmax(0,1fr); gap: 10px; align-items: stretch; }
         .input-with-action input { width: 100% !important; }
-        .icon-button, .cta-button, .secondary-button, .submit-button { border: none; border-radius: 18px; font: inherit; font-weight: 800; cursor: pointer; transition: transform 0.16s ease, box-shadow 0.16s ease, background 0.16s ease, color 0.16s ease; }
-        .icon-button { min-width: 56px; min-height: 52px; background: var(--cor-principal); color: #fff; box-shadow: 0 8px 16px rgba(17,85,204,0.22); }
-        .wizard-panel[data-step="escolher"] .icon-button { width: 100% !important; min-width: 0 !important; max-width: 100% !important; height: 38px !important; min-height: 38px !important; padding: 0; border-radius: 10px; box-shadow: none; }
+        .icon-button, .cta-button, .secondary-button, .submit-button { border: none; border-radius: var(--radius); font: inherit; font-weight: 800; cursor: pointer; transition: transform 0.16s ease, box-shadow 0.16s ease, background 0.16s ease, color 0.16s ease; }
+        .icon-button { min-width: 56px; min-height: 52px; background: hsl(var(--primary)); color: hsl(var(--primary-foreground)); box-shadow: var(--shadow-md); }
+        .wizard-panel[data-step="escolher"] .icon-button { width: 100% !important; min-width: 0 !important; max-width: 100% !important; height: 38px !important; min-height: 38px !important; padding: 0; border-radius: 0.65rem; box-shadow: none; }
         .panel-actions .cta-button, .panel-actions .secondary-button, .panel-actions .submit-button { width: 100% !important; max-width: 100% !important; min-width: 0 !important; margin: 0 !important; height: 38px; font-size: 1rem; }
-        .cta-button, .submit-button { background: linear-gradient(90deg,#1155cc 0%,#4f86ea 100%); color: #fff; box-shadow: 0 10px 24px rgba(17,85,204,0.24); }
-        .secondary-button { background: #fff; color: var(--cor-principal); border: 2px solid var(--cor-principal); }
+        .cta-button, .submit-button { background: var(--gradient-primary); color: hsl(var(--primary-foreground)); box-shadow: var(--shadow-hover); }
+        .secondary-button { background: hsl(var(--card)); color: hsl(var(--primary)); border: 2px solid hsl(var(--primary)); }
         .cta-button, .secondary-button, .submit-button { min-height: 54px; padding: 14px 22px; text-transform: uppercase; letter-spacing: 0.04em; }
-        .cta-button:hover, .secondary-button:hover, .submit-button:hover, .icon-button:hover { transform: translateY(-1px); }
+        .cta-button:hover, .secondary-button:hover, .submit-button:hover, .icon-button:hover { transform: translateY(-1px); box-shadow: var(--shadow-hover); }
         .panel-actions { display: flex; flex-direction: column-reverse; align-items: center; gap: 12px; justify-content: space-between; margin-top: 28px; max-width: 420px; margin-left: auto; margin-right: auto; }
         .panel-actions > * { flex: 1; }
-        .balao-erro { margin-top: 4px; padding: 10px 14px; border-radius: 14px; border: 1px solid #0d47a1; background: #1155cc; color: #fff; font-size: 0.92rem; font-weight: 700; line-height: 1.35; }
+        .balao-erro { margin-top: 4px; padding: 10px 14px; border-radius: var(--radius); border: 1px solid hsl(var(--primary)); background: hsl(var(--primary)); color: hsl(var(--primary-foreground)); font-size: 0.92rem; font-weight: 700; line-height: 1.35; }
         .balao-erro[hidden] { display: none; }
-        .erro-campo { border-color: #1155cc !important; box-shadow: 0 0 0 4px rgba(17,85,204,0.12) !important; }
+        .erro-campo { border-color: hsl(var(--destructive)) !important; box-shadow: 0 0 0 4px hsl(var(--destructive) / 0.14) !important; }
         .review-layout { display: grid; grid-template-columns: 1fr; gap: 8px; margin-top: 10px; max-width: 540px; margin-left: auto; margin-right: auto; }
         .review-box { padding: 10px; text-align: center; }
         .review-box.full { grid-column: 1/-1; }
         .review-list { display: grid; gap: 6px; margin-top: 8px; text-align: left; }
-        .review-item { display: grid; grid-template-columns: auto 1fr; align-items: center; column-gap: 8px; padding: 7px 9px; border-radius: 10px; background: var(--cor-clara); text-align: left; }
-        .review-item strong { color: var(--cor-principal); font-size: 0.88rem; white-space: nowrap; }
+        .review-item { display: grid; grid-template-columns: auto 1fr; align-items: center; column-gap: 8px; padding: 7px 9px; border-radius: 0.65rem; background: hsl(var(--accent)); text-align: left; }
+        .review-item strong { color: hsl(var(--primary)); font-size: 0.88rem; white-space: nowrap; }
         .review-item strong::after { content: ':'; }
-        .review-item span { color: var(--cor-texto); font-size: 0.94rem; word-break: break-word; text-align: left; }
-        .review-check { display: flex; gap: 12px; align-items: flex-start; padding: 10px 12px; border-radius: 14px; background: var(--cor-clara); color: #17386d; line-height: 1.45; text-align: left; }
-        .review-check input { margin-top: 3px; width: 20px; min-width: 20px; height: 20px; flex: 0 0 20px; accent-color: var(--cor-principal); }
+        .review-item span { color: hsl(var(--foreground)); font-size: 0.94rem; word-break: break-word; text-align: left; }
+        .review-check { display: flex; gap: 12px; align-items: flex-start; padding: 10px 12px; border-radius: var(--radius); background: hsl(var(--accent)); color: hsl(var(--foreground)); line-height: 1.45; text-align: left; }
+        .review-check input { margin-top: 3px; width: 20px; min-width: 20px; height: 20px; flex: 0 0 20px; accent-color: hsl(var(--primary)); }
         .review-check span { flex: 1 1 auto; min-width: 0; }
         .review-check ul { margin: 8px 0 0 18px; padding: 0; list-style-position: outside; text-align: left; }
         .review-box .form-group { align-items: stretch; text-align: left; }
         .review-box .form-group label { width: 100%; text-align: left; }
+        .elegibilidade-nota { margin-bottom: 10px; color: hsl(var(--muted-foreground)); font-size: 0.98rem; text-align: left; }
+        .elegibilidade-nota strong { color: hsl(var(--primary)); }
+        .review-declaracao { margin-top: 10px; text-align: left; color: hsl(var(--foreground)); }
+        .review-declaracao strong { color: hsl(var(--primary)); }
         @media (max-width: 860px) { .hero-grid, .review-layout { grid-template-columns: 1fr; } .step-grid { grid-template-columns: repeat(2,minmax(0,1fr)); gap: 8px; } .step-grid.step-grid--stacked { grid-template-columns: minmax(0,1fr); max-width: 540px; } }
         @media (max-width: 640px) {
             html,body { width:100%!important; max-width:100%!important; overflow-x:hidden!important; } body * { min-width: 0; } body { overflow-x: hidden; }
@@ -430,7 +496,7 @@ TEMPLATE_WIZARD = r"""
             .form-group label, .review-title, .review-item span, .review-check { word-break: break-word; } img, svg { max-width:100%!important; height:auto!important; }
             .form-group input, .form-group select, .form-group textarea, .icon-button { min-height:32px; height:32px; font-size:0.98em; } .form-group textarea { min-height:60px; height:auto; }
             .review-check { flex-direction:row; align-items:flex-start; padding:8px; } .review-check input { width:22px; min-width:22px; height:22px; flex-basis:22px; } .review-check ul { padding-left: 2px; }
-            .hero-title, .panel-title { font-size: 1.3rem; } .hero-subtitle, .panel-subtitle { font-size: 0.92rem; } .wizard-shell { border-radius: 16px; } .form-group.full { grid-column: auto; }
+            .hero-title, .panel-title { font-size: 1.3rem; } .hero-subtitle, .panel-subtitle { font-size: 0.92rem; } .wizard-shell { border-radius: 1.1rem; } .form-group.full { grid-column: auto; }
         }
     </style>
 </head>
@@ -439,9 +505,10 @@ TEMPLATE_WIZARD = r"""
     <script src="/static/assistant.js"></script>
     <header class="main-header">
         <div class="header-logos">
-            <img src="/static/logo-prefeitura.png" alt="Prefeitura do Rio" class="logo-prefeitura-topo">
+            <img src="/static/logo-prefeitura.png" alt="Prefeitura do Rio de Janeiro - SMTE" class="logo-prefeitura-topo" loading="eager">
         </div>
     </header>
+    <main>
     <div class="wizard-page">
         <div class="wizard-progress">
             <div class="wizard-track"><div class="wizard-fill" id="wizard-fill"></div></div>
@@ -456,26 +523,26 @@ TEMPLATE_WIZARD = r"""
             <form id="wizard-form" method="POST" action="{{ url_for('inscricao_unica') }}" autocomplete="off" novalidate>
                 <section class="wizard-panel" data-step="index">
                     <div class="hero-grid"><div class="hero-card">
-                        <span class="hero-pill">PROJETO: MOVIMENTA RIO</span>
+                        <span class="hero-pill">&#9889; PROJETO: MOVIMENTA RIO</span>
                         <h1 class="hero-title">CURSOS GRATUITOS NO RIO DE JANEIRO</h1>
                         <p class="hero-subtitle">Programa Movimenta Rio &bull; Prefeitura do Rio de Janeiro</p>
                         <div class="hero-highlights">
                             <div class="hero-highlight" style="text-align:center;">
                                 <strong>CURSOS DISPON&#205;VEIS:</strong>
                                 &#x1F4E6; ASSISTENTE DE LOG&#205;STICA<br>
-                                &#x1F3E2; AUXILIAR ADMINISTRATIVO<br>
+                                &#x1F5C2;&#xFE0F; AUXILIAR ADMINISTRATIVO<br>
                                 &#x1F373; AUXILIAR DE COZINHA<br>
                                 &#x1F916; INTELIG&#202;NCIA ARTIFICIAL<br>
-                                &#x1F4E3; MARKETING DIGITAL<br>
-                                &#x1F388; MONITOR DE LAZER E RECREA&#199;&#195;O<br>
+                                &#x1F4BB; MARKETING DIGITAL<br>
+                                &#x1F3AF; MONITOR DE LAZER E RECREA&#199;&#195;O<br>
                                 &#x267B;&#xFE0F; OPERADOR DE SISTEMA DE COMPOSTAGEM<br>
                                 &#x1F6AA; PORTEIRO<br>
-                                &#x1F4CB; RECEPCIONISTA<br>
+                                &#x1F6CE;&#xFE0F; RECEPCIONISTA<br>
                                 &#x1F6CD;&#xFE0F; VENDAS<br>
-                                &#x1F4F1; SOCIAL MEDIA<br>
-                                &#x2702;&#xFE0F; BARBEIRO<br>
+                                &#x1F4F2; SOCIAL MEDIA<br>
+                                &#x1F488; BARBEIRO<br>
                                 &#x1F37D;&#xFE0F; GAR&#199;OM<br>
-                                &#x1F3E8; AGENTE DE TURISMO CORPORATIVO<br>
+                                &#x2708;&#xFE0F; AGENTE DE TURISMO CORPORATIVO<br>
                                 &#x26A1; ELETRICISTA PREDIAL<br>
                                 &#x1F4B0; INVESTIDOR DO SUCESSO
                             </div>
@@ -573,12 +640,12 @@ TEMPLATE_WIZARD = r"""
                             </div></div>
                             <div class="review-box full"><div class="form-group"><label for="como_conheceu">Como conheceu (opcional)</label><input type="text" id="como_conheceu" name="como_conheceu" maxlength="120" placeholder="Digite como conheceu o projeto" value="{{ form_data.get('como_conheceu', '') }}"><div class="balao-erro" id="como_conheceu-error" {% if not errors.get('como_conheceu') %}hidden{% endif %}>{{ errors.get('como_conheceu', '') }}</div></div></div>
                             <div class="review-box full">
-                                <div style="margin-bottom:10px; color:#2f5fb4; font-size:0.98rem; text-align:left;"><strong>Elegibilidade:</strong> Este curso &#233; destinado a pessoas com 16 anos ou mais.</div>
+                                <div class="elegibilidade-nota"><strong>Elegibilidade:</strong> Este curso &#233; destinado a pessoas com 16 anos ou mais.</div>
                                 <label class="review-check" for="confirma_dados">
                                     <input type="checkbox" id="confirma_dados" name="confirma_dados" value="sim" {% if form_data.get('confirma_dados') %}checked{% endif %}>
                                     <span>Confirmo que tenho 16 anos ou mais e interesse em participar do curso selecionado.<br>Todas as informa&#231;&#245;es s&#227;o verdadeiras e estou de acordo com os termos de participa&#231;&#227;o.<br>Autorizo o uso dos meus dados para inscri&#231;&#227;o e contato relacionado ao curso.<br>Tamb&#233;m autorizo o uso da minha imagem para divulga&#231;&#227;o nos canais do projeto e da Prefeitura do Rio.</span>
                                 </label>
-                                <div style="margin-top:10px;"><strong>Ao confirmar voc&#234; declara que:</strong><ul><li>O curso &#233; totalmente gratuito</li><li>Os dados ser&#227;o usados apenas para inscri&#231;&#227;o</li></ul></div>
+                                <div class="review-declaracao"><strong>Ao confirmar voc&#234; declara que:</strong><ul><li>O curso &#233; totalmente gratuito</li><li>Os dados ser&#227;o usados apenas para inscri&#231;&#227;o</li></ul></div>
                                 <div class="balao-erro" id="confirma_dados-error" {% if not errors.get('confirma_dados') %}hidden{% endif %}>{{ errors.get('confirma_dados', '') }}</div>
                             </div>
                         </div>
@@ -591,6 +658,7 @@ TEMPLATE_WIZARD = r"""
             </form>
         </div>
     </div>
+    </main>
     <script>
         document.addEventListener('DOMContentLoaded', function () {
             var stepOrder=['index','dados','escolher','revisao'];
@@ -657,51 +725,69 @@ TEMPLATE_WIZARD = r"""
 </body>
 </html>
 """
+
 TEMPLATE_CONFIRMACAO = r"""
 <!DOCTYPE html>
-<html lang="pt-br">
+<html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-    <title>MOVIMENTA RIO</title>
+    <title>Inscri&#231;&#227;o confirmada | Movimenta Rio</title>
+    <meta name="robots" content="noindex, nofollow">
     <link rel="stylesheet" href="/static/style.css">
     <link rel="stylesheet" href="/static/assistant.css">
-    <link href="https://fonts.googleapis.com/css2?family=Wise:wght@400;700;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&display=swap" rel="stylesheet">
     <style>
-        :root { --cor-principal: #1155cc; --cor-clara: #eef4ff; --cor-texto: #17386d; --sombra-card: 0 18px 55px rgba(17,85,204,0.18); }
-        body { min-height:100vh; margin:0; background: radial-gradient(circle at top left,rgba(17,85,204,0.15),transparent 32%), linear-gradient(140deg,#f5f9ff 0%,#fff 55%,#dfeaff 100%); font-family:'Wise',Arial,sans-serif; }
-        .main-header { border-bottom:4px solid #1155cc; background:rgba(255,255,255,0.92); }
+        :root {
+            --background: 210 40% 98%;
+            --foreground: 215 25% 15%;
+            --card: 0 0% 100%;
+            --primary: 213 100% 40%;
+            --primary-light: 197 100% 50%;
+            --primary-foreground: 0 0% 100%;
+            --secondary: 210 40% 96%;
+            --accent: 213 100% 96%;
+            --muted-foreground: 215 16% 47%;
+            --border: 214 32% 91%;
+            --radius: 1rem;
+            --gradient-primary: linear-gradient(135deg, hsl(213 100% 40%) 0%, hsl(197 100% 50%) 100%);
+            --shadow-soft: 0 4px 6px rgba(0,102,204,.05);
+            --shadow-md: 0 8px 16px rgba(0,102,204,.10);
+            --shadow-hover: 0 8px 24px rgba(0,102,204,.12);
+        }
+        body { min-height:100vh; margin:0; background: hsl(var(--background)); font-family:'Inter',Arial,sans-serif; color: hsl(var(--foreground)); }
+        .main-header { border-bottom:1px solid hsl(var(--border)); background:hsl(var(--card) / 0.92); }
         .confirm-page { width:min(680px,calc(100% - 16px)); margin:0 auto; padding:10px 0 20px; text-align:center; }
-        .wizard-progress { margin:12px auto 16px; padding:14px 14px 16px; border-radius:28px; background:rgba(255,255,255,0.9); box-shadow:0 12px 30px rgba(17,85,204,0.12); }
-        .wizard-track { width:100%; height:14px; border-radius:999px; background:#dbe6fb; overflow:hidden; }
-        .wizard-fill { width:100%; height:100%; background:linear-gradient(90deg,#1155cc 0%,#4f86ea 100%); border-radius:999px; }
+        .wizard-progress { margin:12px auto 16px; padding:14px 14px 16px; border-radius:calc(var(--radius) * 1.75); background:hsl(var(--card)); box-shadow: var(--shadow-md); }
+        .wizard-track { width:100%; height:14px; border-radius:999px; background:hsl(var(--secondary)); overflow:hidden; }
+        .wizard-fill { width:100%; height:100%; background: var(--gradient-primary); border-radius:999px; }
         .wizard-labels { display:grid; grid-template-columns:repeat(4,1fr); gap:8px; margin-top:12px; }
-        .wizard-label { padding:10px 8px; border:1px solid #c9daf8; border-radius:16px; background:#fff; color:#2f5fb4; font-size:0.84rem; font-weight:700; text-align:center; }
-        .wizard-label.ativo { border-color:#1155cc; background:#eef4ff; color:#1155cc; }
-        .confirm-shell { background:rgba(255,255,255,0.88); border:1px solid rgba(255,255,255,0.9); border-radius:30px; box-shadow:var(--sombra-card); overflow:hidden; text-align:center; }
+        .wizard-label { padding:10px 8px; border:1px solid hsl(var(--border)); border-radius:var(--radius); background:hsl(var(--card)); color:hsl(var(--primary)); font-size:0.84rem; font-weight:700; text-align:center; }
+        .wizard-label.ativo { border-color:hsl(var(--primary)); background:hsl(var(--accent)); color:hsl(var(--primary)); }
+        .confirm-shell { background:hsl(var(--card) / 0.96); border:1px solid hsl(var(--border)); border-radius:calc(var(--radius) * 2); box-shadow: var(--shadow-hover); overflow:hidden; text-align:center; }
         .confirm-card { padding:20px 16px 18px; background:transparent; text-align:center; max-width:620px; margin:0 auto; }
         .checkmark { width:120px; height:120px; margin:0 auto 12px; }
-        .checkmark svg { width:100%; height:100%; stroke:#1155cc; fill:none; }
-        .confirm-card h1 { margin:0 0 10px; color:#1155cc; font-size:clamp(1.8rem,4vw,2.6rem); letter-spacing:-0.04em; }
-        .protocol-box { margin:16px auto 12px; padding:14px; max-width:320px; border-radius:16px; background:#eef4ff; border:2px solid #1155cc; }
-        .protocol-box strong { display:block; color:#1155cc; font-size:0.98rem; margin-bottom:8px; text-transform:uppercase; letter-spacing:0.04em; }
-        .protocol-box span { display:block; color:#1155cc; font-size:1.35rem; font-weight:900; letter-spacing:0.08em; word-break:break-all; }
-        .next-steps { margin:16px auto 0; max-width:460px; padding:14px; border-radius:18px; background:#fff; border:1px solid #d7e3fb; }
-        .next-steps h2 { margin:0 0 12px; color:#1155cc; font-size:1.2rem; }
-        .next-steps ol { margin:0; padding-left:22px; color:#2f5fb4; line-height:1.55; list-style-position:inside; }
+        .checkmark svg { width:100%; height:100%; stroke:hsl(var(--primary)); fill:none; }
+        .confirm-card h1 { margin:0 0 10px; color:hsl(var(--primary)); font-weight:900; letter-spacing:-0.04em; font-size:clamp(1.8rem,4vw,2.6rem); }
+        .protocol-box { margin:16px auto 12px; padding:14px; max-width:320px; border-radius:var(--radius); background:hsl(var(--accent)); border:2px solid hsl(var(--primary)); }
+        .protocol-box strong { display:block; color:hsl(var(--primary)); font-size:0.98rem; margin-bottom:8px; text-transform:uppercase; letter-spacing:0.04em; }
+        .protocol-box span { display:block; color:hsl(var(--primary)); font-size:1.35rem; font-weight:900; letter-spacing:0.08em; word-break:break-all; }
+        .next-steps { margin:16px auto 0; max-width:460px; padding:14px; border-radius:calc(var(--radius) * 1.25); background:hsl(var(--card)); border:2px solid transparent; box-shadow: var(--shadow-soft); }
+        .next-steps h2 { margin:0 0 12px; color:hsl(var(--primary)); font-size:1.2rem; font-weight:900; }
+        .next-steps ol { margin:0; padding-left:22px; color:hsl(var(--muted-foreground)); line-height:1.55; list-style-position:inside; }
         .actions { display:grid; gap:10px; margin-top:16px; max-width:380px; margin-left:auto; margin-right:auto; }
-        .action-button { display:flex; align-items:center; justify-content:center; min-height:42px; padding:10px 14px; border-radius:12px; text-decoration:none; text-transform:uppercase; font-weight:800; letter-spacing:0.03em; transition:transform 0.16s ease; }
-        .action-button.primary { background:linear-gradient(90deg,#1155cc 0%,#4f86ea 100%); color:#fff; box-shadow:0 10px 24px rgba(17,85,204,0.24); }
-        .action-button.secondary { background:#fff; color:#1155cc; border:2px solid #1155cc; }
+        .action-button { display:flex; align-items:center; justify-content:center; min-height:42px; padding:10px 14px; border-radius:var(--radius); text-decoration:none; text-transform:uppercase; font-weight:800; letter-spacing:0.03em; transition:transform 0.16s ease, box-shadow 0.16s ease; }
+        .action-button.primary { background: var(--gradient-primary); color:hsl(var(--primary-foreground)); box-shadow: var(--shadow-hover); }
+        .action-button.secondary { background:hsl(var(--card)); color:hsl(var(--primary)); border:2px solid hsl(var(--primary)); }
         .action-button:hover { transform:translateY(-1px); }
         @media (max-width:640px) {
             html,body{width:100%!important;max-width:100%!important;overflow-x:hidden!important;}body*{min-width:0;}
             .main-header{padding:10px 12px;}.header-logos{display:flex;flex-direction:column;align-items:center;gap:10px;}.header-logos img{max-width:min(88vw,280px);height:auto;}
             .confirm-page{width:calc(100% - 8px)!important;max-width:100%!important;padding:6px 0 12px;}
             .confirm-card{width:100%!important;max-width:100%!important;padding:14px 10px 12px;}
-            .wizard-progress{width:100%!important;max-width:100%!important;padding:10px;border-radius:18px;}
+            .wizard-progress{width:100%!important;max-width:100%!important;padding:10px;border-radius:1.1rem;}
             .wizard-labels{grid-template-columns:1fr;gap:6px;}
-            .confirm-shell{width:100%!important;max-width:100%!important;border-radius:18px;}
+            .confirm-shell{width:100%!important;max-width:100%!important;border-radius:1.1rem;}
             .next-steps,.actions,.action-button,.protocol-box,.wizard-label,.wizard-track{width:100%!important;max-width:100%!important;}
             img,svg{max-width:100%!important;height:auto!important;}
         }
@@ -711,9 +797,10 @@ TEMPLATE_CONFIRMACAO = r"""
     <script src="/static/assistant.js"></script>
     <header class="main-header">
         <div class="header-logos">
-            <img src="/static/logo-prefeitura.png" alt="Prefeitura do Rio" class="logo-prefeitura-topo">
+            <img src="/static/logo-prefeitura.png" alt="Prefeitura do Rio de Janeiro - SMTE" class="logo-prefeitura-topo" loading="eager">
         </div>
     </header>
+    <main>
     <div class="confirm-page">
         <div class="wizard-progress">
             <div class="wizard-track"><div class="wizard-fill"></div></div>
@@ -740,14 +827,18 @@ TEMPLATE_CONFIRMACAO = r"""
             </ol></div>
         </div></div>
     </div>
+    </main>
 </body>
 </html>
 """
+
 # =============================================================================
 # 6. APLICAÇÃO FLASK
 # =============================================================================
 app = Flask(__name__)
 app.secret_key = os.environ.get("FLASK_SECRET_KEY", "chave-secreta-para-sessao")
+
+
 def get_default_form_data(source=None):
     form_data = {
         "nome": "", "genero": "", "cpf": "", "nascimento": "",
@@ -767,6 +858,8 @@ def get_default_form_data(source=None):
                 form_data[key] = (value or "").strip()
         fill_form_data_from_selection(form_data)
     return form_data
+
+
 def cpf_valido(cpf):
     digits = re.sub(r"\D", "", cpf or "")
     if len(digits) != 11 or len(set(digits)) == 1: return False
@@ -776,17 +869,23 @@ def cpf_valido(cpf):
     total = sum(int(digits[i]) * (11 - i) for i in range(10))
     digit = (total * 10) % 11; digit = 0 if digit == 10 else digit
     return digit == int(digits[10])
+
+
 def idade_aceita(nascimento):
     try: dn = datetime.strptime(nascimento, "%d/%m/%Y")
     except ValueError: return False
     hoje = datetime.today(); idade = hoje.year - dn.year
     if (hoje.month, hoje.day) < (dn.month, dn.day): idade -= 1
     return 16 <= idade <= 90
+
+
 def whatsapp_valido(whatsapp):
     digits = re.sub(r"\D", "", whatsapp or "")
     if len(digits) != 11: return False
     if not re.fullmatch(r"\(\d{2}\) \d{5}-\d{4}", whatsapp or ""): return False
     return digits[:2] in VALID_DDDS
+
+
 def validate_form_data(form_data):
     errors = {}
     selected_curso  = form_data.get("curso_id")
@@ -815,10 +914,14 @@ def validate_form_data(form_data):
     if form_data["confirma_dados"] != "sim":
         errors["confirma_dados"] = "Confirme os dados para finalizar a inscri\u00e7\u00e3o."
     return errors
+
+
 def error_step(errors):
     if "confirma_dados" in errors: return "revisao"
     if "curso_id" in errors:       return "escolher"
     return "dados"
+
+
 def render_wizard(form_data=None, errors=None, current_step="index"):
     current_form_data = form_data or get_default_form_data()
     selected_option = get_course_option(current_form_data.get("opcao_id")) or COURSE_INFO
@@ -833,9 +936,13 @@ def render_wizard(form_data=None, errors=None, current_step="index"):
         form_data      = current_form_data,
         generos        = ["Feminino", "Masculino", "Outro", "Prefiro n\u00e3o dizer"],
     )
+
+
 @app.route("/", methods=["GET"])
 def home():
     return render_wizard()
+
+
 @app.route("/inscricao", methods=["GET", "POST"])
 def inscricao_unica():
     if request.method == "GET":
@@ -865,11 +972,15 @@ def inscricao_unica():
     except Exception as exc:
         print("Erro ao enviar para Supabase:", exc)
     return redirect(url_for("confirmacao"))
+
+
 @app.route("/curso",   methods=["GET", "POST"])
 @app.route("/revisao", methods=["GET", "POST"])
 @app.route("/wizard",  methods=["GET"])
 def legacy_routes():
     return redirect(url_for("home"))
+
+
 @app.route("/confirmacao", methods=["GET"])
 def confirmacao():
     protocolo = session.get("protocolo")
@@ -881,6 +992,8 @@ def confirmacao():
         protocolo          = protocolo,
         whatsapp_share_url = build_whatsapp_share_url(home_url),
     )
+
+
 # =============================================================================
 # 7. SUPABASE
 # =============================================================================
@@ -892,11 +1005,15 @@ SUPABASE_API_KEY = os.environ.get(
     "SUPABASE_API_KEY",
     "jyUskwXkc54ZcMPyADLFN6LvZO0I60e3",
 )
+
+
 def normalize_phone_number(phone):
     digits = re.sub(r"[^\d]", "", phone or "")
     if len(digits) == 11:
         return f"55{digits}"
     return digits
+
+
 def send_registration_to_supabase(form_data):
     phone = normalize_phone_number(form_data.get("whatsapp", ""))
     payload = {
@@ -923,6 +1040,8 @@ def send_registration_to_supabase(form_data):
     if not response.ok:
         raise RuntimeError(f"Supabase retornou {response.status_code}: {response.text[:500]}")
     return response
+
+
 if __name__ == "__main__":
     port = int(os.environ.get("PORT", 5000))
     app.run(host="0.0.0.0", port=port)
