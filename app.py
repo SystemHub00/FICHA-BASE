@@ -298,6 +298,31 @@ COURSE_EMOJIS = {
 }
 
 
+def build_accordion_cursos():
+    """Agrupa COURSE_OPTIONS por curso, replicando a lógica de
+    getCursosUnicos() + getTurmasByCurso() do site em ZIP (WelcomeStep.tsx):
+    lista única de cursos (ordem alfabética) e, para cada um, todas as suas
+    turmas com local/endereço/dias/horário/período. Nenhuma informação é
+    alterada — apenas reorganizada para o formato de acordeão."""
+    por_curso = {}
+    for opcao in COURSE_OPTIONS:
+        por_curso.setdefault(opcao["curso"], []).append(opcao)
+    cursos_ordenados = sorted(por_curso.keys())
+    accordion = []
+    for nome_curso in cursos_ordenados:
+        turmas = por_curso[nome_curso]
+        accordion.append({
+            "curso_id": turmas[0]["curso_id"],
+            "curso_nome": nome_curso,
+            "emoji": COURSE_EMOJIS.get(nome_curso, "📚"),
+            "turmas": turmas,
+        })
+    return accordion
+
+
+ACCORDION_CURSOS = build_accordion_cursos()
+
+
 def build_whatsapp_share_url(home_url):
     message = (
         "Acabei de me inscrever em uma oportunidade de qualificacao profissional. "
@@ -427,6 +452,28 @@ TEMPLATE_WIZARD = r"""
         .wizard-panel.ativo { display: block; }
         @keyframes surgir { from { opacity:0; transform:translateY(12px); } to { opacity:1; transform:translateY(0); } }
         .hero-grid { display: grid; grid-template-columns: minmax(0,1fr); gap: 14px; align-items: center; justify-items: center; }
+        .course-accordion-wrap { margin-top: 22px; text-align: left; }
+        .accordion-heading { margin: 0 0 12px; font-size: 1.05rem; font-weight: 800; color: hsl(var(--foreground)); text-align: center; }
+        .course-accordion { display: grid; gap: 10px; }
+        .accordion-item { border-radius: var(--radius); overflow: hidden; }
+        .accordion-header { display: flex; align-items: center; gap: 12px; width: 100%; text-align: left; padding: 14px 16px; border: 2px solid transparent; border-radius: var(--radius); background: hsl(var(--card)); box-shadow: var(--shadow-soft); cursor: pointer; transition: all 0.2s ease; }
+        .accordion-header:hover { border-color: hsl(var(--primary) / 0.3); }
+        .accordion-item.aberto .accordion-header { border-color: hsl(var(--primary)); box-shadow: var(--shadow-md); }
+        .accordion-icon { font-size: 1.5rem; flex-shrink: 0; }
+        .accordion-header-text { flex: 1; min-width: 0; }
+        .accordion-curso-nome { display: block; font-size: 1rem; font-weight: 800; color: hsl(var(--foreground)); }
+        .accordion-curso-count { display: block; font-size: 0.78rem; color: hsl(var(--muted-foreground)); }
+        .accordion-chevron { flex-shrink: 0; font-size: 1.3rem; font-weight: 900; color: hsl(var(--muted-foreground)); transition: transform 0.2s ease; }
+        .accordion-item.aberto .accordion-chevron { transform: rotate(90deg); color: hsl(var(--primary)); }
+        .accordion-panel { display: none; padding: 8px 4px 2px 6px; }
+        .accordion-item.aberto .accordion-panel { display: grid; gap: 8px; margin-top: 6px; }
+        .turma-card { background: hsl(var(--card)); border-radius: calc(var(--radius) * 0.9); box-shadow: var(--shadow-soft); padding: 14px; }
+        .turma-info { display: grid; gap: 6px; font-size: 0.8rem; color: hsl(var(--muted-foreground)); margin-bottom: 10px; }
+        .turma-local { display: flex; align-items: flex-start; gap: 6px; }
+        .turma-local strong { color: hsl(var(--foreground)); font-weight: 700; }
+        .turma-endereco { font-size: 0.74rem; }
+        .turma-linha { display: flex; align-items: center; gap: 6px; }
+        .turma-select-btn { width: 100%; height: 44px; font-size: 0.9rem; }
         .hero-card { padding: 32px; border-radius: calc(var(--radius) * 1.75); background: var(--gradient-hero); border: none; width: 100%; text-align: center; color: hsl(var(--primary-foreground)); box-shadow: var(--shadow-hover); }
         .hero-pill { display: inline-flex; align-items: center; gap: 8px; padding: 10px 18px; border-radius: 999px; background: hsl(0 0% 100% / 0.18); backdrop-filter: blur(4px); color: hsl(var(--primary-foreground)); font-size: 0.85rem; font-weight: 800; letter-spacing: 0.06em; text-transform: uppercase; animation: pulse-soft 2.4s ease-in-out infinite; }
         @keyframes pulse-soft { 0%,100% { opacity: 1; } 50% { opacity: 0.72; } }
@@ -496,7 +543,9 @@ TEMPLATE_WIZARD = r"""
         .panel-actions > * { flex: 1; }
         .icon-button { min-width: 56px; min-height: 52px; background: hsl(var(--primary)); color: hsl(var(--primary-foreground)); box-shadow: var(--shadow-md); }
         .wizard-panel[data-step="escolher"] .icon-button { width: 100% !important; min-width: 0 !important; max-width: 100% !important; height: 38px !important; min-height: 38px !important; padding: 0; border-radius: 0.65rem; box-shadow: none; }
-        .balao-erro { margin-top: 4px; padding: 10px 14px; border-radius: var(--radius); border: 1px solid hsl(var(--primary)); background: hsl(var(--primary)); color: hsl(var(--primary-foreground)); font-size: 0.92rem; font-weight: 700; line-height: 1.35; }
+        .info-note-box { margin-top: 16px; padding: 14px; border-radius: var(--radius); background: hsl(var(--secondary) / 0.6); text-align: left; }
+        .info-note-box strong { display: block; margin-bottom: 8px; color: hsl(var(--foreground)); font-size: 0.92rem; }
+        .info-note-box ul { margin: 0; padding-left: 18px; color: hsl(var(--muted-foreground)); font-size: 0.85rem; line-height: 1.6; }
         .balao-erro[hidden] { display: none; }
         .erro-campo { border-color: hsl(var(--destructive)) !important; box-shadow: 0 0 0 4px hsl(var(--destructive) / 0.14) !important; }
         .review-layout { display: grid; grid-template-columns: 1fr; gap: 8px; margin-top: 10px; max-width: 540px; margin-left: auto; margin-right: auto; }
@@ -578,25 +627,6 @@ TEMPLATE_WIZARD = r"""
                             <span class="trust-badge">&#127891; 20h de Forma&#231;&#227;o</span>
                         </div>
                         <div class="hero-highlights">
-                            <div class="hero-highlight" style="text-align:center;">
-                                <strong>CURSOS DISPON&#205;VEIS:</strong>
-                                &#x1F4E6; ASSISTENTE DE LOG&#205;STICA<br>
-                                &#x1F5C2;&#xFE0F; AUXILIAR ADMINISTRATIVO<br>
-                                &#x1F373; AUXILIAR DE COZINHA<br>
-                                &#x1F916; INTELIG&#202;NCIA ARTIFICIAL<br>
-                                &#x1F4BB; MARKETING DIGITAL<br>
-                                &#x1F3AF; MONITOR DE LAZER E RECREA&#199;&#195;O<br>
-                                &#x267B;&#xFE0F; OPERADOR DE SISTEMA DE COMPOSTAGEM<br>
-                                &#x1F6AA; PORTEIRO<br>
-                                &#x1F6CE;&#xFE0F; RECEPCIONISTA<br>
-                                &#x1F6CD;&#xFE0F; VENDAS<br>
-                                &#x1F4F2; SOCIAL MEDIA<br>
-                                &#x1F488; BARBEIRO<br>
-                                &#x1F37D;&#xFE0F; GAR&#199;OM<br>
-                                &#x2708;&#xFE0F; AGENTE DE TURISMO CORPORATIVO<br>
-                                &#x26A1; ELETRICISTA PREDIAL<br>
-                                &#x1F4B0; INVESTIDOR DO SUCESSO
-                            </div>
                             <div class="hero-highlight">
                                 <strong>BENEF&#205;CIOS</strong>
                                 <div class="benefits-slider" data-benefits-slider>
@@ -617,10 +647,39 @@ TEMPLATE_WIZARD = r"""
                                 Qualifica&#231;&#227;o profissional gratuita para ampliar suas oportunidades e fortalecer sua entrada no mercado de trabalho.
                             </div>
                         </div>
-                        <div class="panel-actions">
-                            <button type="button" class="cta-button" data-next="dados">Come&#231;ar inscri&#231;&#227;o</button>
-                        </div>
                     </div></div>
+                    <div class="course-accordion-wrap">
+                        <h2 class="accordion-heading">Escolha seu curso ({{ accordion_cursos|length }} op&#231;&#245;es):</h2>
+                        <div class="course-accordion" id="course-accordion">
+                            {% for grupo in accordion_cursos %}
+                            <div class="accordion-item" data-curso-id="{{ grupo.curso_id }}">
+                                <button type="button" class="accordion-header" data-accordion-toggle="{{ grupo.curso_id }}">
+                                    <span class="accordion-icon">{{ grupo.emoji }}</span>
+                                    <span class="accordion-header-text">
+                                        <span class="accordion-curso-nome">{{ grupo.curso_nome }}</span>
+                                        <span class="accordion-curso-count">{{ grupo.turmas|length }} turma{{ 's' if grupo.turmas|length > 1 else '' }} dispon&#237;ve{{ 'is' if grupo.turmas|length > 1 else 'l' }}</span>
+                                    </span>
+                                    <span class="accordion-chevron">&#8250;</span>
+                                </button>
+                                <div class="accordion-panel" data-accordion-panel="{{ grupo.curso_id }}">
+                                    {% for turma in grupo.turmas %}
+                                    <div class="turma-card">
+                                        <div class="turma-info">
+                                            <div class="turma-local">
+                                                <span>&#128205;</span>
+                                                <span><strong>{{ turma.local }}</strong><br><span class="turma-endereco">{{ turma.endereco_curso }}</span></span>
+                                            </div>
+                                            <div class="turma-linha"><span>&#128197;</span> {{ turma.dias_aula }} &bull; {{ turma.data_inicio }} a {{ turma.encerramento }}</div>
+                                            <div class="turma-linha"><span>&#128337;</span> {{ turma.horario }}</div>
+                                        </div>
+                                        <button type="button" class="cta-button turma-select-btn" data-turma-select="{{ turma.id }}">QUERO ME INSCREVER &#8594;</button>
+                                    </div>
+                                    {% endfor %}
+                                </div>
+                            </div>
+                            {% endfor %}
+                        </div>
+                    </div>
                 </section>
                 <section class="wizard-panel" data-step="dados">
                     <div class="step-card">
@@ -643,21 +702,30 @@ TEMPLATE_WIZARD = r"""
                 </section>
                 <section class="wizard-panel" data-step="escolher">
                     <div class="step-card">
-                        <h2 class="panel-title">Escolha seu curso</h2>
+                        <h2 class="panel-title">Confirma&#231;&#227;o do Curso</h2>
+                        <p class="panel-subtitle">Confira os detalhes da turma que voc&#234; escolheu</p>
+                        <div class="balao-erro" id="nenhuma-turma-error" style="max-width:470px;margin:12px auto 0;" hidden>Nenhuma turma foi selecionada. Volte ao in&#237;cio e escolha uma turma.</div>
+                        <input type="hidden" id="curso_id" name="curso_id" value="{{ form_data.get('curso_id', '') }}">
+                        <input type="hidden" id="opcao_id" name="opcao_id" value="{{ form_data.get('opcao_id', '') }}">
+                        <input type="hidden" id="local_id" name="local_id" value="{{ form_data.get('local_id', '') }}">
+                        <input type="hidden" id="local"    name="local"    value="{{ form_data.get('local', '') }}">
+                        <input type="hidden" id="curso"    name="curso"    value="{{ form_data.get('curso', '') }}">
+                        <input type="hidden" id="turma"    name="turma"    value="{{ form_data.get('turma', '') }}">
                         <div class="step-grid step-grid--stacked">
-                            <div class="form-group full"><label for="curso_id">Curso *</label><select id="curso_id" name="curso_id"><option value="">Selecione um curso</option>{% for curso in course_catalog %}<option value="{{ curso.id }}" {% if form_data.get('curso_id') == curso.id %}selected{% endif %}>{{ curso.nome }}</option>{% endfor %}</select><div class="balao-erro" id="curso_id-error" {% if not errors.get('curso_id') %}hidden{% endif %}>{{ errors.get('curso_id', '') }}</div></div>
-                            <div class="form-group full" id="turma-group" style="display:none;"><label for="opcao_id_select">Local / Turma / Hor&#225;rio *</label><select id="opcao_id_select"><option value="">Selecione uma turma</option></select><div class="balao-erro" id="opcao_id-error" hidden></div></div>
-                            <input type="hidden" id="opcao_id" name="opcao_id" value="{{ form_data.get('opcao_id', '') }}">
-                            <input type="hidden" id="local_id" name="local_id" value="{{ form_data.get('local_id', '') }}">
-                            <input type="hidden" id="local"    name="local"    value="{{ form_data.get('local', '') }}">
-                            <input type="hidden" id="curso"    name="curso"    value="{{ form_data.get('curso', '') }}">
-                            <input type="hidden" id="turma"    name="turma"    value="{{ form_data.get('turma', '') }}">
+                            <div class="form-group full"><label for="curso_display">CURSO SELECIONADO</label><input type="text" id="curso_display" class="readonly-field" readonly style="display:block !important;width:100% !important;max-width:100% !important;box-sizing:border-box !important;height:var(--field-height) !important;min-height:var(--field-height) !important;max-height:var(--field-height) !important;padding:7px 10px !important;margin:0 !important;border:1.5px solid #a8c0f4 !important;border-radius:0.65rem !important;font-size:1rem !important;line-height:1.2 !important;" value="{{ form_data.get('curso', '') }}"></div>
                             <div class="form-group full"><label for="local_display">LOCAL SELECIONADO</label><input type="text" id="local_display" class="readonly-field" readonly style="display:block !important;width:100% !important;max-width:100% !important;box-sizing:border-box !important;height:var(--field-height) !important;min-height:var(--field-height) !important;max-height:var(--field-height) !important;padding:7px 10px !important;margin:0 !important;border:1.5px solid #a8c0f4 !important;border-radius:0.65rem !important;font-size:1rem !important;line-height:1.2 !important;" value="{{ form_data.get('local', '') }}"></div>
                             <div class="form-group"><label for="dias_aula">DIA DE AULA</label><input type="text" id="dias_aula" name="dias_aula" class="readonly-field" readonly style="display:block !important;width:100% !important;max-width:100% !important;box-sizing:border-box !important;height:var(--field-height) !important;min-height:var(--field-height) !important;max-height:var(--field-height) !important;padding:7px 10px !important;margin:0 !important;border:1.5px solid #a8c0f4 !important;border-radius:0.65rem !important;font-size:1rem !important;line-height:1.2 !important;" value="{{ form_data.get('dias_aula', '') }}"></div>
                             <div class="form-group"><label for="horario">HOR&#193;RIO</label><input type="text" id="horario" name="horario" class="readonly-field" readonly style="display:block !important;width:100% !important;max-width:100% !important;box-sizing:border-box !important;height:var(--field-height) !important;min-height:var(--field-height) !important;max-height:var(--field-height) !important;padding:7px 10px !important;margin:0 !important;border:1.5px solid #a8c0f4 !important;border-radius:0.65rem !important;font-size:1rem !important;line-height:1.2 !important;" value="{{ form_data.get('horario', '') }}"></div>
                             <div class="form-group"><label for="data_inicio">DATA DE IN&#205;CIO</label><input type="text" id="data_inicio" name="data_inicio" class="readonly-field" readonly style="display:block !important;width:100% !important;max-width:100% !important;box-sizing:border-box !important;height:var(--field-height) !important;min-height:var(--field-height) !important;max-height:var(--field-height) !important;padding:7px 10px !important;margin:0 !important;border:1.5px solid #a8c0f4 !important;border-radius:0.65rem !important;font-size:1rem !important;line-height:1.2 !important;" value="{{ form_data.get('data_inicio', '') }}"></div>
                             <div class="form-group"><label for="encerramento">ENCERRAMENTO</label><input type="text" id="encerramento" name="encerramento" class="readonly-field" readonly style="display:block !important;width:100% !important;max-width:100% !important;box-sizing:border-box !important;height:var(--field-height) !important;min-height:var(--field-height) !important;max-height:var(--field-height) !important;padding:7px 10px !important;margin:0 !important;border:1.5px solid #a8c0f4 !important;border-radius:0.65rem !important;font-size:1rem !important;line-height:1.2 !important;" value="{{ form_data.get('encerramento', '') }}"></div>
                             <div class="form-group full"><label for="endereco_curso">ENDERE&#199;O</label><div class="input-with-action"><input type="text" id="endereco_curso" name="endereco_curso" class="readonly-field" readonly style="display:block !important;width:100% !important;max-width:100% !important;box-sizing:border-box !important;height:var(--field-height) !important;min-height:var(--field-height) !important;max-height:var(--field-height) !important;padding:7px 10px !important;margin:0 !important;border:1.5px solid #a8c0f4 !important;border-radius:0.65rem !important;font-size:1rem !important;line-height:1.2 !important;" value="{{ form_data.get('endereco_curso', '') }}"><button type="button" class="icon-button" id="btn-copiar-endereco" title="Copiar">COPIAR &#128203;</button></div></div>
+                        </div>
+                        <div class="info-note-box">
+                            <strong>Informa&#231;&#245;es Importantes:</strong>
+                            <ul>
+                                <li>O curso &#233; 100% gratuito e inclui certificado</li>
+                                <li>&#201; necess&#225;rio ter 16 anos ou mais para participar</li>
+                            </ul>
                         </div>
                         <div class="panel-actions">
                             <button type="button" class="secondary-button" data-prev="dados">&#8249; Voltar</button>
@@ -725,13 +793,11 @@ TEMPLATE_WIZARD = r"""
             var courseOptions={{ course_options|tojson }};
             var courseOptionsById=Object.fromEntries(courseOptions.map(function(o){return[String(o.id),o];}));
             var nomeInput=document.getElementById('nome'),generoInput=document.getElementById('genero'),cpfInput=document.getElementById('cpf'),nascimentoInput=document.getElementById('nascimento'),whatsappInput=document.getElementById('whatsapp'),cepInput=document.getElementById('cep'),bairroInput=document.getElementById('bairro'),emailInput=document.getElementById('email'),confirmaDadosInput=document.getElementById('confirma_dados');
-            var courseSelect=document.getElementById('curso_id'),opcaoSelectEl=document.getElementById('opcao_id_select'),turmaGroup=document.getElementById('turma-group'),opcaoIdInput=document.getElementById('opcao_id'),localIdInput=document.getElementById('local_id'),localInput=document.getElementById('local'),localDisplay=document.getElementById('local_display'),cursoInput=document.getElementById('curso'),turmaInput=document.getElementById('turma'),diasAulaInput=document.getElementById('dias_aula'),horarioInput=document.getElementById('horario'),dataInicioInput=document.getElementById('data_inicio'),encerramentoInput=document.getElementById('encerramento'),enderecoInput=document.getElementById('endereco_curso'),btnCopiarEndereco=document.getElementById('btn-copiar-endereco');
+            var cursoIdInput=document.getElementById('curso_id'),cursoDisplay=document.getElementById('curso_display'),opcaoIdInput=document.getElementById('opcao_id'),localIdInput=document.getElementById('local_id'),localInput=document.getElementById('local'),localDisplay=document.getElementById('local_display'),cursoInput=document.getElementById('curso'),turmaInput=document.getElementById('turma'),diasAulaInput=document.getElementById('dias_aula'),horarioInput=document.getElementById('horario'),dataInicioInput=document.getElementById('data_inicio'),encerramentoInput=document.getElementById('encerramento'),enderecoInput=document.getElementById('endereco_curso'),btnCopiarEndereco=document.getElementById('btn-copiar-endereco'),nenhumaTurmaError=document.getElementById('nenhuma-turma-error');
             function somenteDigitos(v){return(v||'').replace(/\D/g,'');}
             function setError(id,msg){var f=document.getElementById(id),e=document.getElementById(id+'-error');if(f)f.classList.toggle('erro-campo',Boolean(msg));if(e){e.textContent=msg||'';e.hidden=!msg;}}
-            function aplicarOpcao(opcaoId){var op=courseOptionsById[String(opcaoId||'')];if(!op){opcaoIdInput.value='';localIdInput.value='';localInput.value='';if(localDisplay)localDisplay.value='';cursoInput.value='';turmaInput.value='';diasAulaInput.value='';horarioInput.value='';dataInicioInput.value='';encerramentoInput.value='';enderecoInput.value='';return;}opcaoIdInput.value=op.id;localIdInput.value=op.local_id;localInput.value=op.local;if(localDisplay)localDisplay.value=op.local;cursoInput.value=op.curso;turmaInput.value=op.turma;diasAulaInput.value=op.dias_aula;horarioInput.value=op.horario;dataInicioInput.value=op.data_inicio;encerramentoInput.value=op.encerramento;enderecoInput.value=op.endereco_curso;setError('curso_id','');setError('opcao_id','');syncReview();}
-            function atualizarTurmasPorCurso(cursoId,selectedOpcaoId){var t=courseOptions.filter(function(o){return String(o.curso_id)===String(cursoId||'');});opcaoSelectEl.innerHTML='';if(!t.length){turmaGroup.style.display='none';aplicarOpcao('');return;}if(t.length===1){turmaGroup.style.display='none';aplicarOpcao(t[0].id);return;}turmaGroup.style.display='';var ph=document.createElement('option');ph.value='';ph.textContent='Selecione local e hor\u00e1rio';opcaoSelectEl.appendChild(ph);t.forEach(function(op){var opt=document.createElement('option');opt.value=op.id;opt.textContent=op.turma_label;if(String(op.id)===String(selectedOpcaoId||''))opt.selected=true;opcaoSelectEl.appendChild(opt);});if(selectedOpcaoId&&t.some(function(o){return String(o.id)===String(selectedOpcaoId);})){aplicarOpcao(selectedOpcaoId);}else{aplicarOpcao('');}}
-            courseSelect.addEventListener('change',function(){setError('curso_id','');var c=courseSelect.value;if(c){atualizarTurmasPorCurso(c,'');}else{turmaGroup.style.display='none';aplicarOpcao('');}syncReview();});
-            opcaoSelectEl.addEventListener('change',function(){setError('opcao_id','');aplicarOpcao(opcaoSelectEl.value);});
+            function aplicarOpcao(opcaoId){var op=courseOptionsById[String(opcaoId||'')];if(!op){opcaoIdInput.value='';cursoIdInput.value='';localIdInput.value='';localInput.value='';if(localDisplay)localDisplay.value='';if(cursoDisplay)cursoDisplay.value='';cursoInput.value='';turmaInput.value='';diasAulaInput.value='';horarioInput.value='';dataInicioInput.value='';encerramentoInput.value='';enderecoInput.value='';return;}opcaoIdInput.value=op.id;cursoIdInput.value=op.curso_id;localIdInput.value=op.local_id;localInput.value=op.local;if(localDisplay)localDisplay.value=op.local;if(cursoDisplay)cursoDisplay.value=op.curso;cursoInput.value=op.curso;turmaInput.value=op.turma;diasAulaInput.value=op.dias_aula;horarioInput.value=op.horario;dataInicioInput.value=op.data_inicio;encerramentoInput.value=op.encerramento;enderecoInput.value=op.endereco_curso;if(nenhumaTurmaError)nenhumaTurmaError.hidden=true;syncReview();}
+            
             if(btnCopiarEndereco&&enderecoInput){btnCopiarEndereco.addEventListener('click',function(){navigator.clipboard.writeText(enderecoInput.value).then(function(){btnCopiarEndereco.textContent='COPIADO \u2705';}).catch(function(){enderecoInput.select();document.execCommand('copy');btnCopiarEndereco.textContent='COPIADO \u2705';});setTimeout(function(){btnCopiarEndereco.textContent='COPIAR &#128203;';},1200);});}
             function mostrarPasso(step){panels.forEach(function(p){p.classList.toggle('ativo',p.dataset.step===step);});labels.forEach(function(l){l.classList.toggle('ativo',l.dataset.stepLabel===step);});var pct=progressByStep[step]||25;fill.style.width=pct+'%';if(dot)dot.style.left='calc('+pct+'% - 6px)';if(stepLabelEl)stepLabelEl.textContent='Passo '+(stepNumberByStep[step]||1)+' de 4';if(percentEl)percentEl.textContent=pct+'%';window.scrollTo({top:0,behavior:'smooth'});}
             function syncReview(){reviewTargets.forEach(function(t){var key=t.dataset.review;if(key==='curso_nome'){t.textContent=cursoInput?cursoInput.value.trim():'';return;}if(key==='local_nome'){t.textContent=localInput?localInput.value.trim():'';return;}var f=document.getElementById(key);if(!f){t.textContent='';return;}if(f.tagName==='SELECT'){var s=f.options[f.selectedIndex];t.textContent=s?s.text.trim():'';}else{t.textContent=f.value.trim();}});}
@@ -752,9 +818,11 @@ TEMPLATE_WIZARD = r"""
             function vBairro(){var v=bairroInput.value.trim();if(!v){setError('bairro','Informe o bairro.');return false;}if(v.length>40){setError('bairro','M\u00e1ximo 40 caracteres.');return false;}setError('bairro','');return true;}
             function vEmail(){if(!validarEmail(emailInput.value)){setError('email','Digite um e-mail v\u00e1lido (Gmail, Hotmail, Outlook ou Yahoo).');return false;}setError('email','');return true;}
             function validarPassoDados(){var checks=[{ok:vNome(),f:nomeInput},{ok:vGenero(),f:generoInput},{ok:vCPF(),f:cpfInput},{ok:vNasc(),f:nascimentoInput},{ok:vWpp(),f:whatsappInput},{ok:vCep(),f:cepInput},{ok:vBairro(),f:bairroInput},{ok:vEmail(),f:emailInput}];var first=checks.find(function(c){return !c.ok;});if(first){first.f.focus();return false;}return true;}
-            function validarPassoEscolher(){if(!courseSelect.value){setError('curso_id','Selecione um curso.');courseSelect.focus();return false;}if(turmaGroup.style.display!=='none'&&!opcaoSelectEl.value){setError('opcao_id','Selecione um local e hor\u00e1rio.');opcaoSelectEl.focus();return false;}if(!opcaoIdInput.value){setError('curso_id','N\u00e3o foi poss\u00edvel determinar a turma. Tente novamente.');return false;}return true;}
+            function validarPassoEscolher(){if(!opcaoIdInput.value){if(nenhumaTurmaError)nenhumaTurmaError.hidden=false;return false;}if(nenhumaTurmaError)nenhumaTurmaError.hidden=true;return true;}
             function validarPassoRevisao(){if(!confirmaDadosInput.checked){setError('confirma_dados','Confirme os dados para finalizar.');confirmaDadosInput.focus();return false;}setError('confirma_dados','');return true;}
             async function buscarBairro(){var limpo=somenteDigitos(cepInput.value);if(limpo.length!==8)return;try{var r=await fetch('https://viacep.com.br/ws/'+limpo+'/json/');var d=await r.json();if(!d.erro&&d.bairro){bairroInput.value=d.bairro;vBairro();syncReview();}}catch(e){console.error(e);}}
+            document.querySelectorAll('[data-accordion-toggle]').forEach(function(header){header.addEventListener('click',function(){var item=header.closest('.accordion-item');var jaAberto=item.classList.contains('aberto');document.querySelectorAll('.accordion-item.aberto').forEach(function(i){i.classList.remove('aberto');});if(!jaAberto)item.classList.add('aberto');});});
+            document.querySelectorAll('[data-turma-select]').forEach(function(btn){btn.addEventListener('click',function(){aplicarOpcao(btn.dataset.turmaSelect);syncReview();mostrarPasso('dados');});});
             document.querySelectorAll('[data-next]').forEach(function(btn){btn.addEventListener('click',function(){var t=btn.dataset.next;if(t==='escolher'&&!validarPassoDados())return;if(t==='revisao'&&!validarPassoEscolher())return;syncReview();mostrarPasso(t);});});
             document.querySelectorAll('[data-prev]').forEach(function(btn){btn.addEventListener('click',function(){syncReview();mostrarPasso(btn.dataset.prev);});});
             form.addEventListener('submit',function(e){if(!validarPassoDados()){e.preventDefault();mostrarPasso('dados');return;}syncReview();if(!validarPassoRevisao()){e.preventDefault();mostrarPasso('revisao');}});
@@ -768,8 +836,8 @@ TEMPLATE_WIZARD = r"""
             confirmaDadosInput.addEventListener('change',function(){if(confirmaDadosInput.checked)setError('confirma_dados','');});
             ['nome','genero','whatsapp','cep','bairro','email','curso_id','como_conheceu'].forEach(function(id){var f=document.getElementById(id);if(f){f.addEventListener('input',syncReview);f.addEventListener('change',syncReview);}});
             function initBenefitsSlider(slider){var slides=Array.from(slider.querySelectorAll('.benefit-slide')),dotsHost=slider.querySelector('[data-benefits-dots]'),prevBtn=slider.querySelector('[data-benefits-prev]'),nextBtn=slider.querySelector('[data-benefits-next]');if(!slides.length||!dotsHost||!prevBtn||!nextBtn)return;var cur=Math.max(slides.findIndex(function(s){return s.classList.contains('ativo');}),0),timer;var dots=slides.map(function(_,i){var dot=document.createElement('button');dot.type='button';dot.className='benefits-dot';dot.setAttribute('aria-label','Benef\u00edcio '+(i+1));dot.addEventListener('click',function(){show(i);restart();});dotsHost.appendChild(dot);return dot;});function show(i){cur=(i+slides.length)%slides.length;slides.forEach(function(s,j){s.classList.toggle('ativo',j===cur);});dots.forEach(function(d,j){d.classList.toggle('ativo',j===cur);});}function restart(){clearInterval(timer);timer=setInterval(function(){show(cur+1);},3200);}prevBtn.addEventListener('click',function(){show(cur-1);restart();});nextBtn.addEventListener('click',function(){show(cur+1);restart();});slider.addEventListener('mouseenter',function(){clearInterval(timer);});slider.addEventListener('mouseleave',restart);show(cur);restart();}
-            var initCursoId='{{ form_data.get("curso_id", "") }}',initOpcaoId='{{ form_data.get("opcao_id", "") }}';
-            if(initCursoId){courseSelect.value=initCursoId;atualizarTurmasPorCurso(initCursoId,initOpcaoId);}else{turmaGroup.style.display='none';}
+            var initOpcaoId='{{ form_data.get("opcao_id", "") }}';
+            if(initOpcaoId){aplicarOpcao(initOpcaoId);}
             benefitsSliders.forEach(initBenefitsSlider);
             syncReview();
             mostrarPasso(stepOrder.includes(startStep)?startStep:'index');
@@ -984,14 +1052,15 @@ def render_wizard(form_data=None, errors=None, current_step="index"):
     selected_option = get_course_option(current_form_data.get("opcao_id")) or COURSE_INFO
     return render_template_string(
         TEMPLATE_WIZARD,
-        course_info    = selected_option,
-        local_options  = LOCAL_OPTIONS,
-        course_catalog = COURSE_CATALOG,
-        course_options = COURSE_OPTIONS,
-        current_step   = current_step,
-        errors         = errors or {},
-        form_data      = current_form_data,
-        generos        = ["Feminino", "Masculino", "Outro", "Prefiro n\u00e3o dizer"],
+        course_info      = selected_option,
+        local_options    = LOCAL_OPTIONS,
+        course_catalog   = COURSE_CATALOG,
+        course_options   = COURSE_OPTIONS,
+        accordion_cursos = ACCORDION_CURSOS,
+        current_step     = current_step,
+        errors           = errors or {},
+        form_data        = current_form_data,
+        generos          = ["Feminino", "Masculino", "Outro", "Prefiro n\u00e3o dizer"],
     )
 
 
