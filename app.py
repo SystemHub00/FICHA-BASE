@@ -403,10 +403,10 @@ TEMPLATE_WIZARD = r"""
             --field-height: 38px;
         }
         * { box-sizing: border-box; }
-        html, body { min-height: 100%; margin: 0; padding: 0; }
+        html, body { min-height: 100%; margin: 0; padding: 0; width: 100%; max-width: 100%; overflow-x: hidden; }
         body { min-height: 100vh; background: hsl(var(--background)); color: hsl(var(--foreground)); font-family: 'Inter', Arial, sans-serif; }
         .main-header { border-bottom: 1px solid hsl(var(--border)); background: hsl(var(--card) / 0.92); backdrop-filter: blur(8px); }
-        .wizard-page { width: min(900px, 98vw); margin: 0 auto; padding: 8px 0 18px; text-align: center; }
+        .wizard-page { width: min(900px, calc(100% - 16px)); margin: 0 auto; padding: 8px 0 18px; text-align: center; }
         .wizard-progress { margin: 18px auto 22px; padding: 18px 18px 20px; border-radius: calc(var(--radius) * 1.75); background: hsl(var(--card)); box-shadow: var(--shadow-md); }
         .wizard-track { width: 100%; height: 14px; background: hsl(var(--secondary)); border-radius: 999px; overflow: hidden; }
         .wizard-fill { height: 100%; width: 25%; background: var(--gradient-primary); border-radius: 999px; transition: width 0.3s ease; }
@@ -776,7 +776,8 @@ TEMPLATE_CONFIRMACAO = r"""
             --shadow-md: 0 8px 16px rgba(0,102,204,.10);
             --shadow-hover: 0 8px 24px rgba(0,102,204,.12);
         }
-        body { min-height:100vh; margin:0; background: hsl(var(--background)); font-family:'Inter',Arial,sans-serif; color: hsl(var(--foreground)); }
+        html { overflow-x: hidden; }
+        body { min-height:100vh; margin:0; width:100%; max-width:100%; overflow-x:hidden; background: hsl(var(--background)); font-family:'Inter',Arial,sans-serif; color: hsl(var(--foreground)); }
         .main-header { border-bottom:1px solid hsl(var(--border)); background:hsl(var(--card) / 0.92); }
         .confirm-page { width:min(680px,calc(100% - 16px)); margin:0 auto; padding:10px 0 20px; text-align:center; }
         .wizard-progress { margin:12px auto 16px; padding:14px 14px 16px; border-radius:calc(var(--radius) * 1.75); background:hsl(var(--card)); box-shadow: var(--shadow-md); }
