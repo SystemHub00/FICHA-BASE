@@ -400,6 +400,7 @@ TEMPLATE_WIZARD = r"""
             --shadow-soft: 0 4px 6px rgba(0,102,204,.05);
             --shadow-md: 0 8px 16px rgba(0,102,204,.10);
             --shadow-hover: 0 8px 24px rgba(0,102,204,.12);
+            --field-height: 38px;
         }
         * { box-sizing: border-box; }
         html, body { min-height: 100%; margin: 0; padding: 0; }
@@ -452,6 +453,21 @@ TEMPLATE_WIZARD = r"""
         .form-group textarea { min-height: 60px; height: auto; resize: vertical; }
         .form-group input:focus, .form-group select:focus, .form-group textarea:focus { border-color: hsl(var(--ring)); background: hsl(var(--card)); box-shadow: 0 0 0 4px hsl(var(--ring) / 0.14); }
         .readonly-field { background: hsl(var(--accent)) !important; color: hsl(var(--primary)) !important; font-weight: 700; -webkit-appearance: none; -moz-appearance: none; appearance: none; box-sizing: border-box !important; height: 38px !important; min-height: 38px !important; max-height: 38px !important; padding: 7px 10px !important; line-height: 1.2 !important; font-size: inherit !important; font-family: inherit !important; }
+        #local_display, #dias_aula, #horario, #data_inicio, #encerramento, #endereco_curso {
+            display: block !important;
+            width: 100% !important;
+            max-width: 100% !important;
+            box-sizing: border-box !important;
+            height: 38px !important;
+            min-height: 38px !important;
+            max-height: 38px !important;
+            padding: 7px 10px !important;
+            margin: 0 !important;
+            border: 1.5px solid hsl(var(--input)) !important;
+            border-radius: 0.65rem !important;
+            font-size: 1rem !important;
+            line-height: 1.2 !important;
+        }
         .input-with-action { display: grid; grid-template-columns: minmax(0,1fr); gap: 10px; align-items: stretch; }
         .input-with-action input { width: 100% !important; }
         .icon-button, .cta-button, .secondary-button, .submit-button { border: none; border-radius: var(--radius); font: inherit; font-weight: 800; cursor: pointer; transition: transform 0.16s ease, box-shadow 0.16s ease, background 0.16s ease, color 0.16s ease; }
@@ -487,6 +503,7 @@ TEMPLATE_WIZARD = r"""
         .review-declaracao strong { color: hsl(var(--primary)); }
         @media (max-width: 860px) { .hero-grid, .review-layout { grid-template-columns: 1fr; } .step-grid { grid-template-columns: repeat(2,minmax(0,1fr)); gap: 8px; } .step-grid.step-grid--stacked { grid-template-columns: minmax(0,1fr); max-width: 540px; } }
         @media (max-width: 640px) {
+            :root { --field-height: 32px; }
             html,body { width:100%!important; max-width:100%!important; overflow-x:hidden!important; } body * { min-width: 0; } body { overflow-x: hidden; }
             .main-header { padding: 10px 12px; } .header-logos { display:flex; flex-direction:column; align-items:center; gap:10px; } .header-logos img { max-width: min(88vw,280px); height:auto; }
             .wizard-page { width:calc(100% - 8px)!important; max-width:100%!important; padding:4px 0 10px; } .wizard-progress, .wizard-panel { width:100%!important; max-width:100%!important; padding:8px; } .wizard-labels { grid-template-columns: 1fr; gap: 6px; }
@@ -496,6 +513,9 @@ TEMPLATE_WIZARD = r"""
             .form-group label, .review-title, .review-item span, .review-check { word-break: break-word; } img, svg { max-width:100%!important; height:auto!important; }
             .form-group input, .form-group select, .form-group textarea, .icon-button { min-height:32px; height:32px; font-size:0.98em; } .form-group textarea { min-height:60px; height:auto; }
             .readonly-field { height:32px !important; min-height:32px !important; max-height:32px !important; }
+            #local_display, #dias_aula, #horario, #data_inicio, #encerramento, #endereco_curso {
+                height: 32px !important; min-height: 32px !important; max-height: 32px !important; font-size: 0.98em !important;
+            }
             .review-check { flex-direction:row; align-items:flex-start; padding:8px; } .review-check input { width:22px; min-width:22px; height:22px; flex-basis:22px; } .review-check ul { padding-left: 2px; }
             .hero-title, .panel-title { font-size: 1.3rem; } .hero-subtitle, .panel-subtitle { font-size: 0.92rem; } .wizard-shell { border-radius: 1.1rem; } .form-group.full { grid-column: auto; }
         }
@@ -602,12 +622,12 @@ TEMPLATE_WIZARD = r"""
                             <input type="hidden" id="local"    name="local"    value="{{ form_data.get('local', '') }}">
                             <input type="hidden" id="curso"    name="curso"    value="{{ form_data.get('curso', '') }}">
                             <input type="hidden" id="turma"    name="turma"    value="{{ form_data.get('turma', '') }}">
-                            <div class="form-group full"><label for="local_display">LOCAL SELECIONADO</label><input type="text" id="local_display" class="readonly-field" readonly value="{{ form_data.get('local', '') }}"></div>
-                            <div class="form-group"><label for="dias_aula">DIA DE AULA</label><input type="text" id="dias_aula" name="dias_aula" class="readonly-field" readonly value="{{ form_data.get('dias_aula', '') }}"></div>
-                            <div class="form-group"><label for="horario">HOR&#193;RIO</label><input type="text" id="horario" name="horario" class="readonly-field" readonly value="{{ form_data.get('horario', '') }}"></div>
-                            <div class="form-group"><label for="data_inicio">DATA DE IN&#205;CIO</label><input type="text" id="data_inicio" name="data_inicio" class="readonly-field" readonly value="{{ form_data.get('data_inicio', '') }}"></div>
-                            <div class="form-group"><label for="encerramento">ENCERRAMENTO</label><input type="text" id="encerramento" name="encerramento" class="readonly-field" readonly value="{{ form_data.get('encerramento', '') }}"></div>
-                            <div class="form-group full"><label for="endereco_curso">ENDERE&#199;O</label><div class="input-with-action"><input type="text" id="endereco_curso" name="endereco_curso" class="readonly-field" readonly value="{{ form_data.get('endereco_curso', '') }}"><button type="button" class="icon-button" id="btn-copiar-endereco" title="Copiar">COPIAR &#128203;</button></div></div>
+                            <div class="form-group full"><label for="local_display">LOCAL SELECIONADO</label><input type="text" id="local_display" class="readonly-field" readonly style="display:block !important;width:100% !important;max-width:100% !important;box-sizing:border-box !important;height:var(--field-height) !important;min-height:var(--field-height) !important;max-height:var(--field-height) !important;padding:7px 10px !important;margin:0 !important;border:1.5px solid #a8c0f4 !important;border-radius:0.65rem !important;font-size:1rem !important;line-height:1.2 !important;" value="{{ form_data.get('local', '') }}"></div>
+                            <div class="form-group"><label for="dias_aula">DIA DE AULA</label><input type="text" id="dias_aula" name="dias_aula" class="readonly-field" readonly style="display:block !important;width:100% !important;max-width:100% !important;box-sizing:border-box !important;height:var(--field-height) !important;min-height:var(--field-height) !important;max-height:var(--field-height) !important;padding:7px 10px !important;margin:0 !important;border:1.5px solid #a8c0f4 !important;border-radius:0.65rem !important;font-size:1rem !important;line-height:1.2 !important;" value="{{ form_data.get('dias_aula', '') }}"></div>
+                            <div class="form-group"><label for="horario">HOR&#193;RIO</label><input type="text" id="horario" name="horario" class="readonly-field" readonly style="display:block !important;width:100% !important;max-width:100% !important;box-sizing:border-box !important;height:var(--field-height) !important;min-height:var(--field-height) !important;max-height:var(--field-height) !important;padding:7px 10px !important;margin:0 !important;border:1.5px solid #a8c0f4 !important;border-radius:0.65rem !important;font-size:1rem !important;line-height:1.2 !important;" value="{{ form_data.get('horario', '') }}"></div>
+                            <div class="form-group"><label for="data_inicio">DATA DE IN&#205;CIO</label><input type="text" id="data_inicio" name="data_inicio" class="readonly-field" readonly style="display:block !important;width:100% !important;max-width:100% !important;box-sizing:border-box !important;height:var(--field-height) !important;min-height:var(--field-height) !important;max-height:var(--field-height) !important;padding:7px 10px !important;margin:0 !important;border:1.5px solid #a8c0f4 !important;border-radius:0.65rem !important;font-size:1rem !important;line-height:1.2 !important;" value="{{ form_data.get('data_inicio', '') }}"></div>
+                            <div class="form-group"><label for="encerramento">ENCERRAMENTO</label><input type="text" id="encerramento" name="encerramento" class="readonly-field" readonly style="display:block !important;width:100% !important;max-width:100% !important;box-sizing:border-box !important;height:var(--field-height) !important;min-height:var(--field-height) !important;max-height:var(--field-height) !important;padding:7px 10px !important;margin:0 !important;border:1.5px solid #a8c0f4 !important;border-radius:0.65rem !important;font-size:1rem !important;line-height:1.2 !important;" value="{{ form_data.get('encerramento', '') }}"></div>
+                            <div class="form-group full"><label for="endereco_curso">ENDERE&#199;O</label><div class="input-with-action"><input type="text" id="endereco_curso" name="endereco_curso" class="readonly-field" readonly style="display:block !important;width:100% !important;max-width:100% !important;box-sizing:border-box !important;height:var(--field-height) !important;min-height:var(--field-height) !important;max-height:var(--field-height) !important;padding:7px 10px !important;margin:0 !important;border:1.5px solid #a8c0f4 !important;border-radius:0.65rem !important;font-size:1rem !important;line-height:1.2 !important;" value="{{ form_data.get('endereco_curso', '') }}"><button type="button" class="icon-button" id="btn-copiar-endereco" title="Copiar">COPIAR &#128203;</button></div></div>
                         </div>
                         <div class="panel-actions">
                             <button type="button" class="secondary-button" data-prev="dados">Voltar</button>
