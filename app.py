@@ -451,7 +451,7 @@ TEMPLATE_WIZARD = r"""
         .form-group select { appearance: none; -webkit-appearance: none; -moz-appearance: none; background-image: url('data:image/svg+xml;utf8,<svg fill="%231155cc" height="20" viewBox="0 0 24 24" width="20" xmlns="http://www.w3.org/2000/svg"><path d="M7 10l5 5 5-5z"/></svg>'); background-repeat: no-repeat; background-position: right 14px center; background-size: 20px 20px; padding-right: 44px; }
         .form-group textarea { min-height: 60px; height: auto; resize: vertical; }
         .form-group input:focus, .form-group select:focus, .form-group textarea:focus { border-color: hsl(var(--ring)); background: hsl(var(--card)); box-shadow: 0 0 0 4px hsl(var(--ring) / 0.14); }
-        .readonly-field { background: hsl(var(--accent)) !important; color: hsl(var(--primary)) !important; font-weight: 700; }
+        .readonly-field { background: hsl(var(--accent)) !important; color: hsl(var(--primary)) !important; font-weight: 700; -webkit-appearance: none; -moz-appearance: none; appearance: none; box-sizing: border-box !important; height: 38px !important; min-height: 38px !important; max-height: 38px !important; padding: 7px 10px !important; line-height: 1.2 !important; font-size: inherit !important; font-family: inherit !important; }
         .input-with-action { display: grid; grid-template-columns: minmax(0,1fr); gap: 10px; align-items: stretch; }
         .input-with-action input { width: 100% !important; }
         .icon-button, .cta-button, .secondary-button, .submit-button { border: none; border-radius: var(--radius); font: inherit; font-weight: 800; cursor: pointer; transition: transform 0.16s ease, box-shadow 0.16s ease, background 0.16s ease, color 0.16s ease; }
@@ -495,6 +495,7 @@ TEMPLATE_WIZARD = r"""
             .review-item, .form-group, .form-group input, .form-group select, .form-group textarea, .wizard-shell, .panel-actions, .review-check, .balao-erro { width:100%!important; max-width:100%!important; }
             .form-group label, .review-title, .review-item span, .review-check { word-break: break-word; } img, svg { max-width:100%!important; height:auto!important; }
             .form-group input, .form-group select, .form-group textarea, .icon-button { min-height:32px; height:32px; font-size:0.98em; } .form-group textarea { min-height:60px; height:auto; }
+            .readonly-field { height:32px !important; min-height:32px !important; max-height:32px !important; }
             .review-check { flex-direction:row; align-items:flex-start; padding:8px; } .review-check input { width:22px; min-width:22px; height:22px; flex-basis:22px; } .review-check ul { padding-left: 2px; }
             .hero-title, .panel-title { font-size: 1.3rem; } .hero-subtitle, .panel-subtitle { font-size: 0.92rem; } .wizard-shell { border-radius: 1.1rem; } .form-group.full { grid-column: auto; }
         }
