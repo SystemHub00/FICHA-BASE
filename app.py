@@ -474,15 +474,15 @@ TEMPLATE_WIZARD = r"""
         .turma-endereco { font-size: 0.74rem; }
         .turma-linha { display: flex; align-items: center; gap: 6px; }
         .turma-select-btn { width: 100%; height: 44px; font-size: 0.9rem; }
-        .hero-card { padding: 32px; border-radius: calc(var(--radius) * 1.75); background: var(--gradient-hero); border: none; width: 100%; text-align: center; color: hsl(var(--primary-foreground)); box-shadow: var(--shadow-hover); }
-        .hero-pill { display: inline-flex; align-items: center; gap: 8px; padding: 10px 18px; border-radius: 999px; background: hsl(0 0% 100% / 0.18); backdrop-filter: blur(4px); color: hsl(var(--primary-foreground)); font-size: 0.85rem; font-weight: 800; letter-spacing: 0.06em; text-transform: uppercase; animation: pulse-soft 2.4s ease-in-out infinite; }
-        @keyframes pulse-soft { 0%,100% { opacity: 1; } 50% { opacity: 0.72; } }
-        .hero-title-accent { color: hsl(0 0% 100%); text-decoration: underline; text-decoration-color: hsl(var(--primary-light)); text-underline-offset: 6px; }
+        .hero-card { padding: 0; border-radius: 0; background: transparent; border: none; width: 100%; text-align: center; color: hsl(var(--foreground)); box-shadow: none; }
+        .hero-pill { display: inline-flex; align-items: center; gap: 8px; padding: 7px 16px; border-radius: 999px; background: hsl(var(--primary) / 0.1); color: hsl(var(--primary)); font-size: 0.75rem; font-weight: 800; letter-spacing: 0.04em; text-transform: uppercase; animation: pulse-soft 2.4s ease-in-out infinite; }
+        @keyframes pulse-soft { 0%,100% { opacity: 1; } 50% { opacity: 0.6; } }
+        .hero-title-accent { color: hsl(var(--primary)); }
         .trust-badges { display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: 8px; margin-top: 14px; }
-        .trust-badge { display: inline-flex; align-items: center; gap: 6px; padding: 7px 14px; border-radius: 999px; background: hsl(0 0% 100% / 0.16); color: hsl(var(--primary-foreground)); font-size: 0.8rem; font-weight: 700; }
-        .hero-title { margin: 18px 0 10px; color: hsl(var(--primary-foreground)); font-weight: 900; letter-spacing: -0.04em; text-transform: uppercase; font-size: clamp(2rem,3.8vw,3.2rem); line-height: 1; }
+        .trust-badge { display: inline-flex; align-items: center; gap: 6px; padding: 6px 14px; border-radius: 999px; background: hsl(var(--secondary)); color: hsl(var(--foreground)); font-size: 0.75rem; font-weight: 700; }
+        .hero-title { margin: 16px 0 10px; color: hsl(var(--foreground)); font-weight: 800; letter-spacing: -0.02em; font-size: clamp(1.5rem,3.4vw,2.4rem); line-height: 1.2; }
         .panel-title { margin: 18px 0 10px; color: hsl(var(--primary)); font-weight: 900; letter-spacing: -0.03em; font-size: clamp(1.7rem,3vw,2.4rem); }
-        .hero-subtitle { margin: 0; color: hsl(0 0% 100% / 0.92); font-size: 1.05rem; line-height: 1.55; }
+        .hero-subtitle { margin: 0; color: hsl(var(--muted-foreground)); font-size: 0.95rem; line-height: 1.55; }
         .panel-subtitle { margin: 0; color: hsl(var(--muted-foreground)); font-size: 1.05rem; line-height: 1.55; }
         .hero-highlights { display: grid; gap: 10px; margin-top: 16px; }
         .hero-highlight { padding: 14px 14px; color: hsl(var(--foreground)); font-size: 0.95rem; font-weight: 700; border-radius: var(--radius); border: 2px solid transparent; background: hsl(var(--card)); box-shadow: var(--shadow-soft); }
