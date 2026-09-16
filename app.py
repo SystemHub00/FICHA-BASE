@@ -273,6 +273,7 @@ TURMA_OPTIONS = [
     {"id": "183", "curso_id": "13", "local_id": "24", "turma_codigo": "26/BARB 07", "turma_label": "Sábado — 08h–12h (início 19/09/2026) — AD na Pavuna — Cosmos", "dias_aula": "Sábado", "horario": "08h–12h", "data_inicio": "19/09/2026", "encerramento": "30/09/2026", "endereco_curso": "📍Rua 9, Lote 19, Casa 2 – Cj Urucania – CEP 23059-340"},
     {"id": "184", "curso_id": "2",  "local_id": "29", "turma_codigo": "26/ADMN 72", "turma_label": "Segunda e Sexta — 9h–12h (início 18/09/2026) — Ig. União Evangélica Pentecostal — Cosmos", "dias_aula": "Segunda e Sexta", "horario": "9h–12h", "data_inicio": "18/09/2026", "encerramento": "30/09/2026", "endereco_curso": "📍Rua Herval Rossano, LT 26, QD 16 – CEP: 23066-350 – Cosmos"},
     {"id": "185", "curso_id": "2",  "local_id": "18", "turma_codigo": "26/ADMN 73", "turma_label": "Segunda, Quarta e Sexta — 9h30–11h30 (início 21/09/2026) — Centro Social Estrela da Manhã — Guaratiba", "dias_aula": "Segunda, Quarta e Sexta", "horario": "9h30–11h30", "data_inicio": "21/09/2026", "encerramento": "30/09/2026", "endereco_curso": "📍Rua Alcides Franco, 175 – CEP 23032-010"},
+    {"id": "186", "curso_id": "15", "local_id": "31", "turma_codigo": "26/ELET 05", "turma_label": "Terça e Quinta — 18h–22h (início 21/09/2026) — Cozinha Comunitária — Realengo", "dias_aula": "Terça e Quinta", "horario": "18h–22h", "data_inicio": "21/09/2026", "encerramento": "30/09/2026", "endereco_curso": "📍Rua General Raposo, 41 – CEP: 21730-000 – Realengo"},
 ]
 
 
