@@ -265,6 +265,14 @@ TURMA_OPTIONS = [
     {"id": "179", "curso_id": "6",  "local_id": "4",  "turma_codigo": "26/MLRE 24", "turma_label": "Quarta — 18h–22h (início 16/09/2026) — IMMEC Church — Campo Grande", "dias_aula": "Quarta", "horario": "18h–22h", "data_inicio": "16/09/2026", "encerramento": "30/09/2026", "endereco_curso": "📍Estrada do Cabuçu, 2692 – Vila Jardim – Campo Grande"},
     {"id": "180", "curso_id": "6",  "local_id": "18", "turma_codigo": "26/MLRE 25", "turma_label": "Segunda, Quarta e Sexta — 9h30–11h30 (início 21/09/2026) — Centro Social Estrela da Manhã — Guaratiba", "dias_aula": "Segunda, Quarta e Sexta", "horario": "9h30–11h30", "data_inicio": "21/09/2026", "encerramento": "30/09/2026", "endereco_curso": "📍Rua Alcides Franco, 175 – CEP: 23032-010"},
     {"id": "181", "curso_id": "17", "local_id": "26", "turma_codigo": "26/TRAF 01", "turma_label": "Sábado — 8h–12h (início 19/09/2026) — Salão de Festas — Santa Cruz", "dias_aula": "Sábado", "horario": "8h–12h", "data_inicio": "19/09/2026", "encerramento": "30/09/2026", "endereco_curso": "📍Avenida Marginal, 107 – CEP: 23595-020"},
+
+    # =========================================================================
+    # NOVAS TURMAS — adicionadas (ausentes na verificação de 16/09/2026)
+    # =========================================================================
+    {"id": "182", "curso_id": "2",  "local_id": "16", "turma_codigo": "26/ADMN 71", "turma_label": "Terça e Quinta — 19h–21h (início 19/09/2026) — AD ADTS Mandela — Benfica", "dias_aula": "Terça e Quinta", "horario": "19h–21h", "data_inicio": "19/09/2026", "encerramento": "30/09/2026", "endereco_curso": "📍Rua Leopoldo Bulhões, 800 – Benfica"},
+    {"id": "183", "curso_id": "13", "local_id": "24", "turma_codigo": "26/BARB 07", "turma_label": "Sábado — 08h–12h (início 19/09/2026) — AD na Pavuna — Cosmos", "dias_aula": "Sábado", "horario": "08h–12h", "data_inicio": "19/09/2026", "encerramento": "30/09/2026", "endereco_curso": "📍Rua 9, Lote 19, Casa 2 – Cj Urucania – CEP 23059-340"},
+    {"id": "184", "curso_id": "2",  "local_id": "29", "turma_codigo": "26/ADMN 72", "turma_label": "Segunda e Sexta — 9h–12h (início 18/09/2026) — Ig. União Evangélica Pentecostal — Cosmos", "dias_aula": "Segunda e Sexta", "horario": "9h–12h", "data_inicio": "18/09/2026", "encerramento": "30/09/2026", "endereco_curso": "📍Rua Herval Rossano, LT 26, QD 16 – CEP: 23066-350 – Cosmos"},
+    {"id": "185", "curso_id": "2",  "local_id": "18", "turma_codigo": "26/ADMN 73", "turma_label": "Segunda, Quarta e Sexta — 9h30–11h30 (início 21/09/2026) — Centro Social Estrela da Manhã — Guaratiba", "dias_aula": "Segunda, Quarta e Sexta", "horario": "9h30–11h30", "data_inicio": "21/09/2026", "encerramento": "30/09/2026", "endereco_curso": "📍Rua Alcides Franco, 175 – CEP 23032-010"},
 ]
 
 
